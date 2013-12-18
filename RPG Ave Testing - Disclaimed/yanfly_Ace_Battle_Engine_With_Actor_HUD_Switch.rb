@@ -1,6 +1,6 @@
 #==============================================================================
 #
-# Å• Yanfly Engine Ace - Ace Battle Engine v1.22
+# ÔøΩÔøΩ Yanfly Engine Ace - Ace Battle Engine v1.22
 # -- Last Updated: 2012.03.04
 # -- Level: Normal, Hard
 # -- Requires: n/a
@@ -11,8 +11,9 @@ $imported = {} if $imported.nil?
 $imported["YEA-BattleEngine"] = true
 
 #==============================================================================
-# Å• Updates
+# ÔøΩÔøΩ Updates
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+# 2013.12.18 - Patched with Actor HUD switch - Michael
 # 2012.03.04 - Bug fixed: Input crash bug.
 # 2012.02.13 - Bug fixed: Odd Victory game crash fixed.
 # 2012.02.12 - Bug fixed: Displayed damage in combat log is correct now.
@@ -57,7 +58,7 @@ $imported["YEA-BattleEngine"] = true
 # 2011.12.04 - Started Script.
 #
 #==============================================================================
-# Å• Introduction
+# ÔøΩÔøΩ Introduction
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # Ace Battle Engine works as a foundation for future battle engine add-ons. It
 # allows for easier management of the battle engine without adding too many
@@ -141,10 +142,10 @@ $imported["YEA-BattleEngine"] = true
 # bottom of the screen and are repositioned.
 #
 #==============================================================================
-# Å• Instructions
+# ÔøΩÔøΩ Instructions
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # To install this script, open up your script editor and copy/paste this script
-# to an open slot below Å• Materials/ëfçﬁ but above Å• Main. Remember to save.
+# to an open slot below ÔøΩÔøΩ Materials/ÔøΩfÔøΩÔøΩ but above ÔøΩÔøΩ Main. Remember to save.
 #
 # -----------------------------------------------------------------------------
 # Skill Notetags - These notetags go in the skills notebox in the database.
@@ -204,7 +205,7 @@ $imported["YEA-BattleEngine"] = true
 # Kills all enemies in battle. Ends the battle quickly.
 #
 #==============================================================================
-# Å• Compatibility
+# ÔøΩÔøΩ Compatibility
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # This script is made strictly for RPG Maker VX Ace. It is highly unlikely that
 # it will run with RPG Maker VX without adjusting.
@@ -315,8 +316,8 @@ module YEA
       :resistant  => "RESIST",    # Appears if foe is resistant to element.
       :immune     => "IMMUNE",    # Appears if foe is immune to element.
       :absorbed   => "ABSORB",    # Appears if foe can absorb the element.
-      :add_buff   => "%sÅ{",      # Appears when a positive buff is applied.
-      :add_debuff => "%sÅ|",      # Appears when a negative buff is applied.
+      :add_buff   => "%sÔøΩ{",      # Appears when a positive buff is applied.
+      :add_debuff => "%sÔøΩ|",      # Appears when a negative buff is applied.
     } # Do not remove this.
 
     # This is the default font used for the popups. Adjust them accordingly
@@ -387,7 +388,7 @@ module YEA
 end # YEA
 
 #==============================================================================
-# Å• Editting anything past this point may potentially result in causing
+# ÔøΩÔøΩ Editting anything past this point may potentially result in causing
 # computer damage, incontinence, explosion of user's head, coma, death, and/or
 # halitosis so edit at your own risk.
 #==============================================================================
@@ -420,7 +421,7 @@ module YEA
 end # YEA
 
 #==============================================================================
-# Å° Switch
+# ÔøΩÔøΩ Switch
 #==============================================================================
 
 module Switch
@@ -436,7 +437,7 @@ module Switch
 end # Switch
 
 #==============================================================================
-# Å° Colour
+# ÔøΩÔøΩ Colour
 #==============================================================================
 
 module Colour
@@ -454,7 +455,7 @@ module Colour
 end # Colour
 
 #==============================================================================
-# Å° Icon
+# ÔøΩÔøΩ Icon
 #==============================================================================
 
 module Icon
@@ -467,7 +468,7 @@ module Icon
 end # Icon
 
 #==============================================================================
-# Å° Numeric
+# ÔøΩÔøΩ Numeric
 #==============================================================================
 
 class Numeric
@@ -482,7 +483,7 @@ class Numeric
 end # Numeric
 
 #==============================================================================
-# Å° DataManager
+# ÔøΩÔøΩ DataManager
 #==============================================================================
 
 module DataManager
@@ -512,7 +513,7 @@ module DataManager
 end # DataManager
 
 #==============================================================================
-# Å° RPG::UsableItem
+# ÔøΩÔøΩ RPG::UsableItem
 #==============================================================================
 
 class RPG::UsableItem < RPG::BaseItem
@@ -541,7 +542,7 @@ class RPG::UsableItem < RPG::BaseItem
 end # RPG::UsableItem
 
 #==============================================================================
-# Å° RPG::Enemy
+# ÔøΩÔøΩ RPG::Enemy
 #==============================================================================
 
 class RPG::Enemy < RPG::BaseItem
@@ -574,7 +575,7 @@ class RPG::Enemy < RPG::BaseItem
 end # RPG::Enemy
 
 #==============================================================================
-# Å° RPG::Enemy
+# ÔøΩÔøΩ RPG::Enemy
 #==============================================================================
 
 class RPG::State < RPG::BaseItem
@@ -617,7 +618,7 @@ class RPG::State < RPG::BaseItem
 end # RPG::State
 
 #==============================================================================
-# Å° BattleManager
+# ÔøΩÔøΩ BattleManager
 #==============================================================================
 
 module BattleManager
@@ -741,7 +742,7 @@ module BattleManager
 end # BattleManager
 
 #==============================================================================
-# Å° Game_System
+# ÔøΩÔøΩ Game_System
 #==============================================================================
 
 class Game_System
@@ -782,7 +783,7 @@ class Game_System
 end # Game_System
 
 #==============================================================================
-# Å° Sprite_Base
+# ÔøΩÔøΩ Sprite_Base
 #==============================================================================
 
 class Sprite_Base < Sprite
@@ -805,7 +806,7 @@ class Sprite_Base < Sprite
 end # Sprite_Base
 
 #==============================================================================
-# Å° Sprite_Battler
+# ÔøΩÔøΩ Sprite_Battler
 #==============================================================================
 
 class Sprite_Battler < Sprite_Base
@@ -924,7 +925,7 @@ class Sprite_Battler < Sprite_Base
 end # Sprite_Battler
 
 #==============================================================================
-# Å° Sprite_Popup
+# ÔøΩÔøΩ Sprite_Popup
 #==============================================================================
 
 class Sprite_Popup < Sprite_Base
@@ -1035,7 +1036,7 @@ class Sprite_Popup < Sprite_Base
 end # Sprite_Popup
 
 #==============================================================================
-# Å° Spriteset_Battle
+# ÔøΩÔøΩ Spriteset_Battle
 #==============================================================================
 
 class Spriteset_Battle
@@ -1079,7 +1080,7 @@ class Spriteset_Battle
 end # Spriteset_Battle
 
 #==============================================================================
-# Å° Game_Temp
+# ÔøΩÔøΩ Game_Temp
 #==============================================================================
 
 class Game_Temp
@@ -1103,7 +1104,7 @@ class Game_Temp
 end # Game_Temp
 
 #==============================================================================
-# Å° Game_Action
+# ÔøΩÔøΩ Game_Action
 #==============================================================================
 
 class Game_Action
@@ -1132,7 +1133,7 @@ class Game_Action
 end # Game_Action
 
 #==============================================================================
-# Å° Game_ActionResult
+# ÔøΩÔøΩ Game_ActionResult
 #==============================================================================
 
 class Game_ActionResult
@@ -1183,7 +1184,7 @@ class Game_ActionResult
 end # Game_ActionResult
 
 #==============================================================================
-# Å° Game_BattlerBase
+# ÔøΩÔøΩ Game_BattlerBase
 #==============================================================================
 
 class Game_BattlerBase
@@ -1385,7 +1386,7 @@ class Game_BattlerBase
 end # Game_BattlerBase
 
 #==============================================================================
-# Å° Game_Battler
+# ÔøΩÔøΩ Game_Battler
 #==============================================================================
 
 class Game_Battler < Game_BattlerBase
@@ -1542,7 +1543,7 @@ class Game_Battler < Game_BattlerBase
 end # Game_Battler
 
 #==============================================================================
-# Å° Game_Actor
+# ÔøΩÔøΩ Game_Actor
 #==============================================================================
 
 class Game_Actor < Game_Battler
@@ -1639,7 +1640,7 @@ class Game_Actor < Game_Battler
 end # Game_Actor
 
 #==============================================================================
-# Å° Game_Enemy
+# ÔøΩÔøΩ Game_Enemy
 #==============================================================================
 
 class Game_Enemy < Game_Battler
@@ -1668,7 +1669,7 @@ class Game_Enemy < Game_Battler
 end # Game_Enemy
 
 #==============================================================================
-# Å° Game_Unit
+# ÔøΩÔøΩ Game_Unit
 #==============================================================================
 
 class Game_Unit
@@ -1694,7 +1695,7 @@ class Game_Unit
 end # Game_Unit
 
 #==============================================================================
-# Å° Window_PartyCommand
+# ÔøΩÔøΩ Window_PartyCommand
 #==============================================================================
 
 class Window_PartyCommand < Window_Command
@@ -1721,7 +1722,7 @@ class Window_PartyCommand < Window_Command
 end # Window_PartyCommand
 
 #==============================================================================
-# Å° Window_ActorCommand
+# ÔøΩÔøΩ Window_ActorCommand
 #==============================================================================
 
 class Window_ActorCommand < Window_Command
@@ -1759,7 +1760,7 @@ class Window_ActorCommand < Window_Command
 end # Window_ActorCommand
 
 #==============================================================================
-# Å° Window_BattleStatus
+# ÔøΩÔøΩ Window_BattleStatus
 #==============================================================================
 
 class Window_BattleStatus < Window_Selectable
@@ -1955,7 +1956,7 @@ class Window_BattleStatus < Window_Selectable
 end # Window_BattleStatus
 
 #==============================================================================
-# Å° Window_BattleActor
+# ÔøΩÔøΩ Window_BattleActor
 #==============================================================================
 
 class Window_BattleActor < Window_BattleStatus
@@ -2049,7 +2050,7 @@ class Window_BattleActor < Window_BattleStatus
 end # Window_BattleActor
 
 #==============================================================================
-# Å° Window_BattleStatusAid
+# ÔøΩÔøΩ Window_BattleStatusAid
 #==============================================================================
 
 class Window_BattleStatusAid < Window_BattleStatus
@@ -2100,7 +2101,7 @@ class Window_BattleStatusAid < Window_BattleStatus
 end # Window_BattleStatusAid
 
 #==============================================================================
-# Å° Window_BattleEnemy
+# ÔøΩÔøΩ Window_BattleEnemy
 #==============================================================================
 
 class Window_BattleEnemy < Window_Selectable
@@ -2251,7 +2252,7 @@ class Window_BattleEnemy < Window_Selectable
 end # Window_BattleEnemy
 
 #==============================================================================
-# Å° Window_BattleHelp
+# ÔøΩÔøΩ Window_BattleHelp
 #==============================================================================
 
 class Window_BattleHelp < Window_Help
@@ -2364,7 +2365,7 @@ class Window_BattleHelp < Window_Help
 end # Window_BattleHelp
 
 #==============================================================================
-# Å° Window_BattleLog
+# ÔøΩÔøΩ Window_BattleLog
 #==============================================================================
 
 class Window_BattleLog < Window_Selectable
@@ -2530,7 +2531,7 @@ class Window_BattleLog < Window_Selectable
 end # Window_BattleLog
 
 #==============================================================================
-# Å° Window_SkillList
+# ÔøΩÔøΩ Window_SkillList
 #==============================================================================
 
 class Window_SkillList < Window_Selectable
@@ -2546,7 +2547,7 @@ class Window_SkillList < Window_Selectable
 end # Window_SkillList
 
 #==============================================================================
-# Å° Window_ItemList
+# ÔøΩÔøΩ Window_ItemList
 #==============================================================================
 
 class Window_ItemList < Window_Selectable
@@ -2562,7 +2563,7 @@ class Window_ItemList < Window_Selectable
 end # Window_ItemList
 
 #==============================================================================
-# Å° Scene_Battle
+# ÔøΩÔøΩ Scene_Battle
 #==============================================================================
 
 class Scene_Battle < Scene_Base
@@ -3197,6 +3198,6 @@ end # Scene_Battle
 
 #==============================================================================
 #
-# Å• End of File
+# ÔøΩÔøΩ End of File
 #
 #==============================================================================
