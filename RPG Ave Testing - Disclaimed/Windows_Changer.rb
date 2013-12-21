@@ -16,6 +16,7 @@
 #            --Scene_Battle is completed
 #            --Scene_Debug is completed
 #            --Scene_Name is completed
+#            --Scene_Shop is completed
 # 2013.12.20 --Overloading Scene_Battle
 # 2013.12.19 --Works for Windows_BattleStatus
 # 2013.12.18 --Script is initialized
@@ -254,7 +255,286 @@ module DataManager
   end
 end
 
+#==============================================================================
+# ** Scene_Shop
+#------------------------------------------------------------------------------
+#  This class performs shop screen processing.
+#==============================================================================
 
+class Scene_Shop < Scene_MenuBase
+  #--------------------------------------------------------------------------
+  # * Start Processing
+  #--------------------------------------------------------------------------
+  alias michael_start start
+  def start
+    create_background_viewport
+    michael_start
+  end
+
+  def terminate
+    super
+    @sell_background.dispose
+    @category_background.dispose
+    @buy_background.dispose
+    @status_background.dispose
+    @number_background.dispose
+    @dummy_background.dispose
+    @command_background.dispose
+    @gold_background.dispose
+    @background_viewport.dispose
+  end
+
+  def create_background_viewport
+    @background_viewport = Viewport.new
+    @background_viewport.z = 199
+  end
+
+  #--------------------------------------------------------------------------
+  # * Create Gold Window
+  #--------------------------------------------------------------------------
+  alias michael_create_gold_window create_gold_window
+  def create_gold_window
+    michael_create_gold_window
+    @gold_background = Sprite.new(@background_viewport)
+    @gold_background.x = @gold_window.x
+    @gold_background.y = @gold_window.y
+    if $game_switches[105]
+      @gold_window.back_opacity = 0
+      @gold_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[5]
+      name = $game_message.game_windows_name
+      @gold_background.bitmap = Cache.cache_extended(folder, name)
+      @gold_background.src_rect.width = @gold_window.width
+      @gold_background.visible = true
+    end
+  end
+  #--------------------------------------------------------------------------
+  # * Create Command Window
+  #--------------------------------------------------------------------------
+  alias michael_create_command_window create_command_window
+  def create_command_window
+    michael_create_command_window
+    @command_background = Sprite.new(@background_viewport)
+    @command_background.x = @command_window.x
+    @command_background.y = @command_window.y
+    if $game_switches[120]
+      @command_window.back_opacity = 0
+      @command_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[20]
+      name = $game_message.game_windows_name
+      @command_background.bitmap = Cache.cache_extended(folder, name)
+      @command_background.src_rect.width = @command_window.width
+      @command_background.visible = true
+    end
+  end
+  #--------------------------------------------------------------------------
+  # * Create Dummy Window
+  #--------------------------------------------------------------------------
+  alias michael_create_dummy_window create_dummy_window
+  def create_dummy_window
+    michael_create_dummy_window
+    @dummy_background = Sprite.new(@background_viewport)
+    @dummy_background.x = @dummy_window.x
+    @dummy_background.y = @dummy_window.y
+    if $game_switches[145]
+      @dummy_window.back_opacity = 0
+      @dummy_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[45]
+      name = $game_message.game_windows_name
+      @dummy_background.bitmap = Cache.cache_extended(folder, name)
+      @dummy_background.src_rect.width = @dummy_window.width
+      @dummy_background.visible = true
+    end
+  end
+  #--------------------------------------------------------------------------
+  # * Create Quantity Input Window
+  #--------------------------------------------------------------------------
+  alias michael_create_number_window create_number_window
+  def create_number_window
+    michael_create_number_window
+    @number_background.x = @number_window.x
+    @number_background.y = @number_window.y
+    if $game_switches[123]
+      @number_window.back_opacity = 0
+      @number_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[23]
+      name = $game_message.game_windows_name
+      @number_background.bitmap = Cache.cache_extended(folder, name)
+      @number_background.src_rect.width = @number_window.width
+      @number_background.visible = false
+    end
+  end
+  #--------------------------------------------------------------------------
+  # * Create Status Window
+  #--------------------------------------------------------------------------
+  alias michael_create_status_window create_status_window
+  def create_status_window
+    michael_create_status_window
+    @status_background = Sprite.new(@background_viewport)
+    @status_background.x = @status_window.x
+    @status_background.y = @status_window.y
+    if $game_switches[124]
+      @status_window.back_opacity = 0
+      @status_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[24]
+      name = $game_message.game_windows_name
+      @status_background.bitmap = Cache.cache_extended(folder, name)
+      @status_background.src_rect.width = @status_window.width
+      @status_background.visible = false
+    end
+  end
+  #--------------------------------------------------------------------------
+  # * Create Purchase Window
+  #--------------------------------------------------------------------------
+  alias michael_create_buy_window create_buy_window
+  def create_buy_window
+    michael_create_buy_window
+    @buy_background = Sprite.new(@background_viewport)
+    @buy_background.x = @buy_window.x
+    @buy_background.y = @buy_window.y
+    if $game_switches[121]
+      @buy_window.back_opacity = 0
+      @buy_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[21]
+      name = $game_message.game_windows_name
+      @buy_background.bitmap = Cache.cache_extended(folder, name)
+      @buy_background.src_rect.width = @buy_window.width
+      @buy_background.visible = false
+    end
+  end
+  #--------------------------------------------------------------------------
+  # * Create Category Window
+  #--------------------------------------------------------------------------
+  alias michael_create_category_window create_category_window
+  def create_category_window
+    michael_create_category_window
+    @category_background = Sprite.new(@background_viewport)
+    @category_background.x = @category_window.x
+    @category_background.y = @category_window.y
+    if $game_switches[109]
+      @category_window.back_opacity = 0
+      @category_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[9]
+      name = $game_message.game_windows_name
+      @category_background.bitmap = Cache.cache_extended(folder, name)
+      @category_background.src_rect.width = @category_window.width
+      @category_background.visible = false
+    end
+  end
+  #--------------------------------------------------------------------------
+  # * Create Sell Window
+  #--------------------------------------------------------------------------
+  alias michael_create_sell_window create_sell_window
+  def create_sell_window
+    michael_create_sell_window
+    @sell_background = Sprite.new(@background_viewport)
+    @sell_background.x = @sell_window.x
+    @sell_background.y = @sell_window.y
+    if $game_switches[122]
+      @sell_window.back_opacity = 0
+      @sell_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[22]
+      name = $game_message.game_windows_name
+      @sell_background.bitmap = Cache.cache_extended(folder, name)
+      @sell_background.src_rect.width = @sell_window.width
+      @sell_background.visible = false
+    end
+  end
+  #--------------------------------------------------------------------------
+  # * Activate Purchase Window
+  #--------------------------------------------------------------------------
+  alias michael_activate_buy_window activate_buy_window
+  def activate_buy_window
+    michael_activate_buy_window
+    @buy_background.visible = true
+    @status_background.visible = true
+  end
+  #--------------------------------------------------------------------------
+  # * Activate Sell Window
+  #--------------------------------------------------------------------------
+  alias michael_activate_sell_window activate_sell_window
+  def activate_sell_window
+    michael_activate_sell_window
+    @category_background.visible = true
+    @sell_background.visible = true
+    @status_background.visible = false
+
+  end
+  #--------------------------------------------------------------------------
+  # * [Buy] Command
+  #--------------------------------------------------------------------------
+  alias michael_command_buy command_buy
+  def command_buy
+    @dummy_background.visible = false
+    michael_command_buy
+  end
+  #--------------------------------------------------------------------------
+  # * [Sell] Command
+  #--------------------------------------------------------------------------
+  alias michael_command_sell command_sell
+  def command_sell
+    michael_command_sell command_sell
+    @dummy_background.visible = false
+    @category_background.visible = true
+    @sell_background.visible = true
+  end
+  #--------------------------------------------------------------------------
+  # * Buy [OK]
+  #--------------------------------------------------------------------------
+  alias michael_on_buy_ok on_buy_ok
+  def on_buy_ok
+    michael_on_buy_ok
+    @buy_background.visible = false
+    @number_background.visible = true
+  end
+  #--------------------------------------------------------------------------
+  # * Buy [Cancel]
+  #--------------------------------------------------------------------------
+  alias michael_on_buy_cancel on_buy_cancel
+  def on_buy_cancel
+    michael_on_buy_cancel
+    @dummy_background.visible = true
+    @buy_background.visible = false
+    @status_background.visible = false
+  end
+  #--------------------------------------------------------------------------
+  # * Category [Cancel]
+  #--------------------------------------------------------------------------
+  alias michael_on_category_cancel on_category_cancel
+  def on_category_cancel
+    michael_on_category_cancel
+    @dummy_background.visible = true
+    @category_background.visible = false
+    @sell_background.visible = false
+  end
+  #--------------------------------------------------------------------------
+  # * Sell [OK]
+  #--------------------------------------------------------------------------
+  alias michael_on_sell_ok on_sell_ok
+  def on_sell_ok
+    michael_on_sell_ok
+    @category_background.visible = false
+    @sell_background.visible = false
+    @number_background.visible = true
+    @status_background.visible = true
+  end
+  #--------------------------------------------------------------------------
+  # * Sell [Cancel]
+  #--------------------------------------------------------------------------
+  alias michael_on_sell_cancel on_sell_cancel
+  def on_sell_cancel
+    michael_on_sell_cancel
+    @sell_background.visible = false
+  end
+  #--------------------------------------------------------------------------
+  # * Exit Quantity Input
+  #--------------------------------------------------------------------------
+  alias michael_end_number_input end_number_input
+  def end_number_input
+    michael_end_number_input
+    @number_background.visible = false
+  end
+end
 
 #==============================================================================
 # ** Scene_Name
@@ -270,6 +550,7 @@ class Scene_Name < Scene_MenuBase
   def start
     michael_start
     @background_viewport = Viewport.new
+    @background_viewport.z = 199
     @edit_background = Sprite.new(@background_viewport)
     @edit_background.x = @edit_window.x
     @edit_background.y = @edit_window.y
@@ -295,6 +576,13 @@ class Scene_Name < Scene_MenuBase
       @input_background.visible = true
     end
   end
+
+  def terminate
+    super
+    @background_viewport.dispose
+    @edit_background.dispose
+    @input_background.dispose
+  end
 end
 
 
@@ -317,6 +605,7 @@ class Scene_Debug < Scene_MenuBase
 
   def create_background_viewport
     @background_viewport = Viewport.new
+    @background_viewport.z = 199
   end
 
   #--------------------------------------------------------------------------
