@@ -14,7 +14,7 @@
 #==============================================================================
 # 2013.12.21 --Installing Game_Interpreter
 #            --Scene_Battle is completed
-#            --
+#            --Scene_Debug is completed
 # 2013.12.20 --Overloading Scene_Battle
 # 2013.12.19 --Works for Windows_BattleStatus
 # 2013.12.18 --Script is initialized
@@ -141,7 +141,9 @@ module Windows_Changer
   false, #Element 43
   Window_DebugRight_Changer =
   false, #Element 44
-  ]
+  Window_Base_Changer =
+  false, #Element 45
+  ]  #Add more windows here
 
   #============================================================================
   # Windows Folder - This is where the folders are
@@ -191,7 +193,8 @@ module Windows_Changer
   Window_TitleCommand_Folder = "Graphics\\Windows\\Window_TitleCommand",
   Window_GameEnd_Folder = "Graphics\\Windows\\Window_GameEnd",
   Window_DebugLeft_Folder = "Graphics\\Windows\\Window_DebugLeft",
-  Window_DebugRight_Folder = "Graphics\\Windows\\Window_DebugRight"
+  Window_DebugRight_Folder = "Graphics\\Windows\\Window_DebugRight",
+  Window_Base_Folder = "Graphics\\Windows\\Window_Base",
   ]
 end
 
@@ -246,6 +249,118 @@ module DataManager
   def self.create_Windows_Changer_directory
     $game_message.game_message_windows_folder.each do |folder|
       Dir.mkdir(folder) if !File.exists?(folder)
+    end
+  end
+end
+
+#==============================================================================
+# ** Scene_Debug
+#------------------------------------------------------------------------------
+#  This class performs debug screen processing.
+#==============================================================================
+
+class Scene_Debug < Scene_MenuBase
+  #--------------------------------------------------------------------------
+  # * Start Processing
+  #--------------------------------------------------------------------------
+  alias michael_start start
+  def start
+    create background_viewport
+    michael_start
+  end
+
+
+  def create_background_viewport
+    @background_viewport = Viewport.new
+  end
+
+  #--------------------------------------------------------------------------
+  # * Termination Processing
+  #--------------------------------------------------------------------------
+  alias michael_terminate terminate
+  def terminate
+    @background_viewport.dispose
+    @left_background.dispose
+    @right_background.dispose
+    @debug_help_background.dispose
+    @temp1.dispose
+    @temp2.dispose
+    michael_terminate
+  end
+  #--------------------------------------------------------------------------
+  # * Create Left Window
+  #--------------------------------------------------------------------------
+  alias michael_create_left_window create_left_window
+  def create_left_window
+    michael_create_left_window
+    @left_background = Sprite.new(@background_viewport)
+    @left_background.x = @left_window.x
+    @left_background.y = @left_window.y
+    @temp1 = @left_background.back_opacity
+    @temp2 = @left_background.opacity
+  end
+  #--------------------------------------------------------------------------
+  # * Create Right Window
+  #--------------------------------------------------------------------------
+  alias michael_create_right_window create_right_window
+  def create_right_window
+    michael_create_right_window
+    @right_background = Sprite.new(@background_viewport)
+    @right_background.x = @right_window.x
+    @right_background.y = @right_window.y
+  end
+  #--------------------------------------------------------------------------
+  # * Create Help Window
+  #--------------------------------------------------------------------------
+  alias michael_create_debug_help_window create_debug_help_window
+  def create_debug_help_window
+    michael_create_message_window
+    @debug_help_background = Sprite.new(@background_viewport)
+    @debug_help_background.x = @debug_help_window.x
+    @debug_help_background.y = @debug_help_window.y
+  end
+
+  alias michael_refresh_help_window refresh_help_window
+  def refresh_help_window
+
+  if $game_switches[143]
+      @left_window.back_opacity = 0
+      @left_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[43]
+      name = $game_message.game_windows_name
+      @left_background.bitmap = Cache.cache_extended(folder, name)
+      @left_background.src_rect.width = @left_window.width
+      @left_background.visible = true
+    else
+      @left_window.back_opacity = @temp1
+      @left_window.opacity = @temp2
+      @left_background.visible = false
+    end
+  if $game_switches[144]
+      @right_window.back_opacity = 0
+      @right_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[44]
+      name = $game_message.game_windows_name
+      @right_background.bitmap = Cache.cache_extended(folder, name)
+      @right_background.src_rect.width = @right_window.width
+      @right_background.visible = true
+    else
+      @right_window.back_opacity = @temp1
+      @right_window.opacity = @temp2
+      @right_background.visible = false
+    end
+  if $game_switches[145]
+      @debug_help_window.back_opacity = 0
+      @debug_help_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[45]
+      name = $game_message.game_windows_name
+      @debug_help_background.bitmap = Cache.cache_extended(folder, name)
+      @debug_help_background.src_rect.width = @debug_help_window.width
+      @debug_help_background.visible = true
+    else
+      @debug_help_window.back_opacity = @temp1
+      @debug_help_window.opacity = @temp2
+      @debug_help_background.visible = false
     end
   end
 end
@@ -739,7 +854,7 @@ module DataManager
   def self.create_game_objects
     michael_create_game_objects
 
-    $game_switches[100..143] = false
+    $game_switches[100..144] = false #Add more numbers if more windows added
   end
 end
 
@@ -757,5 +872,6 @@ class Game_Interpreter
   end
   def window_change(name)
     $game_message.game_windows_name = name
+  end
 end
 
