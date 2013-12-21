@@ -1,3 +1,4 @@
+
 #==============================================================================
 #
 # Michael Windows Changer
@@ -6,10 +7,13 @@
 #==============================================================================
 
 #==============================================================================
-#  Updates
+#  Biography lol
 #==============================================================================
-# 2013.12.19 - Works for Windows_BattleStatus
-#
+# 2013.12.21 --Installing Game_Interpreter
+#            --Scene_Battle is completed
+# 2013.12.20 --Overloading Scene_Battle
+# 2013.12.19 --Works for Windows_BattleStatus
+# 2013.12.18 --Script is initialized
 #==============================================================================
 # Description
 #==============================================================================
@@ -32,120 +36,114 @@
 module Windows_Changer
 
   #============================================================================
-  # Windows Changer - Set false for deactivate, set true for activation.
-  # Default Setting = all changer deactivated
+  # Windows Changer = USE Game_Interpret for activation (scroll all the way
+  #                   down for the key words (window_on and window_off))
+  # Use the element list below for 'i'.
+  #  For ex:
+  #   window_on(5,'ex.jpg') -> activate window #5 background(window_gold_changer)
+  #                            with ex.jpg as the content
+  #
+  # Default Switch = off (switch only available for activate windows)
   # This is for Original Windows - Scroll Down for Windows from other scripts
   #============================================================================
   Windows_Changer_Array = [
+  Default_Window_This_is_Extra_Do_Not_Delete_Unless_You_Know_What_You_Do =
+  false, #Element 0 Don't tweak this one for the sake of harmony :D
   Window_Selectable_Changer =
-  false, #Element 0
-  Window_Command_Changer =
   false, #Element 1
-  Window_HorzCommand_Changer =
+  Window_Command_Changer =
   false, #Element 2
-  Window_Help_Changer =
+  Window_HorzCommand_Changer =
   false, #Element 3
-  Window_Gold_Changer =
+  Window_Help_Changer =
   false, #Element 4
-  Window_MenuCommand_Changer =
+  Window_Gold_Changer =
   false, #Element 5
-  Window_MenuStatus_Changer =
+  Window_MenuCommand_Changer =
   false, #Element 6
-  Window_MenuActor_Changer =
+  Window_MenuStatus_Changer =
   false, #Element 7
-  Window_ItemCategory_Changer =
+  Window_MenuActor_Changer =
   false, #Element 8
-  Window_ItemList_Changer =
+  Window_ItemCategory_Changer =
   false, #Element 9
-  Window_SkillCommand_Changer =
+  Window_ItemList_Changer =
   false, #Element 10
-  Window_SkillStatus_Changer =
+  Window_SkillCommand_Changer =
   false, #Element 11
-  Window_SkillList_Changer =
+  Window_SkillStatus_Changer =
   false, #Element 12
-  Window_EquipStatus_Changer =
+  Window_SkillList_Changer =
   false, #Element 13
-  Window_EquipCommand_Changer =
+  Window_EquipStatus_Changer =
   false, #Element 14
-  Window_EquipSlot_Changer =
+  Window_EquipCommand_Changer =
   false, #Element 15
-  Window_EquipItem_Changer =
+  Window_EquipSlot_Changer =
   false, #Element 16
-  Window_Status_Changer =
+  Window_EquipItem_Changer =
   false, #Element 17
-  Window_SaveFile_Changer =
+  Window_Status_Changer =
   false, #Element 18
-  Window_ShopCommand_Changer =
+  Window_SaveFile_Changer =
   false, #Element 19
-  Window_ShopBu_Changer =
+  Window_ShopCommand_Changer =
   false, #Element 20
-  Window_ShopSell_Changer =
+  Window_ShopBu_Changer =
   false, #Element 21
-  Window_ShopNumber_Changer =
+  Window_ShopSell_Changer =
   false, #Element 22
-  Window_ShopStatus_Changer =
+  Window_ShopNumber_Changer =
   false, #Element 23
-  Window_NameEdit_Changer =
+  Window_ShopStatus_Changer =
   false, #Element 24
-  Window_NameInput_Changer =
+  Window_NameEdit_Changer =
   false, #Element 25
-  Window_ChoiceList_Changer =
+  Window_NameInput_Changer =
   false, #Element 26
-  Window_NumberInput_Changer =
+  Window_ChoiceList_Changer =
   false, #Element 27
-  Window_KeyItem_Changer =
+  Window_NumberInput_Changer =
   false, #Element 28
-  Window_Message_Changer =
+  Window_KeyItem_Changer =
   false, #Element 29
-  Window_ScrollText_Changer =
+  Window_Message_Changer =
   false, #Element 30
-  Window_MapName_Changer =
+  Window_ScrollText_Changer =
   false, #Element 31
-  Window_BattleLog_Changer =
+  Window_MapName_Changer =
   false, #Element 32
-  Window_PartyCommand_Changer =
+  Window_BattleLog_Changer =
   false, #Element 33
-  Window_ActorCommand_Changer =
+  Window_PartyCommand_Changer =
   false, #Element 34
+  Window_ActorCommand_Changer =
+  false, #Element 35
   Window_BattleStatus_Changer =
-  true, #Element 35
-  Window_BattleActor_Changer =
   false, #Element 36
-  Window_BattleEnemy_Changer =
+  Window_BattleActor_Changer =
   false, #Element 37
-  Window_BattleSkill_Changer =
+  Window_BattleEnemy_Changer =
   false, #Element 38
-  Window_BattleItem_Changer =
+  Window_BattleSkill_Changer =
   false, #Element 39
-  Window_TitleCommand_Changer =
+  Window_BattleItem_Changer =
   false, #Element 40
-  Window_GameEnd_Changer =
+  Window_TitleCommand_Changer =
   false, #Element 41
-  Window_DebugLeft_Changer =
+  Window_GameEnd_Changer =
   false, #Element 42
-  Window_DebugRight_Changer =
+  Window_DebugLeft_Changer =
   false, #Element 43
+  Window_DebugRight_Changer =
+  false, #Element 44
   ]
-=begin
->>>>>>>>>>>>>>>>>> Ignore this for now <<<<<<<<<<<<<<
-  #============================================================================
-  # Windows Changer - For Yanfly Ace Battle Engine - Set 0 or 1
-  #============================================================================
-  Window_PartyCommand_Changer = 0
-  Window_ActorCommand_Changer = 0
-  Window_BattleStatus_Changer = 1  #set 0 to return to original windows
-  Window_BattleActor_Changer = 0
-  Window_BattleStatusAid_Changer = 0
-  Window_BattleEnemy_Changer = 0
-  Window_BattleHelp_Changer = 0
-  Window_BattleLog_Changer = 0
-  Window_SkillList_Changer = 0
-  Window_ItemList_Changer = 0
-=end
+
   #============================================================================
   # Windows Folder - This is where the folders are
   #============================================================================
   Windows_Changer_Folder_Array = [
+  Windows_Folder = "Graphics\\Windows",
   Window_Selectable_Folder = "Graphics\\Windows\\Window_Selectable",
   Window_Command_Folder = "Graphics\\Windows\\Window_Command",
   Window_HorzCommand_Folder = "Graphics\\Windows\\Window_HorzCommand",
@@ -191,21 +189,6 @@ module Windows_Changer
   Window_DebugLeft_Folder = "Graphics\\Windows\\Window_DebugLeft",
   Window_DebugRight_Folder = "Graphics\\Windows\\Window_DebugRight"
   ]
-=begin
-  #============================================================================
-  # Yanfly Windows Folder - For Yanfly Ace Battle Engine - Set 0 or 1
-  #============================================================================
-  Window_PartyCommand_Folder = "Window_PartyCommand"
-  Window_ActorCommand_Folder = "Window_ActorCommand"
-  Window_BattleStatus_Folder = 'Window_BattleStatus'
-  Window_BattleActor_Folder = "Window_BattleActor"
-  Window_BattleStatusAid_Folder = "Window_BattleStatusAid"
-  Window_BattleEnemy_Folder = "Window_BattleEnemy"
-  Window_BattleHelp_Folder = "Window_BattleHelp"
-  Window_BattleLog_Folder = "Window_BattleLog"
-  Window_SkillList_Folder = "Window_SkillList"
-  Window_ItemList_Folder = "Window_ItemList"
-=end
 end
 
 #==============================================================================
@@ -227,6 +210,7 @@ class Game_Message
   #============================================================================
 
   attr_accessor :game_message_windows_folder
+  attr_accessor :game_windows_name
 
   alias a_lias initialize
 
@@ -234,6 +218,7 @@ class Game_Message
     a_lias
     @game_message_windows_folder =
     Windows_Changer::Windows_Changer_Folder_Array
+    @game_windows_name = ""
 
   end
 end
@@ -247,7 +232,7 @@ module DataManager
     alias a_lias init
   end
   #--------------------------------------------------------------------------
-  # * Initialize Module
+  # Initialize Module
   #--------------------------------------------------------------------------
   def self.init
     a_lias
@@ -256,67 +241,514 @@ module DataManager
 
   def self.create_Windows_Changer_directory
     $game_message.game_message_windows_folder.each do |folder|
-      @windows_directory = folder
-      if !File.exists?(@windows_directory)
-        Dir.mkdir(@windows_directory)
-      end
+      Dir.mkdir(folder) if !File.exists?(folder)
     end
   end
 end
 
 #==============================================================================
-# Window_BattleStatus_Changer
+# Scene_Battle
 #==============================================================================
 
-if (Windows_Changer::Windows_Changer_Array[35] == true)
+class Scene_Battle < Scene_Base
 
-  #============================================================================
-  # Scene_Battle
-  #----------------------------------------------------------------------------
+  def terminate
+    super
+    dispose_spriteset
+    @info_viewport.dispose
+    @background_viewport.dispose
+    @message_background.dispose
+    @scroll_text_background.dispose
+    @log_background.dispose
+    @status_background.dispose
+    @party_command_background.dispose
+    @actor_command_background.dispose
+    @help_background.dispose
+    @skill_background.dispose
+    @item_background.dispose
+    @actor_background.dispose
+    @enemy_background.dispose
+    @temp1.dispose
+    @temp2.dispose
+    RPG::ME.stop
+  end
 
-  class Scene_Battle < Scene_Base
-    #--------------------------------------------------------------------------
-    #  Create Party Commands Window
-    #--------------------------------------------------------------------------
-    alias party_command_window_changer create_party_command_window
-    def create_party_command_window
-      party_command_window_changer
+  #--------------------------------------------------------------------------
+  #  Update Frame (Basic)
+  #--------------------------------------------------------------------------
+  alias michael_update_basic update_basic
+  def update_basic
+    michael_update_basic
+    if $game_switches[104]
+      @help_window.back_opacity = 0
+      @help_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[4]
+      name = $game_message.game_windows_name
+      @help_background.bitmap = Cache.cache_extended(folder, name)
+      @help_background.src_rect.width = @help_window.width
+      @help_background.visible = true
+    else
+      @help_window.back_opacity = @temp1
+      @help_window.opacity = @temp2
+      @help_background.visible = false
+    end
+    if $game_switches[130]
+      @message_window.back_opacity = 0
+      @message_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[30]
+      name = $game_message.game_windows_name
+      @message_background.bitmap = Cache.cache_extended(folder, name)
+      @message_background.src_rect.width = @message_window.width
+      @message_background.visible = true
+    else
+      @message_window.back_opacity = @temp1
+      @message_window.opacity = @temp2
+      @message_background.visible = false
+    end
+    if $game_switches[131]
+      @scroll_text_window.back_opacity = 0
+      scroll_text_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[31]
+      name = $game_message.game_windows_name
+      @scroll_text_background.bitmap = Cache.cache_extended(folder, name)
+      @scroll_text_background.src_rect.width = @scroll_text_window.width
+      @scroll_text_background.visible = true
+    else
+      @scroll_text_window.back_opacity = @temp1
+      @scroll_text_window.opacity = @temp2
+      @scroll_text_background.visible = false
+    end
+    if $game_switches[133]
+      @log_window.back_opacity = 0
+      @log_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[33]
+      name = $game_message.game_windows_name
+      @log_background.bitmap = Cache.cache_extended(folder, name)
+      @log_background.src_rect.width = @log_window.width
+      @log_background.visible = true
+    else
+      #@log_window.back_opacity = @temp1
+      #@log_window.opacity = @temp2
+      @log_background.visible = false
+    end
+    if $game_switches[134]
       @party_command_window.back_opacity = 0
       @party_command_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[34]
+      name = $game_message.game_windows_name
+      @party_command_background.bitmap = Cache.cache_extended(folder, name)
+      @party_command_background.src_rect.width = @party_command_window.width
+      @party_command_background.visible = true
+    else
+      @party_command_window.back_opacity = @temp1
+      @party_command_window.opacity = @temp2
+      @party_command_background.visible = false
     end
-    #--------------------------------------------------------------------------
-    #  Create Actor Commands Window
-    #--------------------------------------------------------------------------
-    alias actor_command_window_changer create_actor_command_window
-    def create_actor_command_window
-      actor_command_window_changer
+    if $game_switches[135]
       @actor_command_window.back_opacity = 0
       @actor_command_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[35]
+      name = $game_message.game_windows_name
+      @actor_command_background.bitmap = Cache.cache_extended(folder, name)
+      @actor_command_background.src_rect.width = @actor_command_window.width
+      @actor_command_background.visible = true
+    else
+      @actor_command_window.back_opacity = @temp1
+      @actor_command_window.opacity = @temp2
+      @actor_command_background.visible = false
+    end
+    if $game_switches[136]
+      @status_window.back_opacity = 0
+      @status_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[36]
+      name = $game_message.game_windows_name
+      @status_background.bitmap = Cache.cache_extended(folder, name)
+      @status_background.src_rect.width = @status_window.width
+      @status_background.visible = true
+    else
+      @status_window.back_opacity = @temp1
+      @status_window.opacity = @temp2
+      @status_background.visible = false
+    end
+    if $game_switches[137]
+      @actor_window.back_opacity = 0
+      @actor_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[37]
+      name = $game_message.game_windows_name
+      @actor_background.bitmap = Cache.cache_extended(folder, name)
+      @actor_background.src_rect.width = @actor_window.width
+      @actor_background.visible = true
+    else
+      @actor_window.back_opacity = @temp1
+      @actor_window.opacity = @temp2
+      @actor_background.visible = false
+    end
+    if $game_switches[138]
+      @enemy_window.back_opacity = 0
+      @enemy_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[38]
+      name = $game_message.game_windows_name
+      @enemy_background.bitmap = Cache.cache_extended(folder, name)
+      @enemy_background.src_rect.width = @enemy_window.width
+      @enemy_background.visible = true
+    else
+      @enemy_window.back_opacity = @temp1
+      @enemy_window.opacity = @temp2
+      @enemy_background.visible = false
+    end
+    if $game_switches[139]
+      @skill_window.back_opacity = 0
+      @skill_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[39]
+      name = $game_message.game_windows_name
+      @skill_background.bitmap = Cache.cache_extended(folder, name)
+      @skill_background.src_rect.width = @skill_window.width
+      @skill_background.visible = true
+    else
+      @skill_window.back_opacity = @temp1
+      @skill_window.opacity = @temp2
+      @skill_background.visible = false
+    end
+    if $game_switches[140]
+      @item_window.back_opacity = 0
+      @item_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[40]
+      name = $game_message.game_windows_name
+      @item_background.bitmap = Cache.cache_extended(folder, name)
+      @item_background.src_rect.width = @item_window.width
+      @item_background.visible = true
+    else
+      @item_window.back_opacity = @temp1
+      @item_window.opacity = @temp2
+      @item_background.visible = false
     end
   end
-  #============================================================================
-  # Window_BattleStatus
-  #----------------------------------------------------------------------------
-  class Window_BattleStatus < Window_Selectable
-    #--------------------------------------------------------------------------
-    #  Object Initialization
-    #--------------------------------------------------------------------------
-    alias i_ini initialize
-    def initialize
-      i_ini
-      self.back_opacity = 0
-      self.opacity = 0
-      @viewport = Viewport.new
-      @status_bar = Sprite.new(@viewport)
-      folder = $game_message.game_message_windows_folder[35]
-      name = "Mockup.png" #Set your pic here
-                          #A new update will come out later so you could use
-                          #different pictures, but for now this will do.
-      @status_bar_bitmap = Cache.cache_extended(folder, name)
-      @status_bar.bitmap = @status_bar_bitmap
-      @status_bar.x = 0
-      @status_bar.y = 0
+
+  #-------------------------------------------------------------------------
+  # Update Processing for Opening Message Window
+  #--------------------------------------------------------------------------
+  alias michael_update_message_open update_message_open
+  def update_message_open
+    if $game_message.busy? && !@status_window.close?
+      @status_background.visible = false
+      @party_command_background.visible = false
+      @actor_command_background.visible = false
     end
+    michael_update_message_open
+  end
+
+  #--------------------------------------------------------------------------
+  #  Create Message Window
+  #--------------------------------------------------------------------------
+  alias michael_create_message_window create_message_window
+  def create_message_window
+    michael_create_message_window
+    @message_background = Sprite.new(@background_viewport)
+    @message_background.x = @message_window.x
+    @message_background.y = @message_window.y
+  end
+  #--------------------------------------------------------------------------
+  #  Create Scrolling Text Window
+  #--------------------------------------------------------------------------
+  alias michael_create_scroll_text_window create_scroll_text_window
+  def create_scroll_text_window
+    michael_create_scroll_text_window
+    @scroll_text_background = Sprite.new(@background_viewport)
+    @scroll_text_background.x = @scroll_text_window.x
+    @scroll_text_background.y = @scroll_text_window.y
+  end
+  #--------------------------------------------------------------------------
+  #  Create Log Window
+  #--------------------------------------------------------------------------
+  alias michael_create_log_window create_log_window
+  def create_log_window
+    michael_create_log_window
+    @log_background = Sprite.new(@background_viewport)
+    @log_background.x = @log_window.x
+    @log_background.y = @log_window.y
+  end
+
+  #--------------------------------------------------------------------------
+  #  Create Status Window
+  #--------------------------------------------------------------------------
+  alias michael_create_status_window create_status_window
+  def create_status_window
+    michael_create_status_window
+    @status_background = Sprite.new(@background_viewport)
+    @status_background.x = @status_window.x
+    @status_background.y = @status_window.y
+    @temp1 = @status_window.back_opacity
+    @temp2 = @status_window.opacity
+  end
+  #--------------------------------------------------------------------------
+  #  Create Information Display Viewport
+  #--------------------------------------------------------------------------
+  alias michael_create_info_viewport create_info_viewport
+  def create_info_viewport
+    michael_create_info_viewport
+    @background_viewport = Viewport.new
+    @background_viewport.rect.y = Graphics.height - @status_window.height
+    @background_viewport.rect.height = @status_window.height
+    @background_viewport.z = 99
+  end
+
+  #--------------------------------------------------------------------------
+  #  Create Party Commands Window
+  #--------------------------------------------------------------------------
+  alias michael_create_party_command_window create_party_command_window
+  def create_party_command_window
+    michael_create_party_command_window
+    @party_command_background = Sprite.new(@background_viewport2)
+    @party_command_background.x = @party_command_window.x
+    @party_command_background.y = @party_command_window.y
+  end
+  #--------------------------------------------------------------------------
+  # * Create Actor Commands Window
+  #--------------------------------------------------------------------------
+  alias michael_create_actor_command_window create_actor_command_window
+  def create_actor_command_window
+    michael_create_actor_command_window
+    @actor_command_background = Sprite.new(@background_viewport3)
+    @actor_command_background.x = @actor_command_window.x
+    @actor_command_background.y = @actor_command_window.y
+  end
+
+
+  #--------------------------------------------------------------------------
+  # * Create Help Window
+  #--------------------------------------------------------------------------
+  alias michael_create_help_window create_help_window
+  def create_help_window
+    michael_create_help_window
+    @help_background = Sprite.new(@background_viewport)
+    @help_background.x = @help_window.x
+    @help_background.y = @help_window.y
+    @help_background.visible = false
+  end
+  #--------------------------------------------------------------------------
+  # * Create Skill Window
+  #--------------------------------------------------------------------------
+  alias michael_create_skill_window create_skill_window
+  def create_skill_window
+    michael_create_skill_window
+    @skill_background = Sprite.new(@background_viewport)
+    @skill_background.x = @skill_window.x
+    @skill_background.y = @skill_window.y
+    @skill_background.visible = false
+  end
+  #--------------------------------------------------------------------------
+  # * Create Item Window
+  #--------------------------------------------------------------------------
+  alias michael_create_item_window create_item_window
+  def create_item_window
+    michael_create_item_window
+    @item_background = Sprite.new(@background_viewport)
+    @item_background.x = @item_window.x
+    @item_background.y = @item_window.y
+    @item_background.visible = false
+  end
+  #--------------------------------------------------------------------------
+  # * Create Actor Window
+  #--------------------------------------------------------------------------
+  alias michael_create_actor_window create_actor_window
+  def create_actor_window
+    michael_create_actor_window
+    @actor_background = Sprite.new(@background_viewport)
+    @actor_background.x = @actor_window.x
+    @actor_background.y = @actor_window.y
+    @actor_background.visible = false
+  end
+  #--------------------------------------------------------------------------
+  # * Create Enemy Window
+  #--------------------------------------------------------------------------
+  alias michael_create_enemy_window create_enemy_window
+  def create_enemy_window
+    michael_create_enemy_window
+    @enemy_background = Sprite.new(@background_viewport)
+    @enemy_background.x = @enemy_window.x
+    @enemy_background.y = @enemy_window.y
+    @enemy_background.visible = false
+  end
+
+  #--------------------------------------------------------------------------
+  # * Start Party Command Selection
+  #--------------------------------------------------------------------------
+  alias michael_start_party_command_selection start_party_command_selection
+  def start_party_command_selection
+    michael_start_party_command_selection
+    unless scene_changing?
+      if BattleManager.input_start
+        @status_background.x = 128
+      else
+        @status_background.x = 0
+      end
+    end
+  end
+  #--------------------------------------------------------------------------
+  # * Start Actor Command Selection
+  #--------------------------------------------------------------------------
+  alias michael_start_actor_command_selection start_actor_command_selection
+  def start_actor_command_selection
+    michael_start_actor_command_selection
+    @status_background.x = 0
+  end
+
+  #--------------------------------------------------------------------------
+  # * [Skill] Command
+  #--------------------------------------------------------------------------
+  alias michael_command_skill command_skill
+  def command_skill
+    michael_command_skill
+    @skill_background.visible = true
+  end
+  #--------------------------------------------------------------------------
+  # * [Item] Command
+  #--------------------------------------------------------------------------
+  alias michael_command_item command_item
+  def command_item
+    michael_command_item
+    @item_background.visible = true
+  end
+  #--------------------------------------------------------------------------
+  # * Start Actor Selection
+  #--------------------------------------------------------------------------
+  alias michael_select_actor_selection select_actor_selection
+  def select_actor_selection
+    michael_select_actor_selection
+    @actor_background.visible = true
+
+  end
+  #--------------------------------------------------------------------------
+  # * Actor [OK]
+  #--------------------------------------------------------------------------
+  alias michael_on_actor_ok on_actor_ok
+  def on_actor_ok
+    @actor_background.visible = false
+    @skill_background.visible = false
+    @item_background.visible = false
+    michael_on_actor_ok
+  end
+  #--------------------------------------------------------------------------
+  # * Actor [Cancel]
+  #--------------------------------------------------------------------------
+  alias michael_on_actor_cancel on_actor_cancel
+  def on_actor_cancel
+    @actor_background.visible = false
+    michael_on_actor_cancel
+    case @actor_command_window.current_symbol
+    when :skill
+      @skill_background.visible = true
+    when :item
+      @item_background.visible = true
+    end
+  end
+  #--------------------------------------------------------------------------
+  # * Start Enemy Selection
+  #--------------------------------------------------------------------------
+  alias michael_select_enemy_selection select_enemy_selection
+  def select_enemy_selection
+    michael_select_enemy_selection
+    @enemy_background.visible = true
+  end
+  #--------------------------------------------------------------------------
+  # * Enemy [OK]
+  #--------------------------------------------------------------------------
+  alias michael_on_enemy_ok on_enemy_ok
+  def on_enemy_ok
+    @item_background.visible = false
+    @skill_background.visible = false
+    @enemy_background.visible = false
+    michael_on_enemy_ok
+  end
+  #--------------------------------------------------------------------------
+  # * Enemy [Cancel]
+  #--------------------------------------------------------------------------
+  alias michael_on_enemy_cancel on_enemy_cancel
+  def on_enemy_cancel
+    @enemy_background.visible = false
+    case @actor_command_window.current_symbol
+    when :attack
+    when :skill
+      @skill_background.visible = true
+    when :item
+      @item_background.visible = true
+    end
+    michael_on_enemy_cancel
+  end
+  #--------------------------------------------------------------------------
+  # * Skill [OK]
+  #--------------------------------------------------------------------------
+  alias michael_on_skill_ok on_skill_ok
+  def on_skill_ok
+    michael_on_skill_ok
+    if !@skill_window.item.need_selection?
+      @skill_background.visible = false
+    end
+  end
+  #--------------------------------------------------------------------------
+  # * Skill [Cancel]
+  #--------------------------------------------------------------------------
+  alias michael_on_skill_cancel on_skill_cancel
+  def on_skill_cancel
+    @skill_background.visible = false
+    michael_on_skill_cancel
+  end
+  #--------------------------------------------------------------------------
+  # * Item [OK]
+  #--------------------------------------------------------------------------
+  alias michael_on_item_ok on_item_ok
+  def on_item_ok
+    michael_on_item_ok
+    if !@item_window.item.need_selection?
+      @item_background.visible = false
+    end
+  end
+  #--------------------------------------------------------------------------
+  # * Item [Cancel]
+  #--------------------------------------------------------------------------
+  alias michael_on_item_cancel on_item_cancel
+  def on_item_cancel
+    @item_background.visible = false
+    michael_on_item_cancel
+  end
+
+  #--------------------------------------------------------------------------
+  # * Start Turn
+  #--------------------------------------------------------------------------
+  alias michael_turn_start turn_start
+  def turn_start
+    @party_command_background.visible = false
+    @actor_command_background.visible = false
+    @status_background.x = 64
+    michael_turn_start
+  end
+end
+
+#===============================================================================
+# DataManager
+#===============================================================================
+module DataManager
+  class << self
+   alias michael_create_game_objects create_game_objects
+  end
+  def self.create_game_objects
+    michael_create_game_objects
+
+    $game_switches[100..143] = false
+  end
+end
+
+#===============================================================================
+# Game Interpreter
+#===============================================================================
+class Game_Interpreter
+  def window_off(i)
+    $game_switches[i + 100] = false
+  end
+  def window_on(i, name)
+    $game_switches[i + 100] = true
+    Windows_Changer::Windows_Changer_Array[i] = true
+    $game_message.game_windows_name = name
   end
 end
 
