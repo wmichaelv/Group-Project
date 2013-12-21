@@ -18,6 +18,8 @@
 #            --Scene_Name is completed
 #            --Scene_Shop is completed
 #            --Scene_End is completed
+#            --Scene_Save and Scene_Load skipped -- No Window yield
+#            --Scene_File is completed
 # 2013.12.20 --Overloading Scene_Battle
 # 2013.12.19 --Works for Windows_BattleStatus
 # 2013.12.18 --Script is initialized
@@ -252,6 +254,123 @@ module DataManager
   def self.create_Windows_Changer_directory
     $game_message.game_message_windows_folder.each do |folder|
       Dir.mkdir(folder) if !File.exists?(folder)
+    end
+  end
+end
+
+#==============================================================================
+# ** Scene_File
+#------------------------------------------------------------------------------
+#  This class performs common processing for the save screen and load screen.
+#==============================================================================
+
+class Scene_File < Scene_MenuBase
+  #--------------------------------------------------------------------------
+  # * Start Processing
+  #--------------------------------------------------------------------------
+  alias michael_start start
+  def start
+    create_background_viewport
+    michael_start
+  end
+
+  def create_background_viewport
+    @background_viewport = Viewport.new
+  end
+  #--------------------------------------------------------------------------
+  # * Termination Processing
+  #--------------------------------------------------------------------------
+  alias michael_terminate terminate
+  def terminate
+    michael_terminate
+    @savefile_backgrounds.each {|background| background.dispose}
+    @savefile_backgrounds.dispose
+    @background_viewport.dispose
+    @help_background.dispose
+    @temp1.dispose
+    @temp2.dispose
+  end
+  #--------------------------------------------------------------------------
+  # * Frame Update
+  #--------------------------------------------------------------------------
+  alias michael_update update
+  def update
+    michael_update
+    if $game_switches[104]
+      @help_window.back_opacity = 0
+      @help_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[4]
+      name = $game_message.game_windows_name
+      @help_background.bitmap = Cache.cache_extended(folder, name)
+      @help_background.src_rect.width = @help_window.width
+      @help_background.visible = true
+    else
+      @help_window.back_opacity = temp1
+      @help_window.opacity = temp2
+    end
+    if $game_switches[119]
+      @savefile_windows.each do |window|
+        window.back_opacity = 0
+        window.opacity = 0
+      end
+      folder = $game_message.game_message_windows_folder[19]
+      name = $game_message.game_windows_name
+      @savefile_backgrounds.each do |background|
+        background.bitmap = Cache.cache_extended(folder, name)
+        background.src_rect.width = @savefiles_windows.width
+        background.visible = true
+      end
+    else
+      @savefile_windows.each do |window|
+        window.back_opacity = temp1
+        window.opacity = temp2
+      end
+    end
+  end
+  #--------------------------------------------------------------------------
+  # Create Help Window
+  #--------------------------------------------------------------------------
+  alias michael_create_help_window create_help_window
+  def create_help_window
+    michael_create_help_window
+    @temp1 = @help_window.back_opacity
+    @temp2 = @help_window.opacity
+    @help_background = Sprite.new(@background_viewport)
+    @help_background.x = @help_window.x
+    @help_background.y = @help_window.y
+    if $game_switches[104]
+      @help_window.back_opacity = 0
+      @help_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[4]
+      name = $game_message.game_windows_name
+      @help_background.bitmap = Cache.cache_extended(folder, name)
+      @help_background.src_rect.width = @help_window.width
+      @help_background.visible = true
+    end
+  end
+  #--------------------------------------------------------------------------
+  # * Create Save File Window
+  #--------------------------------------------------------------------------
+  alias michael_create_savefile_windows create_savefile_windows
+  def create_savefile_windows
+    michael_create_savefile_windows
+    @savefile_backgrounds = Array.new(item_max) do |i|
+      Sprite.new(@background_viewport)
+      i.x = @savefile_windows[i].x
+      i.y = @savefile_windows[i].y
+    end
+    if $game_switches[119]
+      @savefile_windows.each do |window|
+        window.back_opacity = 0
+        window.opacity = 0
+      end
+      folder = $game_message.game_message_windows_folder[19]
+      name = $game_message.game_windows_name
+      @savefile_backgrounds.each do |background|
+        background.bitmap = Cache.cache_extended(folder, name)
+        background.src_rect.width = @savefiles_windows.width
+        background.visible = true
+      end
     end
   end
 end
