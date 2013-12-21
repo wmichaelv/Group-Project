@@ -2,8 +2,11 @@
 #==============================================================================
 #
 # Michael Windows Changer
-# Last Updated: 2013.12.19
-# Requirement: RPG Maker AVE
+# Last Updated: 2013.12.21
+# Requirement: RPG Maker VX Ace
+#             -Knowledge of 'how to using scripts'
+#             -Knowledge of Window Designation (basically know which window is
+#              which)
 #==============================================================================
 
 #==============================================================================
@@ -11,6 +14,7 @@
 #==============================================================================
 # 2013.12.21 --Installing Game_Interpreter
 #            --Scene_Battle is completed
+#            --
 # 2013.12.20 --Overloading Scene_Battle
 # 2013.12.19 --Works for Windows_BattleStatus
 # 2013.12.18 --Script is initialized
@@ -722,6 +726,7 @@ class Scene_Battle < Scene_Base
     @status_background.x = 64
     michael_turn_start
   end
+
 end
 
 #===============================================================================
@@ -750,5 +755,7 @@ class Game_Interpreter
     Windows_Changer::Windows_Changer_Array[i] = true
     $game_message.game_windows_name = name
   end
+  def window_change(name)
+    $game_message.game_windows_name = name
 end
 
