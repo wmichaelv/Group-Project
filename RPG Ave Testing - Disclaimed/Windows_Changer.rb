@@ -17,6 +17,7 @@
 #            --Scene_Debug is completed
 #            --Scene_Name is completed
 #            --Scene_Shop is completed
+#            --Scene_End is completed
 # 2013.12.20 --Overloading Scene_Battle
 # 2013.12.19 --Works for Windows_BattleStatus
 # 2013.12.18 --Script is initialized
@@ -254,6 +255,97 @@ module DataManager
     end
   end
 end
+
+#==============================================================================
+# ** Scene_End
+#------------------------------------------------------------------------------
+#  This class performs game over screen processing.
+#==============================================================================
+
+class Scene_End < Scene_MenuBase
+  #--------------------------------------------------------------------------
+  # * Start Processing
+  #--------------------------------------------------------------------------
+  alias michael_start start
+  def start
+    create_background_viewport
+    michael_start
+  end
+
+  def create_background_viewport
+    @background_viewport = Viewport.new
+    @background_viewport.z = 199
+  end
+  #--------------------------------------------------------------------------
+  # * Pre-Termination Processing
+  #--------------------------------------------------------------------------
+  def pre_terminate
+    super
+    close_command_window
+  end
+
+  def terminate
+    super
+    @temp1
+    @temp2
+    @command_background.dispose
+    @background_viewport.dispose
+  end
+  #--------------------------------------------------------------------------
+  # * Create Background
+  #--------------------------------------------------------------------------
+  def create_background
+    super
+    @background_sprite.tone.set(0, 0, 0, 128)
+  end
+  #--------------------------------------------------------------------------
+  # * Create Command Window
+  #--------------------------------------------------------------------------
+  alias michael_create_command_window create_command_window
+  def create_command_window
+    michael_create_command_window
+    @temp1 = @command_window.back_opacity
+    @temp2 = @command_window.opacity
+    @command_background = Sprite.new(@background_viewport)
+    @command_background.x = @command_window.x
+    @command_background.y = @command_window.y
+    if $game_switches[142]
+      @command_window.back_opacity = 0
+      @command_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[42]
+      name = $game_message.game_windows_name
+      @command_background.bitmap = Cache.cache_extended(folder, name)
+      @command_background.src_rect.width = @command_window.width
+      @command_background.visible = true
+    end
+  end
+  #--------------------------------------------------------------------------
+  # * Close Command Window
+  #--------------------------------------------------------------------------
+  alias michael_close_command_window close_command_window
+  def close_command_window
+    michael_close_command_window
+    @command_background.visible = false if @command_window.close?
+  end
+
+  def update
+    super
+    if $game_switches[142]
+      @command_window.back_opacity = 0
+      @command_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[42]
+      name = $game_message.game_windows_name
+      @command_background.bitmap = Cache.cache_extended(folder, name)
+      @command_background.src_rect.width = @command_window.width
+      @command_background.visible = true
+    else
+      @command_window.back_opacity = temp1
+      @command_window.opacity = temp2
+      @command_background.visible = false
+    end
+  end
+end
+
 
 #==============================================================================
 # ** Scene_Shop
