@@ -15,6 +15,7 @@
 # 2013.12.21 --Installing Game_Interpreter
 #            --Scene_Battle is completed
 #            --Scene_Debug is completed
+#            --Scene_Name is completed
 # 2013.12.20 --Overloading Scene_Battle
 # 2013.12.19 --Works for Windows_BattleStatus
 # 2013.12.18 --Script is initialized
@@ -253,6 +254,50 @@ module DataManager
   end
 end
 
+
+
+#==============================================================================
+# ** Scene_Name
+#------------------------------------------------------------------------------
+#  This class performs name input screen processing.
+#==============================================================================
+
+class Scene_Name < Scene_MenuBase
+  #--------------------------------------------------------------------------
+  # * Start Processing
+  #--------------------------------------------------------------------------
+  alias michael_start start
+  def start
+    michael_start
+    @background_viewport = Viewport.new
+    @edit_background = Sprite.new(@background_viewport)
+    @edit_background.x = @edit_window.x
+    @edit_background.y = @edit_window.y
+    if $game_switches[125]
+      @edit_window.back_opacity = 0
+      @edit_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[25]
+      name = $game_message.game_windows_name
+      @edit_background.bitmap = Cache.cache_extended(folder, name)
+      @edit_background.src_rect.width = @edit_window.width
+      @edit_background.visible = true
+    end
+    @input_background = Sprite.new(@background_viewport)
+    @input_background.x = @input_window.x
+    @input_background.y = @input_window.y
+    if $game_switches[126]
+      @input_window.back_opacity = 0
+      @input_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[26]
+      name = $game_message.game_windows_name
+      @input_background.bitmap = Cache.cache_extended(folder, name)
+      @input_background.src_rect.width = @input_window.width
+      @input_background.visible = true
+    end
+  end
+end
+
+
 #==============================================================================
 # ** Scene_Debug
 #------------------------------------------------------------------------------
@@ -323,7 +368,7 @@ class Scene_Debug < Scene_MenuBase
   alias michael_refresh_help_window refresh_help_window
   def refresh_help_window
 
-  if $game_switches[143]
+    if $game_switches[143]
       @left_window.back_opacity = 0
       @left_window.opacity = 0
       folder = $game_message.game_message_windows_folder[43]
@@ -336,7 +381,7 @@ class Scene_Debug < Scene_MenuBase
       @left_window.opacity = @temp2
       @left_background.visible = false
     end
-  if $game_switches[144]
+    if $game_switches[144]
       @right_window.back_opacity = 0
       @right_window.opacity = 0
       folder = $game_message.game_message_windows_folder[44]
@@ -349,7 +394,7 @@ class Scene_Debug < Scene_MenuBase
       @right_window.opacity = @temp2
       @right_background.visible = false
     end
-  if $game_switches[145]
+    if $game_switches[145]
       @debug_help_window.back_opacity = 0
       @debug_help_window.opacity = 0
       folder = $game_message.game_message_windows_folder[45]
