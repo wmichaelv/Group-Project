@@ -4,7 +4,7 @@
 # Michael Windows Changer
 # Last Updated: 2013.12.21
 # Requirement: RPG Maker VX Ace
-#             -Knowledge of 'how to using scripts'
+#             -Knowledge of 'how to use scripts'
 #             -Knowledge of Window Designation (basically know which window is
 #              which)
 #==============================================================================
@@ -12,6 +12,18 @@
 #==============================================================================
 #  Biography lol
 #==============================================================================
+# 2013.12.24 --Script is uploaded
+# 2013.12.23 --Window_Message is completed
+# 2013.12.22 --Scene_Equip is completed
+#            --Scene_Skill is completed
+#            --Scene_Item is completed
+#            --Scene_ItemBase is completed
+#            --Scene_Menu is completed
+#            --Scene_Map is completed
+#            --Scene_Title is completed
+#            --Scene_Menu is completed
+#            --All Scenes that need to be overloaded have been overloaded
+#            --Updating array to store image name
 # 2013.12.21 --Installing Game_Interpreter
 #            --Scene_Battle is completed
 #            --Scene_Debug is completed
@@ -20,9 +32,10 @@
 #            --Scene_End is completed
 #            --Scene_Save and Scene_Load skipped -- No Window yield
 #            --Scene_File is completed
-# 2013.12.20 --Overloading Scene_Battle
+#            --Scene_Status is completed
+# 2013.12.20 --Scene_Battle is completed
 # 2013.12.19 --Works for Windows_BattleStatus
-# 2013.12.18 --Script is initialized
+# 2013.12.18 --Script is initialized -- Getting know Ruby + RGSS Libraries
 #==============================================================================
 # Description
 #==============================================================================
@@ -57,97 +70,97 @@ module Windows_Changer
   #============================================================================
   Windows_Changer_Array = [
   Default_Window_This_is_Extra_Do_Not_Delete_Unless_You_Know_What_You_Do =
-  false, #Element 0 Don't tweak this one for the sake of harmony :D
+  "", #Element 0 Don't tweak this one for the sake of harmony :D
   Window_Selectable_Changer =
-  false, #Element 1
+  "", #Element 1
   Window_Command_Changer =
-  false, #Element 2
+  "", #Element 2
   Window_HorzCommand_Changer =
-  false, #Element 3
+  "", #Element 3
   Window_Help_Changer =
-  false, #Element 4
+  "", #Element 4
   Window_Gold_Changer =
-  false, #Element 5
+  "", #Element 5
   Window_MenuCommand_Changer =
-  false, #Element 6
+  "", #Element 6
   Window_MenuStatus_Changer =
-  false, #Element 7
+  "", #Element 7
   Window_MenuActor_Changer =
-  false, #Element 8
+  "", #Element 8
   Window_ItemCategory_Changer =
-  false, #Element 9
+  "", #Element 9
   Window_ItemList_Changer =
-  false, #Element 10
+  "", #Element 10
   Window_SkillCommand_Changer =
-  false, #Element 11
+  "", #Element 11
   Window_SkillStatus_Changer =
-  false, #Element 12
+  "", #Element 12
   Window_SkillList_Changer =
-  false, #Element 13
+  "", #Element 13
   Window_EquipStatus_Changer =
-  false, #Element 14
+  "", #Element 14
   Window_EquipCommand_Changer =
-  false, #Element 15
+  "", #Element 15
   Window_EquipSlot_Changer =
-  false, #Element 16
+  "", #Element 16
   Window_EquipItem_Changer =
-  false, #Element 17
+  "", #Element 17
   Window_Status_Changer =
-  false, #Element 18
+  "", #Element 18
   Window_SaveFile_Changer =
-  false, #Element 19
+  "", #Element 19
   Window_ShopCommand_Changer =
-  false, #Element 20
+  "", #Element 20
   Window_ShopBu_Changer =
-  false, #Element 21
+  "", #Element 21
   Window_ShopSell_Changer =
-  false, #Element 22
+  "", #Element 22
   Window_ShopNumber_Changer =
-  false, #Element 23
+  "", #Element 23
   Window_ShopStatus_Changer =
-  false, #Element 24
+  "", #Element 24
   Window_NameEdit_Changer =
-  false, #Element 25
+  "", #Element 25
   Window_NameInput_Changer =
-  false, #Element 26
+  "", #Element 26
   Window_ChoiceList_Changer =
-  false, #Element 27
+  "", #Element 27
   Window_NumberInput_Changer =
-  false, #Element 28
+  "", #Element 28
   Window_KeyItem_Changer =
-  false, #Element 29
+  "", #Element 29
   Window_Message_Changer =
-  false, #Element 30
+  "", #Element 30
   Window_ScrollText_Changer =
-  false, #Element 31
+  "", #Element 31
   Window_MapName_Changer =
-  false, #Element 32
+  "", #Element 32
   Window_BattleLog_Changer =
-  false, #Element 33
+  "", #Element 33
   Window_PartyCommand_Changer =
-  false, #Element 34
+  "", #Element 34
   Window_ActorCommand_Changer =
-  false, #Element 35
+  "", #Element 35
   Window_BattleStatus_Changer =
-  false, #Element 36
+  "", #Element 36
   Window_BattleActor_Changer =
-  false, #Element 37
+  "", #Element 37
   Window_BattleEnemy_Changer =
-  false, #Element 38
+  "", #Element 38
   Window_BattleSkill_Changer =
-  false, #Element 39
+  "", #Element 39
   Window_BattleItem_Changer =
-  false, #Element 40
+  "", #Element 40
   Window_TitleCommand_Changer =
-  false, #Element 41
+  "", #Element 41
   Window_GameEnd_Changer =
-  false, #Element 42
+  "", #Element 42
   Window_DebugLeft_Changer =
-  false, #Element 43
+  "", #Element 43
   Window_DebugRight_Changer =
-  false, #Element 44
+  "", #Element 44
   Window_Base_Changer =
-  false, #Element 45
+  "", #Element 45
   ]  #Add more windows here
 
   #============================================================================
@@ -200,7 +213,7 @@ module Windows_Changer
   Window_DebugLeft_Folder = "Graphics\\Windows\\Window_DebugLeft",
   Window_DebugRight_Folder = "Graphics\\Windows\\Window_DebugRight",
   Window_Base_Folder = "Graphics\\Windows\\Window_Base",
-  ]
+  ] #Add more windows here
 end
 
 #==============================================================================
@@ -230,7 +243,8 @@ class Game_Message
     a_lias
     @game_message_windows_folder =
     Windows_Changer::Windows_Changer_Folder_Array
-    @game_windows_name = ""
+    @game_windows_name
+    Windows_Changer::Windows_Changer_Array
 
   end
 end
@@ -259,14 +273,806 @@ module DataManager
 end
 
 #==============================================================================
-# ** Scene_File
-#------------------------------------------------------------------------------
-#  This class performs common processing for the save screen and load screen.
+# Window_Message
+#==============================================================================
+
+class Window_Message < Window_Base
+
+  alias michael_initialize initialize
+  def initialize
+    michael_initialize
+    create_background_viewport
+    create_background
+  end
+
+  def create_background_viewport
+    @background_viewport = Viewport.new
+    @background_viewport.z = 199
+  end
+
+  def create_background
+    @temp1 = @gold_window.back_opacity
+    @temp2 = @gold_window.opacity
+    @gold_background = Sprite.new(@background_vieRwport)
+    @gold_background.y = @gold_window.y
+    @gold_background.x = @gold_window.x
+    @gold_background.visible = false
+    @choice_background = Sprite.new(@background_viewport)
+    @choice_background.x = @choice_window.x
+    @choice_background.y = @choice_window.y
+    @number_background = Sprite.new(@background_viewport)
+    @number_background.x = @number_window.x
+    @number_background.y = @number_window.y
+    @item_background = Sprite.new(@background_viewport)
+    @item_background.x = @item_window.x
+    @item_background.y = @item_window.y
+  end
+
+  alias michael_dispose dispose
+  def dispose
+    michael_dispose
+    @temp1.dispose
+    @temp2.dispose
+    @background_viewport.dispose
+    @gold_background.dispose
+    @choice_background.dispose
+    @number_background.dispose
+    @item_background.dispose
+  end
+
+  alias michael_update update
+  def update
+    michael_update
+    if $game_switches[105]
+      @gold_window.back_opacity = 0
+      @gold_window.opacity = 0
+      folder = $game_message.game_gold_windows_folder[5]
+      name = $game_message.game_windows_name[5]
+      @gold_background.bitmap = Cache.cache_extended(folder, name)
+      @gold_background.src_rect.width = @gold_window.width
+      @gold_background.visible = true
+    else
+      @gold_background.visible = false
+    end
+    if $game_switches[127]
+      @choice_window.back_opacity = 0
+      @choice_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[27]
+      name = $game_message.game_windows_name[27]
+      @choice_background.bitmap = Cache.cache_extended(folder, name)
+      @choice_background.src_rect.width = @choice_window.width
+      @choice_background.visible = true
+    else
+      @choice_background.visible = false
+    end
+    if $game_switches[128]
+      @number_window.back_opacity = 0
+      @number_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[28]
+      name = $game_message.game_windows_name[28]
+      @number_background.bitmap = Cache.cache_extended(folder, name)
+      @number_background.src_rect.width = @number_window.width
+      @number_background.visible = true
+    else
+      @number_background.visible = false
+    end
+    if $game_switches[129]
+      @item_window.back_opacity = 0
+      @item_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[29]
+      name = $game_message.game_windows_name[29]
+      @item_background.bitmap = Cache.cache_extended(folder, name)
+      @item_background.src_rect.width = @item_window.width
+      @item_background.visible = true
+    else
+      @item_background.visible = false
+    end
+  end
+
+  #--------------------------------------------------------------------------
+  # * Main Processing of Fiber
+  #--------------------------------------------------------------------------
+  def fiber_main
+    $game_message.visible = true
+    update_background
+    update_placement
+    loop do
+      process_all_text if $game_message.has_text?
+      process_input
+      $game_message.clear
+      @gold_window.close
+      @gold_background.visible = false
+      Fiber.yield
+      break unless text_continue?
+    end
+    close_and_wait
+    $game_message.visible = false
+    @fiber = nil
+  end
+
+  alias michael_update_placement update_placement
+  def update_placement
+    @gold.background.y = @gold_window.y
+  end
+
+
+  alias michael_process_escape_character process_escape_character
+  def process_escape_character(code, text, pos)
+    case code.upcase
+    when '$'
+      @gold_background.visible = true
+    else
+    end
+    michael_process_escape_character
+  end
+end
+
+
+#==============================================================================
+# Scene_Title
+#==============================================================================
+
+class Scene_Title < Scene_Base
+  #--------------------------------------------------------------------------
+  # Start Processing
+  #--------------------------------------------------------------------------
+  alias michael_start start
+  def start
+    michael_start
+    create_background_viewport
+    create_background
+  end
+
+  def create_background_viewport
+    @background_viewport = Viewport.new
+    @background_viewport.z = 199
+  end
+
+  def create_background
+    @temp1 = @command_window.back_opacity
+    @temp2 = @command_window.opacity
+    @command_background = Sprite.new(@background_viewport)
+    @command_background.y = @command_window.y
+    @command_background.x = @command_window.x
+    if $game_switches[141]
+      folder = $game_message.game_message_windows_folder[41]
+      name = $game_message.game_windows_name[41]
+      @command_background.bitmap = Cache.cache_extended(folder, name)
+      @command_background.src_rect.width = @command_window.width
+      @command_background.visible = true
+      @command_window.opacity = 0
+      @command_window.back_opacity = 0
+    end
+  end
+
+  alias michael_terminate terminate
+  def terminate
+    michael_terminate
+    @temp1.dispose
+    @temp2.dispose
+    @background_viewport.dispose
+    @command_background.dispose
+  end
+
+  def update
+    super
+    if $game_switches[141]
+      folder = $game_message.game_message_windows_folder[41]
+      name = $game_message.game_windows_name[41]
+      @command_background.bitmap = Cache.cache_extended(folder, name)
+      @command_background.src_rect.width = @command_window.width
+    end
+  end
+  #--------------------------------------------------------------------------
+  # Close Command Window
+  #--------------------------------------------------------------------------
+  alias michael_close_command_window close_command_window
+  def close_command_window
+    michael_close_command_window
+    @command_background.visible = false
+  end
+end
+
+#==============================================================================
+# Scene_Map
+#==============================================================================
+
+class Scene_Map < Scene_Base
+
+  alias michael_start start
+  def start
+    michael_start
+    create_background_viewport
+    create_background
+  end
+
+  def create_background_viewport
+    @background_viewport = Viewport.new
+    @background_viewport.z = 199
+  end
+
+  def create_background
+    @temp1 = @message_window.back_opacity
+    @temp2 = @message_window.opacity
+    @message_background = Sprite.new(@background_viewport)
+    @message_background.y = @message_window.y
+    @message_background.x = @message_window.x
+    @scroll_background = Sprite.new(@background_viewport)
+    @scroll_background.x = @scroll_window.x
+    @scroll_background.y = @scroll_window.y
+    @map_name_background = Sprite.new(@background_viewport)
+    @map_name_background.x = @item_window.x
+    @map_name_background.y = @item_window.y
+  end
+
+  def terminate
+    super
+    @temp1.dispose
+    @temp2.dispose
+    @background_viewport.dispose
+    @message_background.dispose
+    @scroll_background.dispose
+    @map_name_background.dispose
+  end
+
+  def update
+    super
+    if $game_switches[130]
+      @message_window.back_opacity = 0
+      @message_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[30]
+      name = $game_message.game_windows_name[30]
+      @message_background.bitmap = Cache.cache_extended(folder, name)
+      @message_background.src_rect.width = @message_window.width
+      @message_background.visible = true
+    else
+      @message_window.back_opacity = temp1
+      @message_window.opacity = temp2
+      @message_background.visible = false
+    end
+    if $game_switches[131]
+      @scroll_window.back_opacity = 0
+      @scroll_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[31]
+      name = $game_message.game_windows_name[31]
+      @scroll_background.bitmap = Cache.cache_extended(folder, name)
+      @scroll_background.src_rect.width = @scroll_window.width
+      @scroll_background.visible = true
+    else
+      @scroll_window.back_opacity = temp1
+      @scroll_window.opacity = temp2
+      @scroll_background.visible = false
+    end
+    if $game_switches[132]
+      @map_name_window.back_opacity = 0
+      @map_name_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[32]
+      name = $game_message.game_windows_name[32]
+      @map_name_background.bitmap = Cache.cache_extended(folder, name)
+      @map_name_background.src_rect.width = @map_name_window.width
+      @map_name_background.visible = true
+    else
+      @map_name_window.back_opacity = temp1
+      @map_name_window.opacity = temp2
+      @map_name_background.visible = false
+    end
+  end
+end
+
+
+#==============================================================================
+# Scene_Menu
+#==============================================================================
+
+class Scene_Menu < Scene_MenuBase
+
+  alias michael_start start
+  def start
+    michael_start
+    create_background_viewport
+    create_background
+  end
+
+  def create_background_viewport
+    @background_viewport = Viewport.new
+    @background_viewport.z = 199
+  end
+
+  def create_background
+    @temp1 = @command_window.back_opacity
+    @temp2 = @command_window.opacity
+    @command_background = Sprite.new(@background_viewport)
+    @command_background.y = @command_window.y
+    @command_background.x = @command_window.x
+    @gold_background = Sprite.new(@background_viewport)
+    @gold_background.x = @gold_window.x
+    @gold_background.y = @gold_window.y
+    @status_background = Sprite.new(@background_viewport)
+    @status_background.x = @status_window.x
+    @status_background.y = @status_window.y
+  end
+
+  def terminate
+    super
+    @temp1.dispose
+    @temp2.dispose
+    @background_viewport.dispose
+    @command_background.dispose
+    @gold_background.dispose
+    @status_background.dispose
+  end
+
+  def update
+    super
+    if $game_switches[106]
+      @command_window.back_opacity = 0
+      @command_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[6]
+      name = $game_message.game_windows_name[6]
+      @command_background.bitmap = Cache.cache_extended(folder, name)
+      @command_background.src_rect.width = @command_window.width
+      @command_background.visible = true
+    else
+      @command_window.back_opacity = temp1
+      @command_window.opacity = temp2
+      @command_background.visible = false
+    end
+    if $game_switches[105]
+      @gold_window.back_opacity = 0
+      @gold_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[5]
+      name = $game_message.game_windows_name[5]
+      @gold_background.bitmap = Cache.cache_extended(folder, name)
+      @gold_background.src_rect.width = @gold_window.width
+      @gold_background.visible = true
+    else
+      @gold_window.back_opacity = temp1
+      @gold_window.opacity = temp2
+      @gold_background.visible = false
+    end
+    if $game_switches[107]
+      @status_window.back_opacity = 0
+      @status_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[7]
+      name = $game_message.game_windows_name[7]
+      @status_background.bitmap = Cache.cache_extended(folder, name)
+      @status_background.src_rect.width = @status_window.width
+      @status_background.visible = true
+    else
+      @status_window.back_opacity = temp1
+      @status_window.opacity = temp2
+      @status_background.visible = false
+    end
+  end
+end
+
+
+#==============================================================================
+# Scene_ItemBase
+#==============================================================================
+
+class Scene_ItemBase < Scene_MenuBase
+
+  alias michael_start start
+  def start
+    michael_start
+    create_background_viewport
+    create_background
+  end
+
+  def create_background_viewport
+    @background_viewport = Viewport.new
+    @background_viewport.z = 199
+  end
+
+  def create_background
+    @temp1 = @actor_window.back_opacity
+    @temp2 = @actor_window.opacity
+    @actor_background = Sprite.new(@background_viewport)
+    @actor_background.y = @actor_window.y
+    @actor_background.x = @actor_window.x
+    if $game_switches[108]
+      folder = $game_message.game_message_windows_folder[8]
+      name = $game_message.game_windows_name[8]
+      @actor_background.bitmap = Cache.cache_extended(folder, name)
+      @actor_background.src_rect.width = @actor_window.width
+      @actor_background.visible = true
+      @actor_window.opacity = 0
+      @actor_window.back_opacity = 0
+    end
+  end
+
+  def terminate
+    super
+    @temp1.dispose
+    @temp2.dispose
+    @background_viewport.dispose
+    @actor_background.dispose
+  end
+
+  def update
+    super
+    if $game_switches[108]
+      folder = $game_message.game_message_windows_folder[8]
+      name = $game_message.game_windows_name[8]
+      @actor_background.bitmap = Cache.cache_extended(folder, name)
+      @actor_background.src_rect.width = @actor_window.width
+    end
+  end
+  #--------------------------------------------------------------------------
+  # Show Subwindow
+  #--------------------------------------------------------------------------
+  alias michael_show_sub_window show_sub_window
+  def show_sub_window(window)
+    michael_show_sub_window
+    if $game_switches[108]
+      @actor_background.visible = true
+      @actor_window.opacity = 0
+      @actor_window.back_opacity = 0
+    else
+      @actor_background.visible = false
+      @actor_window.opacity = temp1
+      @actor_window.back_opacity = temp2
+    end
+  end
+  #--------------------------------------------------------------------------
+  # Hide Subwindow
+  #--------------------------------------------------------------------------
+  def hide_sub_window(window)
+    @viewport.rect.x = @viewport.ox = 0
+    @viewport.rect.width = Graphics.width
+    window.hide.deactivate
+    activate_item_window
+  end
+end
+
+
+#==============================================================================
+# Scene_Item
+#==============================================================================
+
+class Scene_Item < Scene_ItemBase
+
+  alias michael_start start
+  def start
+    michael_start
+    create_background_viewport
+    create_background
+  end
+
+  def create_background_viewport
+    @background_viewport = Viewport.new
+    @background_viewport.z = 199
+  end
+
+  def create_background
+    @temp1 = @help_window.back_opacity
+    @temp2 = @help_window.opacity
+    @help_background = Sprite.new(@background_viewport)
+    @help_background.y = @help_window.y
+    @help_background.x = @help_window.x
+    @category_background = Sprite.new(@background_viewport)
+    @category_background.x = @category_window.x
+    @category_background.y = @category_window.y
+    @item_background = Sprite.new(@background_viewport)
+    @item_background.x = @item_window.x
+    @item_background.y = @item_window.y
+  end
+
+  def terminate
+    super
+    @temp1.dispose
+    @temp2.dispose
+    @background_viewport.dispose
+    @help_background.dispose
+    @category_background.dispose
+    @item_background.dispose
+  end
+
+  def update
+    super
+    if $game_switches[104]
+      @help_window.back_opacity = 0
+      @help_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[4]
+      name = $game_message.game_windows_name[4]
+      @help_background.bitmap = Cache.cache_extended(folder, name)
+      @help_background.src_rect.width = @help_window.width
+      @help_background.visible = true
+    else
+      @help_window.back_opacity = temp1
+      @help_window.opacity = temp2
+      @help_background.visible = false
+    end
+    if $game_switches[109]
+      @category_window.back_opacity = 0
+      @category_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[9]
+      name = $game_message.game_windows_name[9]
+      @category_background.bitmap = Cache.cache_extended(folder, name)
+      @category_background.src_rect.width = @category_window.width
+      @category_background.visible = true
+    else
+      @category_window.back_opacity = temp1
+      @category_window.opacity = temp2
+      @category_background.visible = false
+    end
+    if $game_switches[110]
+      @item_window.back_opacity = 0
+      @item_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[10]
+      name = $game_message.game_windows_name[10]
+      @item_background.bitmap = Cache.cache_extended(folder, name)
+      @item_background.src_rect.width = @item_window.width
+      @item_background.visible = true
+    else
+      @item_window.back_opacity = temp1
+      @item_window.opacity = temp2
+      @item_background.visible = false
+    end
+  end
+end
+
+
+#==============================================================================
+# Scene_Skill
+#==============================================================================
+
+class Scene_Skill < Scene_ItemBase
+  alias michael_start start
+  def start
+    michael_start
+    create_background_viewport
+    create_background
+  end
+
+  def create_background_viewport
+    @background_viewport = Viewport.new
+    @background_viewport.z = 199
+  end
+
+  def create_background
+    @temp1 = @help_window.back_opacity
+    @temp2 = @help_window.opacity
+    @help_background = Sprite.new(@background_viewport)
+    @help_background.x = @help_window.x
+    @help_background.y = @help_window.y
+    @command_background = Sprite.new(@background_viewport)
+    @command_background.x = @command_window.x
+    @command_background.y = @command_window.y
+    @status_background = Sprite.new(@background_viewport)
+    @status_background.x = @status_window.x
+    @status_background.y = @status_window.y
+    @item_background = Sprite.new(@background_viewport)
+    @item_background.x = @item_window.x
+    @item_background.y = @item_window.y
+  end
+
+  def terminate
+    super
+    @temp1.dispose
+    @temp2.dispose
+    @background_viewport.dispose
+    @help_background.dispose
+    @command_background.dispose
+    @status_background.dispose
+    @item_background.dispose
+  end
+
+  def update
+    super
+    if $game_switches[104]
+      @help_window.back_opacity = 0
+      @help_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[4]
+      name = $game_message.game_windows_name[4]
+      @help_background.bitmap = Cache.cache_extended(folder, name)
+      @help_background.src_rect.width = @help_window.width
+      @help_background.visible = true
+    else
+      @help_window.back_opacity = temp1
+      @help_window.opacity = temp2
+      @help_background.visible = false
+    end
+    if $game_switches[111]
+      @command_window.back_opacity = 0
+      @command_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[11]
+      name = $game_message.game_windows_name[11]
+      @command_background.bitmap = Cache.cache_extended(folder, name)
+      @command_background.src_rect.width = @command_window.width
+      @command_background.visible = true
+    else
+      @command_window.back_opacity = temp1
+      @command_window.opacity = temp2
+      @command_background.visible = false
+    end
+    if $game_switches[112]
+      @status_window.back_opacity = 0
+      @status_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[12]
+      name = $game_message.game_windows_name[12]
+      @status_background.bitmap = Cache.cache_extended(folder, name)
+      @status_background.src_rect.width = @status_window.width
+      @status_background.visible = true
+    else
+      @status_window.back_opacity = temp1
+      @status_window.opacity = temp2
+      @status_background.visible = false
+    end
+    if $game_switches[113]
+      @item_window.back_opacity = 0
+      @item_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[13]
+      name = $game_message.game_windows_name[13]
+      @item_background.bitmap = Cache.cache_extended(folder, name)
+      @item_background.src_rect.width = @item_window.width
+      @item_background.visible = true
+    else
+      @item_window.back_opacity = temp1
+      @item_window.opacity = temp2
+      @item_background.visible = false
+    end
+  end
+end
+
+
+#==============================================================================
+# Scene_Equip
+#==============================================================================
+
+class Scene_Equip < Scene_MenuBase
+  #--------------------------------------------------------------------------
+  # Start Processing
+  #--------------------------------------------------------------------------
+  alias michael_start start
+  def start
+    michael_start
+    create_background_viewport
+    create_backgrounds
+  end
+
+  def create_background_viewport
+    @background_viewport = Viewport.new
+    @background_viewport.z = 199
+  end
+
+  def create_background
+    @temp1 = @status_window.back_opacity
+    @temp2 = @status_window.opacity
+    @status_background = Sprite.new(@background_viewport)
+    @status_background.x = @status_window.x
+    @status_background.y = @status_window.y
+    @command_background = Sprite.new(@background_viewport)
+    @command_background.x = @command_window.x
+    @command_background.y = @command_window.y
+    @slot_background = Sprite.new(@background_viewport)
+    @slot_background.x = @slot_window.x
+    @slot_background.y = @slot_window.y
+    @item_background = Sprite.new(@background_viewport)
+    @item_background.x = @item_window.x
+    @item_background.y = @item_window.y
+  end
+
+  def terminate
+    super
+    @background_viewport.dispose
+    @status_background.dispose
+    @command_background.dispose
+    @slot_background.dispose
+    @item_background.dispose
+  end
+
+  def update
+    super
+    if $game_switches[114]
+      @status_window.back_opacity = 0
+      @status_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[14]
+      name = $game_message.game_windows_name[14]
+      @status_background.bitmap = Cache.cache_extended(folder, name)
+      @status_background.src_rect.width = @status_window.width
+      @status_background.visible = true
+    else
+      @status_window.back_opacity = temp1
+      @status_window.opacity = temp2
+      @status_background.visible = false
+    end
+    if $game_switches[115]
+      @command_window.back_opacity = 0
+      @command_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[15]
+      name = $game_message.game_windows_name[15]
+      @command_background.bitmap = Cache.cache_extended(folder, name)
+      @command_background.src_rect.width = @command_window.width
+      @command_background.visible = true
+    else
+      @command_window.back_opacity = temp1
+      @command_window.opacity = temp2
+      @command_background.visible = false
+    end
+    if $game_switches[116]
+      @slot_window.back_opacity = 0
+      @slot_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[16]
+      name = $game_message.game_windows_name[16]
+      @slot_background.bitmap = Cache.cache_extended(folder, name)
+      @slot_background.src_rect.width = @slot_window.width
+      @slot_background.visible = true
+    else
+      @slot_window.back_opacity = temp1
+      @slot_window.opacity = temp2
+      @slot_background.visible = false
+    end
+    if $game_switches[117]
+      @item_window.back_opacity = 0
+      @item_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[17]
+      name = $game_message.game_windows_name[17]
+      @item_background.bitmap = Cache.cache_extended(folder, name)
+      @item_background.src_rect.width = @item_window.width
+      @item_background.visible = true
+    else
+      @item_window.back_opacity = temp1
+      @item_window.opacity = temp2
+      @item_background.visible = false
+    end
+  end
+end
+
+#==============================================================================
+# Scene_Status
+#==============================================================================
+
+class Scene_Status < Scene_MenuBase
+  #--------------------------------------------------------------------------
+  # Start Processing
+  #--------------------------------------------------------------------------
+  alias michael_start start
+  def start
+    michael_start
+    @background_viewport = Viewport.new
+    @temp1 = @status_window.back_opacity
+    @temp2 = @status_window.opacity
+    @status_background = Sprite.new(@background_viewport)
+    @status_background.x = @status_window.x
+    @status_background.y = @status_window.y
+  end
+
+  def terminate
+    super
+    @temp1.dispose
+    @temp2.dispose
+    @status_background.dispose
+    @background_viewport.dispose
+  end
+
+  def update
+    super
+    if $game_switches[118]
+      @status_window.back_opacity = 0
+      @status_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[18]
+      name = $game_message.game_windows_name[18]
+      @status_background.bitmap = Cache.cache_extended(folder, name)
+      @status_background.src_rect.width = @status_window.width
+      @status_background.visible = true
+    else
+      @status_window.back_opacity = temp1
+      @status_window.opacity = temp2
+      @status_background.visible = false
+    end
+  end
+end
+
+
+#==============================================================================
+# Scene_File
 #==============================================================================
 
 class Scene_File < Scene_MenuBase
   #--------------------------------------------------------------------------
-  # * Start Processing
+  # Start Processing
   #--------------------------------------------------------------------------
   alias michael_start start
   def start
@@ -278,7 +1084,7 @@ class Scene_File < Scene_MenuBase
     @background_viewport = Viewport.new
   end
   #--------------------------------------------------------------------------
-  # * Termination Processing
+  # Termination Processing
   #--------------------------------------------------------------------------
   alias michael_terminate terminate
   def terminate
@@ -300,13 +1106,14 @@ class Scene_File < Scene_MenuBase
       @help_window.back_opacity = 0
       @help_window.opacity = 0
       folder = $game_message.game_message_windows_folder[4]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[4]
       @help_background.bitmap = Cache.cache_extended(folder, name)
       @help_background.src_rect.width = @help_window.width
       @help_background.visible = true
     else
       @help_window.back_opacity = temp1
       @help_window.opacity = temp2
+      @help_background.visible = false
     end
     if $game_switches[119]
       @savefile_windows.each do |window|
@@ -314,7 +1121,7 @@ class Scene_File < Scene_MenuBase
         window.opacity = 0
       end
       folder = $game_message.game_message_windows_folder[19]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[19]
       @savefile_backgrounds.each do |background|
         background.bitmap = Cache.cache_extended(folder, name)
         background.src_rect.width = @savefiles_windows.width
@@ -324,6 +1131,9 @@ class Scene_File < Scene_MenuBase
       @savefile_windows.each do |window|
         window.back_opacity = temp1
         window.opacity = temp2
+      end
+      @savefile_backgrounds.each do |background|
+        background.visible = false
       end
     end
   end
@@ -342,14 +1152,14 @@ class Scene_File < Scene_MenuBase
       @help_window.back_opacity = 0
       @help_window.opacity = 0
       folder = $game_message.game_message_windows_folder[4]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[4]
       @help_background.bitmap = Cache.cache_extended(folder, name)
       @help_background.src_rect.width = @help_window.width
       @help_background.visible = true
     end
   end
   #--------------------------------------------------------------------------
-  # * Create Save File Window
+  # Create Save File Window
   #--------------------------------------------------------------------------
   alias michael_create_savefile_windows create_savefile_windows
   def create_savefile_windows
@@ -365,7 +1175,7 @@ class Scene_File < Scene_MenuBase
         window.opacity = 0
       end
       folder = $game_message.game_message_windows_folder[19]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[19]
       @savefile_backgrounds.each do |background|
         background.bitmap = Cache.cache_extended(folder, name)
         background.src_rect.width = @savefiles_windows.width
@@ -376,14 +1186,12 @@ class Scene_File < Scene_MenuBase
 end
 
 #==============================================================================
-# ** Scene_End
-#------------------------------------------------------------------------------
-#  This class performs game over screen processing.
+# Scene_End
 #==============================================================================
 
 class Scene_End < Scene_MenuBase
   #--------------------------------------------------------------------------
-  # * Start Processing
+  # Start Processing
   #--------------------------------------------------------------------------
   alias michael_start start
   def start
@@ -396,7 +1204,7 @@ class Scene_End < Scene_MenuBase
     @background_viewport.z = 199
   end
   #--------------------------------------------------------------------------
-  # * Pre-Termination Processing
+  # Pre-Termination Processing
   #--------------------------------------------------------------------------
   def pre_terminate
     super
@@ -411,14 +1219,14 @@ class Scene_End < Scene_MenuBase
     @background_viewport.dispose
   end
   #--------------------------------------------------------------------------
-  # * Create Background
+  # Create Background
   #--------------------------------------------------------------------------
   def create_background
     super
     @background_sprite.tone.set(0, 0, 0, 128)
   end
   #--------------------------------------------------------------------------
-  # * Create Command Window
+  # Create Command Window
   #--------------------------------------------------------------------------
   alias michael_create_command_window create_command_window
   def create_command_window
@@ -432,14 +1240,14 @@ class Scene_End < Scene_MenuBase
       @command_window.back_opacity = 0
       @command_window.opacity = 0
       folder = $game_message.game_message_windows_folder[42]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[42]
       @command_background.bitmap = Cache.cache_extended(folder, name)
       @command_background.src_rect.width = @command_window.width
       @command_background.visible = true
     end
   end
   #--------------------------------------------------------------------------
-  # * Close Command Window
+  # Close Command Window
   #--------------------------------------------------------------------------
   alias michael_close_command_window close_command_window
   def close_command_window
@@ -453,7 +1261,7 @@ class Scene_End < Scene_MenuBase
       @command_window.back_opacity = 0
       @command_window.opacity = 0
       folder = $game_message.game_message_windows_folder[42]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[42]
       @command_background.bitmap = Cache.cache_extended(folder, name)
       @command_background.src_rect.width = @command_window.width
       @command_background.visible = true
@@ -467,14 +1275,12 @@ end
 
 
 #==============================================================================
-# ** Scene_Shop
-#------------------------------------------------------------------------------
-#  This class performs shop screen processing.
+# Scene_Shop
 #==============================================================================
 
 class Scene_Shop < Scene_MenuBase
   #--------------------------------------------------------------------------
-  # * Start Processing
+  # Start Processing
   #--------------------------------------------------------------------------
   alias michael_start start
   def start
@@ -513,7 +1319,7 @@ class Scene_Shop < Scene_MenuBase
       @gold_window.back_opacity = 0
       @gold_window.opacity = 0
       folder = $game_message.game_message_windows_folder[5]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[5]
       @gold_background.bitmap = Cache.cache_extended(folder, name)
       @gold_background.src_rect.width = @gold_window.width
       @gold_background.visible = true
@@ -532,7 +1338,7 @@ class Scene_Shop < Scene_MenuBase
       @command_window.back_opacity = 0
       @command_window.opacity = 0
       folder = $game_message.game_message_windows_folder[20]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[20]
       @command_background.bitmap = Cache.cache_extended(folder, name)
       @command_background.src_rect.width = @command_window.width
       @command_background.visible = true
@@ -551,7 +1357,7 @@ class Scene_Shop < Scene_MenuBase
       @dummy_window.back_opacity = 0
       @dummy_window.opacity = 0
       folder = $game_message.game_message_windows_folder[45]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[45]
       @dummy_background.bitmap = Cache.cache_extended(folder, name)
       @dummy_background.src_rect.width = @dummy_window.width
       @dummy_background.visible = true
@@ -569,7 +1375,7 @@ class Scene_Shop < Scene_MenuBase
       @number_window.back_opacity = 0
       @number_window.opacity = 0
       folder = $game_message.game_message_windows_folder[23]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[23]
       @number_background.bitmap = Cache.cache_extended(folder, name)
       @number_background.src_rect.width = @number_window.width
       @number_background.visible = false
@@ -588,14 +1394,14 @@ class Scene_Shop < Scene_MenuBase
       @status_window.back_opacity = 0
       @status_window.opacity = 0
       folder = $game_message.game_message_windows_folder[24]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[24]
       @status_background.bitmap = Cache.cache_extended(folder, name)
       @status_background.src_rect.width = @status_window.width
       @status_background.visible = false
     end
   end
   #--------------------------------------------------------------------------
-  # * Create Purchase Window
+  # Create Purchase Window
   #--------------------------------------------------------------------------
   alias michael_create_buy_window create_buy_window
   def create_buy_window
@@ -607,14 +1413,14 @@ class Scene_Shop < Scene_MenuBase
       @buy_window.back_opacity = 0
       @buy_window.opacity = 0
       folder = $game_message.game_message_windows_folder[21]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[21]
       @buy_background.bitmap = Cache.cache_extended(folder, name)
       @buy_background.src_rect.width = @buy_window.width
       @buy_background.visible = false
     end
   end
   #--------------------------------------------------------------------------
-  # * Create Category Window
+  # Create Category Window
   #--------------------------------------------------------------------------
   alias michael_create_category_window create_category_window
   def create_category_window
@@ -626,7 +1432,7 @@ class Scene_Shop < Scene_MenuBase
       @category_window.back_opacity = 0
       @category_window.opacity = 0
       folder = $game_message.game_message_windows_folder[9]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[9]
       @category_background.bitmap = Cache.cache_extended(folder, name)
       @category_background.src_rect.width = @category_window.width
       @category_background.visible = false
@@ -645,7 +1451,7 @@ class Scene_Shop < Scene_MenuBase
       @sell_window.back_opacity = 0
       @sell_window.opacity = 0
       folder = $game_message.game_message_windows_folder[22]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[22]
       @sell_background.bitmap = Cache.cache_extended(folder, name)
       @sell_background.src_rect.width = @sell_window.width
       @sell_background.visible = false
@@ -709,7 +1515,7 @@ class Scene_Shop < Scene_MenuBase
     @status_background.visible = false
   end
   #--------------------------------------------------------------------------
-  # * Category [Cancel]
+  # Category [Cancel]
   #--------------------------------------------------------------------------
   alias michael_on_category_cancel on_category_cancel
   def on_category_cancel
@@ -719,7 +1525,7 @@ class Scene_Shop < Scene_MenuBase
     @sell_background.visible = false
   end
   #--------------------------------------------------------------------------
-  # * Sell [OK]
+  # Sell [OK]
   #--------------------------------------------------------------------------
   alias michael_on_sell_ok on_sell_ok
   def on_sell_ok
@@ -730,7 +1536,7 @@ class Scene_Shop < Scene_MenuBase
     @status_background.visible = true
   end
   #--------------------------------------------------------------------------
-  # * Sell [Cancel]
+  # Sell [Cancel]
   #--------------------------------------------------------------------------
   alias michael_on_sell_cancel on_sell_cancel
   def on_sell_cancel
@@ -738,7 +1544,7 @@ class Scene_Shop < Scene_MenuBase
     @sell_background.visible = false
   end
   #--------------------------------------------------------------------------
-  # * Exit Quantity Input
+  # Exit Quantity Input
   #--------------------------------------------------------------------------
   alias michael_end_number_input end_number_input
   def end_number_input
@@ -748,14 +1554,12 @@ class Scene_Shop < Scene_MenuBase
 end
 
 #==============================================================================
-# ** Scene_Name
-#------------------------------------------------------------------------------
-#  This class performs name input screen processing.
+# Scene_Name
 #==============================================================================
 
 class Scene_Name < Scene_MenuBase
   #--------------------------------------------------------------------------
-  # * Start Processing
+  # Start Processing
   #--------------------------------------------------------------------------
   alias michael_start start
   def start
@@ -769,7 +1573,7 @@ class Scene_Name < Scene_MenuBase
       @edit_window.back_opacity = 0
       @edit_window.opacity = 0
       folder = $game_message.game_message_windows_folder[25]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[25]
       @edit_background.bitmap = Cache.cache_extended(folder, name)
       @edit_background.src_rect.width = @edit_window.width
       @edit_background.visible = true
@@ -781,7 +1585,7 @@ class Scene_Name < Scene_MenuBase
       @input_window.back_opacity = 0
       @input_window.opacity = 0
       folder = $game_message.game_message_windows_folder[26]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[26]
       @input_background.bitmap = Cache.cache_extended(folder, name)
       @input_background.src_rect.width = @input_window.width
       @input_background.visible = true
@@ -798,9 +1602,7 @@ end
 
 
 #==============================================================================
-# ** Scene_Debug
-#------------------------------------------------------------------------------
-#  This class performs debug screen processing.
+# Scene_Debug
 #==============================================================================
 
 class Scene_Debug < Scene_MenuBase
@@ -833,7 +1635,7 @@ class Scene_Debug < Scene_MenuBase
     michael_terminate
   end
   #--------------------------------------------------------------------------
-  # * Create Left Window
+  # Create Left Window
   #--------------------------------------------------------------------------
   alias michael_create_left_window create_left_window
   def create_left_window
@@ -845,7 +1647,7 @@ class Scene_Debug < Scene_MenuBase
     @temp2 = @left_background.opacity
   end
   #--------------------------------------------------------------------------
-  # * Create Right Window
+  # Create Right Window
   #--------------------------------------------------------------------------
   alias michael_create_right_window create_right_window
   def create_right_window
@@ -855,7 +1657,7 @@ class Scene_Debug < Scene_MenuBase
     @right_background.y = @right_window.y
   end
   #--------------------------------------------------------------------------
-  # * Create Help Window
+  # Create Help Window
   #--------------------------------------------------------------------------
   alias michael_create_debug_help_window create_debug_help_window
   def create_debug_help_window
@@ -872,7 +1674,7 @@ class Scene_Debug < Scene_MenuBase
       @left_window.back_opacity = 0
       @left_window.opacity = 0
       folder = $game_message.game_message_windows_folder[43]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[43]
       @left_background.bitmap = Cache.cache_extended(folder, name)
       @left_background.src_rect.width = @left_window.width
       @left_background.visible = true
@@ -885,7 +1687,7 @@ class Scene_Debug < Scene_MenuBase
       @right_window.back_opacity = 0
       @right_window.opacity = 0
       folder = $game_message.game_message_windows_folder[44]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[44]
       @right_background.bitmap = Cache.cache_extended(folder, name)
       @right_background.src_rect.width = @right_window.width
       @right_background.visible = true
@@ -898,7 +1700,7 @@ class Scene_Debug < Scene_MenuBase
       @debug_help_window.back_opacity = 0
       @debug_help_window.opacity = 0
       folder = $game_message.game_message_windows_folder[45]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[45]
       @debug_help_background.bitmap = Cache.cache_extended(folder, name)
       @debug_help_background.src_rect.width = @debug_help_window.width
       @debug_help_background.visible = true
@@ -947,7 +1749,7 @@ class Scene_Battle < Scene_Base
       @help_window.back_opacity = 0
       @help_window.opacity = 0
       folder = $game_message.game_message_windows_folder[4]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[4]
       @help_background.bitmap = Cache.cache_extended(folder, name)
       @help_background.src_rect.width = @help_window.width
       @help_background.visible = true
@@ -960,7 +1762,7 @@ class Scene_Battle < Scene_Base
       @message_window.back_opacity = 0
       @message_window.opacity = 0
       folder = $game_message.game_message_windows_folder[30]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[30]
       @message_background.bitmap = Cache.cache_extended(folder, name)
       @message_background.src_rect.width = @message_window.width
       @message_background.visible = true
@@ -973,7 +1775,7 @@ class Scene_Battle < Scene_Base
       @scroll_text_window.back_opacity = 0
       scroll_text_window.opacity = 0
       folder = $game_message.game_message_windows_folder[31]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[31]
       @scroll_text_background.bitmap = Cache.cache_extended(folder, name)
       @scroll_text_background.src_rect.width = @scroll_text_window.width
       @scroll_text_background.visible = true
@@ -986,7 +1788,7 @@ class Scene_Battle < Scene_Base
       @log_window.back_opacity = 0
       @log_window.opacity = 0
       folder = $game_message.game_message_windows_folder[33]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[33]
       @log_background.bitmap = Cache.cache_extended(folder, name)
       @log_background.src_rect.width = @log_window.width
       @log_background.visible = true
@@ -999,7 +1801,7 @@ class Scene_Battle < Scene_Base
       @party_command_window.back_opacity = 0
       @party_command_window.opacity = 0
       folder = $game_message.game_message_windows_folder[34]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[34]
       @party_command_background.bitmap = Cache.cache_extended(folder, name)
       @party_command_background.src_rect.width = @party_command_window.width
       @party_command_background.visible = true
@@ -1012,7 +1814,7 @@ class Scene_Battle < Scene_Base
       @actor_command_window.back_opacity = 0
       @actor_command_window.opacity = 0
       folder = $game_message.game_message_windows_folder[35]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[35]
       @actor_command_background.bitmap = Cache.cache_extended(folder, name)
       @actor_command_background.src_rect.width = @actor_command_window.width
       @actor_command_background.visible = true
@@ -1025,7 +1827,7 @@ class Scene_Battle < Scene_Base
       @status_window.back_opacity = 0
       @status_window.opacity = 0
       folder = $game_message.game_message_windows_folder[36]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[36]
       @status_background.bitmap = Cache.cache_extended(folder, name)
       @status_background.src_rect.width = @status_window.width
       @status_background.visible = true
@@ -1038,7 +1840,7 @@ class Scene_Battle < Scene_Base
       @actor_window.back_opacity = 0
       @actor_window.opacity = 0
       folder = $game_message.game_message_windows_folder[37]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[37]
       @actor_background.bitmap = Cache.cache_extended(folder, name)
       @actor_background.src_rect.width = @actor_window.width
       @actor_background.visible = true
@@ -1051,7 +1853,7 @@ class Scene_Battle < Scene_Base
       @enemy_window.back_opacity = 0
       @enemy_window.opacity = 0
       folder = $game_message.game_message_windows_folder[38]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[38]
       @enemy_background.bitmap = Cache.cache_extended(folder, name)
       @enemy_background.src_rect.width = @enemy_window.width
       @enemy_background.visible = true
@@ -1064,7 +1866,7 @@ class Scene_Battle < Scene_Base
       @skill_window.back_opacity = 0
       @skill_window.opacity = 0
       folder = $game_message.game_message_windows_folder[39]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[39]
       @skill_background.bitmap = Cache.cache_extended(folder, name)
       @skill_background.src_rect.width = @skill_window.width
       @skill_background.visible = true
@@ -1077,7 +1879,7 @@ class Scene_Battle < Scene_Base
       @item_window.back_opacity = 0
       @item_window.opacity = 0
       folder = $game_message.game_message_windows_folder[40]
-      name = $game_message.game_windows_name
+      name = $game_message.game_windows_name[40]
       @item_background.bitmap = Cache.cache_extended(folder, name)
       @item_background.src_rect.width = @item_window.width
       @item_background.visible = true
@@ -1413,10 +2215,10 @@ class Game_Interpreter
   def window_on(i, name)
     $game_switches[i + 100] = true
     Windows_Changer::Windows_Changer_Array[i] = true
-    $game_message.game_windows_name = name
+    $game_message.game_windows_name[i] = name
   end
   def window_change(name)
-    $game_message.game_windows_name = name
+    $game_message.game_windows_name[i] = name
   end
 end
 
