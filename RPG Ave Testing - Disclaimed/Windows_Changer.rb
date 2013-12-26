@@ -668,12 +668,24 @@ class Scene_Menu < Scene_MenuBase
     end
   end
 
-  def terminate
-    super
-    @background_Menu_viewport.dispose
-    @command_background.dispose
-    @gold_background.dispose
-    @status_background.dispose
+  begin
+    mod = self.const_get "terminate"
+    alias michael_terminate terminate
+    def terminate
+      michael_terminate
+      @background_Menu_viewport.dispose
+      @command_background.dispose
+      @gold_background.dispose
+      @status_background.dispose
+    end
+  rescue NameError
+    def terminate
+      super
+      @background_Menu_viewport.dispose
+      @command_background.dispose
+      @gold_background.dispose
+      @status_background.dispose
+    end
   end
 
 =begin
@@ -747,10 +759,20 @@ class Scene_ItemBase < Scene_MenuBase
     end
   end
 
-  def terminate
-    super
-    @background_ItemBase_viewport.dispose
-    @actor_background.dispose
+  begin
+    mod = self.const_get "terminate"
+    alias michael_terminate terminate
+    def terminate
+      michael_terminate
+      @background_ItemBase_viewport.dispose
+      @actor_background.dispose
+    end
+  rescue NameError
+    def terminate
+      super
+      @background_ItemBase_viewport.dispose
+      @actor_background.dispose
+    end
   end
 
 =begin
@@ -838,15 +860,28 @@ class Scene_Item < Scene_ItemBase
       @item_window.opacity = @temp2
       @item_background.visible = false
     end
-
   end
 
-  def terminate
-    super
-    @help_background.dispose
-    #@category_background.dispose #For some reason, dispose method is unavailable
-    @item_background.dispose
-    @background_item_viewport.dispose
+  begin
+    mod = self.const_get "terminate"
+    alias michael_terminate terminate
+    def terminate
+      michael_terminate
+      @help_background.dispose
+      #@category_background.dispose
+      #For some reason, dispose method is unavailable
+      @item_background.dispose
+      @background_item_viewport.dispose
+    end
+  rescue NameError
+    def terminate
+      super
+      @help_background.dispose
+      #@category_background.dispose
+      #For some reason, dispose method is unavailable
+      @item_background.dispose
+      @background_item_viewport.dispose
+    end
   end
 
 end
@@ -931,13 +966,26 @@ class Scene_Skill < Scene_ItemBase
     end
   end
 
-  def terminate
-    super
-    @background_skill_viewport.dispose
-    @help_background.dispose
-    @command_background.dispose
-    @status_background.dispose
-    @item_background.dispose
+  begin
+    mod = self.const_get "terminate"
+    alias michael_terminate terminate
+    def terminate
+      michael_terminate
+      @background_skill_viewport.dispose
+      @help_background.dispose
+      @command_background.dispose
+      @status_background.dispose
+      @item_background.dispose
+    end
+  rescue NameError
+    def terminate
+      super
+      @background_skill_viewport.dispose
+      @help_background.dispose
+      @command_background.dispose
+      @status_background.dispose
+      @item_background.dispose
+    end
   end
 
 
@@ -1039,13 +1087,26 @@ class Scene_Equip < Scene_MenuBase
     @item_background.y = @item_window.y
   end
 
-  def terminate
-    super
-    @background_viewport.dispose
-    @status_background.dispose
-    @command_background.dispose
-    @slot_background.dispose
-    @item_background.dispose
+  begin
+    mod = self.const_get "terminate"
+    alias michael_terminate terminate
+    def terminate
+      michael_terminate
+      @background_viewport.dispose
+      @status_background.dispose
+      @command_background.dispose
+      @slot_background.dispose
+      @item_background.dispose
+    end
+  rescue NameError
+    def terminate
+      super
+      @background_viewport.dispose
+      @status_background.dispose
+      @command_background.dispose
+      @slot_background.dispose
+      @item_background.dispose
+    end
   end
 
   def update
@@ -1124,10 +1185,20 @@ class Scene_Status < Scene_MenuBase
     @status_background.y = @status_window.y
   end
 
-  def terminate
-    super
-    @status_background.dispose
-    @background_viewport.dispose
+  begin
+    mod = self.const_get "terminate"
+    alias michael_terminate terminate
+    def terminate
+      michael_terminate
+      @status_background.dispose
+      @background_viewport.dispose
+    end
+  rescue NameError
+    def terminate
+      super
+      @status_background.dispose
+      @background_viewport.dispose
+    end
   end
 
   def update
@@ -1287,28 +1358,23 @@ class Scene_End < Scene_MenuBase
     @background_viewport = Viewport.new
     @background_viewport.z = 199
   end
-  #--------------------------------------------------------------------------
-  # Pre-Termination Processing
-  #--------------------------------------------------------------------------
-  def pre_terminate
-    super
-    close_command_window
+
+  begin
+    mod = self.const_get "terminate"
+    alias michael_terminate terminate
+    def terminate
+      michael_terminate
+      @command_background.dispose
+      @background_viewport.dispose
+    end
+  rescue NameError
+    def terminate
+      super
+      @command_background.dispose
+      @background_viewport.dispose
+    end
   end
 
-  def terminate
-    super
-    @temp1
-    @temp2
-    @command_background.dispose
-    @background_viewport.dispose
-  end
-  #--------------------------------------------------------------------------
-  # Create Background
-  #--------------------------------------------------------------------------
-  def create_background
-    super
-    @background_sprite.tone.set(0, 0, 0, 128)
-  end
   #--------------------------------------------------------------------------
   # Create Command Window
   #--------------------------------------------------------------------------
@@ -1372,17 +1438,34 @@ class Scene_Shop < Scene_MenuBase
     michael_start
   end
 
-  def terminate
-    super
-    @sell_background.dispose
-    @category_background.dispose
-    @buy_background.dispose
-    @status_background.dispose
-    @number_background.dispose
-    @dummy_background.dispose
-    @command_background.dispose
-    @gold_background.dispose
-    @background_viewport.dispose
+  begin
+    mod = self.const_get "terminate"
+    alias michael_terminate terminate
+    def terminate
+      michael_terminate
+      @sell_background.dispose
+      @category_background.dispose
+      @buy_background.dispose
+      @status_background.dispose
+      @number_background.dispose
+      @dummy_background.dispose
+      @command_background.dispose
+      @gold_background.dispose
+      @background_viewport.dispose
+    end
+  rescue NameError
+    def terminate
+      super
+      @sell_background.dispose
+      @category_background.dispose
+      @buy_background.dispose
+      @status_background.dispose
+      @number_background.dispose
+      @dummy_background.dispose
+      @command_background.dispose
+      @gold_background.dispose
+      @background_viewport.dispose
+    end
   end
 
   def create_background_viewport
@@ -1676,11 +1759,22 @@ class Scene_Name < Scene_MenuBase
     end
   end
 
-  def terminate
-    super
-    @background_viewport.dispose
-    @edit_background.dispose
-    @input_background.dispose
+  begin
+    mod = self.const_get "terminate"
+    alias michael_terminate terminate
+    def terminate
+      michael_terminate
+      @background_viewport.dispose
+      @edit_background.dispose
+      @input_background.dispose
+    end
+  rescue NameError
+    def terminate
+      super
+      @background_viewport.dispose
+      @edit_background.dispose
+      @input_background.dispose
+    end
   end
 end
 
@@ -1788,10 +1882,9 @@ end
 
 class Scene_Battle < Scene_Base
 
+  alias michael_terminate terminate
   def terminate
-    super
-    dispose_spriteset
-    @info_viewport.dispose
+    michael_terminate
     @background_viewport.dispose
     @message_background.dispose
     @scroll_text_background.dispose
@@ -1804,7 +1897,6 @@ class Scene_Battle < Scene_Base
     @item_background.dispose
     @actor_background.dispose
     @enemy_background.dispose
-    RPG::ME.stop
   end
 
   #--------------------------------------------------------------------------
