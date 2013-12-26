@@ -2,7 +2,7 @@
 #==============================================================================
 #
 # Michael Windows Changer
-# Last Updated: 2013.12.21
+# Last Updated: 2013.12.26
 # Requirement: RPG Maker VX Ace
 #             -Knowledge of 'how to use scripts'
 #             -Knowledge of Window Designation (basically know which window is
@@ -20,7 +20,7 @@
 #==============================================================================
 #  Biography lol
 #==============================================================================
-# 2013.12.25 --Fixed Scene_Title - Sprite is now in correlation with the window
+# 2013.12.26 --Fixed Scene_Title - Sprite is now in correlation with the window
 # 2013.12.25 --Fixed bugs on local @temp1 and @tem2 disposal
 #            --Scene_MenuBase is added
 #            --Fixed bugs for 'name'
