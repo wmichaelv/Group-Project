@@ -800,8 +800,8 @@ class Scene_Item < Scene_ItemBase
     super
     @background_item_viewport.dispose
     @help_background.dispose
-    #@category_background.dispose
-    #@item_background.dispose
+    #@category_background.dispose #For some reason, dispose method is unavailable
+    @item_background.dispose
   end
 
 end
@@ -812,33 +812,78 @@ end
 
 class Scene_Skill < Scene_ItemBase
 
-  alias michael_create_command_window create_command_window
-  def create_command_window
-
-
-    michael_create_command_window
-
-
+  def create_help_window
+    super
     @background_skill_viewport = Viewport.new
     @background_skill_viewport.z = 198
+    @help_background.z = @background_skill_viewport.z
+  end
 
-
-    @temp1 = @help_window.back_opacity
-    @temp2 = @help_window.opacity
-    @help_background.z = @background_ItemBase_viewport.z
-    @help_background.x = @help_window.x
-    @help_background.y = @help_window.y
+  alias michael_create_command_window create_command_window
+  def create_command_window
+    michael_create_command_window
 
 
     @command_background = Sprite.new(@background_skill_viewport)
     @command_background.x = @command_window.x
     @command_background.y = @command_window.y
+
+    if $game_switches[111]
+      @command_window.back_opacity = 0
+      @command_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[11]
+      name = $game_message.game_windows_name[11]
+      @command_background.bitmap = Cache.cache_extended(folder, name)
+      @command_background.src_rect.width = @command_window.width
+      @command_background.visible = true
+    else
+      @command_window.back_opacity = @temp1
+      @command_window.opacity = @temp2
+      @command_background.visible = false
+    end
+  end
+
+  alias michael_create_status_window create_status_window
+  def create_status_window
+    michael_create_status_window
     @status_background = Sprite.new(@background_skill_viewport)
     @status_background.x = @status_window.x
     @status_background.y = @status_window.y
+
+    if $game_switches[112]
+      @status_window.back_opacity = 0
+      @status_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[12]
+      name = $game_message.game_windows_name[12]
+      @status_background.bitmap = Cache.cache_extended(folder, name)
+      @status_background.src_rect.width = @status_window.width
+      @status_background.visible = true
+    else
+      @status_window.back_opacity = @temp1
+      @status_window.opacity = @temp2
+      @status_background.visible = false
+    end
+  end
+
+  alias michael_create_item_window create_item_window
+    def create_item_window
+    michael_create_item_window
     @item_background = Sprite.new(@background_skill_viewport)
-    @item_background.x = @item_window.x
-    @item_background.y = @item_window.y
+    @item_background.x = 0 #@item_window.x
+    @item_background.y = 0 #@item_window.y
+    if $game_switches[113]
+      @item_window.back_opacity = 0
+      @item_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[13]
+      name = $game_message.game_windows_name[13]
+      @item_background.bitmap = Cache.cache_extended(folder, name)
+      @item_background.src_rect.width = @item_window.width
+      @item_background.visible = true
+    else
+      @item_window.back_opacity = @temp1
+      @item_window.opacity = @temp2
+      @item_background.visible = false
+    end
   end
 
   def terminate
@@ -851,6 +896,8 @@ class Scene_Skill < Scene_ItemBase
   end
 
 
+  #This might be a useless feature, but let's leave it here for now
+=begin
   def update
     super
     if $game_switches[104]
@@ -906,6 +953,8 @@ class Scene_Skill < Scene_ItemBase
       @item_background.visible = false
     end
   end
+=end
+
 end
 
 #==============================================================================
