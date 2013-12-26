@@ -9,7 +9,7 @@
 #              which)
 #
 #==============================================================================
-
+u
 #==============================================================================
 #Compability: - Script should be compatible with other scripts.
 #             - Make sure that the picture you use have the right size as the
@@ -473,6 +473,8 @@ class Scene_Title < Scene_Base
     michael_terminate
   end
 
+#Not sure if this even necessary
+=begin
   def update
     super
     if $game_switches[141]
@@ -482,6 +484,7 @@ class Scene_Title < Scene_Base
       @command_background.src_rect.width = @command_window.width
     end
   end
+=end
   #--------------------------------------------------------------------------
   # Close Command Window
   #--------------------------------------------------------------------------
@@ -1085,6 +1088,58 @@ class Scene_Equip < Scene_MenuBase
     @item_background = Sprite.new(@background_viewport)
     @item_background.x = @item_window.x
     @item_background.y = @item_window.y
+    if $game_switches[114]
+      @status_window.back_opacity = 0
+      @status_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[14]
+      name = $game_message.game_windows_name[14]
+      @status_background.bitmap = Cache.cache_extended(folder, name)
+      @status_background.src_rect.width = @status_window.width
+      @status_background.visible = true
+    else
+      @status_window.back_opacity = @temp1
+      @status_window.opacity = @temp2
+      @status_background.visible = false
+    end
+    if $game_switches[115]
+      @command_window.back_opacity = 0
+      @command_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[15]
+      name = $game_message.game_windows_name[15]
+      @command_background.bitmap = Cache.cache_extended(folder, name)
+      @command_background.src_rect.width = @command_window.width
+      @command_background.visible = true
+    else
+      @command_window.back_opacity = @temp1
+      @command_window.opacity = @temp2
+      @command_background.visible = false
+    end
+    if $game_switches[116]
+      @slot_window.back_opacity = 0
+      @slot_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[16]
+      name = $game_message.game_windows_name[16]
+      @slot_background.bitmap = Cache.cache_extended(folder, name)
+      @slot_background.src_rect.width = @slot_window.width
+      @slot_background.visible = true
+    else
+      @slot_window.back_opacity = @temp1
+      @slot_window.opacity = @temp2
+      @slot_background.visible = false
+    end
+    if $game_switches[117]
+      @item_window.back_opacity = 0
+      @item_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[17]
+      name = $game_message.game_windows_name[17]
+      @item_background.bitmap = Cache.cache_extended(folder, name)
+      @item_background.src_rect.width = @item_window.width
+      @item_background.visible = true
+    else
+      @item_window.back_opacity = @temp1
+      @item_window.opacity = @temp2
+      @item_background.visible = false
+    end
   end
 
   begin
@@ -1109,6 +1164,8 @@ class Scene_Equip < Scene_MenuBase
     end
   end
 
+#This might be a useless feature, but let's leave it here for now
+=begin
   def update
     super
     if $game_switches[114]
@@ -1164,6 +1221,8 @@ class Scene_Equip < Scene_MenuBase
       @item_background.visible = false
     end
   end
+=end
+
 end
 
 #==============================================================================
@@ -1183,6 +1242,19 @@ class Scene_Status < Scene_MenuBase
     @status_background = Sprite.new(@background_viewport)
     @status_background.x = @status_window.x
     @status_background.y = @status_window.y
+    if $game_switches[118]
+      @status_window.back_opacity = 0
+      @status_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[18]
+      name = $game_message.game_windows_name[18]
+      @status_background.bitmap = Cache.cache_extended(folder, name)
+      @status_background.src_rect.width = @status_window.width
+      @status_background.visible = true
+    else
+      @status_window.back_opacity = @temp1
+      @status_window.opacity = @temp2
+      @status_background.visible = false
+    end
   end
 
   begin
@@ -1200,7 +1272,7 @@ class Scene_Status < Scene_MenuBase
       @background_viewport.dispose
     end
   end
-
+=begin
   def update
     super
     if $game_switches[118]
@@ -1217,6 +1289,7 @@ class Scene_Status < Scene_MenuBase
       @status_background.visible = false
     end
   end
+=end
 end
 
 #==============================================================================
@@ -1405,6 +1478,7 @@ class Scene_End < Scene_MenuBase
     @command_background.visible = false if @command_window.close?
   end
 
+=begin
   def update
     super
     if $game_switches[142]
@@ -1421,6 +1495,7 @@ class Scene_End < Scene_MenuBase
       @command_background.visible = false
     end
   end
+=end
 end
 
 
