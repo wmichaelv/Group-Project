@@ -11,16 +11,16 @@
 #==============================================================================
 
 #==============================================================================
-#Compability: Script should be compatible with other scripts, but until I fully
-#             understand the class 'Window', the location of the background(s)
-#             might need to be changed (x and y coordinates).
-#             See installation for direction.
+#Compability: Script should be compatible with other scripts.
+#             Make sure that the picture you use have the right size as the
+#             window's size.
 #==============================================================================
 
 
 #==============================================================================
 #  Biography lol
 #==============================================================================
+# 2013.12.25 --Fixed Scene_Title - Sprite is now in correlation with the window
 # 2013.12.25 --Fixed bugs on local @temp1 and @tem2 disposal
 #            --Scene_MenuBase is added
 #            --Fixed bugs for 'name'
@@ -426,18 +426,22 @@ class Scene_Title < Scene_Base
     @background_viewport = Viewport.new
     @background_viewport.z = 99
     @command_background = Sprite.new(@background_viewport)
-    @command_background.x = (Graphics.width - @command_window.width) / 2
-    @command_background.y = -48
-    #(Graphics.height - @command_window.height) / 2
+    @command_background.x = @command_window.x
+    #(Graphics.width - @command_window.width) / 2
+    @command_background.y = @command_window.y
+    #(Graphics.height - @command_window.fitting_height(@command_window.visible_line_number)) / 2
+
     if $game_switches[141]
       folder = $game_message.game_message_windows_folder[41]
       name = $game_message.game_windows_name[41]
       @command_background.bitmap = Cache.cache_extended(folder, name)
+      @command_background.src_rect.height = @command_window.height
       @command_background.src_rect.width = @command_window.width
       @command_background.visible = true
       @command_window.opacity = 0
       @command_window.back_opacity = 0
     end
+
   end
 
   alias michael_terminate terminate
@@ -818,10 +822,10 @@ class Scene_Item < Scene_ItemBase
 
   def terminate
     super
-    @background_item_viewport.dispose
     @help_background.dispose
     #@category_background.dispose #For some reason, dispose method is unavailable
     @item_background.dispose
+    @background_item_viewport.dispose
   end
 
 end
