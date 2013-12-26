@@ -11,9 +11,11 @@
 #==============================================================================
 
 #==============================================================================
-#Compability: Script should be compatible with other scripts.
-#             Make sure that the picture you use have the right size as the
-#             window's size.
+#Compability: - Script should be compatible with other scripts.
+#             - Make sure that the picture you use have the right size as the
+#               window's size.
+#             - Bitmap cannot convert .gif file yet.
+#
 #==============================================================================
 
 
@@ -64,8 +66,31 @@
 # - If you have a bust script, put the bust script anywhere below this script.
 # - Place the window Images (by default) in that folder
 #   <your project>/Graphics/Windows/(type of windows)/
+#
 #==============================================================================
-
+# How to Use:
+#  There are 3 commands so far (More would be added in the future)
+#  - window_on(window #, 'file_name.extention_name')
+#  For Example:
+#  window_on(5, 'ex.jpg') -> activate window #5 background(window_gold_changer)
+#                            with ex.jpg as the content
+#                         -> Btw, window #5 is Window_Gold
+#  - window_change(window #, 'file_name.extention_name')
+#  For Example:
+#  window_change(5, 'new.jpg') -> Change the window #5 background content with
+#                                 new.jpg
+#                              -> Make sure that switch is 'on' or else nothing
+#                                 would happen.
+#
+#  - window_off(window #)
+#  For Example:
+#  window_off(5) -> deactivate window #5 background and its content
+#                -> deactivating will hide the background and return the
+#                   window rectangle back to the boring blue color with its
+#                   redundant white padding.
+#
+#  Have Fun!
+#
 #==============================================================================
 
 module Windows_Changer
@@ -73,10 +98,7 @@ module Windows_Changer
   #============================================================================
   # Windows Changer = USE Game_Interpret for activation (scroll all the way
   #                   down for the key words (window_on and window_off))
-  # Use the element list below for 'i'.
-  #  For ex:
-  #   window_on(5,'ex.jpg') -> activate window #5 background(window_gold_changer)
-  #                            with ex.jpg as the content
+  # Use the element # list below for 'window #'.
   #
   # Default Switch = off (switch only available for activate windows)
   # This is for Original Windows - Scroll Down for Windows from other scripts
@@ -509,6 +531,7 @@ class Scene_Map < Scene_Base
       @scroll_text_background.src_rect.width = @scroll_text_window.width
       @scroll_text_background.visible = true
     else
+      #Map is freezed when this is active
       #@scroll_text_window.back_opacity = @temp1
       #@scroll_text_window.opacity = @temp2
       @scroll_text_background.visible = false
@@ -778,8 +801,6 @@ class Scene_Item < Scene_ItemBase
   alias michael_create_category_window create_category_window
   def create_create_category_window
     michael_create_category_window
-
-
     @category_background = Sprite.new(@background_item_viewport)
     @category_background.x = @category_window.x
     @category_background.y = @category_window.y
@@ -2263,7 +2284,7 @@ class Game_Interpreter
     $game_switches[i + 100] = true
     $game_message.game_windows_name[i] = "#{name}"
   end
-  def window_change(change)
+  def window_change(i, name)
     $game_message.game_windows_name[i] = "#{change}"
   end
 end
