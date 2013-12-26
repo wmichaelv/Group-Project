@@ -24,6 +24,7 @@
 # 2013.12.25 --Fixed bugs on local @temp1 and @tem2 disposal
 #            --Scene_MenuBase is added
 #            --Fixed bugs for 'name'
+#            --Fixed bugs on various Scenes
 # 2013.12.24 --Script is uploaded
 # 2013.12.23 --Window_Message is completed
 # 2013.12.22 --Scene_Equip is completed
@@ -383,7 +384,7 @@ class Window_Message < Window_Base
 
 
   #--------------------------------------------------------------------------
-  # * Main Processing of Fiber
+  # Main Processing of Fiber
   #--------------------------------------------------------------------------
   def fiber_main
     $game_message.visible = true
@@ -418,13 +419,6 @@ end
 #==============================================================================
 
 class Scene_Title < Scene_Base
-  #--------------------------------------------------------------------------
-  # Start Processing
-  #--------------------------------------------------------------------------
-  alias michael_start start
-  def start
-    michael_start
-  end
 
   alias michael_create_command_window create_command_window
   def create_command_window
@@ -544,12 +538,12 @@ class Scene_Map < Scene_Base
 end
 
 #==============================================================================
-# ** Scene_MenuBase
+# Scene_MenuBase
 #==============================================================================
 
 class Scene_MenuBase < Scene_Base
   #--------------------------------------------------------------------------
-  # * Create Help Window
+  # Create Help Window
   #--------------------------------------------------------------------------
   alias michael_create_help_window create_help_window
   def create_help_window
@@ -590,6 +584,19 @@ class Scene_Menu < Scene_MenuBase
     @command_background = Sprite.new(@background_Menu_viewport)
     @command_background.y = @command_window.y
     @command_background.x = @command_window.x
+    if $game_switches[106]
+      @command_window.back_opacity = 0
+      @command_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[6]
+      name = $game_message.game_windows_name[6]
+      @command_background.bitmap = Cache.cache_extended(folder, name)
+      @command_background.src_rect.width = @command_window.width
+      @command_background.visible = true
+    else
+      @command_window.back_opacity = @temp1
+      @command_window.opacity = @temp2
+      @command_background.visible = false
+    end
   end
 
   alias michael_create_gold_window create_gold_window
@@ -598,6 +605,19 @@ class Scene_Menu < Scene_MenuBase
     @gold_background = Sprite.new(@background_Menu_viewport)
     @gold_background.x = @gold_window.x
     @gold_background.y = @gold_window.y
+    if $game_switches[105]
+      @gold_window.back_opacity = 0
+      @gold_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[5]
+      name = $game_message.game_windows_name[5]
+      @gold_background.bitmap = Cache.cache_extended(folder, name)
+      @gold_background.src_rect.width = @gold_window.width
+      @gold_background.visible = true
+    else
+      @gold_window.back_opacity = @temp1
+      @gold_window.opacity = @temp2
+      @gold_background.visible = false
+    end
   end
 
   alias michael_create_status_window create_status_window
@@ -606,6 +626,19 @@ class Scene_Menu < Scene_MenuBase
     @status_background = Sprite.new(@background_Menu_viewport)
     @status_background.x = @status_window.x
     @status_background.y = @status_window.y
+    if $game_switches[107]
+      @status_window.back_opacity = 0
+      @status_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[7]
+      name = $game_message.game_windows_name[7]
+      @status_background.bitmap = Cache.cache_extended(folder, name)
+      @status_background.src_rect.width = @status_window.width
+      @status_background.visible = true
+    else
+      @status_window.back_opacity = @temp1
+      @status_window.opacity = @temp2
+      @status_background.visible = false
+    end
   end
 
   def terminate
@@ -616,7 +649,7 @@ class Scene_Menu < Scene_MenuBase
     @status_background.dispose
   end
 
-
+=begin
   def update
     super
     if $game_switches[106]
@@ -659,6 +692,7 @@ class Scene_Menu < Scene_MenuBase
       @status_background.visible = false
     end
   end
+=end
 end
 
 #==============================================================================
@@ -667,27 +701,11 @@ end
 
 class Scene_ItemBase < Scene_MenuBase
 
-  #alias michael_start start
-  #def start
-    #michael_start
-    #create_background_viewport_ItemBase
-    #create_background_ItemBase
-  #end
-
-  def start
-    super
-    create_actor_window
-    create_background_viewport_ItemBase
-    create_background_ItemBase
-  end
-
-
-  def create_background_viewport_ItemBase
+  alias michael_create_actor_window create_actor_window
+  def create_actor_window
+    michael_create_actor_window
     @background_ItemBase_viewport = Viewport.new
     @background_ItemBase_viewport.z = 198
-  end
-
-  def create_background_ItemBase
     @actor_background = Sprite.new(@background_ItemBase_viewport)
     @actor_background.y = @actor_window.y
     @actor_background.x = @actor_window.x
@@ -708,6 +726,7 @@ class Scene_ItemBase < Scene_MenuBase
     @actor_background.dispose
   end
 
+=begin
   def update
     super
     if $game_switches[108]
@@ -717,6 +736,7 @@ class Scene_ItemBase < Scene_MenuBase
       @actor_background.src_rect.width = @actor_window.width
     end
   end
+=end
 
   #--------------------------------------------------------------------------
   # Show Subwindow
