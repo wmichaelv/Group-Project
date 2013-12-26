@@ -198,6 +198,8 @@ module Windows_Changer
   "Element #45",
   ]  #Add more windows here
 
+  Number_Of_Element = 45
+
   #============================================================================
   # Windows Folder - This is where the folders are
   #============================================================================
@@ -249,6 +251,59 @@ module Windows_Changer
   Window_DebugRight_Folder = "Graphics\\Windows\\Window_DebugRight",
   Window_Base_Folder = "Graphics\\Windows\\Window_Base",
   ] #Add more windows here
+
+  #============================================================================
+  # Windows Position - This is To Adjust The Position of The Background Windows
+  #============================================================================
+  Windows_Changer_Position_Array = [
+  Windows_Position = [0,0,0,0],
+  Window_Selectable_Position = [0,0,0,0],
+  Window_Command_Position = [0,0,0,0],
+  Window_HorzCommand_Position = [0,0,0,0],
+  Window_Help_Position = [0,0,0,0],
+  Window_Gold_Position = [0,0,0,0],
+  Window_MenuCommand_Position = [0,0,0,0],
+  Window_MenuStatus_Position = [0,0,0,0],
+  Window_MenuActor_Position = [0,0,0,0],
+  Window_ItemCategory_Position = [0,0,0,0],
+  Window_ItemList_Position = [0,0,0,0],
+  Window_SkillCommand_Position = [0,0,0,0],
+  Window_SkillStatus_Position = [0,0,0,0],
+  Window_SkillList_Position = [0,0,0,0],
+  Window_EquipStatus_Position = [0,0,0,0],
+  Window_EquipCommand_Position = [0,0,0,0],
+  Window_EquipSlot_Position = [0,0,0,0],
+  Window_EquipItem_Position = [0,0,0,0],
+  Window_Status_Position = [0,0,0,0],
+  Window_SaveFile_Position = [0,0,0,0],
+  Window_ShopCommand_Position = [0,0,0,0],
+  Window_ShopBuy_Position = [0,0,0,0],
+  Window_ShopSell_Position = [0,0,0,0],
+  Window_ShopNumber_Position = [0,0,0,0],
+  Window_ShopStatus_Position = [0,0,0,0],
+  Window_NameEdit_Position = [0,0,0,0],
+  Window_NameInput_Position = [0,0,0,0],
+  Window_ChoiceList_Position = [0,0,0,0],
+  Window_NumberInput_Position = [0,0,0,0],
+  Window_KeyItem_Position = [0,0,0,0],
+  Window_Message_Position = [0,0,0,0],
+  Window_ScrollText_Position = [0,0,0,0],
+  Window_MapName_Position = [0,0,0,0],
+  Window_BattleLog_Position = [0,0,0,0],
+  Window_PartyCommand_Position = [0,0,0,0],
+  Window_ActorCommand_Position = [0,0,0,0],
+  Window_BattleStatus_Position = [0,0,0,0],
+  Window_BattleActor_Position = [0,0,0,0],
+  Window_BattleEnemy_Position = [0,0,0,0],
+  Window_BattleSkill_Position = [0,0,0,0],
+  Window_BattleItem_Position = [0,0,0,0],
+  Window_TitleCommand_Position = [0,0,0,0],
+  Window_GameEnd_Position = [0,0,0,0],
+  Window_DebugLeft_Position = [0,0,0,0],
+  Window_DebugRight_Position = [0,0,0,0],
+  Window_Base_Position = [0,0,0,0],
+  ] #Add more windows here
+
 end
 
 #==============================================================================
@@ -271,6 +326,7 @@ class Game_Message
 
   attr_accessor :game_message_windows_folder
   attr_accessor :game_windows_name
+  attr_accessor :game_windows_position
 
   alias a_lias initialize
 
@@ -280,7 +336,8 @@ class Game_Message
     Windows_Changer::Windows_Changer_Folder_Array
     @game_windows_name =
     Windows_Changer::Windows_Changer_Array
-
+    @game_windows_position =
+    Windows_Changer::Windows_Changer_Position_Array
   end
 end
 
@@ -485,6 +542,7 @@ class Scene_Title < Scene_Base
     end
   end
 =end
+
   #--------------------------------------------------------------------------
   # Close Command Window
   #--------------------------------------------------------------------------
@@ -2435,8 +2493,8 @@ module DataManager
   end
   def self.create_game_objects
     michael_create_game_objects
-
-    $game_switches[100..144] = false #Add more numbers if more windows added
+    #Default setting = false
+    $game_switches[100..100 + Number_Of_Element + Number_Of_Element] = false
   end
 end
 
@@ -2453,6 +2511,10 @@ class Game_Interpreter
   end
   def window_change(i, name)
     $game_message.game_windows_name[i] = "#{change}"
+  end
+  def window_move(i, x, y, width, height)
+    $game_switches[i+i+100] = true
+    $game_message.game_windows_position[i] = [x, y, width, height]
   end
 end
 
