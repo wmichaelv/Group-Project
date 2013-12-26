@@ -12,6 +12,9 @@
 #==============================================================================
 #  Biography lol
 #==============================================================================
+# 2013.12.25 --Fixed bugs on local @temp1 and @tem2 disposal
+#            --Scene_MenuBase is added
+#            --Fixed bugs for 'name'
 # 2013.12.24 --Script is uploaded
 # 2013.12.23 --Window_Message is completed
 # 2013.12.22 --Scene_Equip is completed
@@ -70,97 +73,97 @@ module Windows_Changer
   #============================================================================
   Windows_Changer_Array = [
   Default_Window_This_is_Extra_Do_Not_Delete_Unless_You_Know_What_You_Do =
-  "", #Element 0 Don't tweak this one for the sake of harmony :D
-  Window_Selectable_Changer =
-  "", #Element 1
-  Window_Command_Changer =
-  "", #Element 2
-  Window_HorzCommand_Changer =
-  "", #Element 3
-  Window_Help_Changer =
-  "", #Element 4
-  Window_Gold_Changer =
-  "", #Element 5
-  Window_MenuCommand_Changer =
-  "", #Element 6
-  Window_MenuStatus_Changer =
-  "", #Element 7
-  Window_MenuActor_Changer =
-  "", #Element 8
-  Window_ItemCategory_Changer =
-  "", #Element 9
-  Window_ItemList_Changer =
-  "", #Element 10
-  Window_SkillCommand_Changer =
-  "", #Element 11
-  Window_SkillStatus_Changer =
-  "", #Element 12
-  Window_SkillList_Changer =
-  "", #Element 13
-  Window_EquipStatus_Changer =
-  "", #Element 14
-  Window_EquipCommand_Changer =
-  "", #Element 15
-  Window_EquipSlot_Changer =
-  "", #Element 16
-  Window_EquipItem_Changer =
-  "", #Element 17
-  Window_Status_Changer =
-  "", #Element 18
-  Window_SaveFile_Changer =
-  "", #Element 19
-  Window_ShopCommand_Changer =
-  "", #Element 20
-  Window_ShopBu_Changer =
-  "", #Element 21
-  Window_ShopSell_Changer =
-  "", #Element 22
-  Window_ShopNumber_Changer =
-  "", #Element 23
-  Window_ShopStatus_Changer =
-  "", #Element 24
-  Window_NameEdit_Changer =
-  "", #Element 25
-  Window_NameInput_Changer =
-  "", #Element 26
-  Window_ChoiceList_Changer =
-  "", #Element 27
-  Window_NumberInput_Changer =
-  "", #Element 28
-  Window_KeyItem_Changer =
-  "", #Element 29
-  Window_Message_Changer =
-  "", #Element 30
-  Window_ScrollText_Changer =
-  "", #Element 31
-  Window_MapName_Changer =
-  "", #Element 32
-  Window_BattleLog_Changer =
-  "", #Element 33
-  Window_PartyCommand_Changer =
-  "", #Element 34
-  Window_ActorCommand_Changer =
-  "", #Element 35
-  Window_BattleStatus_Changer =
-  "", #Element 36
-  Window_BattleActor_Changer =
-  "", #Element 37
-  Window_BattleEnemy_Changer =
-  "", #Element 38
-  Window_BattleSkill_Changer =
-  "", #Element 39
-  Window_BattleItem_Changer =
-  "", #Element 40
-  Window_TitleCommand_Changer =
-  "", #Element 41
-  Window_GameEnd_Changer =
-  "", #Element 42
-  Window_DebugLeft_Changer =
-  "", #Element 43
-  Window_DebugRight_Changer =
-  "", #Element 44
-  Window_Base_Changer =
-  "", #Element 45
+  "Element #0", #Don't tweak this one for the sake of harmony :D
+  window_Selectable_Changer =
+  "Element #1",
+  window_Command_Changer =
+  "Element #2",
+  window_HorzCommand_Changer =
+  "Element #3",
+  window_Help_Changer =
+  "Element #4",
+  window_Gold_Changer =
+  "Element #5",
+  window_MenuCommand_Changer =
+  "Element #6",
+  window_MenuStatus_Changer =
+  "Element #7",
+  window_MenuActor_Changer =
+  "Element #8",
+  window_ItemCategory_Changer =
+  "Element #9",
+  window_ItemList_Changer =
+  "Element #10",
+  window_SkillCommand_Changer =
+  "Element #11",
+  window_SkillStatus_Changer =
+  "Element #12",
+  window_SkillList_Changer =
+  "Element #13",
+  window_EquipStatus_Changer =
+  "Element #14",
+  window_EquipCommand_Changer =
+  "Element #15",
+  window_EquipSlot_Changer =
+  "Element #16",
+  window_EquipItem_Changer =
+  "Element #17",
+  window_Status_Changer =
+  "Element #18",
+  window_SaveFile_Changer =
+  "Element #19",
+  window_ShopCommand_Changer =
+  "Element #20",
+  window_ShopBuy_Changer =
+  "Element #21",
+  window_ShopSell_Changer =
+  "Element #22",
+  window_ShopNumber_Changer =
+  "Element #23",
+  window_ShopStatus_Changer =
+  "Element #24",
+  window_NameEdit_Changer =
+  "Element #25",
+  window_NameInput_Changer =
+  "Element #26",
+  window_ChoiceList_Changer =
+  "Element #27",
+  window_NumberInput_Changer =
+  "Element #28",
+  window_KeyItem_Changer =
+  "Element #29",
+  window_Message_Changer =
+  "Element #30",
+  window_ScrollText_Changer =
+  "Element #31",
+  window_MapName_Changer =
+  "Element #32",
+  window_BattleLog_Changer =
+  "Element #33",
+  window_PartyCommand_Changer =
+  "Element #34",
+  window_ActorCommand_Changer =
+  "Element #35",
+  window_BattleStatus_Changer =
+  "Element #36",
+  window_BattleActor_Changer =
+  "Element #37",
+  window_BattleEnemy_Changer =
+  "Element #38",
+  window_BattleSkill_Changer =
+  "Element #39",
+  window_BattleItem_Changer =
+  "Element #40",
+  window_TitleCommand_Changer =
+  "Element #41",
+  window_GameEnd_Changer =
+  "Element #42",
+  window_DebugLeft_Changer =
+  "Element #43",
+  window_DebugRight_Changer =
+  "Element #44",
+  window_Base_Changer =
+  "Element #45",
   ]  #Add more windows here
 
   #============================================================================
@@ -188,7 +191,7 @@ module Windows_Changer
   Window_Status_Folder = "Graphics\\Windows\\Window_Status",
   Window_SaveFile_Folder = "Graphics\\Windows\\Window_SaveFile",
   Window_ShopCommand_Folder = "Graphics\\Windows\\Window_ShopCommand",
-  Window_ShopBu_Folder = "Graphics\\Windows\\Window_ShopBu",
+  Window_ShopBuy_Folder = "Graphics\\Windows\\Window_ShopBuy",
   Window_ShopSell_Folder = "Graphics\\Windows\\Window_ShopSell",
   Window_ShopNumber_Folder = "Graphics\\Windows\\Window_ShopNumber",
   Window_ShopStatus_Folder = "Graphics\\Windows\\Window_ShopStatus",
@@ -221,7 +224,7 @@ end
 #==============================================================================
 module Cache
   def self.cache_extended(folder, filename)
-    load_bitmap("#{folder}/", filename)
+    load_bitmap("#{folder}/", "#{filename}")
   end
 end
 
@@ -243,7 +246,7 @@ class Game_Message
     a_lias
     @game_message_windows_folder =
     Windows_Changer::Windows_Changer_Folder_Array
-    @game_windows_name
+    @game_windows_name =
     Windows_Changer::Windows_Changer_Array
 
   end
@@ -281,29 +284,29 @@ class Window_Message < Window_Base
   alias michael_initialize initialize
   def initialize
     michael_initialize
-    create_background_viewport
-    create_background
+    create_background_viewport_Window_Message
+    create_background_Window_Message
   end
 
-  def create_background_viewport
-    @background_viewport = Viewport.new
-    @background_viewport.z = 199
+  def create_background_viewport_Window_Message
+    @background_Window_Message_viewport = Viewport.new
+    @background_Window_Message_viewport.z = 199
   end
 
-  def create_background
+  def create_background_Window_Message
     @temp1 = @gold_window.back_opacity
     @temp2 = @gold_window.opacity
-    @gold_background = Sprite.new(@background_vieRwport)
+    @gold_background = Sprite.new(@background_Window_Message_viewport)
     @gold_background.y = @gold_window.y
     @gold_background.x = @gold_window.x
     @gold_background.visible = false
-    @choice_background = Sprite.new(@background_viewport)
+    @choice_background = Sprite.new(@background_Window_Message_viewport)
     @choice_background.x = @choice_window.x
     @choice_background.y = @choice_window.y
-    @number_background = Sprite.new(@background_viewport)
+    @number_background = Sprite.new(@background_Window_Message_viewport)
     @number_background.x = @number_window.x
     @number_background.y = @number_window.y
-    @item_background = Sprite.new(@background_viewport)
+    @item_background = Sprite.new(@background_Window_Message_viewport)
     @item_background.x = @item_window.x
     @item_background.y = @item_window.y
   end
@@ -311,18 +314,16 @@ class Window_Message < Window_Base
   alias michael_dispose dispose
   def dispose
     michael_dispose
-    @temp1.dispose
-    @temp2.dispose
-    @background_viewport.dispose
+    @background_Window_Message_viewport.dispose
     @gold_background.dispose
     @choice_background.dispose
     @number_background.dispose
     @item_background.dispose
   end
 
+
   alias michael_update update
   def update
-    michael_update
     if $game_switches[105]
       @gold_window.back_opacity = 0
       @gold_window.opacity = 0
@@ -367,7 +368,10 @@ class Window_Message < Window_Base
     else
       @item_background.visible = false
     end
+    michael_update
   end
+
+
 
   #--------------------------------------------------------------------------
   # * Main Processing of Fiber
@@ -390,23 +394,15 @@ class Window_Message < Window_Base
     @fiber = nil
   end
 
+
+
   alias michael_update_placement update_placement
   def update_placement
-    @gold.background.y = @gold_window.y
+    michael_update_placement
+    @gold_background.y = @gold_window.y
   end
 
-
-  alias michael_process_escape_character process_escape_character
-  def process_escape_character(code, text, pos)
-    case code.upcase
-    when '$'
-      @gold_background.visible = true
-    else
-    end
-    michael_process_escape_character
-  end
 end
-
 
 #==============================================================================
 # Scene_Title
@@ -419,21 +415,17 @@ class Scene_Title < Scene_Base
   alias michael_start start
   def start
     michael_start
-    create_background_viewport
-    create_background
   end
 
-  def create_background_viewport
+  alias michael_create_command_window create_command_window
+  def create_command_window
+    michael_create_command_window
     @background_viewport = Viewport.new
-    @background_viewport.z = 199
-  end
-
-  def create_background
-    @temp1 = @command_window.back_opacity
-    @temp2 = @command_window.opacity
+    @background_viewport.z = 99
     @command_background = Sprite.new(@background_viewport)
-    @command_background.y = @command_window.y
-    @command_background.x = @command_window.x
+    @command_background.x = (Graphics.width - @command_window.width) / 2
+    @command_background.y = -48
+    #(Graphics.height - @command_window.height) / 2
     if $game_switches[141]
       folder = $game_message.game_message_windows_folder[41]
       name = $game_message.game_windows_name[41]
@@ -447,11 +439,9 @@ class Scene_Title < Scene_Base
 
   alias michael_terminate terminate
   def terminate
-    michael_terminate
-    @temp1.dispose
-    @temp2.dispose
     @background_viewport.dispose
     @command_background.dispose
+    michael_terminate
   end
 
   def update
@@ -479,44 +469,16 @@ end
 
 class Scene_Map < Scene_Base
 
-  alias michael_start start
-  def start
-    michael_start
-    create_background_viewport
-    create_background
-  end
-
-  def create_background_viewport
-    @background_viewport = Viewport.new
-    @background_viewport.z = 199
-  end
-
-  def create_background
+  alias michael_create_all_windows create_all_windows
+  def create_all_windows
+    michael_create_all_windows
+    @background_Map_viewport = Viewport.new
+    @background_Map_viewport.z = 199
     @temp1 = @message_window.back_opacity
     @temp2 = @message_window.opacity
-    @message_background = Sprite.new(@background_viewport)
+    @message_background = Sprite.new(@background_Map_viewport)
     @message_background.y = @message_window.y
     @message_background.x = @message_window.x
-    @scroll_background = Sprite.new(@background_viewport)
-    @scroll_background.x = @scroll_window.x
-    @scroll_background.y = @scroll_window.y
-    @map_name_background = Sprite.new(@background_viewport)
-    @map_name_background.x = @item_window.x
-    @map_name_background.y = @item_window.y
-  end
-
-  def terminate
-    super
-    @temp1.dispose
-    @temp2.dispose
-    @background_viewport.dispose
-    @message_background.dispose
-    @scroll_background.dispose
-    @map_name_background.dispose
-  end
-
-  def update
-    super
     if $game_switches[130]
       @message_window.back_opacity = 0
       @message_window.opacity = 0
@@ -526,23 +488,27 @@ class Scene_Map < Scene_Base
       @message_background.src_rect.width = @message_window.width
       @message_background.visible = true
     else
-      @message_window.back_opacity = temp1
-      @message_window.opacity = temp2
       @message_background.visible = false
     end
+    @scroll_text_background = Sprite.new(@background_Map_viewport)
+    @scroll_text_background.x = @scroll_text_window.x
+    @scroll_text_background.y = @scroll_text_window.y
     if $game_switches[131]
-      @scroll_window.back_opacity = 0
-      @scroll_window.opacity = 0
+      @scroll_text_window.back_opacity = 0
+      @scroll_text_window.opacity = 0
       folder = $game_message.game_message_windows_folder[31]
       name = $game_message.game_windows_name[31]
-      @scroll_background.bitmap = Cache.cache_extended(folder, name)
-      @scroll_background.src_rect.width = @scroll_window.width
-      @scroll_background.visible = true
+      @scroll_text_background.bitmap = Cache.cache_extended(folder, name)
+      @scroll_text_background.src_rect.width = @scroll_text_window.width
+      @scroll_text_background.visible = true
     else
-      @scroll_window.back_opacity = temp1
-      @scroll_window.opacity = temp2
-      @scroll_background.visible = false
+      #@scroll_text_window.back_opacity = @temp1
+      #@scroll_text_window.opacity = @temp2
+      @scroll_text_background.visible = false
     end
+    @map_name_background = Sprite.new(@background_Map_viewport)
+    @map_name_background.x = @map_name_window.x
+    @map_name_background.y = @map_name_window.y
     if $game_switches[132]
       @map_name_window.back_opacity = 0
       @map_name_window.opacity = 0
@@ -552,13 +518,52 @@ class Scene_Map < Scene_Base
       @map_name_background.src_rect.width = @map_name_window.width
       @map_name_background.visible = true
     else
-      @map_name_window.back_opacity = temp1
-      @map_name_window.opacity = temp2
+      #@map_name_window.back_opacity = @temp1
+      #@map_name_window.opacity = @temp2
       @map_name_background.visible = false
     end
   end
+
+  alias michael_terminate terminate
+  def terminate
+    michael_terminate
+    @background_Map_viewport.dispose
+    @message_background.dispose
+    @scroll_text_background.dispose
+    @map_name_background.dispose
+  end
 end
 
+#==============================================================================
+# ** Scene_MenuBase
+#==============================================================================
+
+class Scene_MenuBase < Scene_Base
+  #--------------------------------------------------------------------------
+  # * Create Help Window
+  #--------------------------------------------------------------------------
+  alias michael_create_help_window create_help_window
+  def create_help_window
+    michael_create_help_window
+    @temp1 = @help_window.back_opacity
+    @temp2 = @help_window.opacity
+    @help_background = Sprite.new(@viewport)
+    @help_background.z -= 1
+    @help_background.x = @help_window.x
+    @help_background.y = @help_window.y
+    if $game_switches[104]
+      @help_window.back_opacity = 0
+      @help_window.opacity = 0
+      folder = $game_message.game_message_windows_folder[4]
+      name = $game_message.game_windows_name[4]
+      @help_background.bitmap = Cache.cache_extended(folder, name)
+      @help_background.src_rect.width = @help_window.width
+      @help_background.visible = true
+    else
+      @help_background.visible = false
+    end
+  end
+end
 
 #==============================================================================
 # Scene_Menu
@@ -566,41 +571,42 @@ end
 
 class Scene_Menu < Scene_MenuBase
 
-  alias michael_start start
-  def start
-    michael_start
-    create_background_viewport
-    create_background
-  end
-
-  def create_background_viewport
-    @background_viewport = Viewport.new
-    @background_viewport.z = 199
-  end
-
-  def create_background
+  alias michael_create_command_window create_command_window
+  def create_command_window
+    michael_create_command_window
+    @background_Menu_viewport = Viewport.new
+    @background_Menu_viewport.z = 199
     @temp1 = @command_window.back_opacity
     @temp2 = @command_window.opacity
-    @command_background = Sprite.new(@background_viewport)
+    @command_background = Sprite.new(@background_Menu_viewport)
     @command_background.y = @command_window.y
     @command_background.x = @command_window.x
-    @gold_background = Sprite.new(@background_viewport)
+  end
+
+  alias michael_create_gold_window create_gold_window
+  def create_gold_window
+    michael_create_gold_window
+    @gold_background = Sprite.new(@background_Menu_viewport)
     @gold_background.x = @gold_window.x
     @gold_background.y = @gold_window.y
-    @status_background = Sprite.new(@background_viewport)
+  end
+
+  alias michael_create_status_window create_status_window
+  def create_status_window
+    michael_create_status_window
+    @status_background = Sprite.new(@background_Menu_viewport)
     @status_background.x = @status_window.x
     @status_background.y = @status_window.y
   end
 
   def terminate
     super
-    @temp1.dispose
-    @temp2.dispose
-    @background_viewport.dispose
+    @background_Menu_viewport.dispose
     @command_background.dispose
     @gold_background.dispose
     @status_background.dispose
   end
+
 
   def update
     super
@@ -613,8 +619,8 @@ class Scene_Menu < Scene_MenuBase
       @command_background.src_rect.width = @command_window.width
       @command_background.visible = true
     else
-      @command_window.back_opacity = temp1
-      @command_window.opacity = temp2
+      @command_window.back_opacity = @temp1
+      @command_window.opacity = @temp2
       @command_background.visible = false
     end
     if $game_switches[105]
@@ -626,8 +632,8 @@ class Scene_Menu < Scene_MenuBase
       @gold_background.src_rect.width = @gold_window.width
       @gold_background.visible = true
     else
-      @gold_window.back_opacity = temp1
-      @gold_window.opacity = temp2
+      @gold_window.back_opacity = @temp1
+      @gold_window.opacity = @temp2
       @gold_background.visible = false
     end
     if $game_switches[107]
@@ -639,13 +645,12 @@ class Scene_Menu < Scene_MenuBase
       @status_background.src_rect.width = @status_window.width
       @status_background.visible = true
     else
-      @status_window.back_opacity = temp1
-      @status_window.opacity = temp2
+      @status_window.back_opacity = @temp1
+      @status_window.opacity = @temp2
       @status_background.visible = false
     end
   end
 end
-
 
 #==============================================================================
 # Scene_ItemBase
@@ -653,22 +658,28 @@ end
 
 class Scene_ItemBase < Scene_MenuBase
 
-  alias michael_start start
+  #alias michael_start start
+  #def start
+    #michael_start
+    #create_background_viewport_ItemBase
+    #create_background_ItemBase
+  #end
+
   def start
-    michael_start
-    create_background_viewport
-    create_background
+    super
+    create_actor_window
+    create_background_viewport_ItemBase
+    create_background_ItemBase
   end
 
-  def create_background_viewport
-    @background_viewport = Viewport.new
-    @background_viewport.z = 199
+
+  def create_background_viewport_ItemBase
+    @background_ItemBase_viewport = Viewport.new
+    @background_ItemBase_viewport.z = 198
   end
 
-  def create_background
-    @temp1 = @actor_window.back_opacity
-    @temp2 = @actor_window.opacity
-    @actor_background = Sprite.new(@background_viewport)
+  def create_background_ItemBase
+    @actor_background = Sprite.new(@background_ItemBase_viewport)
     @actor_background.y = @actor_window.y
     @actor_background.x = @actor_window.x
     if $game_switches[108]
@@ -684,9 +695,7 @@ class Scene_ItemBase < Scene_MenuBase
 
   def terminate
     super
-    @temp1.dispose
-    @temp2.dispose
-    @background_viewport.dispose
+    @background_ItemBase_viewport.dispose
     @actor_background.dispose
   end
 
@@ -699,6 +708,7 @@ class Scene_ItemBase < Scene_MenuBase
       @actor_background.src_rect.width = @actor_window.width
     end
   end
+
   #--------------------------------------------------------------------------
   # Show Subwindow
   #--------------------------------------------------------------------------
@@ -711,21 +721,11 @@ class Scene_ItemBase < Scene_MenuBase
       @actor_window.back_opacity = 0
     else
       @actor_background.visible = false
-      @actor_window.opacity = temp1
-      @actor_window.back_opacity = temp2
+      @actor_window.opacity = @temp1
+      @actor_window.back_opacity = @temp2
     end
   end
-  #--------------------------------------------------------------------------
-  # Hide Subwindow
-  #--------------------------------------------------------------------------
-  def hide_sub_window(window)
-    @viewport.rect.x = @viewport.ox = 0
-    @viewport.rect.width = Graphics.width
-    window.hide.deactivate
-    activate_item_window
-  end
 end
-
 
 #==============================================================================
 # Scene_Item
@@ -733,57 +733,23 @@ end
 
 class Scene_Item < Scene_ItemBase
 
-  alias michael_start start
-  def start
-    michael_start
-    create_background_viewport
-    create_background
+
+  def create_help_window
+    super
+    @background_item_viewport = Viewport.new
+    @background_item_viewport.z = 199
+    @help_background.z = @background_item_viewport.z
   end
 
-  def create_background_viewport
-    @background_viewport = Viewport.new
-    @background_viewport.z = 199
-  end
 
-  def create_background
-    @temp1 = @help_window.back_opacity
-    @temp2 = @help_window.opacity
-    @help_background = Sprite.new(@background_viewport)
-    @help_background.y = @help_window.y
-    @help_background.x = @help_window.x
-    @category_background = Sprite.new(@background_viewport)
+  alias michael_create_category_window create_category_window
+  def create_create_category_window
+    michael_create_category_window
+
+
+    @category_background = Sprite.new(@background_item_viewport)
     @category_background.x = @category_window.x
     @category_background.y = @category_window.y
-    @item_background = Sprite.new(@background_viewport)
-    @item_background.x = @item_window.x
-    @item_background.y = @item_window.y
-  end
-
-  def terminate
-    super
-    @temp1.dispose
-    @temp2.dispose
-    @background_viewport.dispose
-    @help_background.dispose
-    @category_background.dispose
-    @item_background.dispose
-  end
-
-  def update
-    super
-    if $game_switches[104]
-      @help_window.back_opacity = 0
-      @help_window.opacity = 0
-      folder = $game_message.game_message_windows_folder[4]
-      name = $game_message.game_windows_name[4]
-      @help_background.bitmap = Cache.cache_extended(folder, name)
-      @help_background.src_rect.width = @help_window.width
-      @help_background.visible = true
-    else
-      @help_window.back_opacity = temp1
-      @help_window.opacity = temp2
-      @help_background.visible = false
-    end
     if $game_switches[109]
       @category_window.back_opacity = 0
       @category_window.opacity = 0
@@ -793,10 +759,18 @@ class Scene_Item < Scene_ItemBase
       @category_background.src_rect.width = @category_window.width
       @category_background.visible = true
     else
-      @category_window.back_opacity = temp1
-      @category_window.opacity = temp2
+      @category_window.back_opacity = @temp1
+      @category_window.opacity = @temp2
       @category_background.visible = false
     end
+  end
+
+  alias michael_create_item_window create_item_window
+  def create_item_window
+    michael_create_item_window
+    @item_background = Sprite.new(@background_item_viewport)
+    @item_background.x = 0#@item_window.x
+    @item_background.y = 0#@item_window.y
     if $game_switches[110]
       @item_window.back_opacity = 0
       @item_window.opacity = 0
@@ -806,58 +780,67 @@ class Scene_Item < Scene_ItemBase
       @item_background.src_rect.width = @item_window.width
       @item_background.visible = true
     else
-      @item_window.back_opacity = temp1
-      @item_window.opacity = temp2
+      @item_window.back_opacity = @temp1
+      @item_window.opacity = @temp2
       @item_background.visible = false
     end
-  end
-end
 
+  end
+
+  def terminate
+    super
+    @background_item_viewport.dispose
+    @help_background.dispose
+    #@category_background.dispose
+    #@item_background.dispose
+  end
+
+end
 
 #==============================================================================
 # Scene_Skill
 #==============================================================================
 
 class Scene_Skill < Scene_ItemBase
-  alias michael_start start
-  def start
-    michael_start
-    create_background_viewport
-    create_background
-  end
 
-  def create_background_viewport
-    @background_viewport = Viewport.new
-    @background_viewport.z = 199
-  end
+  alias michael_create_command_window create_command_window
+  def create_command_window
 
-  def create_background
+
+    michael_create_command_window
+
+
+    @background_skill_viewport = Viewport.new
+    @background_skill_viewport.z = 198
+
+
     @temp1 = @help_window.back_opacity
     @temp2 = @help_window.opacity
-    @help_background = Sprite.new(@background_viewport)
+    @help_background.z = @background_ItemBase_viewport.z
     @help_background.x = @help_window.x
     @help_background.y = @help_window.y
-    @command_background = Sprite.new(@background_viewport)
+
+
+    @command_background = Sprite.new(@background_skill_viewport)
     @command_background.x = @command_window.x
     @command_background.y = @command_window.y
-    @status_background = Sprite.new(@background_viewport)
+    @status_background = Sprite.new(@background_skill_viewport)
     @status_background.x = @status_window.x
     @status_background.y = @status_window.y
-    @item_background = Sprite.new(@background_viewport)
+    @item_background = Sprite.new(@background_skill_viewport)
     @item_background.x = @item_window.x
     @item_background.y = @item_window.y
   end
 
   def terminate
     super
-    @temp1.dispose
-    @temp2.dispose
-    @background_viewport.dispose
+    @background_skill_viewport.dispose
     @help_background.dispose
     @command_background.dispose
     @status_background.dispose
     @item_background.dispose
   end
+
 
   def update
     super
@@ -870,8 +853,8 @@ class Scene_Skill < Scene_ItemBase
       @help_background.src_rect.width = @help_window.width
       @help_background.visible = true
     else
-      @help_window.back_opacity = temp1
-      @help_window.opacity = temp2
+      @help_window.back_opacity = @temp1
+      @help_window.opacity = @temp2
       @help_background.visible = false
     end
     if $game_switches[111]
@@ -883,8 +866,8 @@ class Scene_Skill < Scene_ItemBase
       @command_background.src_rect.width = @command_window.width
       @command_background.visible = true
     else
-      @command_window.back_opacity = temp1
-      @command_window.opacity = temp2
+      @command_window.back_opacity = @temp1
+      @command_window.opacity = @temp2
       @command_background.visible = false
     end
     if $game_switches[112]
@@ -896,8 +879,8 @@ class Scene_Skill < Scene_ItemBase
       @status_background.src_rect.width = @status_window.width
       @status_background.visible = true
     else
-      @status_window.back_opacity = temp1
-      @status_window.opacity = temp2
+      @status_window.back_opacity = @temp1
+      @status_window.opacity = @temp2
       @status_background.visible = false
     end
     if $game_switches[113]
@@ -909,13 +892,12 @@ class Scene_Skill < Scene_ItemBase
       @item_background.src_rect.width = @item_window.width
       @item_background.visible = true
     else
-      @item_window.back_opacity = temp1
-      @item_window.opacity = temp2
+      @item_window.back_opacity = @temp1
+      @item_window.opacity = @temp2
       @item_background.visible = false
     end
   end
 end
-
 
 #==============================================================================
 # Scene_Equip
@@ -937,7 +919,7 @@ class Scene_Equip < Scene_MenuBase
     @background_viewport.z = 199
   end
 
-  def create_background
+  def create_backgrounds
     @temp1 = @status_window.back_opacity
     @temp2 = @status_window.opacity
     @status_background = Sprite.new(@background_viewport)
@@ -974,8 +956,8 @@ class Scene_Equip < Scene_MenuBase
       @status_background.src_rect.width = @status_window.width
       @status_background.visible = true
     else
-      @status_window.back_opacity = temp1
-      @status_window.opacity = temp2
+      @status_window.back_opacity = @temp1
+      @status_window.opacity = @temp2
       @status_background.visible = false
     end
     if $game_switches[115]
@@ -987,8 +969,8 @@ class Scene_Equip < Scene_MenuBase
       @command_background.src_rect.width = @command_window.width
       @command_background.visible = true
     else
-      @command_window.back_opacity = temp1
-      @command_window.opacity = temp2
+      @command_window.back_opacity = @temp1
+      @command_window.opacity = @temp2
       @command_background.visible = false
     end
     if $game_switches[116]
@@ -1000,8 +982,8 @@ class Scene_Equip < Scene_MenuBase
       @slot_background.src_rect.width = @slot_window.width
       @slot_background.visible = true
     else
-      @slot_window.back_opacity = temp1
-      @slot_window.opacity = temp2
+      @slot_window.back_opacity = @temp1
+      @slot_window.opacity = @temp2
       @slot_background.visible = false
     end
     if $game_switches[117]
@@ -1013,8 +995,8 @@ class Scene_Equip < Scene_MenuBase
       @item_background.src_rect.width = @item_window.width
       @item_background.visible = true
     else
-      @item_window.back_opacity = temp1
-      @item_window.opacity = temp2
+      @item_window.back_opacity = @temp1
+      @item_window.opacity = @temp2
       @item_background.visible = false
     end
   end
@@ -1041,8 +1023,6 @@ class Scene_Status < Scene_MenuBase
 
   def terminate
     super
-    @temp1.dispose
-    @temp2.dispose
     @status_background.dispose
     @background_viewport.dispose
   end
@@ -1058,13 +1038,12 @@ class Scene_Status < Scene_MenuBase
       @status_background.src_rect.width = @status_window.width
       @status_background.visible = true
     else
-      @status_window.back_opacity = temp1
-      @status_window.opacity = temp2
+      @status_window.back_opacity = @temp1
+      @status_window.opacity = @temp2
       @status_background.visible = false
     end
   end
 end
-
 
 #==============================================================================
 # Scene_File
@@ -1090,11 +1069,8 @@ class Scene_File < Scene_MenuBase
   def terminate
     michael_terminate
     @savefile_backgrounds.each {|background| background.dispose}
-    @savefile_backgrounds.dispose
     @background_viewport.dispose
     @help_background.dispose
-    @temp1.dispose
-    @temp2.dispose
   end
   #--------------------------------------------------------------------------
   # * Frame Update
@@ -1111,29 +1087,30 @@ class Scene_File < Scene_MenuBase
       @help_background.src_rect.width = @help_window.width
       @help_background.visible = true
     else
-      @help_window.back_opacity = temp1
-      @help_window.opacity = temp2
+      @help_window.back_opacity = @temp1
+      @help_window.opacity = @temp2
       @help_background.visible = false
     end
     if $game_switches[119]
-      @savefile_windows.each do |window|
-        window.back_opacity = 0
-        window.opacity = 0
+      Array.new(item_max) do |i|
+        @savefile_windows[i].back_opacity = 0
+        @savefile_windows[i].opacity = 0
       end
+
       folder = $game_message.game_message_windows_folder[19]
       name = $game_message.game_windows_name[19]
-      @savefile_backgrounds.each do |background|
-        background.bitmap = Cache.cache_extended(folder, name)
-        background.src_rect.width = @savefiles_windows.width
-        background.visible = true
+      Array.new(item_max) do |i|
+        @savefile_backgrounds[i].bitmap = Cache.cache_extended(folder, name)
+        @savefile_backgrounds[i].src_rect.width = @savefiles_windows.width
+        @savefile_backgrounds[i].visible = true
       end
     else
-      @savefile_windows.each do |window|
-        window.back_opacity = temp1
-        window.opacity = temp2
+      Array.new(item_max) do |i|
+        @savefile_windows[i].back_opacity = @temp1
+        @savefile_windows[i].opacity = @temp2
       end
-      @savefile_backgrounds.each do |background|
-        background.visible = false
+      Array.new(item_max) do |i|
+        @savefile_backgrounds[i].visible = false
       end
     end
   end
@@ -1166,24 +1143,28 @@ class Scene_File < Scene_MenuBase
     michael_create_savefile_windows
     @savefile_backgrounds = Array.new(item_max) do |i|
       Sprite.new(@background_viewport)
-      i.x = @savefile_windows[i].x
-      i.y = @savefile_windows[i].y
+    end
+
+    Array.new(item_max) do |i|
+      @savefile_backgrounds[i].x = @savefile_windows[i].x
+      @savefile_backgrounds[i].y = @savefile_windows[i].y
     end
     if $game_switches[119]
-      @savefile_windows.each do |window|
+      Array.new(item_max) do |i|
         window.back_opacity = 0
         window.opacity = 0
       end
       folder = $game_message.game_message_windows_folder[19]
       name = $game_message.game_windows_name[19]
-      @savefile_backgrounds.each do |background|
-        background.bitmap = Cache.cache_extended(folder, name)
-        background.src_rect.width = @savefiles_windows.width
-        background.visible = true
+      Array.new(item_max) do |i|
+        @savefile_backgrounds[i].bitmap = Cache.cache_extended(folder, name)
+        @savefile_backgrounds[i].src_rect.width = @savefiles_windows.width
+        @savefile_backgrounds[i].visible = true
       end
     end
   end
 end
+
 
 #==============================================================================
 # Scene_End
@@ -1266,8 +1247,8 @@ class Scene_End < Scene_MenuBase
       @command_background.src_rect.width = @command_window.width
       @command_background.visible = true
     else
-      @command_window.back_opacity = temp1
-      @command_window.opacity = temp2
+      @command_window.back_opacity = @temp1
+      @command_window.opacity = @temp2
       @command_background.visible = false
     end
   end
@@ -1606,20 +1587,6 @@ end
 #==============================================================================
 
 class Scene_Debug < Scene_MenuBase
-  #--------------------------------------------------------------------------
-  # * Start Processing
-  #--------------------------------------------------------------------------
-  alias michael_start start
-  def start
-    create background_viewport
-    michael_start
-  end
-
-
-  def create_background_viewport
-    @background_viewport = Viewport.new
-    @background_viewport.z = 199
-  end
 
   #--------------------------------------------------------------------------
   # * Termination Processing
@@ -1630,8 +1597,6 @@ class Scene_Debug < Scene_MenuBase
     @left_background.dispose
     @right_background.dispose
     @debug_help_background.dispose
-    @temp1.dispose
-    @temp2.dispose
     michael_terminate
   end
   #--------------------------------------------------------------------------
@@ -1640,6 +1605,8 @@ class Scene_Debug < Scene_MenuBase
   alias michael_create_left_window create_left_window
   def create_left_window
     michael_create_left_window
+    @background_viewport = Viewport.new
+    @background_viewport.z = 199
     @left_background = Sprite.new(@background_viewport)
     @left_background.x = @left_window.x
     @left_background.y = @left_window.y
@@ -1734,8 +1701,6 @@ class Scene_Battle < Scene_Base
     @item_background.dispose
     @actor_background.dispose
     @enemy_background.dispose
-    @temp1.dispose
-    @temp2.dispose
     RPG::ME.stop
   end
 
@@ -1964,7 +1929,7 @@ class Scene_Battle < Scene_Base
   alias michael_create_party_command_window create_party_command_window
   def create_party_command_window
     michael_create_party_command_window
-    @party_command_background = Sprite.new(@background_viewport2)
+    @party_command_background = Sprite.new(@background_viewport)
     @party_command_background.x = @party_command_window.x
     @party_command_background.y = @party_command_window.y
   end
@@ -1974,7 +1939,7 @@ class Scene_Battle < Scene_Base
   alias michael_create_actor_command_window create_actor_command_window
   def create_actor_command_window
     michael_create_actor_command_window
-    @actor_command_background = Sprite.new(@background_viewport3)
+    @actor_command_background = Sprite.new(@background_viewport)
     @actor_command_background.x = @actor_command_window.x
     @actor_command_background.y = @actor_command_window.y
   end
@@ -2214,11 +2179,10 @@ class Game_Interpreter
   end
   def window_on(i, name)
     $game_switches[i + 100] = true
-    Windows_Changer::Windows_Changer_Array[i] = true
-    $game_message.game_windows_name[i] = name
+    $game_message.game_windows_name[i] = "#{name}"
   end
-  def window_change(name)
-    $game_message.game_windows_name[i] = name
+  def window_change(change)
+    $game_message.game_windows_name[i] = "#{change}"
   end
 end
 
