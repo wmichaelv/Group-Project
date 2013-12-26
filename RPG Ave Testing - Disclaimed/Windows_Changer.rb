@@ -9,7 +9,7 @@
 #              which)
 #
 #==============================================================================
-u
+
 #==============================================================================
 #Compability: - Script should be compatible with other scripts.
 #             - Make sure that the picture you use have the right size as the
@@ -2494,7 +2494,9 @@ module DataManager
   def self.create_game_objects
     michael_create_game_objects
     #Default setting = false
-    $game_switches[100..100 + Number_Of_Element + Number_Of_Element] = false
+    $game_switches[100..100 +
+    Window_Changer::Number_Of_Element +
+    Window_Changer::Number_Of_Element] = false
   end
 end
 
@@ -2513,7 +2515,7 @@ class Game_Interpreter
     $game_message.game_windows_name[i] = "#{change}"
   end
   def window_move(i, x, y, width, height)
-    $game_switches[i+i+100] = true
+    $game_switches[i + Window_Changer::Number_Of_Element + 100] = true
     $game_message.game_windows_position[i] = [x, y, width, height]
   end
 end
