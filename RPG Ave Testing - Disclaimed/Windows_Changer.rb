@@ -7,7 +7,16 @@
 #             -Knowledge of 'how to use scripts'
 #             -Knowledge of Window Designation (basically know which window is
 #              which)
+#
 #==============================================================================
+
+#==============================================================================
+#Compability: Script should be compatible with other scripts, but until I fully
+#             understand the class 'Window', the location of the background(s)
+#             might need to be changed (x and y coordinates).
+#             See installation for direction.
+#==============================================================================
+
 
 #==============================================================================
 #  Biography lol
