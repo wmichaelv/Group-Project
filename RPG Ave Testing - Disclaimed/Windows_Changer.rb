@@ -23,6 +23,9 @@
 #  Biography lol
 #==============================================================================
 # 2013.12.26 --Fixed Scene_Title - Sprite is now in correlation with the window
+#            --Raising Compatibility
+#            --window_move(i, x, y, width, height) is introduced
+#            --window_move(i) is introduced
 # 2013.12.25 --Fixed bugs on local @temp1 and @tem2 disposal
 #            --Scene_MenuBase is added
 #            --Fixed bugs for 'name'
@@ -1154,6 +1157,12 @@ class Scene_Equip < Scene_MenuBase
       @status_background.bitmap = Cache.cache_extended(folder, name)
       @status_background.src_rect.width = @status_window.width
       @status_background.visible = true
+      if $game_switches[114 + Windows_Changer::Number_Of_Element]
+        @status_background.src_rect.set($game_message.game_windows_position[14][0],
+                                        $game_message.game_windows_position[14][1],
+                                        $game_message.game_windows_position[14][2],
+                                        $game_message.game_windows_position[14][3])
+      end
     else
       @status_window.back_opacity = @temp1
       @status_window.opacity = @temp2
@@ -1167,6 +1176,12 @@ class Scene_Equip < Scene_MenuBase
       @command_background.bitmap = Cache.cache_extended(folder, name)
       @command_background.src_rect.width = @command_window.width
       @command_background.visible = true
+      if $game_switches[115 + Windows_Changer::Number_Of_Element]
+        @command_background.src_rect.set($game_message.game_windows_position[15][0],
+                                         $game_message.game_windows_position[15][1],
+                                         $game_message.game_windows_position[15][2],
+                                         $game_message.game_windows_position[15][3])
+      end
     else
       @command_window.back_opacity = @temp1
       @command_window.opacity = @temp2
@@ -1180,6 +1195,12 @@ class Scene_Equip < Scene_MenuBase
       @slot_background.bitmap = Cache.cache_extended(folder, name)
       @slot_background.src_rect.width = @slot_window.width
       @slot_background.visible = true
+      if $game_switches[116 + Windows_Changer::Number_Of_Element]
+        @slot_background.src_rect.set($game_message.game_windows_position[16][0],
+                                      $game_message.game_windows_position[16][1],
+                                      $game_message.game_windows_position[16][2],
+                                      $game_message.game_windows_position[16][3])
+      end
     else
       @slot_window.back_opacity = @temp1
       @slot_window.opacity = @temp2
@@ -1193,6 +1214,12 @@ class Scene_Equip < Scene_MenuBase
       @item_background.bitmap = Cache.cache_extended(folder, name)
       @item_background.src_rect.width = @item_window.width
       @item_background.visible = true
+      if $game_switches[117 + Windows_Changer::Number_Of_Element]
+        @item_background.src_rect.set($game_message.game_windows_position[17][0],
+                                      $game_message.game_windows_position[17][1],
+                                      $game_message.game_windows_position[17][2],
+                                      $game_message.game_windows_position[17][3])
+      end
     else
       @item_window.back_opacity = @temp1
       @item_window.opacity = @temp2
@@ -1308,6 +1335,12 @@ class Scene_Status < Scene_MenuBase
       @status_background.bitmap = Cache.cache_extended(folder, name)
       @status_background.src_rect.width = @status_window.width
       @status_background.visible = true
+      if $game_switches[118 + Windows_Changer::Number_Of_Element]
+        @status_background.src_rect.set($game_message.game_windows_position[18][0],
+                                        $game_message.game_windows_position[18][1],
+                                        $game_message.game_windows_position[18][2],
+                                        $game_message.game_windows_position[18][3])
+      end
     else
       @status_window.back_opacity = @temp1
       @status_window.opacity = @temp2
@@ -1391,6 +1424,12 @@ class Scene_File < Scene_MenuBase
       @help_background.bitmap = Cache.cache_extended(folder, name)
       @help_background.src_rect.width = @help_window.width
       @help_background.visible = true
+      if $game_switches[104 + Windows_Changer::Number_Of_Element]
+        @help_background.src_rect.set($game_message.game_windows_position[4][0],
+                                      $game_message.game_windows_position[4][1],
+                                      $game_message.game_windows_position[4][2],
+                                      $game_message.game_windows_position[4][3])
+      end
     else
       @help_window.back_opacity = @temp1
       @help_window.opacity = @temp2
@@ -1438,6 +1477,12 @@ class Scene_File < Scene_MenuBase
       @help_background.bitmap = Cache.cache_extended(folder, name)
       @help_background.src_rect.width = @help_window.width
       @help_background.visible = true
+      if $game_switches[104 + Windows_Changer::Number_Of_Element]
+        @help_background.src_rect.set($game_message.game_windows_position[4][0],
+                                      $game_message.game_windows_position[4][1],
+                                      $game_message.game_windows_position[4][2],
+                                      $game_message.game_windows_position[4][3])
+      end
     end
   end
   #--------------------------------------------------------------------------
@@ -1525,6 +1570,12 @@ class Scene_End < Scene_MenuBase
       @command_background.bitmap = Cache.cache_extended(folder, name)
       @command_background.src_rect.width = @command_window.width
       @command_background.visible = true
+      if $game_switches[142 + Windows_Changer::Number_Of_Element]
+        @command_background.src_rect.set($game_message.game_windows_position[42][0],
+                                         $game_message.game_windows_position[42][1],
+                                         $game_message.game_windows_position[42][2],
+                                         $game_message.game_windows_position[42][3])
+      end
     end
   end
   #--------------------------------------------------------------------------
@@ -1623,6 +1674,12 @@ class Scene_Shop < Scene_MenuBase
       @gold_background.bitmap = Cache.cache_extended(folder, name)
       @gold_background.src_rect.width = @gold_window.width
       @gold_background.visible = true
+      if $game_switches[105 + Windows_Changer::Number_Of_Element]
+        @gold_background.src_rect.set($game_message.game_windows_position[5][0],
+                                      $game_message.game_windows_position[5][1],
+                                      $game_message.game_windows_position[5][2],
+                                      $game_message.game_windows_position[5][3])
+      end
     end
   end
   #--------------------------------------------------------------------------
@@ -1642,6 +1699,12 @@ class Scene_Shop < Scene_MenuBase
       @command_background.bitmap = Cache.cache_extended(folder, name)
       @command_background.src_rect.width = @command_window.width
       @command_background.visible = true
+      if $game_switches[120 + Windows_Changer::Number_Of_Element]
+        @command_background.src_rect.set($game_message.game_windows_position[20][0],
+                                         $game_message.game_windows_position[20][1],
+                                         $game_message.game_windows_position[20][2],
+                                         $game_message.game_windows_position[20][3])
+      end
     end
   end
   #--------------------------------------------------------------------------
@@ -1661,6 +1724,12 @@ class Scene_Shop < Scene_MenuBase
       @dummy_background.bitmap = Cache.cache_extended(folder, name)
       @dummy_background.src_rect.width = @dummy_window.width
       @dummy_background.visible = true
+      if $game_switches[145 + Windows_Changer::Number_Of_Element]
+        @dummy_background.src_rect.set($game_message.game_windows_position[45][0],
+                                       $game_message.game_windows_position[45][1],
+                                       $game_message.game_windows_position[45][2],
+                                       $game_message.game_windows_position[45][3])
+      end
     end
   end
   #--------------------------------------------------------------------------
@@ -1679,6 +1748,12 @@ class Scene_Shop < Scene_MenuBase
       @number_background.bitmap = Cache.cache_extended(folder, name)
       @number_background.src_rect.width = @number_window.width
       @number_background.visible = false
+      if $game_switches[123 + Windows_Changer::Number_Of_Element]
+        @number_background.src_rect.set($game_message.game_windows_position[23][0],
+                                        $game_message.game_windows_position[23][1],
+                                        $game_message.game_windows_position[23][2],
+                                        $game_message.game_windows_position[23][3])
+      end
     end
   end
   #--------------------------------------------------------------------------
@@ -1698,6 +1773,12 @@ class Scene_Shop < Scene_MenuBase
       @status_background.bitmap = Cache.cache_extended(folder, name)
       @status_background.src_rect.width = @status_window.width
       @status_background.visible = false
+      if $game_switches[124 + Windows_Changer::Number_Of_Element]
+        @status_background.src_rect.set($game_message.game_windows_position[24][0],
+                                        $game_message.game_windows_position[24][1],
+                                        $game_message.game_windows_position[24][2],
+                                        $game_message.game_windows_position[24][3])
+      end
     end
   end
   #--------------------------------------------------------------------------
@@ -1717,6 +1798,12 @@ class Scene_Shop < Scene_MenuBase
       @buy_background.bitmap = Cache.cache_extended(folder, name)
       @buy_background.src_rect.width = @buy_window.width
       @buy_background.visible = false
+      if $game_switches[121 + Windows_Changer::Number_Of_Element]
+        @buy_background.src_rect.set($game_message.game_windows_position[21][0],
+                                     $game_message.game_windows_position[21][1],
+                                     $game_message.game_windows_position[21][2],
+                                     $game_message.game_windows_position[21][3])
+      end
     end
   end
   #--------------------------------------------------------------------------
@@ -1736,6 +1823,12 @@ class Scene_Shop < Scene_MenuBase
       @category_background.bitmap = Cache.cache_extended(folder, name)
       @category_background.src_rect.width = @category_window.width
       @category_background.visible = false
+      if $game_switches[109 + Windows_Changer::Number_Of_Element]
+        @category_background.src_rect.set($game_message.game_windows_position[9][0],
+                                          $game_message.game_windows_position[9][1],
+                                          $game_message.game_windows_position[9][2],
+                                          $game_message.game_windows_position[9][3])
+      end
     end
   end
   #--------------------------------------------------------------------------
@@ -1755,6 +1848,12 @@ class Scene_Shop < Scene_MenuBase
       @sell_background.bitmap = Cache.cache_extended(folder, name)
       @sell_background.src_rect.width = @sell_window.width
       @sell_background.visible = false
+      if $game_switches[122 + Windows_Changer::Number_Of_Element]
+        @sell_background.src_rect.set($game_message.game_windows_position[22][0],
+                                      $game_message.game_windows_position[22][1],
+                                      $game_message.game_windows_position[22][2],
+                                      $game_message.game_windows_position[22][3])
+      end
     end
   end
   #--------------------------------------------------------------------------
@@ -1877,6 +1976,12 @@ class Scene_Name < Scene_MenuBase
       @edit_background.bitmap = Cache.cache_extended(folder, name)
       @edit_background.src_rect.width = @edit_window.width
       @edit_background.visible = true
+      if $game_switches[125 + Windows_Changer::Number_Of_Element]
+        @edit_background.src_rect.set($game_message.game_windows_position[25][0],
+                                      $game_message.game_windows_position[25][1],
+                                      $game_message.game_windows_position[25][2],
+                                      $game_message.game_windows_position[25][3])
+      end
     end
     @input_background = Sprite.new(@background_viewport)
     @input_background.x = @input_window.x
@@ -1889,6 +1994,12 @@ class Scene_Name < Scene_MenuBase
       @input_background.bitmap = Cache.cache_extended(folder, name)
       @input_background.src_rect.width = @input_window.width
       @input_background.visible = true
+      if $game_switches[126 + Windows_Changer::Number_Of_Element]
+        @input_background.src_rect.set($game_message.game_windows_position[26][0],
+                                       $game_message.game_windows_position[26][1],
+                                       $game_message.game_windows_position[26][2],
+                                       $game_message.game_windows_position[26][3])
+      end
     end
   end
 
@@ -1975,6 +2086,12 @@ class Scene_Debug < Scene_MenuBase
       @left_background.bitmap = Cache.cache_extended(folder, name)
       @left_background.src_rect.width = @left_window.width
       @left_background.visible = true
+      if $game_switches[143 + Windows_Changer::Number_Of_Element]
+        @left_background.src_rect.set($game_message.game_windows_position[43][0],
+                                      $game_message.game_windows_position[43][1],
+                                      $game_message.game_windows_position[43][2],
+                                      $game_message.game_windows_position[43][3])
+      end
     else
       @left_window.back_opacity = @temp1
       @left_window.opacity = @temp2
@@ -1988,6 +2105,12 @@ class Scene_Debug < Scene_MenuBase
       @right_background.bitmap = Cache.cache_extended(folder, name)
       @right_background.src_rect.width = @right_window.width
       @right_background.visible = true
+      if $game_switches[144 + Windows_Changer::Number_Of_Element]
+        @right_background.src_rect.set($game_message.game_windows_position[44][0],
+                                       $game_message.game_windows_position[44][1],
+                                       $game_message.game_windows_position[44][2],
+                                       $game_message.game_windows_position[44][3])
+      end
     else
       @right_window.back_opacity = @temp1
       @right_window.opacity = @temp2
@@ -2001,6 +2124,12 @@ class Scene_Debug < Scene_MenuBase
       @debug_help_background.bitmap = Cache.cache_extended(folder, name)
       @debug_help_background.src_rect.width = @debug_help_window.width
       @debug_help_background.visible = true
+      if $game_switches[145 + Windows_Changer::Number_Of_Element]
+        @debug_help_background.src_rect.set($game_message.game_windows_position[45][0],
+                                            $game_message.game_windows_position[45][1],
+                                            $game_message.game_windows_position[45][2],
+                                            $game_message.game_windows_position[45][3])
+      end
     else
       @debug_help_window.back_opacity = @temp1
       @debug_help_window.opacity = @temp2
