@@ -198,7 +198,7 @@ module Windows_Changer
   "Element #45",
   ]  #Add more windows here
 
-  Number_Of_Element = 45
+  Number_Of_Element = 46
 
   #============================================================================
   # Windows Folder - This is where the folders are
@@ -256,52 +256,52 @@ module Windows_Changer
   # Windows Position - This is To Adjust The Position of The Background Windows
   #============================================================================
   Windows_Changer_Position_Array = [
-  Windows_Position = [0,0,0,0],
-  Window_Selectable_Position = [0,0,0,0],
-  Window_Command_Position = [0,0,0,0],
-  Window_HorzCommand_Position = [0,0,0,0],
-  Window_Help_Position = [0,0,0,0],
-  Window_Gold_Position = [0,0,0,0],
-  Window_MenuCommand_Position = [0,0,0,0],
-  Window_MenuStatus_Position = [0,0,0,0],
-  Window_MenuActor_Position = [0,0,0,0],
-  Window_ItemCategory_Position = [0,0,0,0],
-  Window_ItemList_Position = [0,0,0,0],
-  Window_SkillCommand_Position = [0,0,0,0],
-  Window_SkillStatus_Position = [0,0,0,0],
-  Window_SkillList_Position = [0,0,0,0],
-  Window_EquipStatus_Position = [0,0,0,0],
-  Window_EquipCommand_Position = [0,0,0,0],
-  Window_EquipSlot_Position = [0,0,0,0],
-  Window_EquipItem_Position = [0,0,0,0],
-  Window_Status_Position = [0,0,0,0],
-  Window_SaveFile_Position = [0,0,0,0],
-  Window_ShopCommand_Position = [0,0,0,0],
-  Window_ShopBuy_Position = [0,0,0,0],
-  Window_ShopSell_Position = [0,0,0,0],
-  Window_ShopNumber_Position = [0,0,0,0],
-  Window_ShopStatus_Position = [0,0,0,0],
-  Window_NameEdit_Position = [0,0,0,0],
-  Window_NameInput_Position = [0,0,0,0],
-  Window_ChoiceList_Position = [0,0,0,0],
-  Window_NumberInput_Position = [0,0,0,0],
-  Window_KeyItem_Position = [0,0,0,0],
-  Window_Message_Position = [0,0,0,0],
-  Window_ScrollText_Position = [0,0,0,0],
-  Window_MapName_Position = [0,0,0,0],
-  Window_BattleLog_Position = [0,0,0,0],
-  Window_PartyCommand_Position = [0,0,0,0],
-  Window_ActorCommand_Position = [0,0,0,0],
-  Window_BattleStatus_Position = [0,0,0,0],
-  Window_BattleActor_Position = [0,0,0,0],
-  Window_BattleEnemy_Position = [0,0,0,0],
-  Window_BattleSkill_Position = [0,0,0,0],
-  Window_BattleItem_Position = [0,0,0,0],
-  Window_TitleCommand_Position = [0,0,0,0],
-  Window_GameEnd_Position = [0,0,0,0],
-  Window_DebugLeft_Position = [0,0,0,0],
-  Window_DebugRight_Position = [0,0,0,0],
-  Window_Base_Position = [0,0,0,0],
+  Windows_Position = [0,0,Graphics.width,Graphics.height],
+  Window_Selectable_Position = [0,0,Graphics.width,Graphics.height],
+  Window_Command_Position = [0,0,Graphics.width,Graphics.height],
+  Window_HorzCommand_Position = [0,0,Graphics.width,Graphics.height],
+  Window_Help_Position = [0,0,Graphics.width,Graphics.height],
+  Window_Gold_Position = [0,0,Graphics.width,Graphics.height],
+  Window_MenuCommand_Position = [0,0,Graphics.width,Graphics.height],
+  Window_MenuStatus_Position = [0,0,Graphics.width,Graphics.height],
+  Window_MenuActor_Position = [0,0,Graphics.width,Graphics.height],
+  Window_ItemCategory_Position = [0,0,Graphics.width,Graphics.height],
+  Window_ItemList_Position = [0,0,Graphics.width,Graphics.height],
+  Window_SkillCommand_Position = [0,0,Graphics.width,Graphics.height],
+  Window_SkillStatus_Position = [0,0,Graphics.width,Graphics.height],
+  Window_SkillList_Position = [0,0,Graphics.width,Graphics.height],
+  Window_EquipStatus_Position = [0,0,Graphics.width,Graphics.height],
+  Window_EquipCommand_Position = [0,0,Graphics.width,Graphics.height],
+  Window_EquipSlot_Position = [0,0,Graphics.width,Graphics.height],
+  Window_EquipItem_Position = [0,0,Graphics.width,Graphics.height],
+  Window_Status_Position = [0,0,Graphics.width,Graphics.height],
+  Window_SaveFile_Position = [0,0,Graphics.width,Graphics.height],
+  Window_ShopCommand_Position = [0,0,Graphics.width,Graphics.height],
+  Window_ShopBuy_Position = [0,0,Graphics.width,Graphics.height],
+  Window_ShopSell_Position = [0,0,Graphics.width,Graphics.height],
+  Window_ShopNumber_Position = [0,0,Graphics.width,Graphics.height],
+  Window_ShopStatus_Position = [0,0,Graphics.width,Graphics.height],
+  Window_NameEdit_Position = [0,0,Graphics.width,Graphics.height],
+  Window_NameInput_Position = [0,0,Graphics.width,Graphics.height],
+  Window_ChoiceList_Position = [0,0,Graphics.width,Graphics.height],
+  Window_NumberInput_Position = [0,0,Graphics.width,Graphics.height],
+  Window_KeyItem_Position = [0,0,Graphics.width,Graphics.height],
+  Window_Message_Position = [0,0,Graphics.width,Graphics.height],
+  Window_ScrollText_Position = [0,0,Graphics.width,Graphics.height],
+  Window_MapName_Position = [0,0,Graphics.width,Graphics.height],
+  Window_BattleLog_Position = [0,0,Graphics.width,Graphics.height],
+  Window_PartyCommand_Position = [0,0,Graphics.width,Graphics.height],
+  Window_ActorCommand_Position = [0,0,Graphics.width,Graphics.height],
+  Window_BattleStatus_Position = [0,0,Graphics.width,Graphics.height],
+  Window_BattleActor_Position = [0,0,Graphics.width,Graphics.height],
+  Window_BattleEnemy_Position = [0,0,Graphics.width,Graphics.height],
+  Window_BattleSkill_Position = [0,0,Graphics.width,Graphics.height],
+  Window_BattleItem_Position = [0,0,Graphics.width,Graphics.height],
+  Window_TitleCommand_Position = [0,0,Graphics.width,Graphics.height],
+  Window_GameEnd_Position = [0,0,Graphics.width,Graphics.height],
+  Window_DebugLeft_Position = [0,0,Graphics.width,Graphics.height],
+  Window_DebugRight_Position = [0,0,Graphics.width,Graphics.height],
+  Window_Base_Position = [0,0,Graphics.width,Graphics.height],
   ] #Add more windows here
 
 end
@@ -2046,6 +2046,12 @@ class Scene_Battle < Scene_Base
       @help_background.bitmap = Cache.cache_extended(folder, name)
       @help_background.src_rect.width = @help_window.width
       @help_background.visible = true
+      if $game_switches[104 + Windows_Changer::Number_Of_Element]
+        @help_background.src_rect.set($game_message.game_windows_position[4][0],
+                                      $game_message.game_windows_position[4][1],
+                                      $game_message.game_windows_position[4][2],
+                                      $game_message.game_windows_position[4][3])
+      end
     else
       @help_window.back_opacity = @temp1
       @help_window.opacity = @temp2
@@ -2059,6 +2065,12 @@ class Scene_Battle < Scene_Base
       @message_background.bitmap = Cache.cache_extended(folder, name)
       @message_background.src_rect.width = @message_window.width
       @message_background.visible = true
+      if $game_switches[130 + Windows_Changer::Number_Of_Element]
+        @message_background.src_rect.set($game_message.game_windows_position[30][0],
+                                         $game_message.game_windows_position[30][1],
+                                         $game_message.game_windows_position[30][2],
+                                         $game_message.game_windows_position[30][3])
+      end
     else
       @message_window.back_opacity = @temp1
       @message_window.opacity = @temp2
@@ -2072,6 +2084,12 @@ class Scene_Battle < Scene_Base
       @scroll_text_background.bitmap = Cache.cache_extended(folder, name)
       @scroll_text_background.src_rect.width = @scroll_text_window.width
       @scroll_text_background.visible = true
+      if $game_switches[131 + Windows_Changer::Number_Of_Element]
+        @scroll_tex_background.src_rect.set($game_message.game_windows_position[31][0],
+                                            $game_message.game_windows_position[31][1],
+                                            $game_message.game_windows_position[31][2],
+                                            $game_message.game_windows_position[31][3])
+      end
     else
       @scroll_text_window.back_opacity = @temp1
       @scroll_text_window.opacity = @temp2
@@ -2085,6 +2103,12 @@ class Scene_Battle < Scene_Base
       @log_background.bitmap = Cache.cache_extended(folder, name)
       @log_background.src_rect.width = @log_window.width
       @log_background.visible = true
+      if $game_switches[133 + Windows_Changer::Number_Of_Element]
+        @log_background.src_rect.set($game_message.game_windows_position[33][0],
+                                     $game_message.game_windows_position[33][1],
+                                     $game_message.game_windows_position[33][2],
+                                     $game_message.game_windows_position[33][3])
+      end
     else
       #@log_window.back_opacity = @temp1
       #@log_window.opacity = @temp2
@@ -2098,6 +2122,12 @@ class Scene_Battle < Scene_Base
       @party_command_background.bitmap = Cache.cache_extended(folder, name)
       @party_command_background.src_rect.width = @party_command_window.width
       @party_command_background.visible = true
+      if $game_switches[134 + Windows_Changer::Number_Of_Element]
+        @party_command_background.src_rect.set($game_message.game_windows_position[34][0],
+                                               $game_message.game_windows_position[34][1],
+                                               $game_message.game_windows_position[34][2],
+                                               $game_message.game_windows_position[34][3])
+      end
     else
       @party_command_window.back_opacity = @temp1
       @party_command_window.opacity = @temp2
@@ -2111,6 +2141,12 @@ class Scene_Battle < Scene_Base
       @actor_command_background.bitmap = Cache.cache_extended(folder, name)
       @actor_command_background.src_rect.width = @actor_command_window.width
       @actor_command_background.visible = true
+      if $game_switches[135 + Windows_Changer::Number_Of_Element]
+        @actor_background.src_rect.set($game_message.game_windows_position[35][0],
+                                       $game_message.game_windows_position[35][1],
+                                       $game_message.game_windows_position[35][2],
+                                       $game_message.game_windows_position[35][3])
+      end
     else
       @actor_command_window.back_opacity = @temp1
       @actor_command_window.opacity = @temp2
@@ -2124,6 +2160,12 @@ class Scene_Battle < Scene_Base
       @status_background.bitmap = Cache.cache_extended(folder, name)
       @status_background.src_rect.width = @status_window.width
       @status_background.visible = true
+      if $game_switches[136 + Windows_Changer::Number_Of_Element]
+        @status_background.src_rect.set($game_message.game_windows_position[36][0],
+                                        $game_message.game_windows_position[36][1],
+                                        $game_message.game_windows_position[36][2],
+                                        $game_message.game_windows_position[36][3])
+      end
     else
       @status_window.back_opacity = @temp1
       @status_window.opacity = @temp2
@@ -2137,6 +2179,12 @@ class Scene_Battle < Scene_Base
       @actor_background.bitmap = Cache.cache_extended(folder, name)
       @actor_background.src_rect.width = @actor_window.width
       @actor_background.visible = true
+      if $game_switches[137 + Windows_Changer::Number_Of_Element]
+        @actor_background.src_rect.set($game_message.game_windows_position[37][0],
+                                       $game_message.game_windows_position[37][1],
+                                       $game_message.game_windows_position[37][2],
+                                       $game_message.game_windows_position[37][3])
+      end
     else
       @actor_window.back_opacity = @temp1
       @actor_window.opacity = @temp2
@@ -2150,6 +2198,12 @@ class Scene_Battle < Scene_Base
       @enemy_background.bitmap = Cache.cache_extended(folder, name)
       @enemy_background.src_rect.width = @enemy_window.width
       @enemy_background.visible = true
+      if $game_switches[138 + Windows_Changer::Number_Of_Element]
+        @enemy_background.src_rect.set($game_message.game_windows_position[38][0],
+                                       $game_message.game_windows_position[38][1],
+                                       $game_message.game_windows_position[38][2],
+                                       $game_message.game_windows_position[38][3])
+      end
     else
       @enemy_window.back_opacity = @temp1
       @enemy_window.opacity = @temp2
@@ -2163,6 +2217,12 @@ class Scene_Battle < Scene_Base
       @skill_background.bitmap = Cache.cache_extended(folder, name)
       @skill_background.src_rect.width = @skill_window.width
       @skill_background.visible = true
+      if $game_switches[139 + Windows_Changer::Number_Of_Element]
+        @skill_background.src_rect.set($game_message.game_windows_position[39][0],
+                                       $game_message.game_windows_position[39][1],
+                                       $game_message.game_windows_position[39][2],
+                                       $game_message.game_windows_position[39][3])
+      end
     else
       @skill_window.back_opacity = @temp1
       @skill_window.opacity = @temp2
@@ -2176,6 +2236,12 @@ class Scene_Battle < Scene_Base
       @item_background.bitmap = Cache.cache_extended(folder, name)
       @item_background.src_rect.width = @item_window.width
       @item_background.visible = true
+    if $game_switches[140 + Windows_Changer::Number_Of_Element]
+        @item_background.src_rect.set($game_message.game_windows_position[40][0],
+                                      $game_message.game_windows_position[40][1],
+                                      $game_message.game_windows_position[40][2],
+                                      $game_message.game_windows_position[40][3])
+      end
     else
       @item_window.back_opacity = @temp1
       @item_window.opacity = @temp2
@@ -2494,9 +2560,9 @@ module DataManager
   def self.create_game_objects
     michael_create_game_objects
     #Default setting = false
-    $game_switches[100..100 +
-    Window_Changer::Number_Of_Element +
-    Window_Changer::Number_Of_Element] = false
+    $game_switches[100...100 +
+    Windows_Changer::Number_Of_Element +
+    Windows_Changer::Number_Of_Element] = false
   end
 end
 
@@ -2515,8 +2581,11 @@ class Game_Interpreter
     $game_message.game_windows_name[i] = "#{change}"
   end
   def window_move(i, x, y, width, height)
-    $game_switches[i + Window_Changer::Number_Of_Element + 100] = true
+    $game_switches[i + Windows_Changer::Number_Of_Element + 100] = true
     $game_message.game_windows_position[i] = [x, y, width, height]
+  end
+  def window_move(i)
+    $game_switches[i + Windows_Changer::Number_Of_Element + 100] = true
   end
 end
 
