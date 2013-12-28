@@ -2909,6 +2909,11 @@ class Game_Interpreter
 
   def window_default(i)
     $game_switches[i + Windows_Changer::Number_Of_Element + 100] = true
+    $game_message.game_windows_position[i][0] = 0
+    $game_message.game_windows_position[i][1] = 0
+    $game_message.game_windows_position[i][2] = Graphics.width
+    $game_message.game_windows_position[i][3] = Graphics.height
+
   end
 
   def window_move(i, x, y, width, height)
