@@ -1927,11 +1927,11 @@ class Scene_Shop < Scene_MenuBase
   #--------------------------------------------------------------------------
   # Start Processing
   #--------------------------------------------------------------------------
-  alias michael_start start
-  def start
-    create_background_viewport
-    michael_start
-  end
+  #alias michael_start start
+  #def start
+  #  create_background_viewport
+  #  michael_start
+  #end
 
   begin
     mod = self.const_get "terminate"
@@ -1963,9 +1963,23 @@ class Scene_Shop < Scene_MenuBase
     end
   end
 
-  def create_background_viewport
+  #def create_background_viewport
+  #  @background_viewport = Viewport.new
+  #  @background_viewport.z = 180
+  #end
+
+  def create_help_window
+    super
     @background_viewport = Viewport.new
     @background_viewport.z = 199
+    @help_background.z = @background_viewport.z
+    @help_background.z += $game_message.game_windows_depth[4]
+    if $game_switches[104 + Windows_Changer::Number_Of_Element]
+        @help_background.src_rect.set($game_message.game_windows_position[4][0],
+                                      $game_message.game_windows_position[4][1],
+                                      $game_message.game_windows_position[4][2],
+                                      $game_message.game_windows_position[4][3])
+    end
   end
 
   #--------------------------------------------------------------------------
@@ -1994,6 +2008,7 @@ class Scene_Shop < Scene_MenuBase
       end
     end
   end
+
   #--------------------------------------------------------------------------
   # * Create Command Window
   #--------------------------------------------------------------------------
@@ -2020,6 +2035,7 @@ class Scene_Shop < Scene_MenuBase
       end
     end
   end
+
   #--------------------------------------------------------------------------
   # * Create Dummy Window
   #--------------------------------------------------------------------------
@@ -2052,6 +2068,7 @@ class Scene_Shop < Scene_MenuBase
   alias michael_create_number_window create_number_window
   def create_number_window
     michael_create_number_window
+    @number_background = Sprite.new(@background_viewport)
     @number_background.x = @number_window.x
     @number_background.y = @number_window.y
     if $game_switches[123]
@@ -2187,14 +2204,15 @@ class Scene_Shop < Scene_MenuBase
   #--------------------------------------------------------------------------
   # * Activate Sell Window
   #--------------------------------------------------------------------------
+
   alias michael_activate_sell_window activate_sell_window
   def activate_sell_window
-    michael_activate_sell_window
     @category_background.visible = true
     @sell_background.visible = true
     @status_background.visible = false
-
+    michael_activate_sell_window
   end
+
   #--------------------------------------------------------------------------
   # * [Buy] Command
   #--------------------------------------------------------------------------
@@ -2206,13 +2224,15 @@ class Scene_Shop < Scene_MenuBase
   #--------------------------------------------------------------------------
   # * [Sell] Command
   #--------------------------------------------------------------------------
+
   alias michael_command_sell command_sell
   def command_sell
-    michael_command_sell command_sell
+    michael_command_sell
     @dummy_background.visible = false
     @category_background.visible = true
     @sell_background.visible = true
   end
+
   #--------------------------------------------------------------------------
   # * Buy [OK]
   #--------------------------------------------------------------------------
