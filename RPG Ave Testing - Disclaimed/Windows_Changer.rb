@@ -23,6 +23,7 @@
 #  Biography lol
 #==============================================================================
 # 2013.12.27 --Fixed window_default(i)
+#            --window_depth(i, depth) is introduced
 # 2013.12.26 --Fixed Scene_Title - Sprite is now in correlation with the window
 #            --Raising Compatibility
 #            --window_move(i, x, y, width, height) is introduced
@@ -330,6 +331,58 @@ module Windows_Changer
   Window_Base_Position = [0,0,Graphics.width,Graphics.height],
   ] #Add more windows here
 
+  #============================================================================
+  # Windows Depth - This is To Adjust The Depth of The Background Windows
+  #============================================================================
+  Windows_Changer_Depth_Array = [
+  Windows_Depth = 0,
+  Window_Selectable_Depth = 0,
+  Window_Command_Depth = 0,
+  Window_HorzCommand_Depth = 0,
+  Window_Help_Depth = 0,
+  Window_Gold_Depth = 0,
+  Window_MenuCommand_Depth = 0,
+  Window_MenuStatus_Depth = 0,
+  Window_MenuActor_Depth = 0,
+  Window_ItemCategory_Depth = 0,
+  Window_ItemList_Depth = 0,
+  Window_SkillCommand_Depth = 0,
+  Window_SkillStatus_Depth = 0,
+  Window_SkillList_Depth = 0,
+  Window_EquipStatus_Depth = 0,
+  Window_EquipCommand_Depth = 0,
+  Window_EquipSlot_Depth = 0,
+  Window_EquipItem_Depth = 0,
+  Window_Status_Depth = 0,
+  Window_SaveFile_Depth = 0,
+  Window_ShopCommand_Depth = 0,
+  Window_ShopBuy_Depth = 0,
+  Window_ShopSell_Depth = 0,
+  Window_ShopNumber_Depth = 0,
+  Window_ShopStatus_Depth = 0,
+  Window_NameEdit_Depth = 0,
+  Window_NameInput_Depth = 0,
+  Window_ChoiceList_Depth = 0,
+  Window_NumberInput_Depth = 0,
+  Window_KeyItem_Depth = 0,
+  Window_Message_Depth = 0,
+  Window_ScrollText_Depth = 0,
+  Window_MapName_Depth = 0,
+  Window_BattleLog_Depth = 0,
+  Window_PartyCommand_Depth = 0,
+  Window_ActorCommand_Depth = 0,
+  Window_BattleStatus_Depth = 0,
+  Window_BattleActor_Depth = 0,
+  Window_BattleEnemy_Depth = 0,
+  Window_BattleSkill_Depth = 0,
+  Window_BattleItem_Depth = 0,
+  Window_TitleCommand_Depth = 0,
+  Window_GameEnd_Depth = 0,
+  Window_DebugLeft_Depth = 0,
+  Window_DebugRight_Depth = 0,
+  Window_Base_Depth = 0,
+  ] #Add more windows here
+
 end
 
 #==============================================================================
@@ -353,6 +406,7 @@ class Game_Message
   attr_accessor :game_message_windows_folder
   attr_accessor :game_windows_name
   attr_accessor :game_windows_position
+  attr_accessor :game_windows_depth
 
   alias a_lias initialize
 
@@ -364,6 +418,8 @@ class Game_Message
     Windows_Changer::Windows_Changer_Array
     @game_windows_position =
     Windows_Changer::Windows_Changer_Position_Array
+    @game_windows_depth =
+    Window_Changer::Windows_Changer_Depth_Array
   end
 end
 
@@ -2923,6 +2979,10 @@ class Game_Interpreter
     $game_message.game_windows_position[i][1] = y
     $game_message.game_windows_position[i][2] = width
     $game_message.game_windows_position[i][3] = height
+  end
+
+  def window_depth(i, depth)
+    $game_message.game_windows_depth[i] = depth
   end
 end
 
