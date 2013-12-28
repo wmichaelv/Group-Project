@@ -2,7 +2,7 @@
 #==============================================================================
 #
 # Michael Windows Changer
-# Last Updated: 2013.12.26
+# Last Updated: 2013.12.27
 # Requirement: RPG Maker VX Ace
 #             -Knowledge of 'how to use scripts'
 #             -Knowledge of Window Designation (basically know which window is
@@ -22,12 +22,13 @@
 #==============================================================================
 #  Biography lol
 #==============================================================================
+# 2013.12.27 --Fixed window_default(i)
 # 2013.12.26 --Fixed Scene_Title - Sprite is now in correlation with the window
 #            --Raising Compatibility
 #            --window_move(i, x, y, width, height) is introduced
 #            --window_default(i) is introduced
 #            --All Scenes are overloaded with the new switch
-# 2013.12.25 --Fixed bugs on local @temp1 and @tem2 disposal
+# 2013.12.25 --Fixed bugs on local @temp1 and @temp2 disposal
 #            --Scene_MenuBase is added
 #            --Fixed bugs for 'name'
 #            --Fixed bugs on various Scenes
