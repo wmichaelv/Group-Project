@@ -427,7 +427,7 @@ class Game_Message
     @game_windows_position =
     Windows_Changer::Windows_Changer_Position_Array
     @game_windows_depth =
-    Window_Changer::Windows_Changer_Depth_Array
+    Windows_Changer::Windows_Changer_Depth_Array
   end
 end
 
