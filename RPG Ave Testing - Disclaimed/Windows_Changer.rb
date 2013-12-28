@@ -24,6 +24,7 @@
 #==============================================================================
 # 2013.12.27 --Fixed window_default(i)
 #            --window_depth(i, depth) is introduced & implemented
+#            --Fixed window_default(i) and window_center(i) is introduced
 # 2013.12.26 --Fixed Scene_Title - Sprite is now in correlation with the window
 #            --Raising Compatibility
 #            --window_move(i, x, y, width, height) is introduced
@@ -95,9 +96,9 @@
 #                   window rectangle back to the boring blue color with its
 #                   redundant white padding.
 #
-#  - window_default(i)
+#  - window_center(i)
 #  For Example:
-#  window_default(5) -> Move the window #5 background content to default position
+#  window_center(5) -> Move the window #5 background content to center position
 #                       Default position is at the center (0,0) of the graphic and
 #                       occupy the size of the graphic (if your picture has size
 #                       larger than the graphic (580 x 444), it will fill the graphic)
@@ -106,15 +107,23 @@
 #  - window_move(i, x, y, width, height)
 #  For Example:
 #  window_move(5, 24, -24, 400, 400)
+#  -> TIPS: If you are not sure how to adjust, the coordinate, starts with
+#           window_center first.
 #  -> move the window #5 background content to (24,-24) position. Remember that
 #     center coordinate is (0,0) and to move up, y needs to be negative, to move
 #     down, y needs to be positive, to move left, x needs to be negative, to move
 #     right, x needs to be positive.
 #  -> width and height are there as a border to make sure that your picture doesn't
-#     go beyond the given size (400 x 400). If you don't want to have border, simply
-#     set the border to be the Graphics' height and width.
-#     To set Graphics' height and width:
-#     window_move(5, 50, -50, Graphics.width, Graphics.height)
+#     go beyond the given size (400 x 400).
+#  -> TIPS: If you don't want to have border, simply set the border to be the
+#           Graphics' height and width.
+#           To set Graphics' height and width:
+#           window_move(5, 24, -24, Graphics.width, Graphics.height)
+#
+#  - window_default(i)
+#  For Example:
+#  window_default(5) -> Turn off movement switch for window #5 background
+#                    -> This will return window #5 to the original position
 #
 #  - window_depth(i, depth)
 #  For Example:
@@ -3034,6 +3043,10 @@ class Game_Interpreter
   end
 
   def window_default(i)
+    $game_switches[i + Windows_Changer::Number_Of_Element + 100] = false
+  end
+
+  def window_center(i)
     $game_switches[i + Windows_Changer::Number_Of_Element + 100] = true
     $game_message.game_windows_position[i][0] = 0
     $game_message.game_windows_position[i][1] = 0
