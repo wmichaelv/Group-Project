@@ -25,6 +25,7 @@
 # 2013.12.27 --Fixed window_default(i)
 #            --window_depth(i, depth) is introduced & implemented
 #            --Fixed window_default(i) and window_center(i) is introduced
+#            --Fixed Scene_File
 # 2013.12.26 --Fixed Scene_Title - Sprite is now in correlation with the window
 #            --Raising Compatibility
 #            --window_move(i, x, y, width, height) is introduced
@@ -1751,7 +1752,8 @@ class Scene_File < Scene_MenuBase
       name = $game_message.game_windows_name[19]
       Array.new(item_max) do |i|
         @savefile_backgrounds[i].bitmap = Cache.cache_extended(folder, name)
-        @savefile_backgrounds[i].src_rect.width = @savefiles_windows.width
+        @savefile_backgrounds[i].src_rect.height = @savefile_viewport.rect.height / visible_max
+        @savefile_backgrounds[i].src_rect.width = @savefile_windows[i].width
         @savefile_backgrounds[i].visible = true
       end
     else
@@ -1799,7 +1801,7 @@ class Scene_File < Scene_MenuBase
   def create_savefile_windows
     michael_create_savefile_windows
     @savefile_backgrounds = Array.new(item_max) do |i|
-      Sprite.new(@background_viewport)
+      Sprite.new(@savefile_viewport)
     end
 
     Array.new(item_max) do |i|
@@ -1808,14 +1810,15 @@ class Scene_File < Scene_MenuBase
     end
     if $game_switches[119]
       Array.new(item_max) do |i|
-        window.back_opacity = 0
-        window.opacity = 0
+        @savefile_windows[i].back_opacity = 0
+        @savefile_windows[i].opacity = 0
       end
       folder = $game_message.game_message_windows_folder[19]
       name = $game_message.game_windows_name[19]
       Array.new(item_max) do |i|
         @savefile_backgrounds[i].bitmap = Cache.cache_extended(folder, name)
-        @savefile_backgrounds[i].src_rect.width = @savefiles_windows.width
+        @savefile_backgrounds[i].src_rect.height = @savefile_viewport.rect.height / visible_max
+        @savefile_backgrounds[i].src_rect.width = @savefile_windows[i].width
         @savefile_backgrounds[i].visible = true
       end
     end
