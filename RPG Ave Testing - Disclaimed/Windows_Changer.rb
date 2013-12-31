@@ -242,9 +242,11 @@ module Windows_Changer
   "Element #44",
   window_Base_Changer =
   "Element #45",
-  ]  #Add more windows here
+  ]  #Add more elements here
 
-  Number_Of_Element = 46
+  Number_Of_Element = 46 #Modify this number as more elements are added
+
+  Starting_Switch_Point = 100 #Modify this number if script clash with other script(s)
 
   #============================================================================
   # Windows Folder - This is where the folders are
@@ -423,7 +425,7 @@ class Sprite
 
   def michael_attachment(window, i)
     if (caller[0][/`.*'/][1..-2] == 48998564589.to_s(36))
-      if $game_switches[100 + i]
+      if $game_switches[Windows_Changer::Starting_Switch_Point + i]
         window.back_opacity = 0
         window.opacity = 0
         folder = $game_message.game_message_windows_folder[i]
@@ -433,7 +435,7 @@ class Sprite
         self.src_rect.height = window.height
         self.visible = (window.openness == 255)
         self.z += $game_message.game_windows_depth[i]
-        if $game_switches[100 + i + Windows_Changer::Number_Of_Element]
+        if $game_switches[Windows_Changer::Starting_Switch_Point + i + Windows_Changer::Number_Of_Element]
           self.src_rect.set($game_message.game_windows_position[i][0],
                             $game_message.game_windows_position[i][1],
                             $game_message.game_windows_position[i][2],
@@ -522,7 +524,8 @@ class Window_Message < Window_Base
   def create_background_Window_Message
     @temp1 = @gold_window.back_opacity
     @temp2 = @gold_window.opacity
-    @gold_background = Sprite.new(@background_Window_Message_viewport)
+    @gold_background = Sprite.new#(@background_Window_Message_viewport)
+    @gold_background.viewport = @gold_window.viewport
     @gold_background.y = @gold_window.y
     @gold_background.x = @gold_window.x
     @gold_background.visible = false
@@ -763,8 +766,8 @@ class Scene_Menu < Scene_MenuBase
 
     michael_create_gold_window
 
-    @gold_background = Sprite.new(@background_Menu_viewport)
-
+    @gold_background = Sprite.new#(@background_Menu_viewport)
+    @gold_background.viewport = @gold_window.viewport
     @gold_background.x = @gold_window.x
     @gold_background.y = @gold_window.y
 
@@ -886,26 +889,23 @@ class Scene_Item < Scene_ItemBase
     @background_item_viewport.z = 199
     @help_background.z = @background_item_viewport.z
     @help_background.z += $game_message.game_windows_depth[4]
-    if $game_switches[100 + 4 + Windows_Changer::Number_Of_Element]
-        @help_background.src_rect.set($game_message.game_windows_position[4][0],
-                                      $game_message.game_windows_position[4][1],
-                                      $game_message.game_windows_position[4][2],
-                                      $game_message.game_windows_position[4][3])
+    if $game_switches[Windows_Changer::Starting_Switch_Point + 4 + Windows_Changer::Number_Of_Element]
+        @help_background.src_rect.set(
+          $game_message.game_windows_position[4][0],
+          $game_message.game_windows_position[4][1],
+          $game_message.game_windows_position[4][2],
+          $game_message.game_windows_position[4][3])
     end
   end
 
 
   alias michael_create_category_window create_category_window
   def create_category_window
-
     michael_create_category_window
-
     @category_item_background = Sprite.new
     @category_item_background.viewport = @category_window.viewport
-
     @category_item_background.x = @category_window.x
     @category_item_background.y = @category_window.y
-
     unless @category_item_background.michael(@category_window, 9)
       @category_window.back_opacity = @temp1
       @category_window.opacity = @temp2
@@ -916,13 +916,10 @@ class Scene_Item < Scene_ItemBase
   alias michael_create_item_window create_item_window
   def create_item_window
     michael_create_item_window
-
     @item_background = Sprite.new
     @item_background.viewport = @item_window.viewport
-
     @item_background.x = @item_window.x
     @item_background.y = @item_window.y
-
     unless @item_background.michael(@item_window, 10)
       @item_window.back_opacity = @temp1
       @item_window.opacity = @temp2
@@ -964,7 +961,7 @@ class Scene_Skill < Scene_ItemBase
     @background_skill_viewport.z = 198
     @help_background.z = @background_skill_viewport.z
     @help_background.z += $game_message.game_windows_depth[4]
-    if $game_switches[100 + 4 + Windows_Changer::Number_Of_Element]
+    if $game_switches[Windows_Changer::Starting_Switch_Point + 4 + Windows_Changer::Number_Of_Element]
         @help_background.src_rect.set($game_message.game_windows_position[4][0],
                                       $game_message.game_windows_position[4][1],
                                       $game_message.game_windows_position[4][2],
@@ -1425,7 +1422,7 @@ class Scene_Shop < Scene_MenuBase
     @background_viewport.z = 199
     @help_background.z = @background_viewport.z
     @help_background.z += $game_message.game_windows_depth[4]
-    if $game_switches[100 + 4 + Windows_Changer::Number_Of_Element]
+    if $game_switches[Windows_Changer::Starting_Switch_Point + 4 + Windows_Changer::Number_Of_Element]
         @help_background.src_rect.set($game_message.game_windows_position[4][0],
                                       $game_message.game_windows_position[4][1],
                                       $game_message.game_windows_position[4][2],
@@ -1441,7 +1438,8 @@ class Scene_Shop < Scene_MenuBase
 
     michael_create_gold_window
 
-    @gold_background = Sprite.new(@background_viewport)
+    @gold_background = Sprite.new
+    @gold_background.viewport = @gold_window.viewport
     @gold_background.x = @gold_window.x
     @gold_background.y = @gold_window.y
 
@@ -2167,7 +2165,7 @@ module DataManager
     michael_create_game_objects
 
     #Default setting = false
-    $game_switches[100...100 +
+    $game_switches[Windows_Changer::Starting_Switch_Point...Windows_Changer::Starting_Switch_Point +
     Windows_Changer::Number_Of_Element +
     Windows_Changer::Number_Of_Element] = false
   end
@@ -2178,10 +2176,10 @@ end
 #===============================================================================
 class Game_Interpreter
   def window_off(i)
-    $game_switches[i + 100] = false
+    $game_switches[i + Windows_Changer::Starting_Switch_Point] = false
   end
   def window_on(i, name)
-    $game_switches[i + 100] = true
+    $game_switches[i + Windows_Changer::Starting_Switch_Point] = true
     $game_message.game_windows_name[i] = "#{name}"
   end
   def window_change(i, name)
@@ -2189,11 +2187,11 @@ class Game_Interpreter
   end
 
   def window_default(i)
-    $game_switches[i + Windows_Changer::Number_Of_Element + 100] = false
+    $game_switches[i + Windows_Changer::Number_Of_Element + Windows_Changer::Starting_Switch_Point] = false
   end
 
   def window_center(i)
-    $game_switches[i + Windows_Changer::Number_Of_Element + 100] = true
+    $game_switches[i + Windows_Changer::Number_Of_Element + Windows_Changer::Starting_Switch_Point] = true
     $game_message.game_windows_position[i][0] = 0
     $game_message.game_windows_position[i][1] = 0
     $game_message.game_windows_position[i][2] = Graphics.width
