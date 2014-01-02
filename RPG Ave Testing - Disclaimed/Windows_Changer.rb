@@ -22,7 +22,7 @@
 #==============================================================================
 #  Biography lol
 #==============================================================================
-# 2013.01.01 --window_opa(i, opacity) is introduced
+# 2013.01.01 --window_opacity(i, opacity) is introduced
 # 2013.12.30 --Trimmed down the file size
 # 2013.12.27 --Fixed window_default(i)
 #            --window_depth(i, depth) is introduced & implemented
