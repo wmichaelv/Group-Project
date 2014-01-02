@@ -2,7 +2,7 @@
 #==============================================================================
 #
 # Michael Windows Changer
-# Last Updated: 2013.12.27
+# Last Updated: 2014.01.01
 # Requirement: RPG Maker VX Ace
 #             -Knowledge of 'how to use scripts'
 #             -Knowledge of Window Designation (basically know which window is
@@ -22,6 +22,7 @@
 #==============================================================================
 #  Biography lol
 #==============================================================================
+# 2013.01.01 --window_opa(i, opacity) is introduced
 # 2013.12.30 --Trimmed down the file size
 # 2013.12.27 --Fixed window_default(i)
 #            --window_depth(i, depth) is introduced & implemented
@@ -134,6 +135,13 @@
 #                         in the graphic beside window #5 background, that window
 #                         background will appear to be above window #5 background.
 #                      -> Make sure that switch is 'on' or else nothing would happen.
+#
+# - window_opacity(i, opacity)
+# For Example:
+# window_opacity(5, 0) -> Set window #5 background opacity to 0 (100% transparent).
+#                      -> Opacity value is from 0 (fully see-through) to 255 (solid).
+#                      -> Make sure that switch is 'on' or else nothing would happen.
+#                      -> Default opacity is 255 when window background is on.
 #
 #  Have Fun!
 #
@@ -298,7 +306,7 @@ module Windows_Changer
   Window_DebugLeft_Folder = "Graphics\\Windows\\Window_DebugLeft",
   Window_DebugRight_Folder = "Graphics\\Windows\\Window_DebugRight",
   Window_Base_Folder = "Graphics\\Windows\\Window_Base",
-  ] #Add more windows here
+  ] #Add more elements here
 
   #============================================================================
   # Windows Position - This is To Adjust The Position of The Background Windows
@@ -350,7 +358,7 @@ module Windows_Changer
   Window_DebugLeft_Position = [0,0,Graphics.width,Graphics.height],
   Window_DebugRight_Position = [0,0,Graphics.width,Graphics.height],
   Window_Base_Position = [0,0,Graphics.width,Graphics.height],
-  ] #Add more windows here
+  ] #Add more elements here
 
   #============================================================================
   # Windows Depth - This is To Adjust The Depth of The Background Windows
@@ -402,7 +410,59 @@ module Windows_Changer
   Window_DebugLeft_Depth = 0,
   Window_DebugRight_Depth = 0,
   Window_Base_Depth = 0,
-  ] #Add more windows here
+  ] #Add more elements here
+
+  #============================================================================
+  # Windows Opacity - This is To Adjust The Opacity of The Background Windows
+  #============================================================================
+  Windows_Changer_Opacity_Array = [
+  Windows_Opacity = 255,
+  Window_Selectable_Opacity = 255,
+  Window_Command_Opacity = 255,
+  Window_HorzCommand_Opacity = 255,
+  Window_Help_Opacity = 255,
+  Window_Gold_Opacity = 255,
+  Window_MenuCommand_Opacity = 255,
+  Window_MenuStatus_Opacity = 255,
+  Window_MenuActor_Opacity = 255,
+  Window_ItemCategory_Opacity = 255,
+  Window_ItemList_Opacity = 255,
+  Window_SkillCommand_Opacity = 255,
+  Window_SkillStatus_Opacity = 255,
+  Window_SkillList_Opacity = 255,
+  Window_EquipStatus_Opacity = 255,
+  Window_EquipCommand_Opacity = 255,
+  Window_EquipSlot_Opacity = 255,
+  Window_EquipItem_Opacity = 255,
+  Window_Status_Opacity = 255,
+  Window_SaveFile_Opacity = 255,
+  Window_ShopCommand_Opacity = 255,
+  Window_ShopBuy_Opacity = 255,
+  Window_ShopSell_Opacity = 255,
+  Window_ShopNumber_Opacity = 255,
+  Window_ShopStatus_Opacity = 255,
+  Window_NameEdit_Opacity = 255,
+  Window_NameInput_Opacity = 255,
+  Window_ChoiceList_Opacity = 255,
+  Window_NumberInput_Opacity = 255,
+  Window_KeyItem_Opacity = 255,
+  Window_Message_Opacity = 255,
+  Window_ScrollText_Opacity = 255,
+  Window_MapName_Opacity = 255,
+  Window_BattleLog_Opacity = 255,
+  Window_PartyCommand_Opacity = 255,
+  Window_ActorCommand_Opacity = 255,
+  Window_BattleStatus_Opacity = 255,
+  Window_BattleActor_Opacity = 255,
+  Window_BattleEnemy_Opacity = 255,
+  Window_BattleSkill_Opacity = 255,
+  Window_BattleItem_Opacity = 255,
+  Window_TitleCommand_Opacity = 255,
+  Window_GameEnd_Opacity = 255,
+  Window_DebugLeft_Opacity = 255,
+  Window_DebugRight_Opacity = 255,
+  Window_Base_Opacity = 255,
+  ] #Add more elements here
 
 end
 
@@ -433,6 +493,7 @@ class Sprite
         self.bitmap = Cache.cache_extended(folder, name)
         self.src_rect.width = window.width
         self.src_rect.height = window.height
+        self.opacity = $game_message.game_windows_opacity[i]
         self.visible = (window.openness == 255)
         self.z += $game_message.game_windows_depth[i]
         if $game_switches[Windows_Changer::Starting_Switch_Point + i + Windows_Changer::Number_Of_Element]
@@ -464,6 +525,7 @@ class Game_Message
   attr_accessor :game_windows_name
   attr_accessor :game_windows_position
   attr_accessor :game_windows_depth
+  attr_accessor :game_windows_opacity
 
   alias a_lias initialize
 
@@ -477,6 +539,8 @@ class Game_Message
     Windows_Changer::Windows_Changer_Position_Array
     @game_windows_depth =
     Windows_Changer::Windows_Changer_Depth_Array
+    @game_windows_opacity =
+    Windows_Changer::Windows_Changer_Opacity_Array
   end
 end
 
@@ -2209,5 +2273,9 @@ class Game_Interpreter
 
   def window_depth(i, depth)
     $game_message.game_windows_depth[i] = depth
+  end
+
+  def window_opacity(i, opacity)
+    $game_message.game_window_opacity[i] = opacity
   end
 end
