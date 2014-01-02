@@ -416,52 +416,52 @@ module Windows_Changer
   # Windows Opacity - This is To Adjust The Opacity of The Background Windows
   #============================================================================
   Windows_Changer_Opacity_Array = [
-  Windows_Opacity = 255,
-  Window_Selectable_Opacity = 255,
-  Window_Command_Opacity = 255,
-  Window_HorzCommand_Opacity = 255,
-  Window_Help_Opacity = 255,
-  Window_Gold_Opacity = 255,
-  Window_MenuCommand_Opacity = 255,
-  Window_MenuStatus_Opacity = 255,
-  Window_MenuActor_Opacity = 255,
-  Window_ItemCategory_Opacity = 255,
-  Window_ItemList_Opacity = 255,
-  Window_SkillCommand_Opacity = 255,
-  Window_SkillStatus_Opacity = 255,
-  Window_SkillList_Opacity = 255,
-  Window_EquipStatus_Opacity = 255,
-  Window_EquipCommand_Opacity = 255,
-  Window_EquipSlot_Opacity = 255,
-  Window_EquipItem_Opacity = 255,
-  Window_Status_Opacity = 255,
-  Window_SaveFile_Opacity = 255,
-  Window_ShopCommand_Opacity = 255,
-  Window_ShopBuy_Opacity = 255,
-  Window_ShopSell_Opacity = 255,
-  Window_ShopNumber_Opacity = 255,
-  Window_ShopStatus_Opacity = 255,
-  Window_NameEdit_Opacity = 255,
-  Window_NameInput_Opacity = 255,
-  Window_ChoiceList_Opacity = 255,
-  Window_NumberInput_Opacity = 255,
-  Window_KeyItem_Opacity = 255,
-  Window_Message_Opacity = 255,
-  Window_ScrollText_Opacity = 255,
-  Window_MapName_Opacity = 255,
-  Window_BattleLog_Opacity = 255,
-  Window_PartyCommand_Opacity = 255,
-  Window_ActorCommand_Opacity = 255,
-  Window_BattleStatus_Opacity = 255,
-  Window_BattleActor_Opacity = 255,
-  Window_BattleEnemy_Opacity = 255,
-  Window_BattleSkill_Opacity = 255,
-  Window_BattleItem_Opacity = 255,
-  Window_TitleCommand_Opacity = 255,
-  Window_GameEnd_Opacity = 255,
-  Window_DebugLeft_Opacity = 255,
-  Window_DebugRight_Opacity = 255,
-  Window_Base_Opacity = 255,
+  Windows_Opacity = [false, 255],
+  Window_Selectable_Opacity = [false, 255],
+  Window_Command_Opacity = [false, 255],
+  Window_HorzCommand_Opacity = [false, 255],
+  Window_Help_Opacity = [false, 255],
+  Window_Gold_Opacity = [false, 255],
+  Window_MenuCommand_Opacity = [false, 255],
+  Window_MenuStatus_Opacity = [false, 255],
+  Window_MenuActor_Opacity = [false, 255],
+  Window_ItemCategory_Opacity = [false, 255],
+  Window_ItemList_Opacity = [false, 255],
+  Window_SkillCommand_Opacity = [false, 255],
+  Window_SkillStatus_Opacity = [false, 255],
+  Window_SkillList_Opacity = [false, 255],
+  Window_EquipStatus_Opacity = [false, 255],
+  Window_EquipCommand_Opacity = [false, 255],
+  Window_EquipSlot_Opacity = [false, 255],
+  Window_EquipItem_Opacity = [false, 255],
+  Window_Status_Opacity = [false, 255],
+  Window_SaveFile_Opacity = [false, 255],
+  Window_ShopCommand_Opacity = [false, 255],
+  Window_ShopBuy_Opacity = [false, 255],
+  Window_ShopSell_Opacity = [false, 255],
+  Window_ShopNumber_Opacity = [false, 255],
+  Window_ShopStatus_Opacity = [false, 255],
+  Window_NameEdit_Opacity = [false, 255],
+  Window_NameInput_Opacity = [false, 255],
+  Window_ChoiceList_Opacity = [false, 255],
+  Window_NumberInput_Opacity = [false, 255],
+  Window_KeyItem_Opacity = [false, 255],
+  Window_Message_Opacity = [false, 255],
+  Window_ScrollText_Opacity = [false, 255],
+  Window_MapName_Opacity = [false, 255],
+  Window_BattleLog_Opacity = [false, 255],
+  Window_PartyCommand_Opacity = [false, 255],
+  Window_ActorCommand_Opacity = [false, 255],
+  Window_BattleStatus_Opacity = [false, 255],
+  Window_BattleActor_Opacity = [false, 255],
+  Window_BattleEnemy_Opacity = [false, 255],
+  Window_BattleSkill_Opacity = [false, 255],
+  Window_BattleItem_Opacity = [false, 255],
+  Window_TitleCommand_Opacity = [false, 255],
+  Window_GameEnd_Opacity = [false, 255],
+  Window_DebugLeft_Opacity = [false, 255],
+  Window_DebugRight_Opacity = [false, 255],
+  Window_Base_Opacity = [false, 255],
   ] #Add more elements here
 
 end
@@ -474,6 +474,7 @@ module Cache
     load_bitmap("#{folder}/", "#{filename}")
   end
 end
+
 
 #==============================================================================
 # Sprite
@@ -493,8 +494,10 @@ class Sprite
         self.bitmap = Cache.cache_extended(folder, name)
         self.src_rect.width = window.width
         self.src_rect.height = window.height
-        self.opacity = $game_message.game_windows_opacity[i]
         self.visible = (window.openness == 255)
+        if self.visible && $game_message.game_windows_opacity[i][0]
+          self.opacity = $game_message.game_windows_opacity[i][1]
+        end
         self.z += $game_message.game_windows_depth[i]
         if $game_switches[Windows_Changer::Starting_Switch_Point + i + Windows_Changer::Number_Of_Element]
           self.src_rect.set($game_message.game_windows_position[i][0],
@@ -527,10 +530,10 @@ class Game_Message
   attr_accessor :game_windows_depth
   attr_accessor :game_windows_opacity
 
-  alias a_lias initialize
+  alias michael_initialize initialize
 
   def initialize
-    a_lias
+    michael_initialize
     @game_message_windows_folder =
     Windows_Changer::Windows_Changer_Folder_Array
     @game_windows_name =
@@ -550,13 +553,13 @@ end
 #==============================================================================
 module DataManager
   class << self
-    alias a_lias init
+    alias michael_init init
   end
   #--------------------------------------------------------------------------
   # Initialize Module
   #--------------------------------------------------------------------------
   def self.init
-    a_lias
+    michael_init
     create_Windows_Changer_directory
   end
 
@@ -2276,6 +2279,7 @@ class Game_Interpreter
   end
 
   def window_opacity(i, opacity)
-    $game_message.game_window_opacity[i] = opacity
+    $game_message.game_window_opacity[i][0] = true
+    $game_message.game_window_opacity[i][1] = opacity
   end
 end
