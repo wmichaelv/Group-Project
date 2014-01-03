@@ -12,8 +12,8 @@
 
 #==============================================================================
 #Compability: - Script should be compatible with other scripts.
-#             - Make sure that the picture you use have the right size as the
-#               window's size.
+#             - If the picture you use doesn't have the right size as the
+#               window's size, then use window_move to show picture in full size.
 #             - Bitmap cannot convert .gif file yet.
 #
 #==============================================================================
@@ -24,6 +24,8 @@
 #==============================================================================
 # 2013.01.02 --Naming convention is improved
 #            --Some methods are simplified
+#            --File is trimmed down
+#            --@temp1 & @temp2 variables are removed
 # 2013.01.01 --window_opacity(i, opacity) is introduced
 # 2013.12.30 --Trimmed down the file size
 # 2013.12.27 --Fixed window_default(i)
@@ -73,6 +75,7 @@
 # Installation
 #==============================================================================
 # - This script will OVERLOAD all windows.
+# - This script will OVERLOAD all DEFAULT windows.
 # - Place this script to be below other overloading windows script. If you are
 #   not sure where, place it to be the lowest of the material section.
 # - If you have a bust script, put the bust script anywhere below this script.
@@ -628,8 +631,6 @@ class Window_Message < Window_Base
   end
 
   def create_background_Window_Message
-    @temp1 = @gold_window.back_opacity
-    @temp2 = @gold_window.opacity
     @gold_background = Sprite.new
     @gold_background.y = @gold_window.y
     @gold_background.x = @gold_window.x
@@ -712,26 +713,19 @@ class Scene_Map < Scene_Base
     @background_Map_viewport = Viewport.new
     @background_Map_viewport.z = 199
 
-    @temp1 = @message_window.back_opacity
-    @temp2 = @message_window.opacity
-
     @message_background = Sprite.new(@background_Map_viewport)
-
     @message_background.y = @message_window.y
     @message_background.x = @message_window.x
-
     @message_background.michael_window_background_sprite(@message_window, 30)
 
     @scroll_text_background = Sprite.new(@background_Map_viewport)
     @scroll_text_background.x = @scroll_text_window.x
     @scroll_text_background.y = @scroll_text_window.y
-
     @scroll_text_background.michael_window_background_sprite(@scroll_text_window, 31)
 
     @map_name_background = Sprite.new(@background_Map_viewport)
     @map_name_background.x = @map_name_window.x
     @map_name_background.y = @map_name_window.y
-
     @map_name_background.michael_window_background_sprite(@map_name_window, 32)
   end
 
@@ -757,9 +751,6 @@ class Scene_MenuBase < Scene_Base
   def create_help_window
     michael_Scene_MenuBase_create_help_window
 
-    @temp1 = @help_window.back_opacity
-    @temp2 = @help_window.opacity
-
     @help_background = Sprite.new(@viewport)
     @help_background.z -= 1
 
@@ -784,9 +775,6 @@ class Scene_Menu < Scene_MenuBase
 
     @background_Menu_viewport = Viewport.new
     @background_Menu_viewport.z = 199
-
-    @temp1 = @command_window.back_opacity
-    @temp2 = @command_window.opacity
 
     @command_background = Sprite.new(@background_Menu_viewport)
     @command_background.y = @command_window.y
@@ -1069,9 +1057,6 @@ class Scene_Equip < Scene_MenuBase
 
   def create_backgrounds
 
-    @temp1 = @status_window.back_opacity
-    @temp2 = @status_window.opacity
-
     @status_background = Sprite.new(@background_viewport)
     @status_background.x = @status_window.x
     @status_background.y = @status_window.y
@@ -1134,9 +1119,6 @@ class Scene_Status < Scene_MenuBase
 
     @background_viewport = Viewport.new
     @background_viewport.z = 199
-
-    @temp1 = @status_window.back_opacity
-    @temp2 = @status_window.opacity
 
     @status_background = Sprite.new(@background_viewport)
     @status_background.x = @status_window.x
@@ -1202,26 +1184,7 @@ class Scene_File < Scene_MenuBase
 
     if $game_switches[119]
       Array.new(item_max) do |i|
-        @savefile_windows[i].back_opacity = 0
-        @savefile_windows[i].opacity = 0
-      end
-
-      folder = $game_message.game_message_windows_folder[19]
-      name = $game_message.game_windows_name[19]
-      Array.new(item_max) do |i|
-        @savefile_backgrounds[i].bitmap = Cache.cache_extended(folder, name)
-        @savefile_backgrounds[i].src_rect.height = @savefile_viewport.rect.height / visible_max
-        @savefile_backgrounds[i].src_rect.width = @savefile_windows[i].width
-        @savefile_backgrounds[i].src_rect.height = @savefile_windows[i].height
-        @savefile_backgrounds[i].visible = true
-      end
-    else
-      Array.new(item_max) do |i|
-        @savefile_windows[i].back_opacity = @temp1
-        @savefile_windows[i].opacity = @temp2
-      end
-      Array.new(item_max) do |i|
-        @savefile_backgrounds[i].visible = false
+        @savefile_windows[i].michael_window_background_sprite(@savefile_windows[i], 19)
       end
     end
   end
@@ -1232,9 +1195,6 @@ class Scene_File < Scene_MenuBase
   def create_help_window
 
     michael_Scene_File_create_help_window
-
-    @temp1 = @help_window.back_opacity
-    @temp2 = @help_window.opacity
 
     @help_background = Sprite.new(@background_viewport)
     @help_background.x = @help_window.x
@@ -1259,16 +1219,8 @@ class Scene_File < Scene_MenuBase
     end
     if $game_switches[119]
       Array.new(item_max) do |i|
-        @savefile_windows[i].back_opacity = 0
+        @savefile_windows[i].michael_window_background_sprite(@savefile_windows[i], 19)
         @savefile_windows[i].opacity = 0
-      end
-      folder = $game_message.game_message_windows_folder[19]
-      name = $game_message.game_windows_name[19]
-      Array.new(item_max) do |i|
-        @savefile_backgrounds[i].bitmap = Cache.cache_extended(folder, name)
-        @savefile_backgrounds[i].src_rect.height = @savefile_windows[i].height
-        @savefile_backgrounds[i].src_rect.width = @savefile_windows[i].width
-        @savefile_backgrounds[i].visible = true
       end
     end
   end
@@ -1317,9 +1269,6 @@ class Scene_End < Scene_MenuBase
   def create_command_window
 
     michael_Scene_End_create_command_window
-
-    @temp1 = @command_window.back_opacity
-    @temp2 = @command_window.opacity
 
     @command_background = Sprite.new(@background_viewport)
     @command_background.x = @command_window.x
@@ -1705,8 +1654,6 @@ class Scene_Debug < Scene_MenuBase
     @left_background = Sprite.new(@background_viewport)
     @left_background.x = @left_window.x
     @left_background.y = @left_window.y
-    @temp1 = @left_background.back_opacity
-    @temp2 = @left_background.opacity
   end
   #--------------------------------------------------------------------------
   # Create Right Window
@@ -1734,9 +1681,7 @@ class Scene_Debug < Scene_MenuBase
     michael_Scene_Debug_refresh_help_window
 
     @left_background.michael_window_background_sprite(@left_window, 43)
-
     @right_background.michael_window_background_sprite(@right_window, 44)
-
     @debug_help_background.michael_window_background_sprite(@debug_help_window, 45)
   end
 end
@@ -1838,8 +1783,6 @@ class Scene_Battle < Scene_Base
     @status_background = Sprite.new#(@background_viewport)
     @status_background.x = @status_window.x
     @status_background.y = @status_window.y
-    @temp1 = @status_window.back_opacity
-    @temp2 = @status_window.opacity
   end
   #--------------------------------------------------------------------------
   #  Create Information Display Viewport
