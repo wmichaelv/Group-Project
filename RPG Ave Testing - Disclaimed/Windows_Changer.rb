@@ -568,13 +568,13 @@ end
 #==============================================================================
 module DataManager
   class << self
-    alias michael_init init
+    alias michael_data_manager_101_init init
   end
   #--------------------------------------------------------------------------
   # Initialize Module
   #--------------------------------------------------------------------------
   def self.init
-    michael_init
+    michael_data_manager_101_init
     create_Windows_Changer_directory
   end
 
@@ -591,9 +591,9 @@ end
 
 class Window_Message < Window_Base
 
-  alias michael_initialize initialize
+  alias michael_Window_Message_initialize initialize
   def initialize
-    michael_initialize
+    michael_Window_Message_initialize
     create_background_viewport_Window_Message
     create_background_Window_Message
   end
@@ -623,9 +623,9 @@ class Window_Message < Window_Base
 
   end
 
-  alias michael_dispose dispose
+  alias michael_Window_Message_dispose dispose
   def dispose
-    michael_dispose
+    michael_Window_Message_dispose
     @gold_background.dispose
     @choice_background.dispose
     @number_background.dispose
@@ -634,7 +634,7 @@ class Window_Message < Window_Base
   end
 
 
-  alias michael_update update
+  alias michael_Window_Message_update update
   def update
 
     unless @gold_background.michael(@gold_window, 5)
@@ -653,7 +653,7 @@ class Window_Message < Window_Base
       @item_background.visible = false
     end
 
-    michael_update
+    michael_Window_Message_update
 
   end
 
@@ -682,9 +682,9 @@ class Window_Message < Window_Base
 
 
 
-  alias michael_update_placement update_placement
+  alias michael_Window_Message_update_placement update_placement
   def update_placement
-    michael_update_placement
+    michael_Window_Message_update_placement
     @gold_background.y = @gold_window.y
   end
 
@@ -696,9 +696,9 @@ end
 
 class Scene_Title < Scene_Base
 
-  alias michael_create_command_window create_command_window
+  alias michael_Scene_Title_create_command_window create_command_window
   def create_command_window
-    michael_create_command_window
+    michael_Scene_Title_create_command_window
 
     @background_viewport = Viewport.new
     @background_viewport.z = 99
@@ -713,19 +713,19 @@ class Scene_Title < Scene_Base
 
   end
 
-  alias michael_terminate terminate
+  alias michael_Scene_Title_terminate terminate
   def terminate
     @command_background.dispose
     @background_viewport.dispose
-    michael_terminate
+    michael_Scene_Title_terminate
   end
 
   #--------------------------------------------------------------------------
   # Close Command Window
   #--------------------------------------------------------------------------
-  alias michael_close_command_window close_command_window
+  alias michael_Scene_Title_close_command_window close_command_window
   def close_command_window
-    michael_close_command_window
+    michael_Scene_Title_close_command_window
     @command_background.visible = false
   end
 end
@@ -736,9 +736,9 @@ end
 
 class Scene_Map < Scene_Base
 
-  alias michael_create_all_windows create_all_windows
+  alias michael_Scene_Map_create_all_windows create_all_windows
   def create_all_windows
-    michael_create_all_windows
+    michael_Scene_Map_create_all_windows
     @background_Map_viewport = Viewport.new
     @background_Map_viewport.z = 199
 
@@ -776,9 +776,9 @@ class Scene_Map < Scene_Base
     end
   end
 
-  alias michael_terminate terminate
+  alias michael_Scene_Map_terminate terminate
   def terminate
-    michael_terminate
+    michael_Scene_Map_terminate
     @message_background.dispose
     @scroll_text_background.dispose
     @map_name_background.dispose
@@ -794,9 +794,9 @@ class Scene_MenuBase < Scene_Base
   #--------------------------------------------------------------------------
   # Create Help Window
   #--------------------------------------------------------------------------
-  alias michael_create_help_window create_help_window
+  alias michael_Scene_MenuBase_create_help_window create_help_window
   def create_help_window
-    michael_create_help_window
+    michael_Scene_MenuBase_create_help_window
 
     @temp1 = @help_window.back_opacity
     @temp2 = @help_window.opacity
@@ -820,10 +820,10 @@ end
 
 class Scene_Menu < Scene_MenuBase
 
-  alias michael_create_command_window create_command_window
+  alias michael_Scene_Menu_create_command_window create_command_window
   def create_command_window
 
-    michael_create_command_window
+    michael_Scene_Menu_create_command_window
 
     @background_Menu_viewport = Viewport.new
     @background_Menu_viewport.z = 199
@@ -843,10 +843,10 @@ class Scene_Menu < Scene_MenuBase
 
   end
 
-  alias michael_create_gold_window create_gold_window
+  alias michael_Scene_Menu_create_gold_window create_gold_window
   def create_gold_window
 
-    michael_create_gold_window
+    michael_Scene_Menu_create_gold_window
 
     @gold_background = Sprite.new#(@background_Menu_viewport)
     @gold_background.viewport = @gold_window.viewport
@@ -861,10 +861,10 @@ class Scene_Menu < Scene_MenuBase
 
   end
 
-  alias michael_create_status_window create_status_window
+  alias michael_Scene_Menu_create_status_window create_status_window
   def create_status_window
 
-    michael_create_status_window
+    michael_Scene_Menu_create_status_window
 
     @status_background = Sprite.new(@background_Menu_viewport)
 
@@ -880,9 +880,9 @@ class Scene_Menu < Scene_MenuBase
 
   begin
     mod = self.const_get "terminate"
-    alias michael_terminate terminate
+    alias michael_Scene_Menu_terminate terminate
     def terminate
-      michael_terminate
+      michael_Scene_Menu_terminate
       @command_background.dispose
       @gold_background.dispose
       @status_background.dispose
@@ -906,10 +906,10 @@ end
 
 class Scene_ItemBase < Scene_MenuBase
 
-  alias michael_create_actor_window create_actor_window
+  alias michael_Scene_ItemBase_create_actor_window create_actor_window
   def create_actor_window
 
-    michael_create_actor_window
+    michael_Scene_ItemBase_create_actor_window
 
     @background_ItemBase_viewport = Viewport.new
     @background_ItemBase_viewport.z = 198
@@ -926,9 +926,9 @@ class Scene_ItemBase < Scene_MenuBase
 
   begin
     mod = self.const_get "terminate"
-    alias michael_terminate terminate
+    alias michael_Scene_ItemBase_terminate terminate
     def terminate
-      michael_terminate
+      michael_Scene_ItemBase_terminate
       @actor_background.dispose
       @background_ItemBase_viewport.dispose
     end
@@ -943,10 +943,10 @@ class Scene_ItemBase < Scene_MenuBase
   #--------------------------------------------------------------------------
   # Show Subwindow
   #--------------------------------------------------------------------------
-  alias michael_show_sub_window show_sub_window
+  alias michael_Scene_ItemBase_show_sub_window show_sub_window
   def show_sub_window(window)
 
-    michael_show_sub_window
+    michael_Scene_ItemBase_show_sub_window
 
     unless @actor_background.michael(@actor_window, 8)
       @actor_background.visible = false
@@ -981,9 +981,9 @@ class Scene_Item < Scene_ItemBase
   end
 
 
-  alias michael_create_category_window create_category_window
+  alias michael_Scene_Item_create_category_window create_category_window
   def create_category_window
-    michael_create_category_window
+    michael_Scene_Item_create_category_window
     @category_item_background = Sprite.new
     @category_item_background.viewport = @category_window.viewport
     @category_item_background.x = @category_window.x
@@ -995,9 +995,9 @@ class Scene_Item < Scene_ItemBase
     end
   end
 
-  alias michael_create_item_window create_item_window
+  alias michael_Scene_Item_create_item_window create_item_window
   def create_item_window
-    michael_create_item_window
+    michael_Scene_Item_create_item_window
     @item_background = Sprite.new
     @item_background.viewport = @item_window.viewport
     @item_background.x = @item_window.x
@@ -1011,9 +1011,9 @@ class Scene_Item < Scene_ItemBase
 
   begin
     mod = self.const_get "terminate"
-    alias michael_terminate terminate
+    alias michael_Scene_Item_terminate terminate
     def terminate
-      michael_terminate
+      michael_Scene_Item_terminate
       @category_item_background.dispose
       @help_background.dispose
       @item_background.dispose
@@ -1051,9 +1051,9 @@ class Scene_Skill < Scene_ItemBase
       end
   end
 
-  alias michael_create_command_window create_command_window
+  alias michael_Scene_Skill_create_command_window create_command_window
   def create_command_window
-    michael_create_command_window
+    michael_Scene_Skill_create_command_window
 
 
     @command_background = Sprite.new#(@background_skill_viewport)
@@ -1068,10 +1068,10 @@ class Scene_Skill < Scene_ItemBase
     end
   end
 
-  alias michael_create_status_window create_status_window
+  alias michael_Scene_Skill_create_status_window create_status_window
   def create_status_window
 
-    michael_create_status_window
+    michael_Scene_Skill_create_status_window
 
     @status_background = Sprite.new(@background_skill_viewport)
     @status_background.x = @status_window.x
@@ -1085,10 +1085,10 @@ class Scene_Skill < Scene_ItemBase
 
   end
 
-  alias michael_create_item_window create_item_window
+  alias michael_Scene_Skill_create_item_window create_item_window
     def create_item_window
 
-    michael_create_item_window
+    michael_Scene_Skill_create_item_window
 
     @item_background = Sprite.new
     @item_background.viewport = @item_window.viewport
@@ -1105,9 +1105,9 @@ class Scene_Skill < Scene_ItemBase
 
   begin
     mod = self.const_get "terminate"
-    alias michael_terminate terminate
+    alias michael_Scene_Skill_terminate terminate
     def terminate
-      michael_terminate
+      michael_Scene_Skill_terminate
       @help_background.dispose
       @command_background.dispose
       @status_background.dispose
@@ -1135,9 +1135,9 @@ class Scene_Equip < Scene_MenuBase
   #--------------------------------------------------------------------------
   # Start Processing
   #--------------------------------------------------------------------------
-  alias michael_start start
+  alias michael_Scene_Equip_start start
   def start
-    michael_start
+    michael_Scene_Equip_start
     create_background_viewport
     create_backgrounds
   end
@@ -1196,9 +1196,9 @@ class Scene_Equip < Scene_MenuBase
 
   begin
     mod = self.const_get "terminate"
-    alias michael_terminate terminate
+    alias michael_Scene_Equip_terminate terminate
     def terminate
-      michael_terminate
+      michael_Scene_Equip_terminate
       @status_background.dispose
       @command_background.dispose
       @slot_background.dispose
@@ -1226,10 +1226,10 @@ class Scene_Status < Scene_MenuBase
   #--------------------------------------------------------------------------
   # Start Processing
   #--------------------------------------------------------------------------
-  alias michael_start start
+  alias michael_Scene_Status_start start
   def start
 
-    michael_start
+    michael_Scene_Status_start
 
     @background_viewport = Viewport.new
     @background_viewport.z = 199
@@ -1250,9 +1250,9 @@ class Scene_Status < Scene_MenuBase
 
   begin
     mod = self.const_get "terminate"
-    alias michael_terminate terminate
+    alias michael_Scene_Status_terminate terminate
     def terminate
-      michael_terminate
+      michael_Scene_Status_terminate
       @status_background.dispose
       @background_viewport.dispose
     end
@@ -1274,10 +1274,10 @@ class Scene_File < Scene_MenuBase
   #--------------------------------------------------------------------------
   # Start Processing
   #--------------------------------------------------------------------------
-  alias michael_start start
+  alias michael_Scene_File_start start
   def start
     create_background_viewport
-    michael_start
+    michael_Scene_File_start
   end
 
   def create_background_viewport
@@ -1286,9 +1286,9 @@ class Scene_File < Scene_MenuBase
   #--------------------------------------------------------------------------
   # Termination Processing
   #--------------------------------------------------------------------------
-  alias michael_terminate terminate
+  alias michael_Scene_File_terminate terminate
   def terminate
-    michael_terminate
+    michael_Scene_File_terminate
     @savefile_backgrounds.each {|background| background.dispose}
     @background_viewport.dispose
     @help_background.dispose
@@ -1296,10 +1296,10 @@ class Scene_File < Scene_MenuBase
   #--------------------------------------------------------------------------
   # * Frame Update
   #--------------------------------------------------------------------------
-  alias michael_update update
+  alias michael_Scene_File_update update
   def update
 
-    michael_update
+    michael_Scene_File_update
 
     unless @help_background.michael(@help_window, 4)
       @help_window.back_opacity = @temp1
@@ -1335,10 +1335,10 @@ class Scene_File < Scene_MenuBase
   #--------------------------------------------------------------------------
   # Create Help Window
   #--------------------------------------------------------------------------
-  alias michael_create_help_window create_help_window
+  alias michael_Scene_File_create_help_window create_help_window
   def create_help_window
 
-    michael_create_help_window
+    michael_Scene_File_create_help_window
 
     @temp1 = @help_window.back_opacity
     @temp2 = @help_window.opacity
@@ -1354,9 +1354,9 @@ class Scene_File < Scene_MenuBase
   #--------------------------------------------------------------------------
   # Create Save File Window
   #--------------------------------------------------------------------------
-  alias michael_create_savefile_windows create_savefile_windows
+  alias michael_Scene_File_create_savefile_windows create_savefile_windows
   def create_savefile_windows
-    michael_create_savefile_windows
+    michael_Scene_File_create_savefile_windows
     @savefile_backgrounds = Array.new(item_max) do |i|
       Sprite.new(@savefile_viewport)
     end
@@ -1391,10 +1391,10 @@ class Scene_End < Scene_MenuBase
   #--------------------------------------------------------------------------
   # Start Processing
   #--------------------------------------------------------------------------
-  alias michael_start start
+  alias michael_Scene_End_start start
   def start
     create_background_viewport
-    michael_start
+    michael_Scene_End_start
   end
 
   def create_background_viewport
@@ -1404,9 +1404,9 @@ class Scene_End < Scene_MenuBase
 
   begin
     mod = self.const_get "terminate"
-    alias michael_terminate terminate
+    alias michael_Scene_End_terminate terminate
     def terminate
-      michael_terminate
+      michael_Scene_End_terminate
       @command_background.dispose
       @background_viewport.dispose
     end
@@ -1421,10 +1421,10 @@ class Scene_End < Scene_MenuBase
   #--------------------------------------------------------------------------
   # Create Command Window
   #--------------------------------------------------------------------------
-  alias michael_create_command_window create_command_window
+  alias michael_Scene_End_create_command_window create_command_window
   def create_command_window
 
-    michael_create_command_window
+    michael_Scene_End_create_command_window
 
     @temp1 = @command_window.back_opacity
     @temp2 = @command_window.opacity
@@ -1440,9 +1440,9 @@ class Scene_End < Scene_MenuBase
   #--------------------------------------------------------------------------
   # Close Command Window
   #--------------------------------------------------------------------------
-  alias michael_close_command_window close_command_window
+  alias michael_Scene_End_close_command_window close_command_window
   def close_command_window
-    michael_close_command_window
+    michael_Scene_End_close_command_window
     @command_background.visible = false if @command_window.close?
   end
 
@@ -1465,9 +1465,9 @@ class Scene_Shop < Scene_MenuBase
 
   begin
     mod = self.const_get "terminate"
-    alias michael_terminate terminate
+    alias michael_Scene_Shop_terminate terminate
     def terminate
-      michael_terminate
+      michael_Scene_Shop_terminate
       @sell_background.dispose
       @category_background.dispose
       @buy_background.dispose
@@ -1515,10 +1515,10 @@ class Scene_Shop < Scene_MenuBase
   #--------------------------------------------------------------------------
   # * Create Gold Window
   #--------------------------------------------------------------------------
-  alias michael_create_gold_window create_gold_window
+  alias michael_Scene_Shop_create_gold_window create_gold_window
   def create_gold_window
 
-    michael_create_gold_window
+    michael_Scene_Shop_create_gold_window
 
     @gold_background = Sprite.new
     @gold_background.viewport = @gold_window.viewport
@@ -1532,10 +1532,10 @@ class Scene_Shop < Scene_MenuBase
   #--------------------------------------------------------------------------
   # * Create Command Window
   #--------------------------------------------------------------------------
-  alias michael_create_command_window create_command_window
+  alias michael_Scene_Shop_create_command_window create_command_window
   def create_command_window
 
-    michael_create_command_window
+    michael_Scene_Shop_create_command_window
 
     @command_background = Sprite.new(@background_viewport)
     @command_background.x = @command_window.x
@@ -1549,10 +1549,10 @@ class Scene_Shop < Scene_MenuBase
   #--------------------------------------------------------------------------
   # * Create Dummy Window
   #--------------------------------------------------------------------------
-  alias michael_create_dummy_window create_dummy_window
+  alias michael_Scene_Shop_create_dummy_window create_dummy_window
   def create_dummy_window
 
-    michael_create_dummy_window
+    michael_Scene_Shop_create_dummy_window
 
     @dummy_background = Sprite.new(@background_viewport)
     @dummy_background.x = @dummy_window.x
@@ -1565,10 +1565,10 @@ class Scene_Shop < Scene_MenuBase
   #--------------------------------------------------------------------------
   # * Create Quantity Input Window
   #--------------------------------------------------------------------------
-  alias michael_create_number_window create_number_window
+  alias michael_Scene_Shop_create_number_window create_number_window
   def create_number_window
 
-    michael_create_number_window
+    michael_Scene_Shop_create_number_window
 
     @number_background = Sprite.new(@background_viewport)
     @number_background.x = @number_window.x
@@ -1581,10 +1581,10 @@ class Scene_Shop < Scene_MenuBase
   #--------------------------------------------------------------------------
   # * Create Status Window
   #--------------------------------------------------------------------------
-  alias michael_create_status_window create_status_window
+  alias michael_Scene_Shop_create_status_window create_status_window
   def create_status_window
 
-    michael_create_status_window
+    michael_Scene_Shop_create_status_window
 
     @status_background = Sprite.new(@background_viewport)
     @status_background.x = @status_window.x
@@ -1597,10 +1597,10 @@ class Scene_Shop < Scene_MenuBase
   #--------------------------------------------------------------------------
   # Create Purchase Window
   #--------------------------------------------------------------------------
-  alias michael_create_buy_window create_buy_window
+  alias michael_Scene_Shop_create_buy_window create_buy_window
   def create_buy_window
 
-    michael_create_buy_window
+    michael_Scene_Shop_create_buy_window
 
     @buy_background = Sprite.new(@background_viewport)
     @buy_background.x = @buy_window.x
@@ -1613,10 +1613,10 @@ class Scene_Shop < Scene_MenuBase
   #--------------------------------------------------------------------------
   # Create Category Window
   #--------------------------------------------------------------------------
-  alias michael_create_category_window create_category_window
+  alias michael_Scene_Shop_create_category_window create_category_window
   def create_category_window
 
-    michael_create_category_window
+    michael_Scene_Shop_create_category_window
 
     @category_background = Sprite.new(@background_viewport)
     @category_background.x = @category_window.x
@@ -1629,10 +1629,10 @@ class Scene_Shop < Scene_MenuBase
   #--------------------------------------------------------------------------
   # * Create Sell Window
   #--------------------------------------------------------------------------
-  alias michael_create_sell_window create_sell_window
+  alias michael_Scene_Shop_create_sell_window create_sell_window
   def create_sell_window
 
-    michael_create_sell_window
+    michael_Scene_Shop_create_sell_window
 
     @sell_background = Sprite.new(@background_viewport)
     @sell_background.x = @sell_window.x
@@ -1645,9 +1645,9 @@ class Scene_Shop < Scene_MenuBase
   #--------------------------------------------------------------------------
   # * Activate Purchase Window
   #--------------------------------------------------------------------------
-  alias michael_activate_buy_window activate_buy_window
+  alias michael_Scene_Shop_activate_buy_window activate_buy_window
   def activate_buy_window
-    michael_activate_buy_window
+    michael_Scene_Shop_activate_buy_window
     @buy_background.visible = true
     @status_background.visible = true
   end
@@ -1655,29 +1655,29 @@ class Scene_Shop < Scene_MenuBase
   # * Activate Sell Window
   #--------------------------------------------------------------------------
 
-  alias michael_activate_sell_window activate_sell_window
+  alias michael_Scene_Shop_activate_sell_window activate_sell_window
   def activate_sell_window
     @category_background.visible = true
     @sell_background.visible = true
     @status_background.visible = false
-    michael_activate_sell_window
+    michael_Scene_Shop_activate_sell_window
   end
 
   #--------------------------------------------------------------------------
   # * [Buy] Command
   #--------------------------------------------------------------------------
-  alias michael_command_buy command_buy
+  alias michael_Scene_Shop_command_buy command_buy
   def command_buy
     @dummy_background.visible = false
-    michael_command_buy
+    michael_Scene_Shop_command_buy
   end
   #--------------------------------------------------------------------------
   # * [Sell] Command
   #--------------------------------------------------------------------------
 
-  alias michael_command_sell command_sell
+  alias michael_Scene_Shop_command_sell command_sell
   def command_sell
-    michael_command_sell
+    michael_Scene_Shop_command_sell
     @dummy_background.visible = false
     @category_background.visible = true
     @sell_background.visible = true
@@ -1686,18 +1686,18 @@ class Scene_Shop < Scene_MenuBase
   #--------------------------------------------------------------------------
   # * Buy [OK]
   #--------------------------------------------------------------------------
-  alias michael_on_buy_ok on_buy_ok
+  alias michael_Scene_Shop_on_buy_ok on_buy_ok
   def on_buy_ok
-    michael_on_buy_ok
+    michael_Scene_Shop_on_buy_ok
     @buy_background.visible = false
     @number_background.visible = true
   end
   #--------------------------------------------------------------------------
   # * Buy [Cancel]
   #--------------------------------------------------------------------------
-  alias michael_on_buy_cancel on_buy_cancel
+  alias michael_Scene_Shop_on_buy_cancel on_buy_cancel
   def on_buy_cancel
-    michael_on_buy_cancel
+    michael_Scene_Shop_on_buy_cancel
     @dummy_background.visible = true
     @buy_background.visible = false
     @status_background.visible = false
@@ -1705,9 +1705,9 @@ class Scene_Shop < Scene_MenuBase
   #--------------------------------------------------------------------------
   # Category [Cancel]
   #--------------------------------------------------------------------------
-  alias michael_on_category_cancel on_category_cancel
+  alias michael_Scene_Shop_on_category_cancel on_category_cancel
   def on_category_cancel
-    michael_on_category_cancel
+    michael_Scene_Shop_on_category_cancel
     @dummy_background.visible = true
     @category_background.visible = false
     @sell_background.visible = false
@@ -1715,9 +1715,9 @@ class Scene_Shop < Scene_MenuBase
   #--------------------------------------------------------------------------
   # Sell [OK]
   #--------------------------------------------------------------------------
-  alias michael_on_sell_ok on_sell_ok
+  alias michael_Scene_Shop_on_sell_ok on_sell_ok
   def on_sell_ok
-    michael_on_sell_ok
+    michael_Scene_Shop_on_sell_ok
     @category_background.visible = false
     @sell_background.visible = false
     @number_background.visible = true
@@ -1726,17 +1726,17 @@ class Scene_Shop < Scene_MenuBase
   #--------------------------------------------------------------------------
   # Sell [Cancel]
   #--------------------------------------------------------------------------
-  alias michael_on_sell_cancel on_sell_cancel
+  alias michael_Scene_Shop_on_sell_cancel on_sell_cancel
   def on_sell_cancel
-    michael_on_sell_cancel
+    michael_Scene_Shop_on_sell_cancel
     @sell_background.visible = false
   end
   #--------------------------------------------------------------------------
   # Exit Quantity Input
   #--------------------------------------------------------------------------
-  alias michael_end_number_input end_number_input
+  alias michael_Scene_Shop_end_number_input end_number_input
   def end_number_input
-    michael_end_number_input
+    michael_Scene_Shop_end_number_input
     @number_background.visible = false
   end
 end
@@ -1749,9 +1749,9 @@ class Scene_Name < Scene_MenuBase
   #--------------------------------------------------------------------------
   # Start Processing
   #--------------------------------------------------------------------------
-  alias michael_start start
+  alias michael_Scene_Name_start start
   def start
-    michael_start
+    michael_Scene_Name_start
 
     @background_viewport = Viewport.new
     @background_viewport.z = 199
@@ -1774,10 +1774,10 @@ class Scene_Name < Scene_MenuBase
 
   begin
     mod = self.const_get "terminate"
-    alias michael_terminate terminate
+    alias michael_Scene_Name_terminate terminate
     def terminate
 
-      michael_terminate
+      michael_Scene_Name_terminate
 
       @background_viewport.dispose
       @edit_background.dispose
@@ -1805,20 +1805,20 @@ class Scene_Debug < Scene_MenuBase
   #--------------------------------------------------------------------------
   # * Termination Processing
   #--------------------------------------------------------------------------
-  alias michael_terminate terminate
+  alias michael_Scene_Debug_terminate terminate
   def terminate
     @background_viewport.dispose
     @left_background.dispose
     @right_background.dispose
     @debug_help_background.dispose
-    michael_terminate
+    michael_Scene_Debug_terminate
   end
   #--------------------------------------------------------------------------
   # Create Left Window
   #--------------------------------------------------------------------------
-  alias michael_create_left_window create_left_window
+  alias michael_Scene_Debug_create_left_window create_left_window
   def create_left_window
-    michael_create_left_window
+    michael_Scene_Debug_create_left_window
     @background_viewport = Viewport.new
     @background_viewport.z = 199
     @left_background = Sprite.new(@background_viewport)
@@ -1830,9 +1830,9 @@ class Scene_Debug < Scene_MenuBase
   #--------------------------------------------------------------------------
   # Create Right Window
   #--------------------------------------------------------------------------
-  alias michael_create_right_window create_right_window
+  alias michael_Scene_Debug_create_right_window create_right_window
   def create_right_window
-    michael_create_right_window
+    michael_Scene_Debug_create_right_window
     @right_background = Sprite.new(@background_viewport)
     @right_background.x = @right_window.x
     @right_background.y = @right_window.y
@@ -1840,17 +1840,17 @@ class Scene_Debug < Scene_MenuBase
   #--------------------------------------------------------------------------
   # Create Help Window
   #--------------------------------------------------------------------------
-  alias michael_create_debug_help_window create_debug_help_window
+  alias michael_Scene_Debug_create_debug_help_window create_debug_help_window
   def create_debug_help_window
-    michael_create_message_window
+    michael_Scene_Debug_create_message_window
     @debug_help_background = Sprite.new(@background_viewport)
     @debug_help_background.x = @debug_help_window.x
     @debug_help_background.y = @debug_help_window.y
   end
 
-  alias michael_refresh_help_window refresh_help_window
+  alias michael_Scene_Debug_refresh_help_window refresh_help_window
   def refresh_help_window
-    michael_refresh_help_window
+    michael_Scene_Debug_refresh_help_window
 
     unless @left_background.michael(@left_window, 43)
       @left_window.back_opacity = @temp1
@@ -1878,9 +1878,9 @@ end
 
 class Scene_Battle < Scene_Base
 
-  alias michael_terminate terminate
+  alias michael_Scene_Battle_terminate terminate
   def terminate
-    michael_terminate
+    michael_Scene_Battle_terminate
     @background_viewport.dispose
     @message_background.dispose
     @scroll_text_background.dispose
@@ -1898,9 +1898,9 @@ class Scene_Battle < Scene_Base
   #--------------------------------------------------------------------------
   #  Update Frame (Basic)
   #--------------------------------------------------------------------------
-  alias michael_update_basic update_basic
+  alias michael_Scene_Battle_update_basic update_basic
   def update_basic
-    michael_update_basic
+    michael_Scene_Battle_update_basic
 
     unless @help_background.michael(@help_window, 4)
       @help_window.back_opacity = @temp1
@@ -1971,22 +1971,22 @@ class Scene_Battle < Scene_Base
   #-------------------------------------------------------------------------
   # Update Processing for Opening Message Window
   #--------------------------------------------------------------------------
-  alias michael_update_message_open update_message_open
+  alias michael_Scene_Battle_update_message_open update_message_open
   def update_message_open
     if $game_message.busy? && !@status_window.close?
       @status_background.visible = false
       @party_command_background.visible = false
       @actor_command_background.visible = false
     end
-    michael_update_message_open
+    michael_Scene_Battle_update_message_open
   end
 
   #--------------------------------------------------------------------------
   #  Create Message Window
   #--------------------------------------------------------------------------
-  alias michael_create_message_window create_message_window
+  alias michael_Scene_Battle_create_message_window create_message_window
   def create_message_window
-    michael_create_message_window
+    michael_Scene_Battle_create_message_window
     @message_background = Sprite.new(@background_viewport)
     @message_background.x = @message_window.x
     @message_background.y = @message_window.y
@@ -1994,9 +1994,9 @@ class Scene_Battle < Scene_Base
   #--------------------------------------------------------------------------
   #  Create Scrolling Text Window
   #--------------------------------------------------------------------------
-  alias michael_create_scroll_text_window create_scroll_text_window
+  alias michael_Scene_Battle_create_scroll_text_window create_scroll_text_window
   def create_scroll_text_window
-    michael_create_scroll_text_window
+    michael_Scene_Battle_create_scroll_text_window
     @scroll_text_background = Sprite.new(@background_viewport)
     @scroll_text_background.x = @scroll_text_window.x
     @scroll_text_background.y = @scroll_text_window.y
@@ -2004,9 +2004,9 @@ class Scene_Battle < Scene_Base
   #--------------------------------------------------------------------------
   #  Create Log Window
   #--------------------------------------------------------------------------
-  alias michael_create_log_window create_log_window
+  alias michael_Scene_Battle_create_log_window create_log_window
   def create_log_window
-    michael_create_log_window
+    michael_Scene_Battle_create_log_window
     @log_background = Sprite.new(@background_viewport)
     @log_background.x = @log_window.x
     @log_background.y = @log_window.y
@@ -2015,9 +2015,9 @@ class Scene_Battle < Scene_Base
   #--------------------------------------------------------------------------
   #  Create Status Window
   #--------------------------------------------------------------------------
-  alias michael_create_status_window create_status_window
+  alias michael_Scene_Battle_create_status_window create_status_window
   def create_status_window
-    michael_create_status_window
+    michael_Scene_Battle_create_status_window
     @status_background = Sprite.new#(@background_viewport)
     @status_background.x = @status_window.x
     @status_background.y = @status_window.y
@@ -2027,9 +2027,9 @@ class Scene_Battle < Scene_Base
   #--------------------------------------------------------------------------
   #  Create Information Display Viewport
   #--------------------------------------------------------------------------
-  alias michael_create_info_viewport create_info_viewport
+  alias michael_Scene_Battle_create_info_viewport create_info_viewport
   def create_info_viewport
-    michael_create_info_viewport
+    michael_Scene_Battle_create_info_viewport
     @background_viewport = Viewport.new
     @background_viewport.rect.y = Graphics.height - @status_window.height
     @background_viewport.rect.height = @status_window.height
@@ -2040,9 +2040,9 @@ class Scene_Battle < Scene_Base
   #--------------------------------------------------------------------------
   #  Create Party Commands Window
   #--------------------------------------------------------------------------
-  alias michael_create_party_command_window create_party_command_window
+  alias michael_Scene_Battle_create_party_command_window create_party_command_window
   def create_party_command_window
-    michael_create_party_command_window
+    michael_Scene_Battle_create_party_command_window
     @party_command_background = Sprite.new(@info_viewport)
     @party_command_background.x = @party_command_window.x
     @party_command_background.y = @party_command_window.y
@@ -2050,9 +2050,9 @@ class Scene_Battle < Scene_Base
   #--------------------------------------------------------------------------
   # * Create Actor Commands Window
   #--------------------------------------------------------------------------
-  alias michael_create_actor_command_window create_actor_command_window
+  alias michael_Scene_Battle_create_actor_command_window create_actor_command_window
   def create_actor_command_window
-    michael_create_actor_command_window
+    michael_Scene_Battle_create_actor_command_window
     @actor_command_background = Sprite.new(@info_viewport)
     @actor_command_background.x = @actor_command_window.x
     @actor_command_background.y = @actor_command_window.y
@@ -2062,9 +2062,9 @@ class Scene_Battle < Scene_Base
   #--------------------------------------------------------------------------
   # * Create Help Window
   #--------------------------------------------------------------------------
-  alias michael_create_help_window create_help_window
+  alias michael_Scene_Battle_create_help_window create_help_window
   def create_help_window
-    michael_create_help_window
+    michael_Scene_Battle_create_help_window
     @help_background = Sprite.new(@background_viewport)
     @help_background.x = @help_window.x
     @help_background.y = @help_window.y
@@ -2073,9 +2073,9 @@ class Scene_Battle < Scene_Base
   #--------------------------------------------------------------------------
   # * Create Skill Window
   #--------------------------------------------------------------------------
-  alias michael_create_skill_window create_skill_window
+  alias michael_Scene_Battle_create_skill_window create_skill_window
   def create_skill_window
-    michael_create_skill_window
+    michael_Scene_Battle_create_skill_window
     @skill_background = Sprite.new(@background_viewport)
     @skill_background.x = @skill_window.x
     @skill_background.y = @skill_window.y
@@ -2084,9 +2084,9 @@ class Scene_Battle < Scene_Base
   #--------------------------------------------------------------------------
   # * Create Item Window
   #--------------------------------------------------------------------------
-  alias michael_create_item_window create_item_window
+  alias michael_Scene_Battle_create_item_window create_item_window
   def create_item_window
-    michael_create_item_window
+    michael_Scene_Battle_create_item_window
     @item_background = Sprite.new(@background_viewport)
     @item_background.x = @item_window.x
     @item_background.y = @item_window.y
@@ -2095,9 +2095,9 @@ class Scene_Battle < Scene_Base
   #--------------------------------------------------------------------------
   # * Create Actor Window
   #--------------------------------------------------------------------------
-  alias michael_create_actor_window create_actor_window
+  alias michael_Scene_Battle_create_actor_window create_actor_window
   def create_actor_window
-    michael_create_actor_window
+    michael_Scene_Battle_create_actor_window
     @actor_background = Sprite.new(@background_viewport)
     @actor_background.x = @actor_window.x
     @actor_background.y = @actor_window.y
@@ -2106,9 +2106,9 @@ class Scene_Battle < Scene_Base
   #--------------------------------------------------------------------------
   # * Create Enemy Window
   #--------------------------------------------------------------------------
-  alias michael_create_enemy_window create_enemy_window
+  alias michael_Scene_Battle_create_enemy_window create_enemy_window
   def create_enemy_window
-    michael_create_enemy_window
+    michael_Scene_Battle_create_enemy_window
     @enemy_background = Sprite.new(@background_viewport)
     @enemy_background.x = @enemy_window.x
     @enemy_background.y = @enemy_window.y
@@ -2118,45 +2118,45 @@ class Scene_Battle < Scene_Base
   #--------------------------------------------------------------------------
   # * [Skill] Command
   #--------------------------------------------------------------------------
-  alias michael_command_skill command_skill
+  alias michael_Scene_Battle_command_skill command_skill
   def command_skill
-    michael_command_skill
+    michael_Scene_Battle_command_skill
     @skill_background.visible = true
   end
   #--------------------------------------------------------------------------
   # * [Item] Command
   #--------------------------------------------------------------------------
-  alias michael_command_item command_item
+  alias michael_Scene_Battle_command_item command_item
   def command_item
-    michael_command_item
+    michael_Scene_Battle_command_item
     @item_background.visible = true
   end
   #--------------------------------------------------------------------------
   # * Start Actor Selection
   #--------------------------------------------------------------------------
-  alias michael_select_actor_selection select_actor_selection
+  alias michael_Scene_Battle_select_actor_selection select_actor_selection
   def select_actor_selection
-    michael_select_actor_selection
+    michael_Scene_Battle_select_actor_selection
     @actor_background.visible = true
 
   end
   #--------------------------------------------------------------------------
   # * Actor [OK]
   #--------------------------------------------------------------------------
-  alias michael_on_actor_ok on_actor_ok
+  alias michael_Scene_Battle_on_actor_ok on_actor_ok
   def on_actor_ok
     @actor_background.visible = false
     @skill_background.visible = false
     @item_background.visible = false
-    michael_on_actor_ok
+    michael_Scene_Battle_on_actor_ok
   end
   #--------------------------------------------------------------------------
   # * Actor [Cancel]
   #--------------------------------------------------------------------------
-  alias michael_on_actor_cancel on_actor_cancel
+  alias michael_Scene_Battle_on_actor_cancel on_actor_cancel
   def on_actor_cancel
     @actor_background.visible = false
-    michael_on_actor_cancel
+    michael_Scene_Battle_on_actor_cancel
     case @actor_command_window.current_symbol
     when :skill
       @skill_background.visible = true
@@ -2167,25 +2167,25 @@ class Scene_Battle < Scene_Base
   #--------------------------------------------------------------------------
   # * Start Enemy Selection
   #--------------------------------------------------------------------------
-  alias michael_select_enemy_selection select_enemy_selection
+  alias michael_Scene_Battle_select_enemy_selection select_enemy_selection
   def select_enemy_selection
-    michael_select_enemy_selection
+    michael_Scene_Battle_select_enemy_selection
     @enemy_background.visible = true
   end
   #--------------------------------------------------------------------------
   # * Enemy [OK]
   #--------------------------------------------------------------------------
-  alias michael_on_enemy_ok on_enemy_ok
+  alias michael_Scene_Battle_on_enemy_ok on_enemy_ok
   def on_enemy_ok
     @item_background.visible = false
     @skill_background.visible = false
     @enemy_background.visible = false
-    michael_on_enemy_ok
+    michael_Scene_Battle_on_enemy_ok
   end
   #--------------------------------------------------------------------------
   # * Enemy [Cancel]
   #--------------------------------------------------------------------------
-  alias michael_on_enemy_cancel on_enemy_cancel
+  alias michael_Scene_Battle_on_enemy_cancel on_enemy_cancel
   def on_enemy_cancel
     @enemy_background.visible = false
     case @actor_command_window.current_symbol
@@ -2195,14 +2195,14 @@ class Scene_Battle < Scene_Base
     when :item
       @item_background.visible = true
     end
-    michael_on_enemy_cancel
+    michael_Scene_Battle_on_enemy_cancel
   end
   #--------------------------------------------------------------------------
   # * Skill [OK]
   #--------------------------------------------------------------------------
-  alias michael_on_skill_ok on_skill_ok
+  alias michael_Scene_Battle_on_skill_ok on_skill_ok
   def on_skill_ok
-    michael_on_skill_ok
+    michael_Scene_Battle_on_skill_ok
     if !@skill_window.item.need_selection?
       @skill_background.visible = false
     end
@@ -2210,17 +2210,17 @@ class Scene_Battle < Scene_Base
   #--------------------------------------------------------------------------
   # * Skill [Cancel]
   #--------------------------------------------------------------------------
-  alias michael_on_skill_cancel on_skill_cancel
+  alias michael_Scene_Battle_on_skill_cancel on_skill_cancel
   def on_skill_cancel
     @skill_background.visible = false
-    michael_on_skill_cancel
+    michael_Scene_Battle_on_skill_cancel
   end
   #--------------------------------------------------------------------------
   # * Item [OK]
   #--------------------------------------------------------------------------
-  alias michael_on_item_ok on_item_ok
+  alias michael_Scene_Battle_on_item_ok on_item_ok
   def on_item_ok
-    michael_on_item_ok
+    michael_Scene_Battle_on_item_ok
     if !@item_window.item.need_selection?
       @item_background.visible = false
     end
@@ -2228,10 +2228,10 @@ class Scene_Battle < Scene_Base
   #--------------------------------------------------------------------------
   # * Item [Cancel]
   #--------------------------------------------------------------------------
-  alias michael_on_item_cancel on_item_cancel
+  alias michael_Scene_Battle_on_item_cancel on_item_cancel
   def on_item_cancel
     @item_background.visible = false
-    michael_on_item_cancel
+    michael_Scene_Battle_on_item_cancel
   end
 
 end
@@ -2241,10 +2241,10 @@ end
 #===============================================================================
 module DataManager
   class << self
-   alias michael_create_game_objects create_game_objects
+   alias michael_Scene_Battle_create_game_objects create_game_objects
   end
   def self.create_game_objects
-    michael_create_game_objects
+    michael_Scene_Battle_create_game_objects
 
     #Default setting = false
     $game_switches[Windows_Changer::Starting_Switch_Point...Windows_Changer::Starting_Switch_Point +
