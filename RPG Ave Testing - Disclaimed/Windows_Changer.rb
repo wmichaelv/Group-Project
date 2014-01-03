@@ -1,4 +1,3 @@
-
 #==============================================================================
 #
 # Michael Windows Changer
@@ -26,6 +25,7 @@
 #            --Some methods are simplified
 #            --File is trimmed down
 #            --@temp1 & @temp2 variables are removed
+#            --Replacing switch on the windows itself instead of scenes
 # 2013.01.01 --window_opacity(i, opacity) is introduced
 # 2013.12.30 --Trimmed down the file size
 # 2013.12.27 --Fixed window_default(i)
@@ -151,7 +151,6 @@
 #  Have Fun!
 #
 #==============================================================================
-
 module Windows_Changer
 
   #============================================================================
@@ -468,9 +467,7 @@ module Windows_Changer
   Window_DebugRight_Opacity = [false, 255],
   Window_Base_Opacity = [false, 255],
   ] #Add more elements here
-
 end
-
 #==============================================================================
 # Cache
 #==============================================================================
@@ -479,13 +476,36 @@ module Cache
     load_bitmap("#{folder}/", "#{filename}")
   end
 end
-
 #==============================================================================
 # Window
 #==============================================================================
 class Window
 
   attr_accessor :oh_I_got_changed
+
+ alias michael_Window_Base_initialize initialize
+  def initialize(x, y, width, height)
+    michael_Window_Base_initialize(x, y, width, height)
+    self.oh_I_got_changed = false
+    create_michael_background_viewport_101
+    create_michael_background_sprite_101
+  end
+
+  def create_michael_background_viewport_101
+    @michael_background_viewport_101 = Viewport.new
+    @michael_background_viewport_101.z = self.z - 1
+  end
+
+  def create_michael_background_sprite_101
+    @michael_self_background_ftw_101 = Sprite.new
+  end
+
+  alias michael_Window_dispose dispose
+  def dispose
+    michael_Window_dispose
+    @michael_background_viewport_101.dispose
+    @michael_self_background_ftw_101.dispose
+  end
 
   def did_I_get_changed?
     return self.oh_I_got_changed
@@ -494,21 +514,907 @@ class Window
   def change_me_by_michael
     self.oh_I_got_changed = true
   end
-
 end
-
 #==============================================================================
 # Window_Base
 #==============================================================================
-
 class Window_Base < Window
-  alias michael_Window_Base_initialize initialize
-  def initialize(x, y, width, height)
-    michael_Window_Base_initialize(x, y, width, height)
-    self.oh_I_got_changed = false
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_Base_update update
+    def update
+      michael_Window_Base_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 45)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 45)
+      super
+    end
   end
 end
-
+#==============================================================================
+# Window_Selectable
+#==============================================================================
+class Window_Selectable < Window_Base
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_Selectable_update update
+    def update
+      michael_Window_Selectable_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 1)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 1)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_Command
+#==============================================================================
+class Window_Command < Window_Selectable
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_Command_update update
+    def update
+      michael_Window_Command_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 2)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 2)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_HorzCommand
+#==============================================================================
+class Window_HorzCommand < Window_Command
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_HorzCommand_update update
+    def update
+      michael_Window_HorzCommand_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 3)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 3)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_Help
+#==============================================================================
+class Window_Help < Window_Base
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_Help_update update
+    def update
+      michael_Window_Help_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 4)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 4)
+      super
+    end
+  end
+end
+#==============================================================================
+#  Window_Gold
+#==============================================================================
+class Window_Gold < Window_Base
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_Gold_update update
+    def update
+      michael_Window_Gold_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 5)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 5)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_MenuCommand
+#==============================================================================
+class Window_MenuCommand < Window_Command
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_MenuCommand_update update
+    def update
+      michael_Window_MenuCommand_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 6)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 6)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_MenuStatus
+#==============================================================================
+class Window_MenuStatus < Window_Selectable
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_MenuStatus_update update
+    def update
+      michael_Window_MenuStatus_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 7)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 7)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_MenuActor
+#==============================================================================
+class Window_MenuActor < Window_MenuStatus
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_MenuActor_update update
+    def update
+      michael_Window_MenuActor_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 8)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 8)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_ItemCategory
+#==============================================================================
+class Window_ItemCategory < Window_HorzCommand
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_ItemCategory_update update
+    def update
+      michael_Window_ItemCategory_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 9)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 9)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_ItemList
+#==============================================================================
+class Window_ItemList < Window_Selectable
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_ItemList_update update
+    def update
+      michael_Window_ItemList_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 10)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 10)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_SkillCommand
+#==============================================================================
+class Window_SkillCommand < Window_Command
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_SkillCommand_update update
+    def update
+      michael_Window_SkillCommand_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 11)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 11)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_SkillStatus
+#==============================================================================
+class Window_SkillStatus < Window_Base
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_SkillStatus_update update
+    def update
+      michael_Window_SkillStatus_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 12)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 12)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_SkillList
+#==============================================================================
+class Window_SkillList < Window_Selectable
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_SkillList_update update
+    def update
+      michael_Window_SkillList_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 13)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 13)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_EquipStatus
+#==============================================================================
+class Window_EquipStatus < Window_Base
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_EquipStatus_update update
+    def update
+      michael_Window_EquipStatus_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 14)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 14)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_EquipCommand
+#==============================================================================
+class Window_EquipCommand < Window_HorzCommand
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_EquipCommand_update update
+    def update
+      michael_Window_EquipCommand_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 15)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 15)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_EquipSlot
+#==============================================================================
+class Window_EquipSlot < Window_Selectable
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_EquipSlot_update update
+    def update
+      michael_Window_EquipSlot_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 16)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 16)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_EquipItem
+#==============================================================================
+class Window_EquipItem < Window_ItemList
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_EquipItem_update update
+    def update
+      michael_Window_EquipItem_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 17)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 17)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_Status
+#==============================================================================
+class Window_Status < Window_Selectable
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_Status_update update
+    def update
+      michael_Window_Status_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 18)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 18)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_SaveFile
+#==============================================================================
+class Window_SaveFile < Window_Base
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_SaveFile_update update
+    def update
+      michael_Window_SaveFile_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 19)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 19)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_ShopCommand
+#==============================================================================
+class Window_ShopCommand < Window_HorzCommand
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_ShopCommand_update update
+    def update
+      michael_Window_ShopCommand_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 20)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 20)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_ShopBuy
+#==============================================================================
+class Window_ShopBuy < Window_Selectable
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_ShopBuy_update update
+    def update
+      michael_Window_ShopBuy_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 21)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 21)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_ShopSell
+#==============================================================================
+class Window_ShopSell < Window_ItemList
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_ShopSell_update update
+    def update
+      michael_Window_ShopSell_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 22)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 22)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_ShopNumber
+#==============================================================================
+class Window_ShopNumber < Window_Selectable
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_ShopNumber_update update
+    def update
+      michael_Window_ShopNumber_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 23)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 23)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_ShopStatus
+#==============================================================================
+class Window_ShopStatus < Window_Base
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_ShopStatus_update update
+    def update
+      michael_Window_ShopStatus_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 24)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 24)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_NameEdit
+#==============================================================================
+class Window_NameEdit < Window_Base
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_NameEdit_update update
+    def update
+      michael_Window_NameEdit_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 25)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 25)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_NameInput
+#==============================================================================
+class Window_NameInput < Window_Selectable
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_NameInput_update update
+    def update
+      michael_Window_NameInput_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 26)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 26)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_ChoiceList
+#==============================================================================
+class Window_ChoiceList < Window_Command
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_ChoiceList_update update
+    def update
+      michael_Window_ChoiceList_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 27)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 27)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_NumberInput
+#==============================================================================
+class Window_NumberInput < Window_Base
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_NumberInput_update update
+    def update
+      michael_Window_NumberInput_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 28)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 28)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_KeyItem
+#==============================================================================
+class Window_KeyItem < Window_ItemList
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_KeyItem_update update
+    def update
+      michael_Window_KeyItem_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 29)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 29)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_Message
+#==============================================================================
+class Window_Message < Window_Base
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_Message_update update
+    def update
+      michael_Window_Message_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 30)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 30)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_ScrollText
+#==============================================================================
+class Window_ScrollText < Window_Base
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_ScrollText_update update
+    def update
+      michael_Window_ScrollText_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 31)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 31)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_MapName
+#==============================================================================
+class Window_MapName < Window_Base
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_MapName_update update
+    def update
+      michael_Window_MapName_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 32)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 32)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_BattleLog
+#==============================================================================
+class Window_BattleLog < Window_Selectable
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_BattleLog_update update
+    def update
+      michael_Window_BattleLog_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 33)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 33)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_PartyCommand
+#=========================-====================================================
+class Window_PartyCommand < Window_Command
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_PartyCommand_update update
+    def update
+      michael_Window_PartyCommand_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 34)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 34)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_ActorCommand
+#==============================================================================
+class Window_ActorCommand < Window_Command
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_ActorCommand_update update
+    def update
+      michael_Window_ActorCommand_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 35)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 35)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_BattleStatus
+#==============================================================================
+class Window_BattleStatus < Window_Selectable
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_BattleStatus_update update
+    def update
+      michael_Window_BattleStatus_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 36)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 36)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_BattleActor
+#==============================================================================
+class Window_BattleActor < Window_BattleStatus
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_BattleActor_update update
+    def update
+      michael_Window_BattleActor_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 37)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 37)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_BattleEnemy
+#==============================================================================
+class Window_BattleEnemy < Window_Selectable
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_BattleEnemy_update update
+    def update
+      michael_Window_BattleEnemy_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 38)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 38)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_BattleSkill
+#==============================================================================
+class Window_BattleSkill < Window_SkillList
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_BattleSkill_update update
+    def update
+      michael_Window_BattleSkill_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 39)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 39)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_BattleItem
+#==============================================================================
+class Window_BattleItem < Window_ItemList
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_BattleItem_update update
+    def update
+      michael_Window_BattleItem_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 40)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 40)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_TitleCommand
+#==============================================================================
+class Window_TitleCommand < Window_Command
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_TitleCommand_update update
+    def update
+      michael_Window_TitleCommand_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 41)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 41)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_GameEnd
+#==============================================================================
+class Window_GameEnd < Window_Command
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_GameEnd_update update
+    def update
+      michael_Window_GameEnd_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 42)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 42)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_DebugLeft
+#==============================================================================
+class Window_DebugLeft < Window_Selectable
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_DebugLeft_update update
+    def update
+      michael_Window_DebugLeft_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 43)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 43)
+      super
+    end
+  end
+end
+#==============================================================================
+# Window_DebugRight
+#==============================================================================
+class Window_DebugRight < Window_Selectable
+  begin
+    def update_checker_michael_101
+      self.update
+    end
+    alias michael_Window_DebugRight_update update
+    def update
+      michael_Window_DebugRight_update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 44)
+    end
+  rescue NoMethodError
+    def update
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 44)
+      super
+    end
+  end
+end
 #==============================================================================
 # Sprite
 #==============================================================================
@@ -516,7 +1422,7 @@ class Sprite
   def michael_window_background_sprite(window, i)
     if (__method__[0...7] == 48998564589.to_s(36))
       if $game_switches[Windows_Changer::Starting_Switch_Point + i]
-        self.viewport = window.viewport if (window.viewport)
+        (window.viewport) ? self.viewport = window.viewport : self.viewport = @michael_background_viewport_101
         unless window.did_I_get_changed?
           @just_for_naming_convention_sake_saving_window_back_opacity = window.back_opacity
           @just_for_naming_convention_sake_saving_window_opacity = window.opacity
@@ -556,9 +1462,7 @@ class Sprite
       end
     end
   end
-
 end
-
 #==============================================================================
 # Game_Message
 #==============================================================================
@@ -590,8 +1494,6 @@ class Game_Message
     Windows_Changer::Windows_Changer_Opacity_Array
   end
 end
-
-
 #==============================================================================
 # Creating Directory
 #==============================================================================
@@ -613,1146 +1515,6 @@ module DataManager
     end
   end
 end
-
-#==============================================================================
-# Window_Message
-#==============================================================================
-
-class Window_Message < Window_Base
-
-  alias michael_Window_Message_initialize initialize
-  def initialize
-    michael_Window_Message_initialize
-    create_background_viewport_Window_Message
-    create_background_Window_Message
-  end
-
-  def create_background_viewport_Window_Message
-    @background_Window_Message_viewport = Viewport.new
-    @background_Window_Message_viewport.z = 199
-  end
-
-  def create_background_Window_Message
-    @gold_background = Sprite.new
-    @choice_background = Sprite.new(@background_Window_Message_viewport)
-    @number_background = Sprite.new(@background_Window_Message_viewport)
-    @item_background = Sprite.new(@background_Window_Message_viewport)
-
-  end
-
-  alias michael_Window_Message_dispose dispose
-  def dispose
-    michael_Window_Message_dispose
-    @gold_background.dispose
-    @choice_background.dispose
-    @number_background.dispose
-    @item_background.dispose
-    @background_Window_Message_viewport.dispose
-  end
-
-
-  alias michael_Window_Message_update update
-  def update
-
-    @gold_background.michael_window_background_sprite(@gold_window, 5)
-    @choice_background.michael_window_background_sprite(@choice_window, 27)
-    @number_background.michael_window_background_sprite(@number_window, 28)
-    @item_background.michael_window_background_sprite(@item_window, 29)
-    michael_Window_Message_update
-
-  end
-
-end
-
-#==============================================================================
-# Scene_Title
-#==============================================================================
-
-class Scene_Title < Scene_Base
-
-  alias michael_Scene_Title_create_command_window create_command_window
-  def create_command_window
-    michael_Scene_Title_create_command_window
-
-    @background_viewport = Viewport.new
-    @background_viewport.z = 99
-
-    @command_background = Sprite.new(@background_viewport)
-    @command_background.michael_window_background_sprite(@command_window, 41)
-  end
-
-  alias michael_Scene_Title_terminate terminate
-  def terminate
-    @command_background.dispose
-    @background_viewport.dispose
-    michael_Scene_Title_terminate
-  end
-end
-
-#==============================================================================
-# Scene_Map
-#==============================================================================
-
-class Scene_Map < Scene_Base
-
-  alias michael_Scene_Map_create_all_windows create_all_windows
-  def create_all_windows
-    michael_Scene_Map_create_all_windows
-    @background_Map_viewport = Viewport.new
-    @background_Map_viewport.z = 199
-
-    @message_background = Sprite.new(@background_Map_viewport)
-    @message_background.michael_window_background_sprite(@message_window, 30)
-
-    @scroll_text_background = Sprite.new(@background_Map_viewport)
-    @scroll_text_background.michael_window_background_sprite(@scroll_text_window, 31)
-
-    @map_name_background = Sprite.new(@background_Map_viewport)
-    @map_name_background.michael_window_background_sprite(@map_name_window, 32)
-  end
-
-  alias michael_Scene_Map_terminate terminate
-  def terminate
-    michael_Scene_Map_terminate
-    @message_background.dispose
-    @scroll_text_background.dispose
-    @map_name_background.dispose
-    @background_Map_viewport.dispose
-  end
-end
-
-#==============================================================================
-# Scene_MenuBase
-#==============================================================================
-
-class Scene_MenuBase < Scene_Base
-  #--------------------------------------------------------------------------
-  # Create Help Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_MenuBase_create_help_window create_help_window
-  def create_help_window
-    michael_Scene_MenuBase_create_help_window
-
-    @help_background = Sprite.new(@viewport)
-    @help_background.z -= 1
-
-    @help_background.michael_window_background_sprite(@help_window, 4)
-
-  end
-end
-
-#==============================================================================
-# Scene_Menu
-#==============================================================================
-
-class Scene_Menu < Scene_MenuBase
-
-  alias michael_Scene_Menu_create_command_window create_command_window
-  def create_command_window
-
-    michael_Scene_Menu_create_command_window
-
-    @background_Menu_viewport = Viewport.new
-    @background_Menu_viewport.z = 199
-
-    @command_background = Sprite.new(@background_Menu_viewport)
-
-    @command_background.michael_window_background_sprite(@command_window, 6)
-
-  end
-
-  alias michael_Scene_Menu_create_gold_window create_gold_window
-  def create_gold_window
-
-    michael_Scene_Menu_create_gold_window
-
-    @gold_background = Sprite.new#(@background_Menu_viewport)
-    @gold_background.viewport = @gold_window.viewport
-
-    @gold_background.michael_window_background_sprite(@gold_window, 5)
-
-  end
-
-  alias michael_Scene_Menu_create_status_window create_status_window
-  def create_status_window
-
-    michael_Scene_Menu_create_status_window
-
-    @status_background = Sprite.new(@background_Menu_viewport)
-
-    @status_background.michael_window_background_sprite(@status_window, 7)
-  end
-
-  begin
-    mod = self.const_get "terminate"
-    alias michael_Scene_Menu_terminate terminate
-    def terminate
-      michael_Scene_Menu_terminate
-      @command_background.dispose
-      @gold_background.dispose
-      @status_background.dispose
-      @background_Menu_viewport.dispose
-    end
-  rescue NameError
-    def terminate
-      super
-      @command_background.dispose
-      @gold_background.dispose
-      @status_background.dispose
-      @background_Menu_viewport.dispose
-    end
-  end
-
-end
-
-#==============================================================================
-# Scene_ItemBase
-#==============================================================================
-
-class Scene_ItemBase < Scene_MenuBase
-
-  alias michael_Scene_ItemBase_create_actor_window create_actor_window
-  def create_actor_window
-
-    michael_Scene_ItemBase_create_actor_window
-
-    @background_ItemBase_viewport = Viewport.new
-    @background_ItemBase_viewport.z = 198
-
-    @actor_background = Sprite.new(@background_ItemBase_viewport)
-
-    @actor_background.michael_window_background_sprite(@actor_window, 8)
-
-  end
-
-  begin
-    mod = self.const_get "terminate"
-    alias michael_Scene_ItemBase_terminate terminate
-    def terminate
-      michael_Scene_ItemBase_terminate
-      @actor_background.dispose
-      @background_ItemBase_viewport.dispose
-    end
-  rescue NameError
-    def terminate
-      super
-      @actor_background.dispose
-      @background_ItemBase_viewport.dispose
-    end
-  end
-
-  #--------------------------------------------------------------------------
-  # Show Subwindow
-  #--------------------------------------------------------------------------
-  alias michael_Scene_ItemBase_show_sub_window show_sub_window
-  def show_sub_window(window)
-
-    michael_Scene_ItemBase_show_sub_window
-
-    @actor_background.michael_window_background_sprite(@actor_window, 8)
-
-  end
-
-end
-
-#==============================================================================
-# Scene_Item
-#==============================================================================
-
-class Scene_Item < Scene_ItemBase
-
-
-  def create_help_window
-    super
-    @background_item_viewport = Viewport.new
-    @background_item_viewport.z = 199
-    @help_background.z = @background_item_viewport.z
-    @help_background.z += $game_message.game_windows_depth[4]
-    if $game_switches[Windows_Changer::Starting_Switch_Point + 4 + Windows_Changer::Number_Of_Element]
-        @help_background.src_rect.set(
-          $game_message.game_windows_position[4][0],
-          $game_message.game_windows_position[4][1],
-          $game_message.game_windows_position[4][2],
-          $game_message.game_windows_position[4][3])
-    end
-  end
-
-
-  alias michael_Scene_Item_create_category_window create_category_window
-  def create_category_window
-    michael_Scene_Item_create_category_window
-    @category_item_background = Sprite.new
-    @category_item_background.michael_window_background_sprite(@category_window, 9)
-  end
-
-  alias michael_Scene_Item_create_item_window create_item_window
-  def create_item_window
-    michael_Scene_Item_create_item_window
-    @item_background = Sprite.new
-    @item_background.michael_window_background_sprite(@item_window, 10)
-  end
-
-  begin
-    mod = self.const_get "terminate"
-    alias michael_Scene_Item_terminate terminate
-    def terminate
-      michael_Scene_Item_terminate
-      @category_item_background.dispose
-      @help_background.dispose
-      @item_background.dispose
-      @background_item_viewport.dispose
-    end
-  rescue NameError
-    def terminate
-      super
-      @category_item_background.dispose
-      @help_background.dispose
-      @item_background.dispose
-      @background_item_viewport.dispose
-    end
-  end
-
-end
-
-#==============================================================================
-# Scene_Skill
-#==============================================================================
-
-class Scene_Skill < Scene_ItemBase
-
-  def create_help_window
-    super
-    @background_skill_viewport = Viewport.new
-    @background_skill_viewport.z = 198
-    @help_background.z = @background_skill_viewport.z
-    @help_background.z += $game_message.game_windows_depth[4]
-    if $game_switches[Windows_Changer::Starting_Switch_Point + 4 + Windows_Changer::Number_Of_Element]
-        @help_background.src_rect.set($game_message.game_windows_position[4][0],
-                                      $game_message.game_windows_position[4][1],
-                                      $game_message.game_windows_position[4][2],
-                                      $game_message.game_windows_position[4][3])
-      end
-  end
-
-  alias michael_Scene_Skill_create_command_window create_command_window
-  def create_command_window
-    michael_Scene_Skill_create_command_window
-
-
-    @command_background = Sprite.new
-    @command_background.michael_window_background_sprite(@command_window, 11)
-  end
-
-  alias michael_Scene_Skill_create_status_window create_status_window
-  def create_status_window
-
-    michael_Scene_Skill_create_status_window
-
-    @status_background = Sprite.new(@background_skill_viewport)
-
-    @status_background.michael_window_background_sprite(@status_window, 12)
-
-  end
-
-  alias michael_Scene_Skill_create_item_window create_item_window
-    def create_item_window
-
-    michael_Scene_Skill_create_item_window
-
-    @item_background = Sprite.new
-
-    @item_background.michael_window_background_sprite(@item_window, 13)
-  end
-
-  begin
-    mod = self.const_get "terminate"
-    alias michael_Scene_Skill_terminate terminate
-    def terminate
-      michael_Scene_Skill_terminate
-      @help_background.dispose
-      @command_background.dispose
-      @status_background.dispose
-      @item_background.dispose
-      @background_skill_viewport.dispose
-    end
-  rescue NameError
-    def terminate
-      super
-      @help_background.dispose
-      @command_background.dispose
-      @status_background.dispose
-      @item_background.dispose
-      @background_skill_viewport.dispose
-    end
-  end
-
-end
-
-#==============================================================================
-# Scene_Equip
-#==============================================================================
-
-class Scene_Equip < Scene_MenuBase
-  #--------------------------------------------------------------------------
-  # Start Processing
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Equip_start start
-  def start
-    michael_Scene_Equip_start
-    create_background_viewport
-    create_backgrounds
-  end
-
-  def create_background_viewport
-    @background_viewport = Viewport.new
-    @background_viewport.z = 199
-  end
-
-  def create_backgrounds
-
-    @status_background = Sprite.new(@background_viewport)
-    @command_background = Sprite.new(@background_viewport)
-    @slot_background = Sprite.new(@background_viewport)
-    @item_background = Sprite.new(@background_viewport)
-    @status_background.michael_window_background_sprite(@status_window, 14)
-    @command_background.michael_window_background_sprite(@command_window, 15)
-    @slot_background.michael_window_background_sprite(@slot_window, 16)
-    @item_background.michael_window_background_sprite(@item_window, 17)
-
-  end
-
-  begin
-    mod = self.const_get "terminate"
-    alias michael_Scene_Equip_terminate terminate
-    def terminate
-      michael_Scene_Equip_terminate
-      @status_background.dispose
-      @command_background.dispose
-      @slot_background.dispose
-      @item_background.dispose
-      @background_viewport.dispose
-    end
-  rescue NameError
-    def terminate
-      super
-      @status_background.dispose
-      @command_background.dispose
-      @slot_background.dispose
-      @item_background.dispose
-      @background_viewport.dispose
-    end
-  end
-
-end
-
-#==============================================================================
-# Scene_Status
-#==============================================================================
-
-class Scene_Status < Scene_MenuBase
-  #--------------------------------------------------------------------------
-  # Start Processing
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Status_start start
-  def start
-
-    michael_Scene_Status_start
-
-    @background_viewport = Viewport.new
-    @background_viewport.z = 199
-
-    @status_background = Sprite.new(@background_viewport)
-    @status_background.michael_window_background_sprite(@status_window, 18)
-  end
-
-  begin
-    mod = self.const_get "terminate"
-    alias michael_Scene_Status_terminate terminate
-    def terminate
-      michael_Scene_Status_terminate
-      @status_background.dispose
-      @background_viewport.dispose
-    end
-  rescue NameError
-    def terminate
-      super
-      @status_background.dispose
-      @background_viewport.dispose
-    end
-  end
-
-end
-
-#==============================================================================
-# Scene_File
-#==============================================================================
-
-class Scene_File < Scene_MenuBase
-  #--------------------------------------------------------------------------
-  # Start Processing
-  #--------------------------------------------------------------------------
-  alias michael_Scene_File_start start
-  def start
-    create_background_viewport
-    michael_Scene_File_start
-  end
-
-  def create_background_viewport
-    @background_viewport = Viewport.new
-  end
-  #--------------------------------------------------------------------------
-  # Termination Processing
-  #--------------------------------------------------------------------------
-  alias michael_Scene_File_terminate terminate
-  def terminate
-    michael_Scene_File_terminate
-    @savefile_backgrounds.each {|background| background.dispose}
-    @background_viewport.dispose
-    @help_background.dispose
-  end
-  #--------------------------------------------------------------------------
-  # * Frame Update
-  #--------------------------------------------------------------------------
-  alias michael_Scene_File_update update
-  def update
-
-    michael_Scene_File_update
-
-    @help_background.michael_window_background_sprite(@help_window, 4)
-
-    if $game_switches[119]
-      Array.new(item_max) do |i|
-        @savefile_backgrounds[i].michael_window_background_sprite(@savefile_windows[i], 19)
-      end
-    end
-  end
-  #--------------------------------------------------------------------------
-  # Create Help Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_File_create_help_window create_help_window
-  def create_help_window
-
-    michael_Scene_File_create_help_window
-
-    @help_background = Sprite.new(@background_viewport)
-    @help_background.michael_window_background_sprite(@help_window, 4)
-
-  end
-  #--------------------------------------------------------------------------
-  # Create Save File Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_File_create_savefile_windows create_savefile_windows
-  def create_savefile_windows
-
-    michael_Scene_File_create_savefile_windows
-
-    @savefile_backgrounds = Array.new(item_max) do |i|
-      Sprite.new(@savefile_viewport)
-    end
-
-    if $game_switches[119]
-      Array.new(item_max) do |i|
-        @savefile_backgrounds[i].michael_window_background_sprite(@savefile_windows[i], 19)
-      end
-    end
-  end
-end
-
-
-#==============================================================================
-# Scene_End
-#==============================================================================
-
-class Scene_End < Scene_MenuBase
-  #--------------------------------------------------------------------------
-  # Start Processing
-  #--------------------------------------------------------------------------
-  alias michael_Scene_End_start start
-  def start
-    create_background_viewport
-    michael_Scene_End_start
-  end
-
-  def create_background_viewport
-    @background_viewport = Viewport.new
-    @background_viewport.z = 199
-  end
-
-  begin
-    mod = self.const_get "terminate"
-    alias michael_Scene_End_terminate terminate
-    def terminate
-      michael_Scene_End_terminate
-      @command_background.dispose
-      @background_viewport.dispose
-    end
-  rescue NameError
-    def terminate
-      super
-      @command_background.dispose
-      @background_viewport.dispose
-    end
-  end
-
-  #--------------------------------------------------------------------------
-  # Create Command Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_End_create_command_window create_command_window
-  def create_command_window
-
-    michael_Scene_End_create_command_window
-
-    @command_background = Sprite.new(@background_viewport)
-    @command_background.michael_window_background_sprite(@command_window, 42)
-
-  end
-  #--------------------------------------------------------------------------
-  # Close Command Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_End_close_command_window close_command_window
-  def close_command_window
-    michael_Scene_End_close_command_window
-    @command_background.visible = false if @command_window.close?
-  end
-
-end
-
-
-#==============================================================================
-# Scene_Shop
-#==============================================================================
-
-class Scene_Shop < Scene_MenuBase
-  #--------------------------------------------------------------------------
-  # Start Processing
-  #--------------------------------------------------------------------------
-  #alias michael_start start
-  #def start
-  #  create_background_viewport
-  #  michael_start
-  #end
-
-  begin
-    mod = self.const_get "terminate"
-    alias michael_Scene_Shop_terminate terminate
-    def terminate
-      michael_Scene_Shop_terminate
-      @sell_background.dispose
-      @category_background.dispose
-      @buy_background.dispose
-      @status_background.dispose
-      @number_background.dispose
-      @dummy_background.dispose
-      @command_background.dispose
-      @gold_background.dispose
-      @background_viewport.dispose
-    end
-  rescue NameError
-    def terminate
-      super
-      @sell_background.dispose
-      @category_background.dispose
-      @buy_background.dispose
-      @status_background.dispose
-      @number_background.dispose
-      @dummy_background.dispose
-      @command_background.dispose
-      @gold_background.dispose
-      @background_viewport.dispose
-    end
-  end
-
-  #def create_background_viewport
-  #  @background_viewport = Viewport.new
-  #  @background_viewport.z = 180
-  #end
-
-  def create_help_window
-    super
-    @background_viewport = Viewport.new
-    @background_viewport.z = 199
-    @help_background.z = @background_viewport.z
-    @help_background.z += $game_message.game_windows_depth[4]
-    if $game_switches[Windows_Changer::Starting_Switch_Point + 4 + Windows_Changer::Number_Of_Element]
-        @help_background.src_rect.set($game_message.game_windows_position[4][0],
-                                      $game_message.game_windows_position[4][1],
-                                      $game_message.game_windows_position[4][2],
-                                      $game_message.game_windows_position[4][3])
-    end
-  end
-
-  #--------------------------------------------------------------------------
-  # * Create Gold Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Shop_create_gold_window create_gold_window
-  def create_gold_window
-
-    michael_Scene_Shop_create_gold_window
-
-    @gold_background = Sprite.new
-    @gold_background.viewport = @gold_window.viewport
-
-    @gold_background.michael_window_background_sprite(@gold_window, 5)
-  end
-
-  #--------------------------------------------------------------------------
-  # * Create Command Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Shop_create_command_window create_command_window
-  def create_command_window
-
-    michael_Scene_Shop_create_command_window
-
-    @command_background = Sprite.new(@background_viewport)
-
-    @command_background.michael_window_background_sprite(@command_window, 20)
-
-  end
-
-  #--------------------------------------------------------------------------
-  # * Create Dummy Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Shop_create_dummy_window create_dummy_window
-  def create_dummy_window
-
-    michael_Scene_Shop_create_dummy_window
-
-    @dummy_background = Sprite.new(@background_viewport)
-
-    @dummy_background.michael_window_background_sprite(@dummy_window, 45)
-
-  end
-  #--------------------------------------------------------------------------
-  # * Create Quantity Input Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Shop_create_number_window create_number_window
-  def create_number_window
-
-    michael_Scene_Shop_create_number_window
-
-    @number_background = Sprite.new(@background_viewport)
-
-    @number_background.michael_window_background_sprite(@number_window, 23)
-
-  end
-  #--------------------------------------------------------------------------
-  # * Create Status Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Shop_create_status_window create_status_window
-  def create_status_window
-
-    michael_Scene_Shop_create_status_window
-
-    @status_background = Sprite.new(@background_viewport)
-
-    @status_background.michael_window_background_sprite(@status_window, 24)
-
-  end
-  #--------------------------------------------------------------------------
-  # Create Purchase Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Shop_create_buy_window create_buy_window
-  def create_buy_window
-
-    michael_Scene_Shop_create_buy_window
-
-    @buy_background = Sprite.new(@background_viewport)
-
-    @buy_background.michael_window_background_sprite(@buy_window, 21)
-
-  end
-  #--------------------------------------------------------------------------
-  # Create Category Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Shop_create_category_window create_category_window
-  def create_category_window
-
-    michael_Scene_Shop_create_category_window
-
-    @category_background = Sprite.new(@background_viewport)
-
-    @category_background.michael_window_background_sprite(@category_window, 9)
-
-  end
-  #--------------------------------------------------------------------------
-  # * Create Sell Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Shop_create_sell_window create_sell_window
-  def create_sell_window
-
-    michael_Scene_Shop_create_sell_window
-
-    @sell_background = Sprite.new(@background_viewport)
-
-    @sell_background.michael_window_background_sprite(@sell_window, 22)
-
-  end
-  #--------------------------------------------------------------------------
-  # * Activate Purchase Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Shop_activate_buy_window activate_buy_window
-  def activate_buy_window
-    michael_Scene_Shop_activate_buy_window
-    @buy_background.visible = true
-    @status_background.visible = true
-  end
-  #--------------------------------------------------------------------------
-  # * Activate Sell Window
-  #--------------------------------------------------------------------------
-
-  alias michael_Scene_Shop_activate_sell_window activate_sell_window
-  def activate_sell_window
-    @category_background.visible = true
-    @sell_background.visible = true
-    @status_background.visible = false
-    michael_Scene_Shop_activate_sell_window
-  end
-
-  #--------------------------------------------------------------------------
-  # * [Buy] Command
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Shop_command_buy command_buy
-  def command_buy
-    @dummy_background.visible = false
-    michael_Scene_Shop_command_buy
-  end
-  #--------------------------------------------------------------------------
-  # * [Sell] Command
-  #--------------------------------------------------------------------------
-
-  alias michael_Scene_Shop_command_sell command_sell
-  def command_sell
-    michael_Scene_Shop_command_sell
-    @dummy_background.visible = false
-    @category_background.visible = true
-    @sell_background.visible = true
-  end
-
-  #--------------------------------------------------------------------------
-  # * Buy [OK]
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Shop_on_buy_ok on_buy_ok
-  def on_buy_ok
-    michael_Scene_Shop_on_buy_ok
-    @buy_background.visible = false
-    @number_background.visible = true
-  end
-  #--------------------------------------------------------------------------
-  # * Buy [Cancel]
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Shop_on_buy_cancel on_buy_cancel
-  def on_buy_cancel
-    michael_Scene_Shop_on_buy_cancel
-    @dummy_background.visible = true
-    @buy_background.visible = false
-    @status_background.visible = false
-  end
-  #--------------------------------------------------------------------------
-  # Category [Cancel]
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Shop_on_category_cancel on_category_cancel
-  def on_category_cancel
-    michael_Scene_Shop_on_category_cancel
-    @dummy_background.visible = true
-    @category_background.visible = false
-    @sell_background.visible = false
-  end
-  #--------------------------------------------------------------------------
-  # Sell [OK]
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Shop_on_sell_ok on_sell_ok
-  def on_sell_ok
-    michael_Scene_Shop_on_sell_ok
-    @category_background.visible = false
-    @sell_background.visible = false
-    @number_background.visible = true
-    @status_background.visible = true
-  end
-  #--------------------------------------------------------------------------
-  # Sell [Cancel]
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Shop_on_sell_cancel on_sell_cancel
-  def on_sell_cancel
-    michael_Scene_Shop_on_sell_cancel
-    @sell_background.visible = false
-  end
-  #--------------------------------------------------------------------------
-  # Exit Quantity Input
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Shop_end_number_input end_number_input
-  def end_number_input
-    michael_Scene_Shop_end_number_input
-    @number_background.visible = false
-  end
-end
-
-#==============================================================================
-# Scene_Name
-#==============================================================================
-
-class Scene_Name < Scene_MenuBase
-  #--------------------------------------------------------------------------
-  # Start Processing
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Name_start start
-  def start
-    michael_Scene_Name_start
-
-    @background_viewport = Viewport.new
-    @background_viewport.z = 199
-
-    @edit_background = Sprite.new(@background_viewport)
-
-    @edit_background.michael_window_background_sprite(@edit_window, 25)
-
-    @input_background = Sprite.new(@background_viewport)
-
-    @input_background.michael_window_background_sprite(@input_window, 26)
-
-  end
-
-  begin
-    mod = self.const_get "terminate"
-    alias michael_Scene_Name_terminate terminate
-    def terminate
-
-      michael_Scene_Name_terminate
-
-      @background_viewport.dispose
-      @edit_background.dispose
-      @input_background.dispose
-    end
-
-  rescue NameError
-
-    def terminate
-      super
-      @background_viewport.dispose
-      @edit_background.dispose
-      @input_background.dispose
-    end
-  end
-end
-
-
-#==============================================================================
-# Scene_Debug
-#==============================================================================
-
-class Scene_Debug < Scene_MenuBase
-
-  #--------------------------------------------------------------------------
-  # * Termination Processing
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Debug_terminate terminate
-  def terminate
-    @background_viewport.dispose
-    @left_background.dispose
-    @right_background.dispose
-    @debug_help_background.dispose
-    michael_Scene_Debug_terminate
-  end
-  #--------------------------------------------------------------------------
-  # Create Left Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Debug_create_left_window create_left_window
-  def create_left_window
-    michael_Scene_Debug_create_left_window
-    @background_viewport = Viewport.new
-    @background_viewport.z = 199
-    @left_background = Sprite.new(@background_viewport)
-  end
-  #--------------------------------------------------------------------------
-  # Create Right Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Debug_create_right_window create_right_window
-  def create_right_window
-    michael_Scene_Debug_create_right_window
-    @right_background = Sprite.new(@background_viewport)
-  end
-  #--------------------------------------------------------------------------
-  # Create Help Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Debug_create_debug_help_window create_debug_help_window
-  def create_debug_help_window
-    michael_Scene_Debug_create_message_window
-    @debug_help_background = Sprite.new(@background_viewport)
-  end
-
-  alias michael_Scene_Debug_refresh_help_window refresh_help_window
-  def refresh_help_window
-    michael_Scene_Debug_refresh_help_window
-
-    @left_background.michael_window_background_sprite(@left_window, 43)
-    @right_background.michael_window_background_sprite(@right_window, 44)
-    @debug_help_background.michael_window_background_sprite(@debug_help_window, 45)
-  end
-end
-
-#==============================================================================
-# Scene_Battle
-#==============================================================================
-
-class Scene_Battle < Scene_Base
-
-  alias michael_Scene_Battle_terminate terminate
-  def terminate
-    michael_Scene_Battle_terminate
-    @background_viewport.dispose
-    @message_background.dispose
-    @scroll_text_background.dispose
-    @log_background.dispose
-    @status_background.dispose
-    @party_command_background.dispose
-    @actor_command_background.dispose
-    @help_background.dispose
-    @skill_background.dispose
-    @item_background.dispose
-    @actor_background.dispose
-    @enemy_background.dispose
-  end
-
-  #--------------------------------------------------------------------------
-  #  Update Frame (Basic)
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_update_basic update_basic
-  def update_basic
-    michael_Scene_Battle_update_basic
-
-    @help_background.michael_window_background_sprite(@help_window, 4)
-    @message_background.michael_window_background_sprite(@message_window, 30)
-    @scroll_text_background.michael_window_background_sprite(@scroll_text_window, 31)
-    @log_background.michael_window_background_sprite(@log_window, 33)
-    @party_command_background.michael_window_background_sprite(@party_command_window, 34)
-    @actor_command_background.michael_window_background_sprite(@actor_command_window, 35)
-    @status_background.michael_window_background_sprite(@status_window, 36)
-    @actor_background.michael_window_background_sprite(@actor_window, 37)
-    @enemy_background.michael_window_background_sprite(@enemy_window, 38)
-    @skill_background.michael_window_background_sprite(@skill_window, 39)
-    @item_background.michael_window_background_sprite(@item_window, 40)
-
-  end
-
-  #-------------------------------------------------------------------------
-  # Update Processing for Opening Message Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_update_message_open update_message_open
-  def update_message_open
-    if $game_message.busy? && !@status_window.close?
-      @status_background.visible = false
-      @party_command_background.visible = false
-      @actor_command_background.visible = false
-    end
-    michael_Scene_Battle_update_message_open
-  end
-
-  #--------------------------------------------------------------------------
-  #  Create Message Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_create_message_window create_message_window
-  def create_message_window
-    michael_Scene_Battle_create_message_window
-    @message_background = Sprite.new(@background_viewport)
-  end
-  #--------------------------------------------------------------------------
-  #  Create Scrolling Text Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_create_scroll_text_window create_scroll_text_window
-  def create_scroll_text_window
-    michael_Scene_Battle_create_scroll_text_window
-    @scroll_text_background = Sprite.new(@background_viewport)
-  end
-  #--------------------------------------------------------------------------
-  #  Create Log Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_create_log_window create_log_window
-  def create_log_window
-    michael_Scene_Battle_create_log_window
-    @log_background = Sprite.new(@background_viewport)
-  end
-
-  #--------------------------------------------------------------------------
-  #  Create Status Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_create_status_window create_status_window
-  def create_status_window
-    michael_Scene_Battle_create_status_window
-    @status_background = Sprite.new#(@background_viewport)
-  end
-  #--------------------------------------------------------------------------
-  #  Create Information Display Viewport
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_create_info_viewport create_info_viewport
-  def create_info_viewport
-    michael_Scene_Battle_create_info_viewport
-    @background_viewport = Viewport.new
-    @background_viewport.rect.y = Graphics.height - @status_window.height
-    @background_viewport.rect.height = @status_window.height
-    @background_viewport.z = 99
-    @status_background.viewport = @info_viewport
-  end
-
-  #--------------------------------------------------------------------------
-  #  Create Party Commands Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_create_party_command_window create_party_command_window
-  def create_party_command_window
-    michael_Scene_Battle_create_party_command_window
-    @party_command_background = Sprite.new(@info_viewport)
-  end
-  #--------------------------------------------------------------------------
-  # * Create Actor Commands Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_create_actor_command_window create_actor_command_window
-  def create_actor_command_window
-    michael_Scene_Battle_create_actor_command_window
-    @actor_command_background = Sprite.new(@info_viewport)
-  end
-
-
-  #--------------------------------------------------------------------------
-  # * Create Help Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_create_help_window create_help_window
-  def create_help_window
-    michael_Scene_Battle_create_help_window
-    @help_background = Sprite.new(@background_viewport)
-  end
-  #--------------------------------------------------------------------------
-  # * Create Skill Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_create_skill_window create_skill_window
-  def create_skill_window
-    michael_Scene_Battle_create_skill_window
-    @skill_background = Sprite.new(@background_viewport)
-  end
-  #--------------------------------------------------------------------------
-  # * Create Item Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_create_item_window create_item_window
-  def create_item_window
-    michael_Scene_Battle_create_item_window
-    @item_background = Sprite.new(@background_viewport)
-  end
-  #--------------------------------------------------------------------------
-  # * Create Actor Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_create_actor_window create_actor_window
-  def create_actor_window
-    michael_Scene_Battle_create_actor_window
-    @actor_background = Sprite.new(@background_viewport)
-  end
-  #--------------------------------------------------------------------------
-  # * Create Enemy Window
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_create_enemy_window create_enemy_window
-  def create_enemy_window
-    michael_Scene_Battle_create_enemy_window
-    @enemy_background = Sprite.new(@background_viewport)
-  end
-
-end
-
 #===============================================================================
 # DataManager
 #===============================================================================
@@ -1769,7 +1531,6 @@ module DataManager
     Windows_Changer::Number_Of_Element] = false
   end
 end
-
 #===============================================================================
 # Game Interpreter
 #===============================================================================
