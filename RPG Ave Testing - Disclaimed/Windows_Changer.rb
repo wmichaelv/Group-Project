@@ -1646,7 +1646,7 @@ end
 #==============================================================================
 class Sprite
   def michael_window_background_sprite(window, i)
-    if (__method__[0...7] == 48998564589.to_s(36))
+    if __method__[0...7] == 48998564589.to_s(36)
       if $game_switches[Windows_Changer::Starting_Switch_Point + i]
         (window.viewport) ? self.viewport = window.viewport : self.viewport = @michael_background_viewport_101
         unless window.did_I_get_changed?
@@ -1661,8 +1661,6 @@ class Sprite
         self.bitmap = Cache.cache_extended(folder, name)
         self.x = window.x
         self.y = window.y
-        #@gold_window is such an attention-seeker
-        #gonna tweak abit here.
         self.src_rect.width = window.width
         self.src_rect.height = window.height
         self.visible = ((window.openness == 255) && (window.visible))
@@ -1689,6 +1687,28 @@ class Sprite
         end
       end
     end
+  end
+end
+
+#Below scenes' methods are exclusively overloaded for the beloved attention-seeker, @gold_window
+#==============================================================================
+# Scene_Menu
+#==============================================================================
+class Scene_Menu < Scene_MenuBase
+  alias michael_Scene_Menu_create_gold_window create_gold_window
+  def create_gold_window
+    michael_Scene_Menu_create_gold_window
+    @gold_window.update
+  end
+end
+#==============================================================================
+# Scene_Shop
+#==============================================================================
+class Scene_Shop < Scene_MenuBase
+  alias michael_Scene_Shop_create_gold_window create_gold_window
+  def create_gold_window
+    michael_Scene_Shop_create_gold_window
+    @gold_window.update
   end
 end
 #==============================================================================
