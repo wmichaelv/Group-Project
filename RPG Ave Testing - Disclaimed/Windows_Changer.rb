@@ -527,6 +527,8 @@ class Sprite
         folder = $game_message.game_message_windows_folder[i]
         name = $game_message.game_windows_name[i]
         self.bitmap = Cache.cache_extended(folder, name)
+        self.x = window.x
+        self.y = window.y
         self.src_rect.width = window.width
         self.src_rect.height = window.height
         self.visible = ((window.openness == 255) && (window.visible))
@@ -1184,7 +1186,7 @@ class Scene_File < Scene_MenuBase
 
     if $game_switches[119]
       Array.new(item_max) do |i|
-        @savefile_windows[i].michael_window_background_sprite(@savefile_windows[i], 19)
+        @savefile_backgrounds[i].michael_window_background_sprite(@savefile_windows[i], 19)
       end
     end
   end
@@ -1199,7 +1201,6 @@ class Scene_File < Scene_MenuBase
     @help_background = Sprite.new(@background_viewport)
     @help_background.x = @help_window.x
     @help_background.y = @help_window.y
-
     @help_background.michael_window_background_sprite(@help_window, 4)
 
   end
@@ -1219,8 +1220,7 @@ class Scene_File < Scene_MenuBase
     end
     if $game_switches[119]
       Array.new(item_max) do |i|
-        @savefile_windows[i].michael_window_background_sprite(@savefile_windows[i], 19)
-        @savefile_windows[i].opacity = 0
+        @savefile_backgrounds[i].michael_window_background_sprite(@savefile_windows[i], 19)
       end
     end
   end
