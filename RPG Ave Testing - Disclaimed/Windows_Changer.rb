@@ -2073,7 +2073,6 @@ class Scene_Battle < Scene_Base
     @help_background = Sprite.new(@background_viewport)
     @help_background.x = @help_window.x
     @help_background.y = @help_window.y
-    @help_background.visible = false
   end
   #--------------------------------------------------------------------------
   # * Create Skill Window
@@ -2084,7 +2083,6 @@ class Scene_Battle < Scene_Base
     @skill_background = Sprite.new(@background_viewport)
     @skill_background.x = @skill_window.x
     @skill_background.y = @skill_window.y
-    @skill_background.visible = false
   end
   #--------------------------------------------------------------------------
   # * Create Item Window
@@ -2095,7 +2093,6 @@ class Scene_Battle < Scene_Base
     @item_background = Sprite.new(@background_viewport)
     @item_background.x = @item_window.x
     @item_background.y = @item_window.y
-    @item_background.visible = false
   end
   #--------------------------------------------------------------------------
   # * Create Actor Window
@@ -2106,7 +2103,6 @@ class Scene_Battle < Scene_Base
     @actor_background = Sprite.new(@background_viewport)
     @actor_background.x = @actor_window.x
     @actor_background.y = @actor_window.y
-    @actor_background.visible = false
   end
   #--------------------------------------------------------------------------
   # * Create Enemy Window
@@ -2117,126 +2113,6 @@ class Scene_Battle < Scene_Base
     @enemy_background = Sprite.new(@background_viewport)
     @enemy_background.x = @enemy_window.x
     @enemy_background.y = @enemy_window.y
-    @enemy_background.visible = false
-  end
-
-  #--------------------------------------------------------------------------
-  # * [Skill] Command
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_command_skill command_skill
-  def command_skill
-    michael_Scene_Battle_command_skill
-    @skill_background.visible = true
-  end
-  #--------------------------------------------------------------------------
-  # * [Item] Command
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_command_item command_item
-  def command_item
-    michael_Scene_Battle_command_item
-    @item_background.visible = true
-  end
-  #--------------------------------------------------------------------------
-  # * Start Actor Selection
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_select_actor_selection select_actor_selection
-  def select_actor_selection
-    michael_Scene_Battle_select_actor_selection
-    @actor_background.visible = true
-
-  end
-  #--------------------------------------------------------------------------
-  # * Actor [OK]
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_on_actor_ok on_actor_ok
-  def on_actor_ok
-    @actor_background.visible = false
-    @skill_background.visible = false
-    @item_background.visible = false
-    michael_Scene_Battle_on_actor_ok
-  end
-  #--------------------------------------------------------------------------
-  # * Actor [Cancel]
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_on_actor_cancel on_actor_cancel
-  def on_actor_cancel
-    @actor_background.visible = false
-    michael_Scene_Battle_on_actor_cancel
-    case @actor_command_window.current_symbol
-    when :skill
-      @skill_background.visible = true
-    when :item
-      @item_background.visible = true
-    end
-  end
-  #--------------------------------------------------------------------------
-  # * Start Enemy Selection
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_select_enemy_selection select_enemy_selection
-  def select_enemy_selection
-    michael_Scene_Battle_select_enemy_selection
-    @enemy_background.visible = true
-  end
-  #--------------------------------------------------------------------------
-  # * Enemy [OK]
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_on_enemy_ok on_enemy_ok
-  def on_enemy_ok
-    @item_background.visible = false
-    @skill_background.visible = false
-    @enemy_background.visible = false
-    michael_Scene_Battle_on_enemy_ok
-  end
-  #--------------------------------------------------------------------------
-  # * Enemy [Cancel]
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_on_enemy_cancel on_enemy_cancel
-  def on_enemy_cancel
-    @enemy_background.visible = false
-    case @actor_command_window.current_symbol
-    when :attack
-    when :skill
-      @skill_background.visible = true
-    when :item
-      @item_background.visible = true
-    end
-    michael_Scene_Battle_on_enemy_cancel
-  end
-  #--------------------------------------------------------------------------
-  # * Skill [OK]
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_on_skill_ok on_skill_ok
-  def on_skill_ok
-    michael_Scene_Battle_on_skill_ok
-    if !@skill_window.item.need_selection?
-      @skill_background.visible = false
-    end
-  end
-  #--------------------------------------------------------------------------
-  # * Skill [Cancel]
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_on_skill_cancel on_skill_cancel
-  def on_skill_cancel
-    @skill_background.visible = false
-    michael_Scene_Battle_on_skill_cancel
-  end
-  #--------------------------------------------------------------------------
-  # * Item [OK]
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_on_item_ok on_item_ok
-  def on_item_ok
-    michael_Scene_Battle_on_item_ok
-    if !@item_window.item.need_selection?
-      @item_background.visible = false
-    end
-  end
-  #--------------------------------------------------------------------------
-  # * Item [Cancel]
-  #--------------------------------------------------------------------------
-  alias michael_Scene_Battle_on_item_cancel on_item_cancel
-  def on_item_cancel
-    @item_background.visible = false
-    michael_Scene_Battle_on_item_cancel
   end
 
 end
