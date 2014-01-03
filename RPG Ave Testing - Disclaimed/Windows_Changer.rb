@@ -25,6 +25,7 @@
 #            --Some methods are simplified
 #            --File is trimmed down
 #            --@temp1 & @temp2 variables are removed
+#            --Replacing switch on the windows itself instead of scenes
 # 2013.01.01 --window_opacity(i, opacity) is introduced
 # 2013.12.30 --Trimmed down the file size
 # 2013.12.27 --Fixed window_default(i)
@@ -512,6 +513,13 @@ class Window
   def change_me_by_michael
     self.oh_I_got_changed = true
   end
+
+  alias michael_Window_update update
+  def update
+    michael_Window_update
+    @michael_self_background_ftw_101.visible = self.visible
+  end
+
 end
 #==============================================================================
 # Window_Base
@@ -522,6 +530,20 @@ class Window_Base < Window
     michael_Window_Base_initialize(x, y, width, height)
     @michael_self_background_ftw_101.michael_window_background_sprite(self, 45)
   end
+
+  alias michael_Window_Base_show show
+  def show
+    michael_Window_Base_show
+    @michael_self_background_ftw_101.visible = true
+    self
+  end
+
+  alias michael_Window_Base_hide hide
+  def hide
+    michael_Window_Base_hide
+    @michael_self_background_ftw_101.visible = false
+  end
+
   begin
     def update_checker_michael_101
       self.update
