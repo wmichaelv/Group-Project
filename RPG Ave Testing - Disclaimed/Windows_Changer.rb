@@ -24,6 +24,7 @@
 # 2013.01.03 --window_show_all and window_move_origin and their counter-parts
 #              are introduced
 #            --Reforming the arrays
+#            --If you're wondering about ver., let's say it works, just report any bug(s).
 # 2013.01.02 --Naming convention is improved
 #            --Some methods are simplified
 #            --File is trimmed down
