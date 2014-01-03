@@ -2,7 +2,7 @@
 #==============================================================================
 #
 # Michael Windows Changer
-# Last Updated: 2014.01.01
+# Last Updated: 2014.01.02
 # Requirement: RPG Maker VX Ace
 #             -Knowledge of 'how to use scripts'
 #             -Knowledge of Window Designation (basically know which window is
@@ -22,6 +22,8 @@
 #==============================================================================
 #  Biography lol
 #==============================================================================
+# 2013.01.02 --Naming convention is improved
+#            --Some methods are simplified
 # 2013.01.01 --window_opacity(i, opacity) is introduced
 # 2013.12.30 --Trimmed down the file size
 # 2013.12.27 --Fixed window_default(i)
@@ -495,12 +497,8 @@ end
 # Sprite
 #==============================================================================
 class Sprite
-  def michael(window, i) #Leave it for compability with my other scripts that you might use
-    michael_attachment(window, i)
-  end
-
-  def michael_attachment(window, i)
-    if (caller[0][/`.*'/][1..-2] == 48998564589.to_s(36))
+  def michael_window_background_sprite(window, i)
+    if (__method__[0...7] == 48998564589.to_s(36))
       if $game_switches[Windows_Changer::Starting_Switch_Point + i]
         window.back_opacity = 0
         window.opacity = 0
@@ -637,19 +635,19 @@ class Window_Message < Window_Base
   alias michael_Window_Message_update update
   def update
 
-    unless @gold_background.michael(@gold_window, 5)
+    unless @gold_background.michael_window_background_sprite(@gold_window, 5)
       @gold_background.visible = false
     end
 
-    unless @choice_background.michael(@choice_window, 27)
+    unless @choice_background.michael_window_background_sprite(@choice_window, 27)
       @choice_background.visible = false
     end
 
-    unless @number_background.michael(@number_window, 28)
+    unless @number_background.michael_window_background_sprite(@number_window, 28)
       @number_background.visible = false
     end
 
-    unless @item_background.michael(@item_window, 29)
+    unless @item_background.michael_window_background_sprite(@item_window, 29)
       @item_background.visible = false
     end
 
@@ -708,7 +706,7 @@ class Scene_Title < Scene_Base
     @command_background.x = @command_window.x
     @command_background.y = @command_window.y
 
-    unless @command_background.michael(@command_window, 41)
+    unless @command_background.michael_window_background_sprite(@command_window, 41)
     end
 
   end
@@ -750,7 +748,7 @@ class Scene_Map < Scene_Base
     @message_background.y = @message_window.y
     @message_background.x = @message_window.x
 
-    unless @message_background.michael(@message_window, 30)
+    unless @message_background.michael_window_background_sprite(@message_window, 30)
       @message_background.visible = false
     end
 
@@ -758,7 +756,7 @@ class Scene_Map < Scene_Base
     @scroll_text_background.x = @scroll_text_window.x
     @scroll_text_background.y = @scroll_text_window.y
 
-    unless @scroll_text_background.michael(@scroll_text_window, 31)
+    unless @scroll_text_background.michael_window_background_sprite(@scroll_text_window, 31)
       #Map is freezed when this is active at default setting
       #@scroll_text_window.back_opacity = @temp1
       #@scroll_text_window.opacity = @temp2
@@ -769,7 +767,7 @@ class Scene_Map < Scene_Base
     @map_name_background.x = @map_name_window.x
     @map_name_background.y = @map_name_window.y
 
-    unless @map_name_background.michael(@map_name_window, 32)
+    unless @map_name_background.michael_window_background_sprite(@map_name_window, 32)
       #@map_name_window.back_opacity = @temp1
       #@map_name_window.opacity = @temp2
       @map_name_background.visible = false
@@ -807,7 +805,7 @@ class Scene_MenuBase < Scene_Base
     @help_background.x = @help_window.x
     @help_background.y = @help_window.y
 
-    unless @help_background.michael(@help_window, 4)
+    unless @help_background.michael_window_background_sprite(@help_window, 4)
       @help_background.visible = false
     end
 
@@ -835,7 +833,7 @@ class Scene_Menu < Scene_MenuBase
     @command_background.y = @command_window.y
     @command_background.x = @command_window.x
 
-    unless @command_background.michael(@command_window, 6)
+    unless @command_background.michael_window_background_sprite(@command_window, 6)
       @command_window.back_opacity = @temp1
       @command_window.opacity = @temp2
       @command_background.visible = false
@@ -853,7 +851,7 @@ class Scene_Menu < Scene_MenuBase
     @gold_background.x = @gold_window.x
     @gold_background.y = @gold_window.y
 
-    unless @gold_background.michael(@gold_window, 5)
+    unless @gold_background.michael_window_background_sprite(@gold_window, 5)
       @gold_window.back_opacity = @temp1
       @gold_window.opacity = @temp2
       @gold_background.visible = false
@@ -871,7 +869,7 @@ class Scene_Menu < Scene_MenuBase
     @status_background.x = @status_window.x
     @status_background.y = @status_window.y
 
-    unless @status_background.michael(@status_window, 7)
+    unless @status_background.michael_window_background_sprite(@status_window, 7)
       @status_window.back_opacity = @temp1
       @status_window.opacity = @temp2
       @status_background.visible = false
@@ -919,7 +917,7 @@ class Scene_ItemBase < Scene_MenuBase
     @actor_background.y = @actor_window.y
     @actor_background.x = @actor_window.x
 
-    unless @actor_background.michael(@actor_window, 8)
+    unless @actor_background.michael_window_background_sprite(@actor_window, 8)
     end
 
   end
@@ -948,7 +946,7 @@ class Scene_ItemBase < Scene_MenuBase
 
     michael_Scene_ItemBase_show_sub_window
 
-    unless @actor_background.michael(@actor_window, 8)
+    unless @actor_background.michael_window_background_sprite(@actor_window, 8)
       @actor_background.visible = false
       @actor_window.opacity = @temp1
       @actor_window.back_opacity = @temp2
@@ -988,7 +986,7 @@ class Scene_Item < Scene_ItemBase
     @category_item_background.viewport = @category_window.viewport
     @category_item_background.x = @category_window.x
     @category_item_background.y = @category_window.y
-    unless @category_item_background.michael(@category_window, 9)
+    unless @category_item_background.michael_window_background_sprite(@category_window, 9)
       @category_window.back_opacity = @temp1
       @category_window.opacity = @temp2
       @category_item_background.visible = false
@@ -1002,7 +1000,7 @@ class Scene_Item < Scene_ItemBase
     @item_background.viewport = @item_window.viewport
     @item_background.x = @item_window.x
     @item_background.y = @item_window.y
-    unless @item_background.michael(@item_window, 10)
+    unless @item_background.michael_window_background_sprite(@item_window, 10)
       @item_window.back_opacity = @temp1
       @item_window.opacity = @temp2
       @item_background.visible = false
@@ -1061,7 +1059,7 @@ class Scene_Skill < Scene_ItemBase
     @command_background.x = @command_window.x
     @command_background.y = @command_window.y
 
-    unless @command_background.michael(@command_window, 11)
+    unless @command_background.michael_window_background_sprite(@command_window, 11)
       @command_window.back_opacity = @temp1
       @command_window.opacity = @temp2
       @command_background.visible = false
@@ -1077,7 +1075,7 @@ class Scene_Skill < Scene_ItemBase
     @status_background.x = @status_window.x
     @status_background.y = @status_window.y
 
-    unless @status_background.michael(@status_window, 12)
+    unless @status_background.michael_window_background_sprite(@status_window, 12)
       @status_window.back_opacity = @temp1
       @status_window.opacity = @temp2
       @status_background.visible = false
@@ -1096,7 +1094,7 @@ class Scene_Skill < Scene_ItemBase
     @item_background.x = @item_window.x
     @item_background.y = @item_window.y
 
-    unless @item_background.michael(@item_window, 13)
+    unless @item_background.michael_window_background_sprite(@item_window, 13)
       @item_window.back_opacity = @temp1
       @item_window.opacity = @temp2
       @item_background.visible = false
@@ -1168,25 +1166,25 @@ class Scene_Equip < Scene_MenuBase
     @item_background.x = @item_window.x
     @item_background.y = @item_window.y
 
-    unless @status_background.michael(@status_window, 14)
+    unless @status_background.michael_window_background_sprite(@status_window, 14)
       @status_window.back_opacity = @temp1
       @status_window.opacity = @temp2
       @status_background.visible = false
     end
 
-    unless @command_background.michael(@command_window, 15)
+    unless @command_background.michael_window_background_sprite(@command_window, 15)
       @command_window.back_opacity = @temp1
       @command_window.opacity = @temp2
       @command_background.visible = false
     end
 
-    unless @slot_background.michael(@slot_window, 16)
+    unless @slot_background.michael_window_background_sprite(@slot_window, 16)
       @slot_window.back_opacity = @temp1
       @slot_window.opacity = @temp2
       @slot_background.visible = false
     end
 
-    unless @item_background.michael(@item_window, 17)
+    unless @item_background.michael_window_background_sprite(@item_window, 17)
       @item_window.back_opacity = @temp1
       @item_window.opacity = @temp2
       @item_background.visible = false
@@ -1241,7 +1239,7 @@ class Scene_Status < Scene_MenuBase
     @status_background.x = @status_window.x
     @status_background.y = @status_window.y
 
-    unless @status_background.michael(@status_window, 18)
+    unless @status_background.michael_window_background_sprite(@status_window, 18)
       @status_window.back_opacity = @temp1
       @status_window.opacity = @temp2
       @status_background.visible = false
@@ -1301,7 +1299,7 @@ class Scene_File < Scene_MenuBase
 
     michael_Scene_File_update
 
-    unless @help_background.michael(@help_window, 4)
+    unless @help_background.michael_window_background_sprite(@help_window, 4)
       @help_window.back_opacity = @temp1
       @help_window.opacity = @temp2
       @help_background.visible = false
@@ -1347,7 +1345,7 @@ class Scene_File < Scene_MenuBase
     @help_background.x = @help_window.x
     @help_background.y = @help_window.y
 
-    unless @help_background.michael(@help_window, 4)
+    unless @help_background.michael_window_background_sprite(@help_window, 4)
     end
 
   end
@@ -1433,7 +1431,7 @@ class Scene_End < Scene_MenuBase
     @command_background.x = @command_window.x
     @command_background.y = @command_window.y
 
-    unless @command_background.michael(@command_window, 42)
+    unless @command_background.michael_window_background_sprite(@command_window, 42)
     end
 
   end
@@ -1525,7 +1523,7 @@ class Scene_Shop < Scene_MenuBase
     @gold_background.x = @gold_window.x
     @gold_background.y = @gold_window.y
 
-    unless @gold_background.michael(@gold_window, 5)
+    unless @gold_background.michael_window_background_sprite(@gold_window, 5)
     end
   end
 
@@ -1541,7 +1539,7 @@ class Scene_Shop < Scene_MenuBase
     @command_background.x = @command_window.x
     @command_background.y = @command_window.y
 
-    unless @command_background.michael(@command_window, 20)
+    unless @command_background.michael_window_background_sprite(@command_window, 20)
     end
 
   end
@@ -1558,7 +1556,7 @@ class Scene_Shop < Scene_MenuBase
     @dummy_background.x = @dummy_window.x
     @dummy_background.y = @dummy_window.y
 
-    unless @dummy_background.michael(@dummy_window, 45)
+    unless @dummy_background.michael_window_background_sprite(@dummy_window, 45)
     end
 
   end
@@ -1574,7 +1572,7 @@ class Scene_Shop < Scene_MenuBase
     @number_background.x = @number_window.x
     @number_background.y = @number_window.y
 
-    unless @number_background.michael(@number_window, 23)
+    unless @number_background.michael_window_background_sprite(@number_window, 23)
     end
 
   end
@@ -1590,7 +1588,7 @@ class Scene_Shop < Scene_MenuBase
     @status_background.x = @status_window.x
     @status_background.y = @status_window.y
 
-    unless @status_background.michael(@status_window, 24)
+    unless @status_background.michael_window_background_sprite(@status_window, 24)
     end
 
   end
@@ -1606,7 +1604,7 @@ class Scene_Shop < Scene_MenuBase
     @buy_background.x = @buy_window.x
     @buy_background.y = @buy_window.y
 
-    unless @buy_background.michael(@buy_window, 21)
+    unless @buy_background.michael_window_background_sprite(@buy_window, 21)
     end
 
   end
@@ -1622,7 +1620,7 @@ class Scene_Shop < Scene_MenuBase
     @category_background.x = @category_window.x
     @category_background.y = @category_window.y
 
-    unless @category_background.michael(@category_window, 9)
+    unless @category_background.michael_window_background_sprite(@category_window, 9)
     end
 
   end
@@ -1638,7 +1636,7 @@ class Scene_Shop < Scene_MenuBase
     @sell_background.x = @sell_window.x
     @sell_background.y = @sell_window.y
 
-    unless @sell_background.michael(@sell_window, 22)
+    unless @sell_background.michael_window_background_sprite(@sell_window, 22)
     end
 
   end
@@ -1760,14 +1758,14 @@ class Scene_Name < Scene_MenuBase
     @edit_background.x = @edit_window.x
     @edit_background.y = @edit_window.y
 
-    unless @edit_background.michael(@edit_window, 25)
+    unless @edit_background.michael_window_background_sprite(@edit_window, 25)
     end
 
     @input_background = Sprite.new(@background_viewport)
     @input_background.x = @input_window.x
     @input_background.y = @input_window.y
 
-    unless @input_background.michael(@input_window, 26)
+    unless @input_background.michael_window_background_sprite(@input_window, 26)
     end
 
   end
@@ -1852,19 +1850,19 @@ class Scene_Debug < Scene_MenuBase
   def refresh_help_window
     michael_Scene_Debug_refresh_help_window
 
-    unless @left_background.michael(@left_window, 43)
+    unless @left_background.michael_window_background_sprite(@left_window, 43)
       @left_window.back_opacity = @temp1
       @left_window.opacity = @temp2
       @left_background.visible = false
     end
 
-    unless @right_background.michael(@right_window, 44)
+    unless @right_background.michael_window_background_sprite(@right_window, 44)
       @right_window.back_opacity = @temp1
       @right_window.opacity = @temp2
       @right_background.visible = false
     end
 
-    unless @debug_help_background.michael(@debug_help_window, 45)
+    unless @debug_help_background.michael_window_background_sprite(@debug_help_window, 45)
       @debug_help_window.back_opacity = @temp1
       @debug_help_window.opacity = @temp2
       @debug_help_background.visible = false
@@ -1902,65 +1900,65 @@ class Scene_Battle < Scene_Base
   def update_basic
     michael_Scene_Battle_update_basic
 
-    unless @help_background.michael(@help_window, 4)
+    unless @help_background.michael_window_background_sprite(@help_window, 4)
       @help_window.back_opacity = @temp1
       @help_window.opacity = @temp2
       @help_background.visible = false
     end
 
-    unless @message_background.michael(@message_window, 30)
+    unless @message_background.michael_window_background_sprite(@message_window, 30)
       @message_window.back_opacity = @temp1
       @message_window.opacity = @temp2
       @message_background.visible = false
     end
 
-    unless @scroll_text_background.michael(@scroll_text_window, 31)
+    unless @scroll_text_background.michael_window_background_sprite(@scroll_text_window, 31)
       @scroll_text_window.back_opacity = @temp1
       @scroll_text_window.opacity = @temp2
       @scroll_text_background.visible = false
     end
 
-    unless @log_background.michael(@log_window, 33)
+    unless @log_background.michael_window_background_sprite(@log_window, 33)
       @log_background.visible = false
     end
 
-    unless @party_command_background.michael(@party_command_window, 34)
+    unless @party_command_background.michael_window_background_sprite(@party_command_window, 34)
       @party_command_window.back_opacity = @temp1
       @party_command_window.opacity = @temp2
       @party_command_background.visible = false
     end
 
-    unless @actor_command_background.michael(@actor_command_window, 35)
+    unless @actor_command_background.michael_window_background_sprite(@actor_command_window, 35)
       @actor_command_window.back_opacity = @temp1
       @actor_command_window.opacity = @temp2
       @actor_command_background.visible = false
     end
 
-    unless @status_background.michael(@status_window, 36)
+    unless @status_background.michael_window_background_sprite(@status_window, 36)
       @status_window.back_opacity = @temp1
       @status_window.opacity = @temp2
       @status_background.visible = false
     end
 
-    unless @actor_background.michael(@actor_window, 37)
+    unless @actor_background.michael_window_background_sprite(@actor_window, 37)
       @actor_window.back_opacity = @temp1
       @actor_window.opacity = @temp2
       @actor_background.visible = false
     end
 
-    unless @enemy_background.michael(@enemy_window, 38)
+    unless @enemy_background.michael_window_background_sprite(@enemy_window, 38)
       @enemy_window.back_opacity = @temp1
       @enemy_window.opacity = @temp2
       @enemy_background.visible = false
     end
 
-    unless @skill_background.michael(@skill_window, 39)
+    unless @skill_background.michael_window_background_sprite(@skill_window, 39)
       @skill_window.back_opacity = @temp1
       @skill_window.opacity = @temp2
       @skill_background.visible = false
     end
 
-    unless @item_background.michael(@item_window, 40)
+    unless @item_background.michael_window_background_sprite(@item_window, 40)
       @item_window.back_opacity = @temp1
       @item_window.opacity = @temp2
       @item_background.visible = false
