@@ -514,12 +514,6 @@ class Window
     self.oh_I_got_changed = true
   end
 
-  alias michael_Window_update update
-  def update
-    michael_Window_update
-    @michael_self_background_ftw_101.visible = self.visible
-  end
-
 end
 #==============================================================================
 # Window_Base
@@ -528,7 +522,7 @@ class Window_Base < Window
   alias michael_Window_Base_initialize initialize
   def initialize(x, y, width, height)
     michael_Window_Base_initialize(x, y, width, height)
-    @michael_self_background_ftw_101.michael_window_background_sprite(self, 45)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 45) if String(self.class) == 'Window_Base'
   end
 
   alias michael_Window_Base_show show
@@ -542,6 +536,7 @@ class Window_Base < Window
   def hide
     michael_Window_Base_hide
     @michael_self_background_ftw_101.visible = false
+    self
   end
 
   begin
@@ -551,12 +546,12 @@ class Window_Base < Window
     alias michael_Window_Base_update update
     def update
       michael_Window_Base_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 45)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 45) if String(self.class) == 'Window_Base'
     end
   rescue NoMethodError
     def update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 45)
       super
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 45) if String(self.class) == 'Window_Base'
     end
   end
 end
@@ -567,7 +562,7 @@ class Window_Selectable < Window_Base
   alias michael_Window_Selectable_initialize initialize
   def initialize(x, y, width, height)
     michael_Window_Selectable_initialize(x, y, width, height)
-    @michael_self_background_ftw_101.michael_window_background_sprite(self, 1)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 1) if String(self.class) == 'Window_Selectable'
   end
   begin
     def update_checker_michael_101
@@ -576,12 +571,12 @@ class Window_Selectable < Window_Base
     alias michael_Window_Selectable_update update
     def update
       michael_Window_Selectable_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 1)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 1) if String(self.class) == 'Window_Selectable'
     end
   rescue NoMethodError
     def update
       super
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 1)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 1) if String(self.class) == 'Window_Selectable'
     end
   end
 end
@@ -592,7 +587,7 @@ class Window_Command < Window_Selectable
   alias michael_Window_Command_initialize initialize
   def initialize(x, y)
     michael_Window_Command_initialize(x, y)
-    @michael_self_background_ftw_101.michael_window_background_sprite(self, 2)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 2) if String(self.class) == 'Window_Command'
   end
   begin
     def update_checker_michael_101
@@ -601,12 +596,12 @@ class Window_Command < Window_Selectable
     alias michael_Window_Command_update update
     def update
       michael_Window_Command_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 2)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 2) if String(self.class) == 'Window_Command'
     end
   rescue NoMethodError
     def update
       super
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 2)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 2) if String(self.class) == 'Window_Command'
     end
   end
 end
@@ -615,7 +610,7 @@ end
 # Window_HorzCommand
 #==============================================================================
 class Window_HorzCommand < Window_Command
-end
+end #No initialize, so no need to overload
 
 #==============================================================================
 # Window_Help
@@ -624,7 +619,7 @@ class Window_Help < Window_Base
   alias michael_Window_Help_initialize initialize
   def initialize(line_number = 2)
     michael_Window_Help_initialize(line_number = 2)
-    @michael_self_background_ftw_101.michael_window_background_sprite(self, 4)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 4) if String(self.class) == 'Window_Help'
   end
   begin
     def update_checker_michael_101
@@ -633,12 +628,12 @@ class Window_Help < Window_Base
     alias michael_Window_Help_update update
     def update
       michael_Window_Help_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 4)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 4) if String(self.class) == 'Window_Help'
     end
   rescue NoMethodError
     def update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 4)
       super
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 4) if String(self.class) == 'Window_Help'
     end
   end
 end
@@ -649,7 +644,7 @@ class Window_Gold < Window_Base
   alias michael_Window_Gold_initialize initialize
   def initialize
     michael_Window_Gold_initialize
-    @michael_self_background_ftw_101.michael_window_background_sprite(self, 5)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 5) if String(self.class) == 'Window_Gold'
   end
   begin
     def update_checker_michael_101
@@ -658,12 +653,12 @@ class Window_Gold < Window_Base
     alias michael_Window_Gold_update update
     def update
       michael_Window_Gold_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 5)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 5) if String(self.class) == 'Window_Gold'
     end
   rescue NoMethodError
     def update
       super
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 5)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 5) if String(self.class) == 'Window_Gold'
     end
   end
 end
@@ -674,7 +669,7 @@ class Window_MenuCommand < Window_Command
   alias michael_Window_MenuCommand_initialize initialize
   def initialize
     michael_Window_MenuCommand_initialize
-    @michael_self_background_ftw_101.michael_window_background_sprite(self, 6)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 6) if String(self.class) == 'Window_MenuCommand'
   end
   begin
     def update_checker_michael_101
@@ -683,12 +678,12 @@ class Window_MenuCommand < Window_Command
     alias michael_Window_MenuCommand_update update
     def update
       michael_Window_MenuCommand_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 6)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 6) if String(self.class) == 'Window_MenuCommand'
     end
   rescue NoMethodError
     def update
       super
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 6)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 6) if String(self.class) == 'Window_MenuCommand'
     end
   end
 end
@@ -699,7 +694,7 @@ class Window_MenuStatus < Window_Selectable
   alias michael_Window_MenuStatus_initialize initialize
   def initialize(x, y)
     michael_Window_MenuStatus_initialize(x, y)
-    @michael_self_background_ftw_101.michael_window_background_sprite(self, 7)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 7) if String(self.class) == 'Window_MenuStatus'
   end
   begin
     def update_checker_michael_101
@@ -708,12 +703,12 @@ class Window_MenuStatus < Window_Selectable
     alias michael_Window_MenuStatus_update update
     def update
       michael_Window_MenuStatus_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 7)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 7) if String(self.class) == 'Window_MenuStatus'
     end
   rescue NoMethodError
     def update
       super
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 7)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 7) if String(self.class) == 'Window_MenuStatus'
     end
   end
 end
@@ -724,7 +719,7 @@ class Window_MenuActor < Window_MenuStatus
   alias michael_Window_MenuActor_initialize initialize
   def initialize
     michael_Window_MenuActor_initialize
-    @michael_self_background_ftw_101.michael_window_background_sprite(self, 8)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 8) if String(self.class) == 'Window_MenuActor'
   end
   begin
     def update_checker_michael_101
@@ -733,12 +728,12 @@ class Window_MenuActor < Window_MenuStatus
     alias michael_Window_MenuActor_update update
     def update
       michael_Window_MenuActor_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 8)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 8) if String(self.class) == 'Window_MenuActor'
     end
   rescue NoMethodError
     def update
       super
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 8)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 8) if String(self.class) == 'Window_MenuActor'
     end
   end
 end
@@ -749,7 +744,7 @@ class Window_ItemCategory < Window_HorzCommand
   alias michael_Window_ItemCategory_initialize initialize
   def initialize
     michael_Window_ItemCategory_initialize
-    @michael_self_background_ftw_101.michael_window_background_sprite(self, 9)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 9) if String(self.class) == 'Window_ItemCategory'
   end
   begin
     def update_checker_michael_101
@@ -758,12 +753,12 @@ class Window_ItemCategory < Window_HorzCommand
     alias michael_Window_ItemCategory_update update
     def update
       michael_Window_ItemCategory_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 9)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 9) if String(self.class) == 'Window_ItemCategory'
     end
   rescue NoMethodError
     def update
       super
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 9)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 9) if String(self.class) == 'Window_ItemCategory'
     end
   end
 end
@@ -774,7 +769,7 @@ class Window_ItemList < Window_Selectable
   alias michael_Window_ItemList_initialize initialize
   def initialize(x, y, width, height)
     michael_Window_ItemList_initialize(x, y, width, height)
-    @michael_self_background_ftw_101.michael_window_background_sprite(self, 10)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 10) if String(self.class) == 'Window_ItemList'
   end
   begin
     def update_checker_michael_101
@@ -783,12 +778,12 @@ class Window_ItemList < Window_Selectable
     alias michael_Window_ItemList_update update
     def update
       michael_Window_ItemList_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 10)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 10) if String(self.class) == 'Window_ItemList'
     end
   rescue NoMethodError
     def update
       super
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 10)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 10) if String(self.class) == 'Window_ItemList'
     end
   end
 end
@@ -799,7 +794,7 @@ class Window_SkillCommand < Window_Command
   alias michael_Window_SkillCommand_initialize initialize
   def initialize(x, y)
     michael_Window_SkillCommand_initialize(x, y)
-    @michael_self_background_ftw_101.michael_window_background_sprite(self, 11)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 11) if String(self.class) == 'Window_SkillCommand'
   end
   begin
     def update_checker_michael_101
@@ -808,12 +803,12 @@ class Window_SkillCommand < Window_Command
     alias michael_Window_SkillCommand_update update
     def update
       michael_Window_SkillCommand_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 11)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 11) if String(self.class) == 'Window_SkillCommand'
     end
   rescue NoMethodError
     def update
       super
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 11)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 11) if String(self.class) == 'Window_SkillCommand'
     end
   end
 end
@@ -1274,7 +1269,8 @@ class Window_Message < Window_Base
   alias michael_Window_Message_initialize initialize
   def initialize
     michael_Window_Message_initialize
-    @michael_self_background_ftw_101.michael_window_background_sprite(self, 30)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 30) if String(self.class) == 'Window_Message'
+    @gold_window.update
   end
   begin
     def update_checker_michael_101
@@ -1283,12 +1279,12 @@ class Window_Message < Window_Base
     alias michael_Window_Message_update update
     def update
       michael_Window_Message_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 30)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 30) if String(self.class) == 'Window_Message'
     end
   rescue NoMethodError
     def update
       super
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 30)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 30) if String(self.class) == 'Window_Message'
     end
   end
 end
@@ -1424,7 +1420,7 @@ class Window_BattleStatus < Window_Selectable
   alias michael_Window_BattleStatus_initialize initialize
   def initialize
     michael_Window_BattleStatus_initialize
-    @michael_self_background_ftw_101.michael_window_background_sprite(self, 36)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 36) if String(self.class) == 'Window_BattleStatus'
   end
   begin
     def update_checker_michael_101
@@ -1433,12 +1429,12 @@ class Window_BattleStatus < Window_Selectable
     alias michael_Window_BattleStatus_update update
     def update
       michael_Window_BattleStatus_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 36)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 36) if String(self.class) == 'Window_BattleStatus'
     end
   rescue NoMethodError
     def update
       super
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 36)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 36) if String(self.class) == 'Window_BattleStatus'
     end
   end
 end
@@ -1642,6 +1638,9 @@ class Window_DebugRight < Window_Selectable
     end
   end
 end
+
+
+
 #==============================================================================
 # Sprite
 #==============================================================================
@@ -1651,17 +1650,19 @@ class Sprite
       if $game_switches[Windows_Changer::Starting_Switch_Point + i]
         (window.viewport) ? self.viewport = window.viewport : self.viewport = @michael_background_viewport_101
         unless window.did_I_get_changed?
-          @just_for_naming_convention_sake_saving_window_back_opacity = window.back_opacity
-          @just_for_naming_convention_sake_saving_window_opacity = window.opacity
+          @just_for_naming_convention_sake_saving_window_back_opacity = window.back_opacity unless window.back_opacity.nil?
+          @just_for_naming_convention_sake_saving_window_opacity = window.opacity unless window.opacity.nil?
         end
-        window.back_opacity = 0
-        window.opacity = 0
+        window.back_opacity = 0 unless window.back_opacity.nil?
+        window.opacity = 0 unless window.opacity.nil?
         window.change_me_by_michael
         folder = $game_message.game_message_windows_folder[i]
         name = $game_message.game_windows_name[i]
         self.bitmap = Cache.cache_extended(folder, name)
         self.x = window.x
         self.y = window.y
+        #@gold_window is such an attention-seeker
+        #gonna tweak abit here.
         self.src_rect.width = window.width
         self.src_rect.height = window.height
         self.visible = ((window.openness == 255) && (window.visible))
@@ -1677,14 +1678,14 @@ class Sprite
         end
       else
         self.visible = false
-        if (window.openness == 255 && window.visible)
+        if ((window.openness == 255) && window.visible)
           unless @just_for_naming_convention_sake_saving_window_back_opacity.nil?
             window.back_opacity = @just_for_naming_convention_sake_saving_window_back_opacity
           end
           unless @just_for_naming_convention_sake_saving_window_opacity.nil?
           window.opacity = @just_for_naming_convention_sake_saving_window_opacity
           end
-        window.oh_I_got_changed = false
+        #window.oh_I_got_changed = false
         end
       end
     end
