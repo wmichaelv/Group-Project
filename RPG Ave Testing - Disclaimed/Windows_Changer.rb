@@ -634,17 +634,9 @@ class Window_Message < Window_Base
 
   def create_background_Window_Message
     @gold_background = Sprite.new
-    @gold_background.y = @gold_window.y
-    @gold_background.x = @gold_window.x
     @choice_background = Sprite.new(@background_Window_Message_viewport)
-    @choice_background.x = @choice_window.x
-    @choice_background.y = @choice_window.y
     @number_background = Sprite.new(@background_Window_Message_viewport)
-    @number_background.x = @number_window.x
-    @number_background.y = @number_window.y
     @item_background = Sprite.new(@background_Window_Message_viewport)
-    @item_background.x = @item_window.x
-    @item_background.y = @item_window.y
 
   end
 
@@ -686,13 +678,7 @@ class Scene_Title < Scene_Base
     @background_viewport.z = 99
 
     @command_background = Sprite.new(@background_viewport)
-
-    @command_background.x = @command_window.x
-    @command_background.y = @command_window.y
-
-    unless @command_background.michael_window_background_sprite(@command_window, 41)
-    end
-
+    @command_background.michael_window_background_sprite(@command_window, 41)
   end
 
   alias michael_Scene_Title_terminate terminate
@@ -716,18 +702,12 @@ class Scene_Map < Scene_Base
     @background_Map_viewport.z = 199
 
     @message_background = Sprite.new(@background_Map_viewport)
-    @message_background.y = @message_window.y
-    @message_background.x = @message_window.x
     @message_background.michael_window_background_sprite(@message_window, 30)
 
     @scroll_text_background = Sprite.new(@background_Map_viewport)
-    @scroll_text_background.x = @scroll_text_window.x
-    @scroll_text_background.y = @scroll_text_window.y
     @scroll_text_background.michael_window_background_sprite(@scroll_text_window, 31)
 
     @map_name_background = Sprite.new(@background_Map_viewport)
-    @map_name_background.x = @map_name_window.x
-    @map_name_background.y = @map_name_window.y
     @map_name_background.michael_window_background_sprite(@map_name_window, 32)
   end
 
@@ -756,9 +736,6 @@ class Scene_MenuBase < Scene_Base
     @help_background = Sprite.new(@viewport)
     @help_background.z -= 1
 
-    @help_background.x = @help_window.x
-    @help_background.y = @help_window.y
-
     @help_background.michael_window_background_sprite(@help_window, 4)
 
   end
@@ -779,8 +756,6 @@ class Scene_Menu < Scene_MenuBase
     @background_Menu_viewport.z = 199
 
     @command_background = Sprite.new(@background_Menu_viewport)
-    @command_background.y = @command_window.y
-    @command_background.x = @command_window.x
 
     @command_background.michael_window_background_sprite(@command_window, 6)
 
@@ -793,8 +768,6 @@ class Scene_Menu < Scene_MenuBase
 
     @gold_background = Sprite.new#(@background_Menu_viewport)
     @gold_background.viewport = @gold_window.viewport
-    @gold_background.x = @gold_window.x
-    @gold_background.y = @gold_window.y
 
     @gold_background.michael_window_background_sprite(@gold_window, 5)
 
@@ -806,9 +779,6 @@ class Scene_Menu < Scene_MenuBase
     michael_Scene_Menu_create_status_window
 
     @status_background = Sprite.new(@background_Menu_viewport)
-
-    @status_background.x = @status_window.x
-    @status_background.y = @status_window.y
 
     @status_background.michael_window_background_sprite(@status_window, 7)
   end
@@ -850,9 +820,6 @@ class Scene_ItemBase < Scene_MenuBase
     @background_ItemBase_viewport.z = 198
 
     @actor_background = Sprite.new(@background_ItemBase_viewport)
-
-    @actor_background.y = @actor_window.y
-    @actor_background.x = @actor_window.x
 
     @actor_background.michael_window_background_sprite(@actor_window, 8)
 
@@ -915,9 +882,6 @@ class Scene_Item < Scene_ItemBase
   def create_category_window
     michael_Scene_Item_create_category_window
     @category_item_background = Sprite.new
-    @category_item_background.viewport = @category_window.viewport
-    @category_item_background.x = @category_window.x
-    @category_item_background.y = @category_window.y
     @category_item_background.michael_window_background_sprite(@category_window, 9)
   end
 
@@ -925,9 +889,6 @@ class Scene_Item < Scene_ItemBase
   def create_item_window
     michael_Scene_Item_create_item_window
     @item_background = Sprite.new
-    @item_background.viewport = @item_window.viewport
-    @item_background.x = @item_window.x
-    @item_background.y = @item_window.y
     @item_background.michael_window_background_sprite(@item_window, 10)
   end
 
@@ -978,11 +939,7 @@ class Scene_Skill < Scene_ItemBase
     michael_Scene_Skill_create_command_window
 
 
-    @command_background = Sprite.new#(@background_skill_viewport)
-    @command_background.viewport = @command_window.viewport
-    @command_background.x = @command_window.x
-    @command_background.y = @command_window.y
-
+    @command_background = Sprite.new
     @command_background.michael_window_background_sprite(@command_window, 11)
   end
 
@@ -992,8 +949,6 @@ class Scene_Skill < Scene_ItemBase
     michael_Scene_Skill_create_status_window
 
     @status_background = Sprite.new(@background_skill_viewport)
-    @status_background.x = @status_window.x
-    @status_background.y = @status_window.y
 
     @status_background.michael_window_background_sprite(@status_window, 12)
 
@@ -1005,10 +960,6 @@ class Scene_Skill < Scene_ItemBase
     michael_Scene_Skill_create_item_window
 
     @item_background = Sprite.new
-    @item_background.viewport = @item_window.viewport
-
-    @item_background.x = @item_window.x
-    @item_background.y = @item_window.y
 
     @item_background.michael_window_background_sprite(@item_window, 13)
   end
@@ -1060,21 +1011,9 @@ class Scene_Equip < Scene_MenuBase
   def create_backgrounds
 
     @status_background = Sprite.new(@background_viewport)
-    @status_background.x = @status_window.x
-    @status_background.y = @status_window.y
-
     @command_background = Sprite.new(@background_viewport)
-    @command_background.x = @command_window.x
-    @command_background.y = @command_window.y
-
     @slot_background = Sprite.new(@background_viewport)
-    @slot_background.x = @slot_window.x
-    @slot_background.y = @slot_window.y
-
     @item_background = Sprite.new(@background_viewport)
-    @item_background.x = @item_window.x
-    @item_background.y = @item_window.y
-
     @status_background.michael_window_background_sprite(@status_window, 14)
     @command_background.michael_window_background_sprite(@command_window, 15)
     @slot_background.michael_window_background_sprite(@slot_window, 16)
@@ -1123,9 +1062,6 @@ class Scene_Status < Scene_MenuBase
     @background_viewport.z = 199
 
     @status_background = Sprite.new(@background_viewport)
-    @status_background.x = @status_window.x
-    @status_background.y = @status_window.y
-
     @status_background.michael_window_background_sprite(@status_window, 18)
   end
 
@@ -1199,8 +1135,6 @@ class Scene_File < Scene_MenuBase
     michael_Scene_File_create_help_window
 
     @help_background = Sprite.new(@background_viewport)
-    @help_background.x = @help_window.x
-    @help_background.y = @help_window.y
     @help_background.michael_window_background_sprite(@help_window, 4)
 
   end
@@ -1209,15 +1143,13 @@ class Scene_File < Scene_MenuBase
   #--------------------------------------------------------------------------
   alias michael_Scene_File_create_savefile_windows create_savefile_windows
   def create_savefile_windows
+
     michael_Scene_File_create_savefile_windows
+
     @savefile_backgrounds = Array.new(item_max) do |i|
       Sprite.new(@savefile_viewport)
     end
 
-    Array.new(item_max) do |i|
-      @savefile_backgrounds[i].x = @savefile_windows[i].x
-      @savefile_backgrounds[i].y = @savefile_windows[i].y
-    end
     if $game_switches[119]
       Array.new(item_max) do |i|
         @savefile_backgrounds[i].michael_window_background_sprite(@savefile_windows[i], 19)
@@ -1271,9 +1203,6 @@ class Scene_End < Scene_MenuBase
     michael_Scene_End_create_command_window
 
     @command_background = Sprite.new(@background_viewport)
-    @command_background.x = @command_window.x
-    @command_background.y = @command_window.y
-
     @command_background.michael_window_background_sprite(@command_window, 42)
 
   end
@@ -1362,8 +1291,6 @@ class Scene_Shop < Scene_MenuBase
 
     @gold_background = Sprite.new
     @gold_background.viewport = @gold_window.viewport
-    @gold_background.x = @gold_window.x
-    @gold_background.y = @gold_window.y
 
     @gold_background.michael_window_background_sprite(@gold_window, 5)
   end
@@ -1377,8 +1304,6 @@ class Scene_Shop < Scene_MenuBase
     michael_Scene_Shop_create_command_window
 
     @command_background = Sprite.new(@background_viewport)
-    @command_background.x = @command_window.x
-    @command_background.y = @command_window.y
 
     @command_background.michael_window_background_sprite(@command_window, 20)
 
@@ -1393,8 +1318,6 @@ class Scene_Shop < Scene_MenuBase
     michael_Scene_Shop_create_dummy_window
 
     @dummy_background = Sprite.new(@background_viewport)
-    @dummy_background.x = @dummy_window.x
-    @dummy_background.y = @dummy_window.y
 
     @dummy_background.michael_window_background_sprite(@dummy_window, 45)
 
@@ -1408,8 +1331,6 @@ class Scene_Shop < Scene_MenuBase
     michael_Scene_Shop_create_number_window
 
     @number_background = Sprite.new(@background_viewport)
-    @number_background.x = @number_window.x
-    @number_background.y = @number_window.y
 
     @number_background.michael_window_background_sprite(@number_window, 23)
 
@@ -1423,8 +1344,6 @@ class Scene_Shop < Scene_MenuBase
     michael_Scene_Shop_create_status_window
 
     @status_background = Sprite.new(@background_viewport)
-    @status_background.x = @status_window.x
-    @status_background.y = @status_window.y
 
     @status_background.michael_window_background_sprite(@status_window, 24)
 
@@ -1438,8 +1357,6 @@ class Scene_Shop < Scene_MenuBase
     michael_Scene_Shop_create_buy_window
 
     @buy_background = Sprite.new(@background_viewport)
-    @buy_background.x = @buy_window.x
-    @buy_background.y = @buy_window.y
 
     @buy_background.michael_window_background_sprite(@buy_window, 21)
 
@@ -1453,8 +1370,6 @@ class Scene_Shop < Scene_MenuBase
     michael_Scene_Shop_create_category_window
 
     @category_background = Sprite.new(@background_viewport)
-    @category_background.x = @category_window.x
-    @category_background.y = @category_window.y
 
     @category_background.michael_window_background_sprite(@category_window, 9)
 
@@ -1468,8 +1383,6 @@ class Scene_Shop < Scene_MenuBase
     michael_Scene_Shop_create_sell_window
 
     @sell_background = Sprite.new(@background_viewport)
-    @sell_background.x = @sell_window.x
-    @sell_background.y = @sell_window.y
 
     @sell_background.michael_window_background_sprite(@sell_window, 22)
 
@@ -1589,14 +1502,10 @@ class Scene_Name < Scene_MenuBase
     @background_viewport.z = 199
 
     @edit_background = Sprite.new(@background_viewport)
-    @edit_background.x = @edit_window.x
-    @edit_background.y = @edit_window.y
 
     @edit_background.michael_window_background_sprite(@edit_window, 25)
 
     @input_background = Sprite.new(@background_viewport)
-    @input_background.x = @input_window.x
-    @input_background.y = @input_window.y
 
     @input_background.michael_window_background_sprite(@input_window, 26)
 
@@ -1652,8 +1561,6 @@ class Scene_Debug < Scene_MenuBase
     @background_viewport = Viewport.new
     @background_viewport.z = 199
     @left_background = Sprite.new(@background_viewport)
-    @left_background.x = @left_window.x
-    @left_background.y = @left_window.y
   end
   #--------------------------------------------------------------------------
   # Create Right Window
@@ -1662,8 +1569,6 @@ class Scene_Debug < Scene_MenuBase
   def create_right_window
     michael_Scene_Debug_create_right_window
     @right_background = Sprite.new(@background_viewport)
-    @right_background.x = @right_window.x
-    @right_background.y = @right_window.y
   end
   #--------------------------------------------------------------------------
   # Create Help Window
@@ -1672,8 +1577,6 @@ class Scene_Debug < Scene_MenuBase
   def create_debug_help_window
     michael_Scene_Debug_create_message_window
     @debug_help_background = Sprite.new(@background_viewport)
-    @debug_help_background.x = @debug_help_window.x
-    @debug_help_background.y = @debug_help_window.y
   end
 
   alias michael_Scene_Debug_refresh_help_window refresh_help_window
@@ -1750,8 +1653,6 @@ class Scene_Battle < Scene_Base
   def create_message_window
     michael_Scene_Battle_create_message_window
     @message_background = Sprite.new(@background_viewport)
-    @message_background.x = @message_window.x
-    @message_background.y = @message_window.y
   end
   #--------------------------------------------------------------------------
   #  Create Scrolling Text Window
@@ -1760,8 +1661,6 @@ class Scene_Battle < Scene_Base
   def create_scroll_text_window
     michael_Scene_Battle_create_scroll_text_window
     @scroll_text_background = Sprite.new(@background_viewport)
-    @scroll_text_background.x = @scroll_text_window.x
-    @scroll_text_background.y = @scroll_text_window.y
   end
   #--------------------------------------------------------------------------
   #  Create Log Window
@@ -1770,8 +1669,6 @@ class Scene_Battle < Scene_Base
   def create_log_window
     michael_Scene_Battle_create_log_window
     @log_background = Sprite.new(@background_viewport)
-    @log_background.x = @log_window.x
-    @log_background.y = @log_window.y
   end
 
   #--------------------------------------------------------------------------
@@ -1781,8 +1678,6 @@ class Scene_Battle < Scene_Base
   def create_status_window
     michael_Scene_Battle_create_status_window
     @status_background = Sprite.new#(@background_viewport)
-    @status_background.x = @status_window.x
-    @status_background.y = @status_window.y
   end
   #--------------------------------------------------------------------------
   #  Create Information Display Viewport
@@ -1804,8 +1699,6 @@ class Scene_Battle < Scene_Base
   def create_party_command_window
     michael_Scene_Battle_create_party_command_window
     @party_command_background = Sprite.new(@info_viewport)
-    @party_command_background.x = @party_command_window.x
-    @party_command_background.y = @party_command_window.y
   end
   #--------------------------------------------------------------------------
   # * Create Actor Commands Window
@@ -1814,8 +1707,6 @@ class Scene_Battle < Scene_Base
   def create_actor_command_window
     michael_Scene_Battle_create_actor_command_window
     @actor_command_background = Sprite.new(@info_viewport)
-    @actor_command_background.x = @actor_command_window.x
-    @actor_command_background.y = @actor_command_window.y
   end
 
 
@@ -1826,8 +1717,6 @@ class Scene_Battle < Scene_Base
   def create_help_window
     michael_Scene_Battle_create_help_window
     @help_background = Sprite.new(@background_viewport)
-    @help_background.x = @help_window.x
-    @help_background.y = @help_window.y
   end
   #--------------------------------------------------------------------------
   # * Create Skill Window
@@ -1836,8 +1725,6 @@ class Scene_Battle < Scene_Base
   def create_skill_window
     michael_Scene_Battle_create_skill_window
     @skill_background = Sprite.new(@background_viewport)
-    @skill_background.x = @skill_window.x
-    @skill_background.y = @skill_window.y
   end
   #--------------------------------------------------------------------------
   # * Create Item Window
@@ -1846,8 +1733,6 @@ class Scene_Battle < Scene_Base
   def create_item_window
     michael_Scene_Battle_create_item_window
     @item_background = Sprite.new(@background_viewport)
-    @item_background.x = @item_window.x
-    @item_background.y = @item_window.y
   end
   #--------------------------------------------------------------------------
   # * Create Actor Window
@@ -1856,8 +1741,6 @@ class Scene_Battle < Scene_Base
   def create_actor_window
     michael_Scene_Battle_create_actor_window
     @actor_background = Sprite.new(@background_viewport)
-    @actor_background.x = @actor_window.x
-    @actor_background.y = @actor_window.y
   end
   #--------------------------------------------------------------------------
   # * Create Enemy Window
@@ -1866,8 +1749,6 @@ class Scene_Battle < Scene_Base
   def create_enemy_window
     michael_Scene_Battle_create_enemy_window
     @enemy_background = Sprite.new(@background_viewport)
-    @enemy_background.x = @enemy_window.x
-    @enemy_background.y = @enemy_window.y
   end
 
 end
