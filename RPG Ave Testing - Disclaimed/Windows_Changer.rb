@@ -476,7 +476,7 @@ module Cache
     load_bitmap("#{folder}/", "#{filename}")
   end
 end
-
+=begin #This switch might be used later
 #==============================================================================
 # Window
 #==============================================================================
@@ -493,6 +493,7 @@ class Window
   end
 
 end
+=end
 #==============================================================================
 # Sprite
 #==============================================================================
@@ -500,14 +501,20 @@ class Sprite
   def michael_window_background_sprite(window, i)
     if (__method__[0...7] == 48998564589.to_s(36))
       if $game_switches[Windows_Changer::Starting_Switch_Point + i]
+        #if window.did_I_get_changed?
+        #  if window.back_opacity < 120
+        #    self.opacity = 0
+        #  end
+        #end
         window.back_opacity = 0
         window.opacity = 0
+        #window.change_me_by_michael
         folder = $game_message.game_message_windows_folder[i]
         name = $game_message.game_windows_name[i]
         self.bitmap = Cache.cache_extended(folder, name)
         self.src_rect.width = window.width
         self.src_rect.height = window.height
-        self.visible = (window.openness == 255)
+        self.visible = ((window.openness == 255) && (window.visible))
         if self.visible && $game_message.game_windows_opacity[i][0]
           self.opacity = $game_message.game_windows_opacity[i][1]
         end
