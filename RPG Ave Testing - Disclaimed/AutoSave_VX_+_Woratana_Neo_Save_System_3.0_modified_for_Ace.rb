@@ -158,7 +158,7 @@ class Scene_File < Scene_MenuBase
   end
 
   def command_scene_file_ftw
-    update_savefile_selection
+    return on_savefile_ok
   end
 
   def create_confirm_window_for_scene_save
@@ -198,6 +198,7 @@ class Scene_File < Scene_MenuBase
     @window_slotdetail.dispose
     @help_window.dispose
   end
+
   def update
     super
     if !@confirm_window.open?
@@ -214,17 +215,6 @@ class Scene_File < Scene_MenuBase
     end
   end
 
-  def determine_savefile
-    if @last_slot_index + 1 == SAVE_NUMBER
-      saving_not_allowed if (String(self.class) == 'Scene_Save')
-      @window_slotlist.activate
-      return
-    else
-      Sound.play_save
-      return on_savefile_ok
-    end
-    first_savefile_index = @last_slot_index
-  end
   def saving_not_allowed
     Sound.play_buzzer
     b = Bitmap.new(340,60)
@@ -260,22 +250,9 @@ class Scene_File < Scene_MenuBase
     end
     return latest_index
   end
+
   def update_savefile_selection
-    if Input.trigger?(:C)
-      if ((String(self.class) == 'Scene_Save') && (@window_slotdetail.file_exist?(@last_slot_index)))
-        Sound.play_cursor
-        @confirm_window.show
-        @confirm_window.open
-        @window_slotlist.deactivate
-        @confirm_window.activate
-        return
-      elsif (String(self.class) == 'Scene_Load')
-        return on_savefile_ok
-      else
-        determine_savefile
-        return
-      end
-    end
+    return on_savefile_ok     if Input.trigger?(:C)
     return on_savefile_cancel if Input.trigger?(:B)
     update_cursor
   end
@@ -300,6 +277,37 @@ class Scene_File < Scene_MenuBase
     end
   end
 end
+
+class Scene_Save < Scene_File
+
+  def on_savefile_ok
+    super
+    if (@window_slotdetail.file_exist?(@last_slot_index))
+        Sound.play_cursor
+        @confirm_window.show
+        @confirm_window.open
+        @window_slotlist.deactivate
+        @confirm_window.activate
+    else
+      determine_savefile
+    end
+  end
+
+  def determine_savefile
+    if @last_slot_index + 1 == SAVE_NUMBER
+      saving_not_allowed
+      @window_slotlist.activate
+    else
+      if DataManager.save_game(@index)
+        on_save_success
+      else
+        Sound.play_buzzer
+      end
+    end
+    first_savefile_index = @last_slot_index
+  end
+end
+
 class Window_SlotList < Window_Command
   include Wora_NSS
   def make_command_list
