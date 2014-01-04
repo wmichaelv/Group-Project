@@ -12,7 +12,8 @@
 #==============================================================================
 #Compability: - Script should be compatible with other scripts.
 #             - If the picture you use doesn't have the right size as the
-#               window's size, then use window_move to show picture in full size.
+#               window's size, then use window_show_all to show picture in full size,
+#               then move it using window_move_origin.
 #             - Bitmap cannot convert .gif file yet.
 #
 #==============================================================================
@@ -90,12 +91,12 @@
 #  There are 3 commands so far (More would be added in the future)
 #  - window_on(window #, 'file_name.extention_name')
 #  For Example:
-#  window_on(5, 'ex.jpg') -> activate window #5 background(window_gold_changer)
+#  window_on(6, 'ex.jpg') -> activate window #5 background(window_gold_changer)
 #                            with ex.jpg as the content
 #                         -> Btw, window #5 is Window_Gold
 #  - window_change(window #, 'file_name.extention_name')
 #  For Example:
-#  window_change(5, 'new.jpg') -> Change the window #5 background content with
+#  window_change(6, 'new.jpg') -> Change the window #5 background content with
 #                                 new.jpg
 #                              -> Make sure that switch is 'on' or else nothing
 #                                 would happen.
@@ -109,7 +110,7 @@
 #
 #  - window_center(i)
 #  For Example:
-#  window_center(5) -> Move the window #5 background content to center position
+#  window_center(6) -> Move the window #5 background content to center position
 #                       Default position is at the center (0,0) of the graphic and
 #                       occupy the size of the graphic (if your picture has size
 #                       larger than the graphic (580 x 444), it will fill the graphic)
@@ -117,7 +118,7 @@
 #
 #  - window_move(i, x, y, width, height)
 #  For Example:
-#  window_move(5, 24, -24, 400, 400)
+#  window_move(6, 24, -24, 400, 400)
 #  -> TIPS: If you are not sure how to adjust, the coordinate, starts with
 #           window_center first.
 #  -> move the window #5 background content to (24,-24) position. Remember that
@@ -133,12 +134,12 @@
 #
 #  - window_default(i)
 #  For Example:
-#  window_default(5) -> Turn off movement switch for window #5 background
+#  window_default(6) -> Turn off movement switch for window #5 background
 #                    -> This will return window #5 to the original position
 #
 #  - window_depth(i, depth)
 #  For Example:
-#  window_depth(5, -1) -> Increases the depthness of window #5 background content
+#  window_depth(6, -1) -> Increases the depthness of window #5 background content
 #                         by -1, which means, if there's other window background
 #                         in the graphic beside window #5 background, that window
 #                         background will appear to be above window #5 background.
@@ -146,7 +147,7 @@
 #
 # - window_opacity(i, opacity)
 # For Example:
-# window_opacity(5, 0) -> Set window #5 background opacity to 0 (100% transparent).
+# window_opacity(6, 0) -> Set window #5 background opacity to 0 (100% transparent).
 #                      -> Opacity value is from 0 (fully see-through) to 255 (solid).
 #                      -> Make sure that switch is 'on' or else nothing would happen.
 #                      -> Default opacity is 255 when window background is on.
@@ -1456,9 +1457,12 @@ class Sprite
         name = $game_message.michael_windows_background_ftw_101[i][0]
         folder = $game_message.michael_windows_background_ftw_101[i][1]
         self.bitmap = Cache.cache_extended(folder, name)
+        #This is where the switches come into play
         if $game_message.michael_windows_background_ftw_101[i][2]
-          self.src_rect.set($game_message.michael_windows_background_ftw_101[i][3],
-                            $game_message.michael_windows_background_ftw_101[i][4],
+          self.x = $game_message.michael_windows_background_ftw_101[i][3]
+          self.y = $game_message.michael_windows_background_ftw_101[i][4]
+          self.src_rect.set(0,
+                            0,
                             $game_message.michael_windows_background_ftw_101[i][5],
                             $game_message.michael_windows_background_ftw_101[i][6])
         end
@@ -1480,6 +1484,7 @@ class Sprite
           self.y += $game_message.michael_windows_background_ftw_101[i][13]
         end
       else
+        #This will return window to default opacity after window_off
         self.visible = false
         if ((window.openness == 255) && window.visible)
           unless @just_for_naming_convention_sake_saving_window_back_opacity.nil?
