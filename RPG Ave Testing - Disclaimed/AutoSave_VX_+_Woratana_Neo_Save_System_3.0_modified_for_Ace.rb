@@ -53,7 +53,7 @@ module Wora_NSS
   SFC_Window_X_Offset = 0 # Move Confirmation Window horizontally
   SFC_Window_Y_Offset = 0 # Move Confirmation Window vertically
 end
-class Auto_Save < Scene_File
+class Auto_Save < Scene_Base
   def initialize
     DataManager.save_game_without_rescue(0)
   end
@@ -93,13 +93,13 @@ module DataManager
     sprintf(String(SAVE_FILE_NAME.gsub(/\{ID\}/i) { (index + 1).to_s }), index + 1)
   end
 end
-module SceneManager
-  class << self; alias michael_SceneManager_return return; end
-  def self.return
-    michael_SceneManager_return
-    if (String(self.class) == 'Scene_Menu') && Input.trigger?(Input::B)
+class Scene_Base
+  alias michael_Scene_Base_return_scene return_scene
+  def return_scene
+    if (String(self.class) == 'Scene_Menu')
       Auto_Save.new if $game_switches[SAVE_AFTER_CLOSING_MENU] == false
     end
+    michael_Scene_Base_return_scene
   end
 end
 module BattleManager
