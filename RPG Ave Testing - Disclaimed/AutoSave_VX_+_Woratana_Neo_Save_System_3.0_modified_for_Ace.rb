@@ -147,7 +147,7 @@ class Scene_File < Scene_MenuBase
     @window_slotdetail.opacity = @window_slotlist.opacity = NSS_WINDOW_OPACITY
     if (String(self.class) == 'Scene_Load')
       (1..MAX_SAVE_SLOT).each do |i|
-        @window_slotlist.draw_item(i - 1, false) if !@window_slotdetail.file_exist?(i)
+        @window_slotlist.draw_item(i, false) if !@window_slotdetail.file_exist?(i)
       end
     end
     @index = first_savefile_index
@@ -330,7 +330,7 @@ class Window_SlotList < Window_Command
   def make_command_list
     command = []
     (1..MAX_SAVE_SLOT).each do |i|
-      command << SLOT_NAME.clone.gsub!(/\{ID\}/i) { (i + 1).to_s }
+      command << SLOT_NAME.clone.gsub!(/\{ID\}/i) { (i).to_s }
     end
     command.each do |i|
       add_command(SLOT_NAME, :anything_goes_lol)
@@ -344,10 +344,8 @@ class Window_SlotList < Window_Command
     self.contents.clear_rect(rect)
     if (DataManager.check_if_that_save_file_exists?(index))
       icon_index = Wora_NSS::SAVED_SLOT_ICON
-      self.contents.font.color.alpha = 255
     else
       icon_index = Wora_NSS::EMPTY_SLOT_ICON
-      self.contents.font.color.alpha = 128
     end
     if !icon_index.nil?
       rect.x -= 4
@@ -361,6 +359,7 @@ class Window_SlotList < Window_Command
     end
     self.contents.clear_rect(rect)
     self.contents.font.color = normal_color
+    self.contents.font.color.alpha = enabled ? 255 : 128
     self.contents.draw_text(rect, command[index]) if index + 1 != SAVE_NUMBER
     self.contents.draw_text(rect, "Auto Save") if index + 1 == SAVE_NUMBER
   end
@@ -384,7 +383,6 @@ class Window_NSS_SlotDetail < Window_Base
       @tilemap = nil
     end
   end
-
   def draw_data(slot_id)
     contents.clear # 352, 328
     dispose_tilemap
@@ -437,7 +435,7 @@ class Window_NSS_SlotDetail < Window_Base
           lvt_textsize = contents.text_size(LV_TEXT).width
         if DRAW_FACE
           # Draw Face
-          contents.fill_rect(face_x_base, face_y_base, 100, 100, FACE_BORDER)
+          contents.fill_rect(face_x_base, face_y_base, 100, 100, FACE_BORDER) #84,84
           draw_face(actor.face_name, actor.face_index, face_x_base + 2,
           face_y_base + 2, 80)
         end
@@ -460,7 +458,6 @@ class Window_NSS_SlotDetail < Window_Base
       contents.draw_text(0,0, contents.width, contents.height - contents.text_size(EMPTY_SLOT_TEXT).height, EMPTY_SLOT_TEXT, 1)
     end
   end
-
   def load_save_data(index)
     if (DataManager.check_if_that_save_file_exists?(index))
       File.open(DataManager.make_filename(index), "rb") do |file|
@@ -489,13 +486,11 @@ class Window_NSS_SlotDetail < Window_Base
       @data[index] = -1
     end
   end
-
   def file_exist?(slot_id)
     return @exist_list[slot_id] if !@exist_list[slot_id].nil?
     @exist_list[slot_id] = FileTest.exist?(DataManager.make_filename(slot_id))
     return @exist_list[slot_id]
   end
-
   def get_mapname(map_id)
     if @map_data.nil?
       @map_data = load_data("Data/MapInfos.rvdata2")
@@ -512,7 +507,6 @@ class Window_NSS_SlotDetail < Window_Base
     end
     return @map_name[map_id]
   end
-
   def create_tilemap(map_data, ox, oy)
     @viewport = Viewport.new(self.x + 14, self.y + 30 + 14, 348,156)
     @viewport.z = self.z
@@ -522,7 +516,6 @@ class Window_NSS_SlotDetail < Window_Base
     @tilemap.ox = ox / 8 + 99
     @tilemap.oy = oy / 8 + 90
   end
-
   def load_tileset(map_data)
     @tileset = map_data.tileset
     @tileset.tileset_names.each_with_index do |name, i|
