@@ -1,65 +1,11 @@
-=begin
-                      AutoSave VX + Woratana Neo Save System 3.0
-
-Author: BulleXt(bulletxt@gmail.com)
-Version: 0.1
-Date: 06/07/2009
-
-Description:
-This script by default will automatically save when you do a map transfer,
-after winning a battle and after exiting menu.
-You can also manually call an autosave inside an event by simply doing a
-call script like this:
-Auto_Save.new
-The script doesn't disable normal saving system so player can still save on his
-slots, he will not be able to overwrite the autosave slot.
-The script also lets you set how many saving slots you want.
-=end
-
-
 #This is the autosave slot number
 SAVE_NUMBER = 1
-
 #This is an ID switch, if ON it disables the autosave on map transfer
 SAVE_ON_MAP_TRANSFER = 92
-
 #This is an ID switch, if ON it disables the autosave after winning a battle
 SAVE_AFTER_WINNING_BATTLE = 93
-
 #This is an ID switch, if ON it disables the autosave after closing Menu
 SAVE_AFTER_CLOSING_MENU = 94
-
-
-
-#===============================================================
-# ? [VX] ? Neo Save System III ? ?
-#--------------------------------------------------------------
-# ? by Woratana [woratana@hotmail.com]
-# ? Thaiware RPG Maker Community
-# ? Released on: 15/02/2009
-# ? Version: 3.0
-#--------------------------------------------------------------
-# ? Log III:
-# - Change back to draw tilemap as screenshot. Don't need any image.
-# - For drawing tilemap, the characters won't show on the tilemap.
-#--------------------------------------------------------------
-# ? Log II:
-# - Screenshot DLL is not work with Vista Aero, so I remove it
-# and use image for each map instead of screenshot.
-# - Actor's level in last version (V.1) is incorrect.
-#--------------------------------------------------------------
-# ? Features:
-# - Unlimited save slots, you can choose max save slot
-# - You can use image for scene's background
-# - Choose your save file's name, and folder to store save files
-# - Choose to show only information you want
-# - Editable text for information's title
-# - Draw tilemap for map that player is currently in.
-# - Remove text you don't want from map's name (e.g. tags for special script)
-# - Choose map that you don't want to show its name
-# - Include save confirmation window before overwrite old save
-#=================================================================
-
 module Wora_NSS
   #==========================================================================
   # * START NEO SAVE SYSTEM - SETUP
@@ -110,49 +56,108 @@ module Wora_NSS
   SFC_Window_Width = 200 # Width of Confirmation Window
   SFC_Window_X_Offset = 0 # Move Confirmation Window horizontally
   SFC_Window_Y_Offset = 0 # Move Confirmation Window vertically
-  #----------------------------------------------------------------------
-  # END NEO SAVE SYSTEM - SETUP
-  #=========================================================================
 end
-
 class Auto_Save < Scene_File
   def initialize
     do_save
   end
 end
-
-
-
-class Scene_File < Scene_Base
+module DataManager
+  def self.savefile_max
+    return Wora_NSS::MAX_SAVE_SLOT
+  end
+end
+module SceneManager
+  class << self; alias michael_SceneManager_return return; end
+  def self.return
+    michael_SceneManager_return
+    if (String(self.class) == 'Scene_Menu') && Input.trigger?(Input::B)
+      Auto_Save.new if $game_switches[SAVE_AFTER_CLOSING_MENU] == false
+    end
+  end
+end
+module BattleManager
+  class << self; alias michael_BattleManager_process_victory process_victory; end
+  def self.process_victory
+    michael_BattleManager_process_victory
+    Auto_Save.new if $BTEST == false && $game_switches[SAVE_AFTER_WINNING_BATTLE] == false
+    return true
+  end
+end
+class Window_SaveFile < Window_Base
+end
+class Scene_File < Scene_MenuBase
   include Wora_NSS
   attr_reader :window_slotdetail
-  #--------------------------------------------------------------------------
-  # * Start processing
-  #--------------------------------------------------------------------------
+  alias michael_Scene_File_start start
   def start
-    super
-    create_menu_background
+    michael_Scene_File_start
+    new_stuff_comes_in_here_lol
+  end
+  def new_stuff_comes_in_here_lol
+    create_background
     if NSS_IMAGE_BG != ''
       @bg = Sprite.new
       @bg.bitmap = Cache.picture(NSS_IMAGE_BG)
       @bg.opacity = NSS_IMAGE_BG_OPACITY
     end
-    @help_window = Window_Help.new
-    command = []
-    (1..MAX_SAVE_SLOT).each do |i|
-      command << SLOT_NAME.clone.gsub!(/\{ID\}/i) { i.to_s }
-    end
+
     @window_slotdetail = Window_NSS_SlotDetail.new
     @window_slotlist = Window_SlotList.new(160, command)
     @window_slotlist.y = @help_window.height
     @window_slotlist.height = Graphics.height - @help_window.height
     @help_window.opacity = NSS_WINDOW_OPACITY
     @window_slotdetail.opacity = @window_slotlist.opacity = NSS_WINDOW_OPACITY
+  end
+
+  begin
+    def terminate_checker_michael_101
+      self.terminate
+    end
+    alias michael_Scene_File_terminate terminate
+    def terminate
+      michael_Scene_File_terminate
+      terminate_Scene_File_new_stuff_lol
+    end
+  rescue NoMethodError
+    def update
+      super
+      terminate_Scene_File_new_stuff_lol
+    end
+  end
+
+  def terminate_Scene_File_new_stuff_lol
+    super
+    dispose_background
+    unless @bg.nil?
+      @bg.bitmap.dispose
+      @bg.dispose
+    end
+    @window_slotlist.dispose
+    @window_slotdetail.dispose
+    @help_window.dispose
+  end
+end
+class Scene_Map < Scene_Base
+  alias auto_save_bulletxt_update_transfer_player  update_transfer_player
+  def update_transfer_player
+    return unless $game_player.transfer?
+    auto_save_bulletxt_update_transfer_player
+    Auto_Save.new if $game_switches[SAVE_ON_MAP_TRANSFER] == false
+  end
+end
+#The above are done
+#Under process
+
+=begin
+class Scene_Title < Scene_Base
+  def check_continue
+    file_name = Wora_NSS::SAVE_PATH + Wora_NSS::SAVE_FILE_NAME.gsub(/\{ID\}/i) { '*' }
+    @continue_enabled = (Dir.glob(file_name).size > 0)
+  end
+end
 
   # Create Folder for Save file
-  if SAVE_PATH != ''
-    Dir.mkdir(SAVE_PATH) if !FileTest.directory?(SAVE_PATH)
-  end
     if @saving
       @index = $game_temp.last_file_index
       @help_window.set_text(Vocab::SaveMessage)
@@ -164,24 +169,10 @@ class Scene_File < Scene_Base
       end
     end
     @window_slotlist.index = @index
-    # Draw Information
     @last_slot_index = @window_slotlist.index
     @window_slotdetail.draw_data(@last_slot_index + 1)
   end
-  #--------------------------------------------------------------------------
-  # * Termination Processing
-  #--------------------------------------------------------------------------
-  def terminate
-    super
-    dispose_menu_background
-    unless @bg.nil?
-      @bg.bitmap.dispose
-      @bg.dispose
-    end
-    @window_slotlist.dispose
-    @window_slotdetail.dispose
-    @help_window.dispose
-  end
+
   #--------------------------------------------------------------------------
   # * Frame Update
   #--------------------------------------------------------------------------
@@ -253,20 +244,6 @@ class Scene_File < Scene_Base
     $scene = Scene_Map.new if @saving
   end
   #--------------------------------------------------------------------------
-  # * Execute Load
-  #--------------------------------------------------------------------------
-  def do_load
-    file = File.open(make_filename(@last_slot_index), "rb")
-    read_save_data(file)
-    file.close
-    $scene = Scene_Map.new
-    RPG::BGM.fade(1500)
-    Graphics.fadeout(60)
-    Graphics.wait(40)
-    @last_bgm.play
-    @last_bgs.play
-  end
-  #--------------------------------------------------------------------------
   # * Confirm Save File
   #--------------------------------------------------------------------------
   def determine_savefile
@@ -313,9 +290,6 @@ class Scene_File < Scene_Base
     w = nil
     b = nil
   end
-
-
-
   #--------------------------------------------------------------------------
   # * Create Filename
   #     file_index : save file index (0-3)
@@ -341,6 +315,7 @@ class Scene_File < Scene_Base
     return latest_index
   end
 end
+=end
 
 class Window_SlotList < Window_Command
   #--------------------------------------------------------------------------
@@ -382,7 +357,6 @@ class Window_SlotList < Window_Command
     end
   end
 end
-
 class Window_NSS_SlotDetail < Window_Base
   include Wora_NSS
   def initialize
@@ -559,47 +533,3 @@ class Window_NSS_SlotDetail < Window_Base
     end
   end
 end
-
-class Scene_Title < Scene_Base
-  def check_continue
-    file_name = Wora_NSS::SAVE_PATH + Wora_NSS::SAVE_FILE_NAME.gsub(/\{ID\}/i) { '*' }
-    @continue_enabled = (Dir.glob(file_name).size > 0)
-  end
-end
-
-################################################################################
-class Scene_Menu < Scene_Base
-  #save when exiting menu
-  alias auto_save_bulletxt_update_command_selection update_command_selection
-  def update_command_selection
-    if Input.trigger?(Input::B)
-      Auto_Save.new if $game_switches[SAVE_AFTER_CLOSING_MENU] == false
-    end
-    auto_save_bulletxt_update_command_selection
-  end
-end
-
-class Scene_Battle < Scene_Base
-  #save after winning a battle
-  alias auto_save_bulletxt_process_victory process_victory
-  def process_victory
-    auto_save_bulletxt_process_victory
-    Auto_Save.new if $BTEST == false && $game_switches[SAVE_AFTER_WINNING_BATTLE] == false
-  end
-end
-
-
-
-class Scene_Map < Scene_Base
-  #save on map transfer
-  alias auto_save_bulletxt_update_transfer_player  update_transfer_player
-  def update_transfer_player
-    return unless $game_player.transfer?
-    auto_save_bulletxt_update_transfer_player
-    Auto_Save.new if $game_switches[SAVE_ON_MAP_TRANSFER] == false
-  end
-end
-
-#======================================================================
-# END - NEO SAVE SYSTEM by Woratana
-#======================================================================
