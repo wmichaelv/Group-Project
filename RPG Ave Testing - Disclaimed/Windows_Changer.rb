@@ -24,7 +24,6 @@
 # 2013.01.03 --window_show_all and window_move_origin and their counter-parts
 #              are introduced
 #            --Reforming the arrays
-#            --If you're wondering about ver., let's say it works, just report any bug(s).
 # 2013.01.02 --Naming convention is improved
 #            --Some methods are simplified
 #            --File is trimmed down
@@ -1468,13 +1467,17 @@ class Sprite
           self.opacity = $game_message.michael_windows_background_ftw_101[i][9]
         end
         if $game_message.michael_windows_background_ftw_101[i][10]
-          self.src_rect.set(window.x, window.y, Graphics.width, Graphics.height)
+          self.src_rect.set(0, 0, Graphics.width, Graphics.height)
+          self.x = 0
+          self.y = 0
         end
         if $game_message.michael_windows_background_ftw_101[i][11]
-          self.src_rect.set(window.x + $game_message.michael_windows_background_ftw_101[i][12],
-                            window.y + $game_message.michael_windows_background_ftw_101[i][13],
+          self.src_rect.set(window.x,
+                            window.y,
                             Graphics.width,
                             Graphics.height)
+          self.x += $game_message.michael_windows_background_ftw_101[i][12]
+          self.y += $game_message.michael_windows_background_ftw_101[i][13]
         end
       else
         self.visible = false
