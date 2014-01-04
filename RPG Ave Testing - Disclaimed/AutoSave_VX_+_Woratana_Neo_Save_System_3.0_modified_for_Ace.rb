@@ -2,6 +2,11 @@ SAVE_NUMBER = 1
 SAVE_ON_MAP_TRANSFER = 92
 SAVE_AFTER_WINNING_BATTLE = 93
 SAVE_AFTER_CLOSING_MENU = 94
+Allow_Special_Picture_To_Be_Used_For_The_File = 95
+module Michael_extra_save_thingy
+  Extra_Save_Thing = ["pick me :D","Graphics\\File",'da_map_name_here']
+end
+
 module Wora_NSS
   #==========================================================================
   # * START NEO SAVE SYSTEM - SETUP
@@ -60,23 +65,33 @@ class Auto_Save < Scene_Base
 end
 class Game_Message
   attr_accessor :michael_save_file_folder_101
+  attr_accessor :michael_save_file_picture_extra_101
   alias michael_initialize initialize
   def initialize
     michael_initialize
     @michael_save_file_folder_101 = Wora_NSS::SAVE_PATH
+    @michael_save_file_picture_extra_101 = Michael_extra_save_thingy::Extra_Save_Thing
   end
 end
 module DataManager
   include Wora_NSS
-  class << self; alias michael_DataManager_init init; end
-    def self.init
+  class << self
+    alias michael_DataManager_init init
+    alias michael_Scene_Battle_create_game_objects_101 create_game_objects
+  end
+  def self.init
     michael_DataManager_init
     create_save_folder_directory
+  end
+  def create_game_objects
+    michael_Scene_Battle_create_game_objects_101
+    $game_switches[Allow_Special_Picture_To_Be_Used_For_The_File] = false
   end
   def self.create_save_folder_directory
     if SAVE_PATH != ''
       Dir.mkdir($game_message.michael_save_file_folder_101) if !File.exists?($game_message.michael_save_file_folder_101)
     end
+    Dir.mkdir($game_message.michael_save_file_picture_extra_101[1]) if !File.exists?($game_message.michael_save_file_picture_extra_101[1])
   end
   def self.save_file_exists?
     file_name = Wora_NSS::SAVE_PATH + Wora_NSS::SAVE_FILE_NAME.gsub(/\{ID\}/i) { '*' }
@@ -372,6 +387,7 @@ class Window_NSS_SlotDetail < Window_Base
     @map_name = []
   end
   def dispose
+    dispose_added_stuff
     dispose_tilemap
     super
   end
@@ -381,16 +397,40 @@ class Window_NSS_SlotDetail < Window_Base
       @tilemap = nil
     end
   end
+  def dispose_added_stuff
+    unless @special_save_sprite.nil?
+      @special_save_sprite.dispose
+      @special_save_sprite = nil
+    end
+    unless @special_save_viewport.nil?
+      @special_save_viewport.dispose
+      @special_save_viewport = nil
+    end
+  end
   def draw_data(slot_id)
     contents.clear # 352, 328
     dispose_tilemap
+    dispose_added_stuff
+    @special_save_viewport = Viewport.new
+    @special_save_viewport.z = 199
+    @special_save_sprite = Sprite.new(@special_save_viewport)
     load_save_data(slot_id) if @data[slot_id].nil?
     if @exist_list[slot_id]
       save_data = @data[slot_id]
       # DRAW SCREENSHOT~
       contents.fill_rect(0,30,352,160, MAP_BORDER)
-      create_tilemap(save_data['gamemap'], save_data['gamemap'].display_x,
-    save_data['gamemap'].display_y)
+      create_tilemap(save_data['gamemap'], save_data['gamemap'].display_x, save_data['gamemap'].display_y)
+      #Check Special Picture
+      if (save_data['gameswi'][Allow_Special_Picture_To_Be_Used_For_The_File])
+        if save_data['map_name'] == save_data['gamemes'].michael_save_file_picture_extra_101[2]
+          name = save_data['gamemes'].michael_save_file_picture_extra_101[0]
+          folder = save_data['gamemes'].michael_save_file_picture_extra_101[1]
+          @special_save_sprite.bitmap = Cache.cache_save_file_ftw(folder, name)
+          @special_save_sprite.src_rect.set(160, 48,348,156)
+          @special_save_sprite.x = 160 + 12 + 2
+          @special_save_sprite.y = 48 + 12 + 24 + 6 + 2
+        end
+      end
       if DRAW_GOLD
         # DRAW GOLD
         gold_textsize = contents.text_size(save_data['gamepar'].gold).width
@@ -459,24 +499,24 @@ class Window_NSS_SlotDetail < Window_Base
   def load_save_data(index)
     if (DataManager.check_if_that_save_file_exists?(index))
       File.open(DataManager.make_filename(index), "rb") do |file|
-
         Marshal.load(file)
-        DataManager.extract_save_contents(Marshal.load(file))
+        all_contents_for_all = Marshal.load(file)
+
         header = DataManager.load_header(index)
         @exist_list[index] = true
         @data[index] = {}
         @data[index]['char']          = header[:characters]
         @data[index]['total_sec']     = header[:playtime_s]
 
-        @data[index]['gamesys']       = $game_system
-        @data[index]['gamemes']       = $game_message
-        @data[index]['gameswi']       = $game_switches
-        @data[index]['gamevar']       = $game_variables
-        @data[index]['gameselfvar']   = $game_self_switches
-        @data[index]['gameactor']     = $game_actors
-        @data[index]['gamepar']       = $game_party
-        @data[index]['gametro']       = $game_troop
-        @data[index]['gamemap']       = $game_map
+        @data[index]['gamesys']       = all_contents_for_all[:system]
+        @data[index]['gamemes']       = all_contents_for_all[:message]
+        @data[index]['gameswi']       = all_contents_for_all[:switches]
+        @data[index]['gamevar']       = all_contents_for_all[:variables]
+        @data[index]['gameselfvar']   = all_contents_for_all[:self_switches]
+        @data[index]['gameactor']     = all_contents_for_all[:actors]
+        @data[index]['gamepar']       = all_contents_for_all[:party]
+        @data[index]['gametro']       = all_contents_for_all[:troop]
+        @data[index]['gamemap']       = all_contents_for_all[:map]
         @data[index]['map_name']      = get_mapname(@data[index]['gamemap'].map_id)
       end
     else
@@ -520,5 +560,20 @@ class Window_NSS_SlotDetail < Window_Base
       @tilemap.bitmaps[i] = Cache.tileset(name)
     end
     @tilemap.flags = @tileset.flags
+  end
+end
+module Cache
+  def self.cache_save_file_ftw(folder, filename)
+    load_bitmap("#{folder}/", "#{filename}")
+  end
+end
+class Game_Interpreter
+  def special_picture_on(picture_name, map_name)
+    $game_switches[Allow_Special_Picture_To_Be_Used_For_The_File] = true
+    $game_message.michael_save_file_picture_extra_101[0] = picture_name
+    $game_message.michael_save_file_picture_extra_101[2] = map_name
+  end
+  def special_picture_off
+    $game_switches[Allow_Special_Picture_To_Be_Used_For_The_File] = false
   end
 end
