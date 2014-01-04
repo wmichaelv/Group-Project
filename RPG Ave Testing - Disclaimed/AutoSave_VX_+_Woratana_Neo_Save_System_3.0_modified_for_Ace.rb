@@ -437,7 +437,7 @@ class Window_NSS_SlotDetail < Window_Base
           lvt_textsize = contents.text_size(LV_TEXT).width
         if DRAW_FACE
           # Draw Face
-          contents.fill_rect(face_x_base, face_y_base, 100, 100, FACE_BORDER) #84,84
+          contents.fill_rect(face_x_base, face_y_base, 100, 100, FACE_BORDER)
           draw_face(actor.face_name, actor.face_index, face_x_base + 2,
           face_y_base + 2, 80)
         end
