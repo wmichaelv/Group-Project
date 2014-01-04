@@ -198,10 +198,6 @@ class Scene_File < Scene_MenuBase
     if !@confirm_window.open?
       @background_sprite.update
       @window_slotlist.update
-      if @window_slotlist.index != @last_slot_index
-        @last_slot_index = @window_slotlist.index
-        @window_slotdetail.draw_data(@last_slot_index)
-      end
       @help_window.update
       update_savefile_selection
     else
@@ -257,6 +253,8 @@ class Scene_File < Scene_MenuBase
     if @index != last_index
       Sound.play_cursor
       @window_slotlist.select(@index)
+      @last_slot_index = @window_slotlist.index
+      @window_slotdetail.draw_data(@last_slot_index)
     end
   end
   def update_cursor_window_command_attention_seeker
@@ -435,7 +433,7 @@ class Window_NSS_SlotDetail < Window_Base
           lvt_textsize = contents.text_size(LV_TEXT).width
         if DRAW_FACE
           # Draw Face
-          contents.fill_rect(face_x_base, face_y_base, 100, 100, FACE_BORDER) #84,84
+          contents.fill_rect(face_x_base, face_y_base, 100, 100, FACE_BORDER)
           draw_face(actor.face_name, actor.face_index, face_x_base + 2,
           face_y_base + 2, 80)
         end
