@@ -55,7 +55,7 @@ module Wora_NSS
 end
 class Auto_Save < Scene_File
   def initialize
-    do_save
+    DataManager.save_game_without_rescue(0)
   end
 end
 class Game_Message
@@ -83,14 +83,14 @@ module DataManager
     return (Dir.glob(file_name).size > 0)
   end
   def self.check_if_that_save_file_exists?(index)
-    save_file_nameeeeee = String(SAVE_PATH + SAVE_FILE_NAME.gsub(/\{ID\}/i) { (index).to_s })
+    save_file_nameeeeee = String(SAVE_PATH + SAVE_FILE_NAME.gsub(/\{ID\}/i) { (index + 1).to_s })
     return !Dir.glob(save_file_nameeeeee).empty?
   end
   def self.savefile_max
     return Wora_NSS::MAX_SAVE_SLOT
   end
   def self.make_filename(index)
-    sprintf String(SAVE_FILE_NAME.gsub(/\{ID\}/i) { (index).to_s })
+    sprintf(String(SAVE_FILE_NAME.gsub(/\{ID\}/i) { (index + 1).to_s }), index + 1)
   end
 end
 module SceneManager
@@ -142,22 +142,49 @@ class Scene_File < Scene_MenuBase
     @window_slotlist.width = 160
     @window_slotlist.height = Graphics.height - @help_window.height
     @window_slotlist.set_handler(:anything_goes_lol, method(:command_scene_file_ftw))
+    @window_slotlist.activate
     @help_window.opacity = NSS_WINDOW_OPACITY
     @window_slotdetail.opacity = @window_slotlist.opacity = NSS_WINDOW_OPACITY
     if (String(self.class) == 'Scene_Load')
-      (0...MAX_SAVE_SLOT).each do |i|
-        @window_slotlist.draw_item(i, false) if !@window_slotdetail.file_exist?(i + 1)
+      (1..MAX_SAVE_SLOT).each do |i|
+        @window_slotlist.draw_item(i - 1, false) if !@window_slotdetail.file_exist?(i)
       end
     end
     @index = first_savefile_index
     @window_slotlist.index = @index
     @last_slot_index = @window_slotlist.index
-    @window_slotdetail.draw_data(@last_slot_index + 1)
+    @window_slotdetail.draw_data(@last_slot_index)
+    create_confirm_window_for_scene_save
   end
 
   def command_scene_file_ftw
+    update_savefile_selection
   end
 
+  def create_confirm_window_for_scene_save
+    @confirm_window = Window_Command.new((544 - SFC_Window_Width) / 2 + SFC_Window_X_Offset,416 / 2 + SFC_Window_Y_Offset)
+    @confirm_window.width = SFC_Window_Width
+    @confirm_window.add_command(SFC_Text_Confirm, :SFC_Text_Confirm)
+    @confirm_window.add_command(SFC_Text_Cancel, :SFC_Text_Cancel)
+    @confirm_window.set_handler(:SFC_Text_Confirm, method(:command_SFC_Text_Confirm))
+    @confirm_window.set_handler(:SFC_Text_Cancel, method(:command_SFC_Text_Cancel))
+    @confirm_window.deactivate
+    @confirm_window.hide
+    @confirm_window.close
+  end
+
+  def command_SFC_Text_Confirm
+    @confirm_window.deactivate
+    @confirm_window.close
+    determine_savefile
+  end
+
+  def command_SFC_Text_Cancel
+    Sound.play_cancel
+    @confirm_window.deactivate
+    @confirm_window.close
+    @window_slotlist.activate
+  end
 
   def terminate
     super
@@ -166,44 +193,32 @@ class Scene_File < Scene_MenuBase
       @bg.bitmap.dispose
       @bg.dispose
     end
+    @confirm_window.dispose
     @window_slotlist.dispose
     @window_slotdetail.dispose
     @help_window.dispose
   end
   def update
     super
-    if @confirm_window.nil?
+    if !@confirm_window.open?
       @background_sprite.update
       @window_slotlist.update
       if @window_slotlist.index != @last_slot_index
         @last_slot_index = @window_slotlist.index
-        @window_slotdetail.draw_data(@last_slot_index + 1)
+        @window_slotdetail.draw_data(@last_slot_index)
       end
       @help_window.update
       update_savefile_selection
     else
       @confirm_window.update
-      if Input.trigger?(Input::C)
-        if @confirm_window.command_name(0)
-          determine_savefile
-          @confirm_window.dispose
-          @confirm_window = nil
-        else
-          Sound.play_cancel
-          @confirm_window.dispose
-          @confirm_window = nil
-        end
-      elsif Input.trigger?(Input::B)
-        Sound.play_cancel
-        @confirm_window.dispose
-        @confirm_window = nil
-      end
     end
   end
 
   def determine_savefile
     if @last_slot_index + 1 == SAVE_NUMBER
       saving_not_allowed if (String(self.class) == 'Scene_Save')
+      @window_slotlist.activate
+      return
     else
       Sound.play_save
       return on_savefile_ok
@@ -247,32 +262,22 @@ class Scene_File < Scene_MenuBase
   end
   def update_savefile_selection
     if Input.trigger?(:C)
-      if (String(self.class) == 'Scene_Save') and @window_slotdetail.file_exist?(@last_slot_index + 1)
+      if ((String(self.class) == 'Scene_Save') && (@window_slotdetail.file_exist?(@last_slot_index)))
         Sound.play_cursor
-        create_confirm_window_for_scene_save
-        @confirm_window.set_handler(:SFC_Text_Confirm, method(:oh_well_lol))
-        @confirm_window.set_handler(:SFC_Text_Cancel, method(:just_put_something_here_I_guess))
+        @confirm_window.show
+        @confirm_window.open
+        @window_slotlist.deactivate
+        @confirm_window.activate
+        return
       elsif (String(self.class) == 'Scene_Load')
         return on_savefile_ok
       else
         determine_savefile
+        return
       end
     end
     return on_savefile_cancel if Input.trigger?(:B)
     update_cursor
-  end
-
-  def oh_well_lol
-  end
-
-  def just_put_something_here_I_guess
-  end
-
-  def create_confirm_window_for_scene_save
-    @confirm_window = Window_Command.new(0,0)#((544 - SFC_Window_Width) / 2 + SFC_Window_X_Offset,(416 - fitting_height(2)) / 2 + SFC_Window_Y_Offset)
-    @confirm_window.width = SFC_Window_Width
-    @confirm_window.add_command(SFC_Text_Confirm, :SFC_Text_Confirm)
-    @confirm_window.add_command(SFC_Text_Cancel, :SFC_Text_Cancel)
   end
 
   def update_cursor
@@ -281,7 +286,6 @@ class Scene_File < Scene_MenuBase
     cursor_up   (Input.trigger?(:UP))    if Input.repeat?(:UP)
     if @index != last_index
       Sound.play_cursor
-      #@window_slotlist.unselect(last_index)
       @window_slotlist.select(@index)
     end
   end
@@ -326,7 +330,7 @@ class Window_SlotList < Window_Command
     end
     command = []
     (1..MAX_SAVE_SLOT).each do |i|
-      command << SLOT_NAME.clone.gsub!(/\{ID\}/i) { i.to_s }
+      command << SLOT_NAME.clone.gsub!(/\{ID\}/i) { (i).to_s }
     end
     self.contents.clear_rect(rect)
     self.contents.font.color = normal_color
