@@ -156,35 +156,31 @@ class Scene_File < Scene_MenuBase
     @window_slotdetail.draw_data(@last_slot_index)
     create_confirm_window_for_scene_save
   end
-
   def command_scene_file_ftw
     return on_savefile_ok
   end
-
   def create_confirm_window_for_scene_save
     @confirm_window = Window_Command_Attention_Seeker.new((544 - SFC_Window_Width) / 2 + SFC_Window_X_Offset,416 / 2 + SFC_Window_Y_Offset)
     @confirm_window.width = SFC_Window_Width
     #@confirm_window.height = @confirm_window.fitting_height(2)
     @confirm_window.set_handler(:SFC_Text_Confirm, method(:command_SFC_Text_Confirm))
     @confirm_window.set_handler(:SFC_Text_Cancel, method(:command_SFC_Text_Cancel))
-    @confirm_window.deactivate
-    @confirm_window.hide
-    @confirm_window.close
+    @confirm_window.z = 200
+    @confirm_window.deactivate #First_Blood
+    @confirm_window.hide       #Double_Kill
+    @confirm_window.close      #Triple_Kill  goodness... :D
   end
-
   def command_SFC_Text_Confirm
     @confirm_window.deactivate
     @confirm_window.close
     determine_savefile
   end
-
   def command_SFC_Text_Cancel
     Sound.play_cancel
     @confirm_window.deactivate
     @confirm_window.close
     @window_slotlist.activate
   end
-
   def terminate
     super
     dispose_background
@@ -197,7 +193,6 @@ class Scene_File < Scene_MenuBase
     @window_slotdetail.dispose
     @help_window.dispose
   end
-
   def update
     super
     if !@confirm_window.open?
@@ -214,7 +209,6 @@ class Scene_File < Scene_MenuBase
       update_cursor_window_command_attention_seeker
     end
   end
-
   def saving_not_allowed
     Sound.play_buzzer
     b = Bitmap.new(340,60)
@@ -250,13 +244,11 @@ class Scene_File < Scene_MenuBase
     end
     return latest_index
   end
-
   def update_savefile_selection
     return on_savefile_ok     if Input.trigger?(:C)
     return on_savefile_cancel if Input.trigger?(:B)
     update_cursor
   end
-
   def update_cursor
     last_index = @index
     @counter_switch_ohhhhhh = false
@@ -277,7 +269,6 @@ class Scene_File < Scene_MenuBase
       @confirm_window.select(@index)
     end
   end
-
   def cursor_down(wrap = false)
     if (@counter_switch_ohhhhhh)
       if @index < 1 || wrap
@@ -289,7 +280,6 @@ class Scene_File < Scene_MenuBase
       end
     end
   end
-
   def cursor_up(wrap = false)
     if (@counter_switch_ohhhhhh)
       if @index > 0 || wrap
@@ -303,7 +293,6 @@ class Scene_File < Scene_MenuBase
   end
 end
 class Scene_Save < Scene_File
-
   def on_savefile_ok
     super
     if (@window_slotdetail.file_exist?(@last_slot_index))
@@ -316,7 +305,6 @@ class Scene_Save < Scene_File
       determine_savefile
     end
   end
-
   def determine_savefile
     if @last_slot_index + 1 == SAVE_NUMBER
       saving_not_allowed
@@ -331,7 +319,6 @@ class Scene_Save < Scene_File
     first_savefile_index = @last_slot_index
   end
 end
-
 class Window_Command_Attention_Seeker < Window_Command
   def make_command_list
     add_command(Wora_NSS::SFC_Text_Confirm, :SFC_Text_Confirm)
@@ -427,17 +414,17 @@ class Window_NSS_SlotDetail < Window_Base
         contents.draw_text(contents.width - ts_textsize - pt_textsize, 0,
         pt_textsize, contents.text_size(PLAYTIME_TEXT).height, PLAYTIME_TEXT)
         contents.font.color = normal_color
-        contents.draw_text(0, 0, contents.width, contents.height, time_string, 2)
-      end
+        contents.draw_text(0, 0, contents.width, contents.text_size(PLAYTIME_TEXT).height, time_string, 2)
+    end
       if DRAW_LOCATION
         # DRAW LOCATION
         lc_textsize = contents.text_size(LOCATION_TEXT).width
         mn_textsize = contents.text_size(save_data['map_name']).width
         contents.font.color = system_color
         contents.draw_text(0, 190, contents.width,
-        contents.height, LOCATION_TEXT)
+        contents.text_size(LOCATION_TEXT).height, LOCATION_TEXT)
         contents.font.color = normal_color
-        contents.draw_text(lc_textsize, 190, contents.width, contents.height,
+        contents.draw_text(lc_textsize, 190, contents.width, contents.text_size(save_data['map_name']).height,
         save_data['map_name'])
       end
         # DRAW FACE & Level & Name
@@ -458,7 +445,7 @@ class Window_NSS_SlotDetail < Window_Base
           # Draw Level
           contents.font.color = system_color
           contents.draw_text(face_x_base + 2 + 80 - lv_textsize - lvt_textsize,
-          face_y_base + 2 + 80 - contents.text_size(LV_TEXT).height + lvn_y_plus, lvt_textsize, contents.text_size(LV_TEXT).height, LV_TEXT)
+          face_y_base + 2 + 80 - contents.text_size(LV_TEXT).height + lvn_y_plus, lvt_textsize, WLH, LV_TEXT)
           contents.font.color = normal_color
           contents.draw_text(face_x_base + 2 + 80 - lv_textsize,
           face_y_base + 2 + 80 - contents.text_size(actor.level).height + lvn_y_plus, lv_textsize, contents.text_size(actor.level).height, actor.level)
@@ -466,11 +453,11 @@ class Window_NSS_SlotDetail < Window_Base
         if DRAW_NAME
           # Draw Name
           contents.draw_text(face_x_base, face_y_base + 2 + 80 + lvn_y_plus - 6, 84,
-          contents.height, actor.name, 1)
+          contents.text_size(actor.name).height, actor.name, 1)
         end
       end
     else
-      contents.draw_text(0,0, contents.width, contents.height, EMPTY_SLOT_TEXT, 1)
+      contents.draw_text(0,0, contents.width, contents.height - contents.text_size(EMPTY_SLOT_TEXT).height, EMPTY_SLOT_TEXT, 1)
     end
   end
 
@@ -527,7 +514,7 @@ class Window_NSS_SlotDetail < Window_Base
   end
 
   def create_tilemap(map_data, ox, oy)
-    @viewport = Viewport.new(self.x + 2 + 16, self.y + 32 + 16, 348,156)
+    @viewport = Viewport.new(self.x + 14, self.y + 30 + 14, 348,156)
     @viewport.z = self.z
     @tilemap = Tilemap.new(@viewport)
     load_tileset(map_data)
