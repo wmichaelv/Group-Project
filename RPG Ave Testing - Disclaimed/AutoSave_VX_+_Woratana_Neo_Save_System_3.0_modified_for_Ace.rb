@@ -15,7 +15,7 @@ module Wora_NSS
   MAX_SAVE_SLOT = 10 # Max save slots no.
   SLOT_NAME = 'SLOT {id}'
   # Name of the slot (show in save slots list), use {id} for slot ID
-  SAVE_FILE_NAME = 'Saveslot{id}.rvdata'
+  SAVE_FILE_NAME = 'Saveslot{id}.rvdata2'
   # Save file name, you can also change its file type from .rvdata to other
   # use {id} for save slot ID
   SAVE_PATH = '' # Path to store save file, e.g. 'Save/' or '' (for game folder)
@@ -58,13 +58,39 @@ class Auto_Save < Scene_File
     do_save
   end
 end
+class Game_Message
+  attr_accessor :michael_save_file_folder_101
+  alias michael_initialize initialize
+  def initialize
+    michael_initialize
+    @michael_save_file_folder_101 = Wora_NSS::SAVE_PATH
+  end
+end
 module DataManager
+  include Wora_NSS
+  class << self; alias michael_DataManager_init init; end
+    def self.init
+    michael_DataManager_init
+    create_save_folder_directory
+  end
+  def self.create_save_folder_directory
+    if SAVE_PATH != ''
+      Dir.mkdir($game_message.michael_save_file_folder_101) if !File.exists?($game_message.michael_save_file_folder_101)
+    end
+  end
   def self.save_file_exists?
     file_name = Wora_NSS::SAVE_PATH + Wora_NSS::SAVE_FILE_NAME.gsub(/\{ID\}/i) { '*' }
     return (Dir.glob(file_name).size > 0)
   end
+  def self.check_if_that_save_file_exists?(index)
+    save_file_nameeeeee = String(SAVE_PATH + SAVE_FILE_NAME.gsub(/\{ID\}/i) { (index).to_s })
+    return !Dir.glob(save_file_nameeeeee).empty?
+  end
   def self.savefile_max
     return Wora_NSS::MAX_SAVE_SLOT
+  end
+  def self.make_filename(index)
+    sprintf String(SAVE_FILE_NAME.gsub(/\{ID\}/i) { (index).to_s })
   end
 end
 module SceneManager
@@ -111,19 +137,16 @@ class Scene_File < Scene_MenuBase
       @bg.bitmap = Cache.picture(NSS_IMAGE_BG)
       @bg.opacity = NSS_IMAGE_BG_OPACITY
     end
-    command = []
-    (1..MAX_SAVE_SLOT).each do |i|
-      command << SLOT_NAME.clone.gsub!(/\{ID\}/i) { i.to_s }
-    end
     @window_slotdetail = Window_NSS_SlotDetail.new
     @window_slotlist = Window_SlotList.new(0, @help_window.height)
     @window_slotlist.width = 160
     @window_slotlist.height = Graphics.height - @help_window.height
+    @window_slotlist.set_handler(:anything_goes_lol, method(:command_scene_file_ftw))
     @help_window.opacity = NSS_WINDOW_OPACITY
     @window_slotdetail.opacity = @window_slotlist.opacity = NSS_WINDOW_OPACITY
     if (String(self.class) == 'Scene_Load')
-      (1..MAX_SAVE_SLOT).each do |i|
-        @window_slotlist.draw_item(i-1, false) if !@window_slotdetail.file_exist?(i)
+      (0...MAX_SAVE_SLOT).each do |i|
+        @window_slotlist.draw_item(i, false) if !@window_slotdetail.file_exist?(i + 1)
       end
     end
     @index = first_savefile_index
@@ -131,6 +154,11 @@ class Scene_File < Scene_MenuBase
     @last_slot_index = @window_slotlist.index
     @window_slotdetail.draw_data(@last_slot_index + 1)
   end
+
+  def command_scene_file_ftw
+  end
+
+
   def terminate
     super
     dispose_background
@@ -156,7 +184,7 @@ class Scene_File < Scene_MenuBase
     else
       @confirm_window.update
       if Input.trigger?(Input::C)
-        if @confirm_window.index == 0
+        if @confirm_window.command_name(0)
           determine_savefile
           @confirm_window.dispose
           @confirm_window = nil
@@ -172,37 +200,13 @@ class Scene_File < Scene_MenuBase
       end
     end
   end
-  def update_savefile_selection
-    if Input.trigger?(Input::C)
-      if (String(self.class) == 'Scene_Save') and @window_slotdetail.file_exist?(@last_slot_index + 1)
-        Sound.play_cursor
-        text1 = SFC_Text_Confirm
-        text2 = SFC_Text_Cancel
-        @confirm_window = Window_Command.new(SFC_Window_Width,[text1,text2])
-        @confirm_window.x = ((544 - @confirm_window.width) / 2) + SFC_Window_X_Offset
-        @confirm_window.y = ((416 - @confirm_window.height) / 2) + SFC_Window_Y_Offset
-      else
-        determine_savefile
-      end
-    end
-    return on_savefile_cancel if Input.trigger?(:B)
-  end
+
   def determine_savefile
     if @last_slot_index + 1 == SAVE_NUMBER
       saving_not_allowed if (String(self.class) == 'Scene_Save')
-      return  if (String(self.class) == 'Scene_Save')
-    end
-    if (String(self.class) == 'Scene_Save')
-      Sound.play_save
-      do_save
     else
-      if @window_slotdetail.file_exist?(@last_slot_index + 1)
-        Sound.play_load
-        do_load
-      else
-        Sound.play_buzzer
-        return
-      end
+      Sound.play_save
+      return on_savefile_ok
     end
     first_savefile_index = @last_slot_index
   end
@@ -227,36 +231,11 @@ class Scene_File < Scene_MenuBase
     w = nil
     b = nil
   end
-  def do_save
-    if (String(self.class) == 'Scene_Save')
-      file = File.open(make_filename(@last_slot_index), "wb")
-    else
-      s = SAVE_PATH + SAVE_FILE_NAME.gsub(/\{ID\}/i) { SAVE_NUMBER.to_s }
-      file = File.open( s , "wb")
-    end
-    write_save_data(file)
-    file.close
-    return_scene
-  end
-  def do_load
-    file = File.open(make_filename(@last_slot_index), "rb")
-    read_save_data(file)
-    file.close
-    return_scene
-    RPG::BGM.fade(1500)
-    Graphics.fadeout(60)
-    Graphics.wait(40)
-    @last_bgm.play
-    @last_bgs.play
-  end
-  def make_filename(file_index)
-    return SAVE_PATH + SAVE_FILE_NAME.gsub(/\{ID\}/i) { (file_index + 1).to_s }
-  end
   def latest_file_index
     latest_index = 0
     latest_time = Time.at(0)
     (1..MAX_SAVE_SLOT).each do |i|
-      file_name = make_filename(i - 1)
+      file_name = DataManager.make_filename(i - 1)
       next if !@window_slotdetail.file_exist?(i)
       file_time = File.mtime(file_name)
       if file_time > latest_time
@@ -266,59 +245,75 @@ class Scene_File < Scene_MenuBase
     end
     return latest_index
   end
-  def write_save_data(file)
-    characters = []
-    for actor in $game_party.members
-      characters.push([actor.character_name, actor.character_index])
+  def update_savefile_selection
+    if Input.trigger?(:C)
+      if (String(self.class) == 'Scene_Save') and @window_slotdetail.file_exist?(@last_slot_index + 1)
+        Sound.play_cursor
+        create_confirm_window_for_scene_save
+        @confirm_window.set_handler(:SFC_Text_Confirm, method(:oh_well_lol))
+        @confirm_window.set_handler(:SFC_Text_Cancel, method(:just_put_something_here_I_guess))
+      elsif (String(self.class) == 'Scene_Load')
+        return on_savefile_ok
+      else
+        determine_savefile
+      end
     end
-    $game_system.save_count += 1
-    $game_system.version_id = $data_system.version_id
-    @last_bgm = RPG::BGM::last
-    @last_bgs = RPG::BGS::last
-    Marshal.dump(characters,           file)
-    Marshal.dump(Graphics.frame_count, file)
-    Marshal.dump(@last_bgm,            file)
-    Marshal.dump(@last_bgs,            file)
-    Marshal.dump($game_system,         file)
-    Marshal.dump($game_message,        file)
-    Marshal.dump($game_switches,       file)
-    Marshal.dump($game_variables,      file)
-    Marshal.dump($game_self_switches,  file)
-    Marshal.dump($game_actors,         file)
-    Marshal.dump($game_party,          file)
-    Marshal.dump($game_troop,          file)
-    Marshal.dump($game_map,            file)
-    Marshal.dump($game_player,         file)
+    return on_savefile_cancel if Input.trigger?(:B)
+    update_cursor
   end
-  def read_save_data(file)
-    characters           = Marshal.load(file)
-    Graphics.frame_count = Marshal.load(file)
-    @last_bgm            = Marshal.load(file)
-    @last_bgs            = Marshal.load(file)
-    $game_system         = Marshal.load(file)
-    $game_message        = Marshal.load(file)
-    $game_switches       = Marshal.load(file)
-    $game_variables      = Marshal.load(file)
-    $game_self_switches  = Marshal.load(file)
-    $game_actors         = Marshal.load(file)
-    $game_party          = Marshal.load(file)
-    $game_troop          = Marshal.load(file)
-    $game_map            = Marshal.load(file)
-    $game_player         = Marshal.load(file)
-    if $game_system.version_id != $data_system.version_id
-      $game_map.setup($game_map.map_id)
-      $game_player.center($game_player.x, $game_player.y)
+
+  def oh_well_lol
+  end
+
+  def just_put_something_here_I_guess
+  end
+
+  def create_confirm_window_for_scene_save
+    @confirm_window = Window_Command.new(0,0)#((544 - SFC_Window_Width) / 2 + SFC_Window_X_Offset,(416 - fitting_height(2)) / 2 + SFC_Window_Y_Offset)
+    @confirm_window.width = SFC_Window_Width
+    @confirm_window.add_command(SFC_Text_Confirm, :SFC_Text_Confirm)
+    @confirm_window.add_command(SFC_Text_Cancel, :SFC_Text_Cancel)
+  end
+
+  def update_cursor
+    last_index = @index
+    cursor_down (Input.trigger?(:DOWN))  if Input.repeat?(:DOWN)
+    cursor_up   (Input.trigger?(:UP))    if Input.repeat?(:UP)
+    if @index != last_index
+      Sound.play_cursor
+      #@window_slotlist.unselect(last_index)
+      @window_slotlist.select(@index)
+    end
+  end
+  def cursor_down(wrap = false)
+    if @index < MAX_SAVE_SLOT - 1 || wrap
+      @index = (@index + 1) % MAX_SAVE_SLOT
+    end
+  end
+  def cursor_up(wrap = false)
+    if @index > 0 || wrap
+      @index = (@index - 1 + MAX_SAVE_SLOT) % MAX_SAVE_SLOT
     end
   end
 end
 class Window_SlotList < Window_Command
+  include Wora_NSS
+  def make_command_list
+    command = []
+    (1..MAX_SAVE_SLOT).each do |i|
+      command << SLOT_NAME.clone.gsub!(/\{ID\}/i) { i.to_s }
+    end
+    command.each do |i|
+      add_command(SLOT_NAME, :anything_goes_lol)
+    end
+  end
   def draw_item(index, enabled = true)
     rect = item_rect(index)
     rect.x += 4
     rect.width -= 8
     icon_index = 0
     self.contents.clear_rect(rect)
-    if $scene.window_slotdetail.file_exist?(index + 1)
+    if (DataManager.check_if_that_save_file_exists?(index + 1))
       icon_index = Wora_NSS::SAVED_SLOT_ICON
     else
       icon_index = Wora_NSS::EMPTY_SLOT_ICON
@@ -329,21 +324,15 @@ class Window_SlotList < Window_Command
       rect.x += 26
       rect.width -= 20
     end
+    command = []
+    (1..MAX_SAVE_SLOT).each do |i|
+      command << SLOT_NAME.clone.gsub!(/\{ID\}/i) { i.to_s }
+    end
     self.contents.clear_rect(rect)
     self.contents.font.color = normal_color
     self.contents.font.color.alpha = enabled ? 255 : 128
-    self.contents.draw_text(rect, @commands[index]) if index + 1 != SAVE_NUMBER
+    self.contents.draw_text(rect, command[index]) if index + 1 != SAVE_NUMBER
     self.contents.draw_text(rect, "Auto Save") if index + 1 == SAVE_NUMBER
-  end
-  def cursor_down(wrap = false)
-    if @index < @item_max - 1 or wrap
-      @index = (@index + 1) % @item_max
-    end
-  end
-  def cursor_up(wrap = false)
-    if @index > 0 or wrap
-      @index = (@index - 1 + @item_max) % @item_max
-    end
   end
 end
 class Window_NSS_SlotDetail < Window_Base
@@ -359,6 +348,7 @@ class Window_NSS_SlotDetail < Window_Base
     dispose_tilemap
     super
   end
+
   def draw_data(slot_id)
     contents.clear # 352, 328
     dispose_tilemap
@@ -374,10 +364,10 @@ class Window_NSS_SlotDetail < Window_Base
         gold_textsize = contents.text_size(save_data['gamepar'].gold).width
         goldt_textsize = contents.text_size(GOLD_TEXT).width
         contents.font.color = system_color
-        contents.draw_text(0, 0, goldt_textsize, contents.text_size(GOLD_TEXT).height, GOLD_TEXT)
-        contents.draw_text(goldt_textsize + gold_textsize,0,200,contents.text_size(GOLD_TEXT).height, Vocab::gold)
+        contents.draw_text(0, 0, goldt_textsize, WLH, GOLD_TEXT)
+        contents.draw_text(goldt_textsize + gold_textsize,0,200,WLH, Vocab::gold)
         contents.font.color = normal_color
-        contents.draw_text(goldt_textsize, 0, gold_textsize, contents.text_size(GOLD_TEXT).height, save_data['gamepar'].gold)
+        contents.draw_text(goldt_textsize, 0, gold_textsize, WLH, save_data['gamepar'].gold)
       end
       if DRAW_PLAYTIME
         # DRAW PLAYTIME
@@ -389,9 +379,9 @@ class Window_NSS_SlotDetail < Window_Base
         ts_textsize = contents.text_size(time_string).width
         contents.font.color = system_color
         contents.draw_text(contents.width - ts_textsize - pt_textsize, 0,
-        pt_textsize, contents.text_size(PLAYTIME_TEXT).height, PLAYTIME_TEXT)
+        pt_textsize, WLH, PLAYTIME_TEXT)
         contents.font.color = normal_color
-        contents.draw_text(0, 0, contents.width, contents.height, time_string, 2)
+        contents.draw_text(0, 0, contents.width, WLH, time_string, 2)
       end
       if DRAW_LOCATION
         # DRAW LOCATION
@@ -399,9 +389,9 @@ class Window_NSS_SlotDetail < Window_Base
         mn_textsize = contents.text_size(save_data['map_name']).width
         contents.font.color = system_color
         contents.draw_text(0, 190, contents.width,
-        contents.height, LOCATION_TEXT)
+        WLH, LOCATION_TEXT)
         contents.font.color = normal_color
-        contents.draw_text(lc_textsize, 190, contents.width, contents.height,
+        contents.draw_text(lc_textsize, 190, contents.width, WLH,
         save_data['map_name'])
       end
         # DRAW FACE & Level & Name
@@ -422,15 +412,15 @@ class Window_NSS_SlotDetail < Window_Base
           # Draw Level
           contents.font.color = system_color
           contents.draw_text(face_x_base + 2 + 80 - lv_textsize - lvt_textsize,
-          face_y_base + 2 + 80 - contents.height + lvn_y_plus, lvt_textsize, contents.text_size(LV_TEXT).height, LV_TEXT)
+          face_y_base + 2 + 80 - WLH + lvn_y_plus, lvt_textsize, WLH, LV_TEXT)
           contents.font.color = normal_color
           contents.draw_text(face_x_base + 2 + 80 - lv_textsize,
-          face_y_base + 2 + 80 - contents.text_size(LV_TEXT).height + lvn_y_plus, lv_textsize, contents.text_size(actor.level).height, actor.level)
+          face_y_base + 2 + 80 - WLH + lvn_y_plus, lv_textsize, WLH, actor.level)
         end
         if DRAW_NAME
           # Draw Name
           contents.draw_text(face_x_base, face_y_base + 2 + 80 + lvn_y_plus - 6, 84,
-          contents.height, actor.name, 1)
+          WLH, actor.name, 1)
         end
       end
     else
@@ -438,7 +428,7 @@ class Window_NSS_SlotDetail < Window_Base
     end
   end
   def load_save_data(slot_id)
-    file_name = make_filename(slot_id)
+    file_name = DataManager.make_filename(slot_id)
     if file_exist?(slot_id) or FileTest.exist?(file_name)
       @exist_list[slot_id] = true
       @data[slot_id] = {}
@@ -466,12 +456,9 @@ class Window_NSS_SlotDetail < Window_Base
       @data[slot_id] = -1
     end
   end
-  def make_filename(file_index)
-    return SAVE_PATH + SAVE_FILE_NAME.gsub(/\{ID\}/i) { (file_index).to_s }
-  end
   def file_exist?(slot_id)
     return @exist_list[slot_id] if !@exist_list[slot_id].nil?
-    @exist_list[slot_id] = FileTest.exist?(make_filename(slot_id))
+    @exist_list[slot_id] = FileTest.exist?(DataManager.make_filename(slot_id))
     return @exist_list[slot_id]
   end
   def get_mapname(map_id)
