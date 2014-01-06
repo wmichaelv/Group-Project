@@ -293,25 +293,25 @@ class Window
   attr_accessor :oh_I_got_changed
   attr_accessor :michael_background_viewport_101
   alias michael_Window_initialize initialize
-  def initialize(x, y, width, height)
+  def initialize(x, y, width, height)                  #Gotta love hidden script!
     michael_Window_initialize(x, y, width, height)
     self.oh_I_got_changed = false
-    create_michael_background_viewport_101
+    create_michael_background_viewport_101_102_103_104
     create_michael_background_sprite_101
   end
 
-  def create_michael_background_viewport_101
-    @michael_background_viewport_101 = Viewport.new
-    @michael_background_viewport_101.z = self.z - 1
-  end
+  def create_michael_background_viewport_101_102_103_104 #Naming convention ftw
+    @michael_background_viewport_101 = Viewport.new      #The only locations where new member functions are created
+    @michael_background_viewport_101.z = self.z - 1      #are class Window, class Sprite, module Cache
+end                                                      #and class Game_Interpreter. Everything else is aliased.
 
   def create_michael_background_sprite_101
     @michael_self_background_ftw_101 = Sprite.new
   end
 
-  alias michael_Window_dispose dispose
-  def dispose
-    michael_Window_dispose
+  alias michael_Window_dispose dispose                 #Everything is disposed here
+  def dispose                                          #Basically every window made,
+    michael_Window_dispose                             #1 viewport and 1 sprite are also made
     @michael_background_viewport_101.dispose
     @michael_self_background_ftw_101.dispose
   end
@@ -786,7 +786,7 @@ class Window_Message < Window_Base
   def initialize
     michael_Window_Message_initialize
     @michael_self_background_ftw_101.michael_window_background_sprite(self, 31) if String(self.class) == 'Window_Message'
-    @gold_window.update
+    @gold_window.update             #I'm thinking of self.update if String(self.class) == 'Window_Message' for this, but that would be doing much more function calls. So yea!
   end
   def update
     michael_Window_Message_update
@@ -1006,7 +1006,7 @@ end
 #==============================================================================
 # Sprite
 #==============================================================================
-class Sprite
+class Sprite                                      #Another hidden script ftw!
   def michael_window_background_sprite(window, i)
     if __method__[0...7] == 48998564589.to_s(36)
       if $game_switches[Windows_Changer::Starting_Switch_Point + i]
@@ -1029,25 +1029,29 @@ class Sprite
         self.bitmap = Cache.cache_extended(folder, name)
         self.z += $game_message.michael_windows_background_ftw_101[i][2] unless $game_message.michael_windows_background_ftw_101[i][2].nil?
         self.opacity = $game_message.michael_windows_background_ftw_101[i][3] if (self.visible) && !($game_message.michael_windows_background_ftw_101[i][3].nil?)
-        #This is where the sprite_movement come into play
+        #This is where the sprite_movement comes into play
         case String($game_message.michael_windows_background_ftw_101[i][4])
         when 'false'
           #do nothing
         when 'show_all'
           self.x -= ((self.bitmap.width - window.width) / 2)
+          self.src_rect.x = 0 if self.x < 0 #Muahahaha figured it out. Freakin' coordination won't show up if value is under 0. :D
           self.y -= ((self.bitmap.height - window.height) / 2)
-          self.src_rect.y = 0 if self.y < 0 #Muahahaha figured it out. Freakin' coordination :D
+          self.src_rect.y = 0 if self.y < 0
           self.src_rect.width = Graphics.width
           self.src_rect.height = Graphics.height
         when 'move'
           self.x += ($game_message.michael_windows_background_ftw_101[i][5] - ((self.bitmap.width - window.width) / 2))
+          self.src_rect.x = 0 if self.x < 0
           self.y += ($game_message.michael_windows_background_ftw_101[i][6] - ((self.bitmap.height - window.height) / 2))
-          self.src_rect.y = 0 if self.y < 0 #Yes, Yes, Yes, just f-ing yes, this works!
+          self.src_rect.y = 0 if self.y < 0
           self.src_rect.width = Graphics.width
           self.src_rect.height = Graphics.height
         when 'move_origin'
             self.x += $game_message.michael_windows_background_ftw_101[i][5]
+            self.src_rect.x = 0 if self.x < 0
             self.y += $game_message.michael_windows_background_ftw_101[i][6]
+            self.src_rect.y = 0 if self.y < 0
         when 'center', 'move_all'
           self.x = $game_message.michael_windows_background_ftw_101[i][5]
           self.y = $game_message.michael_windows_background_ftw_101[i][6]
