@@ -278,7 +278,7 @@ module Windows_Changer
 
   Number_Of_Element = 46 #Modify this number as more elements are added
 
-  Starting_Switch_Point = 100 #Modify this number if script clash with other script(s)
+  Starting_Switch_Point = 500 #Modify this number if script clash with other script(s)
 end
 #==============================================================================
 # Cache
@@ -1227,6 +1227,16 @@ class Scene_Debug < Scene_MenuBase
   def start
     michael_Scene_Debug_start
     self.update if String(self.class) == 'Scene_Debug'
+  end
+end
+#==============================================================================
+# Scene_Battle
+#==============================================================================
+class Scene_Battle < Scene_Base
+  alias michael_Scene_Battle_start start
+  def start
+    michael_Scene_Battle_start
+    update_all_windows
   end
 end
 #==============================================================================
