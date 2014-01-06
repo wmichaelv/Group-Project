@@ -1107,13 +1107,103 @@ class Scene_Menu < Scene_MenuBase
   end
 end
 #==============================================================================
+# Scene_ItemBase
+#==============================================================================
+class Scene_ItemBase < Scene_MenuBase
+  alias michael_Scene_ItemBase_start start
+  def start
+    michael_Scene_ItemBase_start
+    self.update if String(self.class) == 'Scene_ItemBase'
+  end
+end
+#==============================================================================
+# Scene_Item
+#==============================================================================
+class Scene_Item < Scene_ItemBase
+  alias michael_Scene_Item_start start
+  def start
+    michael_Scene_Item_start
+    self.update if String(self.class) == 'Scene_Item'
+  end
+end
+#==============================================================================
+# Scene_Skill
+#==============================================================================
+class Scene_Skill < Scene_ItemBase
+  alias michael_Scene_Skill_start start
+  def start
+    michael_Scene_Skill_start
+    self.update if String(self.class) == 'Scene_Skill'
+  end
+end
+#==============================================================================
+# Scene_Equip
+#==============================================================================
+class Scene_Equip < Scene_MenuBase
+  alias michael_Scene_Equip_start start
+  def start
+    michael_Scene_Equip_start
+    self.update if String(self.class) == 'Scene_Equip'
+  end
+end
+#==============================================================================
+# Scene_Status
+#==============================================================================
+class Scene_Status < Scene_MenuBase
+  alias michael_Scene_Status_start start
+  def start
+    michael_Scene_Status_start
+    self.update if String(self.class) == 'Scene_Status'
+  end
+end
+#==============================================================================
+# Scene_File
+#==============================================================================
+class Scene_File < Scene_MenuBase
+  alias michael_Scene_File_start start
+  def start
+    michael_Scene_File_start
+    self.update if String(self.class) == 'Scene_File'
+  end
+end
+#==============================================================================
+# Scene_End
+#==============================================================================
+class Scene_End < Scene_MenuBase
+  alias michael_Scene_End_start start
+  def start
+    michael_Scene_End_start
+    self.update if String(self.class) == 'Scene_End'
+  end
+end
+#==============================================================================
 # Scene_Shop
 #==============================================================================
 class Scene_Shop < Scene_MenuBase
-  alias michael_Scene_Shop_create_gold_window create_gold_window
-  def create_gold_window
-    michael_Scene_Shop_create_gold_window
-    @gold_window.update
+  alias michael_Scene_Shop_start start
+  def start
+    michael_Scene_Shop_start
+    self.update if String(self.class) == 'Scene_Shop'
+  end
+end
+#==============================================================================
+# Scene_Name
+#==============================================================================
+class Scene_Name < Scene_MenuBase
+  alias michael_Scene_Name_start start
+  def start
+    michael_Scene_Name_start
+    self.update if String(self.class) == 'Scene_Name'
+  end
+end
+#==============================================================================
+# Scene_Debug
+#==============================================================================
+class Scene_Debug < Scene_MenuBase
+  alias michael_Scene_Debug_start start
+  def start
+    michael_Scene_Debug_start
+    self.update if String(self.class) == 'Scene_Debug'
   end
 end
 #==============================================================================
