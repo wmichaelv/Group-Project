@@ -314,66 +314,57 @@ end
 # Window_Base
 #==============================================================================
 class Window_Base < Window
-
+  alias michael_Window_Base_initialize initialize
+  alias michael_Window_Base_update update
   alias michael_Window_Base_show show
+  alias michael_Window_Base_hide hide
   def show
     michael_Window_Base_show
     @michael_self_background_ftw_101.visible = true
     self
   end
-
-  alias michael_Window_Base_hide hide
   def hide
     michael_Window_Base_hide
     @michael_self_background_ftw_101.visible = false
     self
   end
-
-  if String(self.class) == 'Window_Base'
-    alias michael_Window_Base_initialize initialize
-    def initialize(x, y, width, height)
-      michael_Window_Base_initialize(x, y, width, height)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 1)
-    end
-    alias michael_Window_Base_update update
-    def update
-      michael_Window_Base_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 1)
-    end
+  def initialize(x, y, width, height)
+    michael_Window_Base_initialize(x, y, width, height)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 1) if String(self.class) == 'Window_Base'
+  end
+  def update
+    michael_Window_Base_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 1) if String(self.class) == 'Window_Base'
   end
 end
 #==============================================================================
 # Window_Selectable
 #==============================================================================
 class Window_Selectable < Window_Base
-  if String(self.class) == 'Window_Selectable'
   alias michael_Window_Selectable_initialize initialize
+  alias michael_Window_Selectable_update update
   def initialize(x, y, width, height)
     michael_Window_Selectable_initialize(x, y, width, height)
-    @michael_self_background_ftw_101.michael_window_background_sprite(self, 2)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 2) if String(self.class) == 'Window_Selectable'
   end
-    alias michael_Window_Selectable_update update
-    def update
-      michael_Window_Selectable_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 2)
-    end
+  def update
+    michael_Window_Selectable_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 2) if String(self.class) == 'Window_Selectable'
   end
 end
 #==============================================================================
 # Window_Command
 #==============================================================================
 class Window_Command < Window_Selectable
-  if String(self.class) == 'Window_Command'
-    alias michael_Window_Command_initialize initialize
-    def initialize(x, y)
-      michael_Window_Command_initialize(x, y)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 3)
-    end
-    alias michael_Window_Command_update update
-    def update
-      michael_Window_Command_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 3)
-    end
+  alias michael_Window_Command_initialize initialize
+  alias michael_Window_Command_update update
+  def initialize(x, y)
+    michael_Window_Command_initialize(x, y)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 3) if String(self.class) == 'Window_Command'
+  end
+  def update
+    michael_Window_Command_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 3) if String(self.class) == 'Window_Command'
   end
 end
 
@@ -387,698 +378,617 @@ end #No initialize, so no need to overload
 # Window_Help
 #==============================================================================
 class Window_Help < Window_Base
-  if String(self.class) == 'Window_Help'
-    alias michael_Window_Help_initialize initialize
-    def initialize(line_number = 2)
-      michael_Window_Help_initialize(line_number = 2)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 5)
-    end
-    alias michael_Window_Help_update update
-    def update
-      michael_Window_Help_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 5)
-    end
+  alias michael_Window_Help_initialize initialize
+  alias michael_Window_Help_update update
+  def initialize(line_number = 2)
+    michael_Window_Help_initialize(line_number = 2)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 5) if String(self.class) == 'Window_Help'
+  end
+  def update
+    michael_Window_Help_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 5) if String(self.class) == 'Window_Help'
   end
 end
 #==============================================================================
 #  Window_Gold
 #==============================================================================
 class Window_Gold < Window_Base
-  if String(self.class) == 'Window_Gold'
-    alias michael_Window_Gold_initialize initialize
-    def initialize
-      michael_Window_Gold_initialize
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 6)
-    end
-    alias michael_Window_Gold_update update
-    def update
-      michael_Window_Gold_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 6)
-    end
+  alias michael_Window_Gold_initialize initialize
+  alias michael_Window_Gold_update update
+  def initialize
+    michael_Window_Gold_initialize
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 6) if String(self.class) == 'Window_Gold'
+  end
+  def update
+    michael_Window_Gold_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 6) if String(self.class) == 'Window_Gold'
   end
 end
 #==============================================================================
 # Window_MenuCommand
 #==============================================================================
 class Window_MenuCommand < Window_Command
-  if String(self.class) == 'Window_MenuCommand'
-    alias michael_Window_MenuCommand_initialize initialize
-    def initialize
-      michael_Window_MenuCommand_initialize
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 7)
-    end
-    alias michael_Window_MenuCommand_update update
-    def update
-      michael_Window_MenuCommand_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 7)
-    end
+  alias michael_Window_MenuCommand_initialize initialize
+  alias michael_Window_MenuCommand_update update
+  def initialize
+    michael_Window_MenuCommand_initialize
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 7) if String(self.class) == 'Window_MenuCommand'
+  end
+  def update
+    michael_Window_MenuCommand_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 7) if String(self.class) == 'Window_MenuCommand'
   end
 end
 #==============================================================================
 # Window_MenuStatus
 #==============================================================================
 class Window_MenuStatus < Window_Selectable
-  if String(self.class) == 'Window_MenuStatus'
-    alias michael_Window_MenuStatus_initialize initialize
-    def initialize(x, y)
-      michael_Window_MenuStatus_initialize(x, y)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 8)
-    end
-    alias michael_Window_MenuStatus_update update
-    def update
-      michael_Window_MenuStatus_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 8)
-    end
+  alias michael_Window_MenuStatus_initialize initialize
+  alias michael_Window_MenuStatus_update update
+  def initialize(x, y)
+    michael_Window_MenuStatus_initialize(x, y)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 8) if String(self.class) == 'Window_MenuStatus'
+  end
+  alias michael_Window_MenuStatus_update update
+  def update
+    michael_Window_MenuStatus_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 8) if String(self.class) == 'Window_MenuStatus'
   end
 end
 #==============================================================================
 # Window_MenuActor
 #==============================================================================
 class Window_MenuActor < Window_MenuStatus
-  if String(self.class) == 'Window_MenuActor'
-    alias michael_Window_MenuActor_initialize initialize
-    def initialize
-      michael_Window_MenuActor_initialize
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 9)
-    end
-    alias michael_Window_MenuActor_update update
-    def update
-      michael_Window_MenuActor_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 9)
-    end
+  alias michael_Window_MenuActor_initialize initialize
+  alias michael_Window_MenuActor_update update
+  def initialize
+    michael_Window_MenuActor_initialize
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 9) if String(self.class) == 'Window_MenuActor'
+  end
+  def update
+    michael_Window_MenuActor_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 9) if String(self.class) == 'Window_MenuActor'
   end
 end
 #==============================================================================
 # Window_ItemCategory
 #==============================================================================
 class Window_ItemCategory < Window_HorzCommand
-  if String(self.class) == 'Window_ItemCategory'
-    alias michael_Window_ItemCategory_initialize initialize
-    def initialize
-      michael_Window_ItemCategory_initialize
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 10)
-    end
-    alias michael_Window_ItemCategory_update update
-    def update
-      michael_Window_ItemCategory_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 10)
-    end
+  alias michael_Window_ItemCategory_initialize initialize
+  alias michael_Window_ItemCategory_update update
+  def initialize
+    michael_Window_ItemCategory_initialize
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 10) if String(self.class) == 'Window_ItemCategory'
+  end
+  def update
+    michael_Window_ItemCategory_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 10) if String(self.class) == 'Window_ItemCategory'
   end
 end
 #==============================================================================
 # Window_ItemList
 #==============================================================================
 class Window_ItemList < Window_Selectable
-  if String(self.class) == 'Window_ItemList'
-    alias michael_Window_ItemList_initialize initialize
-    def initialize(x, y, width, height)
-      michael_Window_ItemList_initialize(x, y, width, height)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 11)
-    end
-    alias michael_Window_ItemList_update update
-    def update
-      michael_Window_ItemList_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 11)
-    end
+  alias michael_Window_ItemList_initialize initialize
+  alias michael_Window_ItemList_update update
+  def initialize(x, y, width, height)
+    michael_Window_ItemList_initialize(x, y, width, height)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 11) if String(self.class) == 'Window_ItemList'
+  end
+  def update
+    michael_Window_ItemList_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 11) if String(self.class) == 'Window_ItemList'
   end
 end
 #==============================================================================
 # Window_SkillCommand
 #==============================================================================
 class Window_SkillCommand < Window_Command
-  if String(self.class) == 'Window_SkillCommand'
-    alias michael_Window_SkillCommand_initialize initialize
-    def initialize(x, y)
-      michael_Window_SkillCommand_initialize(x, y)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 12)
-    end
-    alias michael_Window_SkillCommand_update update
-    def update
-      michael_Window_SkillCommand_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 12)
-    end
+  alias michael_Window_SkillCommand_initialize initialize
+  alias michael_Window_SkillCommand_update update
+  def initialize(x, y)
+    michael_Window_SkillCommand_initialize(x, y)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 12) if String(self.class) == 'Window_SkillCommand'
+  end
+  def update
+    michael_Window_SkillCommand_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 12) if String(self.class) == 'Window_SkillCommand'
   end
 end
 #==============================================================================
 # Window_SkillStatus
 #==============================================================================
 class Window_SkillStatus < Window_Base
-  if String(self.class) == 'Window_SkillStatus'
-    alias michael_Window_SkillStatus_initialize initialize
-    def initialize(x, y)
-      michael_Window_SkillStatus_initialize(x, y)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 13)
-    end
-    alias michael_Window_SkillStatus_update update
-    def update
-      michael_Window_SkillStatus_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 13)
-    end
+  alias michael_Window_SkillStatus_initialize initialize
+  alias michael_Window_SkillStatus_update update
+  def initialize(x, y)
+    michael_Window_SkillStatus_initialize(x, y)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 13) if String(self.class) == 'Window_SkillStatus'
+  end
+  def update
+    michael_Window_SkillStatus_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 13) if String(self.class) == 'Window_SkillStatus'
   end
 end
 #==============================================================================
 # Window_SkillList
 #==============================================================================
 class Window_SkillList < Window_Selectable
-  if String(self.class) == 'Window_SkillList'
-    alias michael_Window_SkillList_initialize initialize
-    def initialize(x, y, width, height)
-      michael_Window_SkillList_initialize(x, y, width, height)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 14)
-    end
-    alias michael_Window_SkillList_update update
-    def update
-      michael_Window_SkillList_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 14)
-    end
+  alias michael_Window_SkillList_initialize initialize
+  alias michael_Window_SkillList_update update
+  def initialize(x, y, width, height)
+    michael_Window_SkillList_initialize(x, y, width, height)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 14) if String(self.class) == 'Window_SkillList'
+  end
+  def update
+    michael_Window_SkillList_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 14) if String(self.class) == 'Window_SkillList'
   end
 end
 #==============================================================================
 # Window_EquipStatus
 #==============================================================================
 class Window_EquipStatus < Window_Base
-  if String(self.class) == 'Window_EquipStatus'
-    alias michael_Window_EquipStatus_initialize initialize
-    def initialize(x, y)
-      michael_Window_EquipStatus_initialize(x, y)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 15)
-    end
-    alias michael_Window_EquipStatus_update update
-    def update
-      michael_Window_EquipStatus_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 15)
-    end
+  alias michael_Window_EquipStatus_initialize initialize
+  alias michael_Window_EquipStatus_update update
+  def initialize(x, y)
+    michael_Window_EquipStatus_initialize(x, y)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 15) if String(self.class) == 'Window_EquipStatus'
+  end
+  def update
+    michael_Window_EquipStatus_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 15) if String(self.class) == 'Window_EquipStatus'
   end
 end
 #==============================================================================
 # Window_EquipCommand
 #==============================================================================
 class Window_EquipCommand < Window_HorzCommand
-  if String(self.class) == 'Window_EquipCommand'
-    alias michael_Window_EquipCommand_initialize initialize
-    def initialize(x, y, width)
-      michael_Window_EquipCommand_initialize(x, y, width)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 16)
-    end
-    alias michael_Window_EquipCommand_update update
-    def update
-      michael_Window_EquipCommand_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 16)
-    end
+  alias michael_Window_EquipCommand_initialize initialize
+  alias michael_Window_EquipCommand_update update
+  def initialize(x, y, width)
+    michael_Window_EquipCommand_initialize(x, y, width)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 16) if String(self.class) == 'Window_EquipCommand'
+  end
+  def update
+    michael_Window_EquipCommand_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 16) if String(self.class) == 'Window_EquipCommand'
   end
 end
 #==============================================================================
 # Window_EquipSlot
 #==============================================================================
 class Window_EquipSlot < Window_Selectable
-  if String(self.class) == 'Window_EquipSlot'
-    alias michael_Window_EquipSlot_initialize initialize
-    def initialize(x, y, width)
-      michael_Window_EquipSlot_initialize(x, y, width)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 17)
-    end
-    alias michael_Window_EquipSlot_update update
-    def update
-      michael_Window_EquipSlot_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 17)
-    end
+  alias michael_Window_EquipSlot_initialize initialize
+  alias michael_Window_EquipSlot_update update
+  def initialize(x, y, width)
+    michael_Window_EquipSlot_initialize(x, y, width)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 17) if String(self.class) == 'Window_EquipSlot'
+  end
+  def update
+    michael_Window_EquipSlot_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 17) if String(self.class) == 'Window_EquipSlot'
   end
 end
 #==============================================================================
 # Window_EquipItem
 #==============================================================================
 class Window_EquipItem < Window_ItemList
-  if String(self.class) == 'Window_EquipItem'
-    alias michael_Window_EquipItem_initialize initialize
-    def initialize(x, y, width, height)
-      michael_Window_EquipItem_initialize(x, y, width, height)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 18)
-    end
-    alias michael_Window_EquipItem_update update
-    def update
-      michael_Window_EquipItem_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 18)
-    end
+  alias michael_Window_EquipItem_initialize initialize
+  alias michael_Window_EquipItem_update update
+  def initialize(x, y, width, height)
+    michael_Window_EquipItem_initialize(x, y, width, height)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 18) if String(self.class) == 'Window_EquipItem'
+  end
+  def update
+    michael_Window_EquipItem_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 18) if String(self.class) == 'Window_EquipItem'
   end
 end
 #==============================================================================
 # Window_Status
 #==============================================================================
 class Window_Status < Window_Selectable
-  if String(self.class) == 'Window_Status'
-    alias michael_Window_Status_initialize initialize
-    def initialize(actor)
-      michael_Window_Status_initialize(actor)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 19)
-    end
-    alias michael_Window_Status_update update
-    def update
-      michael_Window_Status_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 19)
-    end
+  alias michael_Window_Status_initialize initialize
+  alias michael_Window_Status_update update
+  def initialize(actor)
+    michael_Window_Status_initialize(actor)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 19) if String(self.class) == 'Window_Status'
+  end
+  def update
+    michael_Window_Status_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 19) if String(self.class) == 'Window_Status'
   end
 end
 #==============================================================================
 # Window_SaveFile
 #==============================================================================
 class Window_SaveFile < Window_Base
-  if String(self.class) == 'Window_SaveFile'
-    alias michael_Window_SaveFile_initialize initialize
-    def initialize(height, index)
-      michael_Window_SaveFile_initialize(height, index)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 20)
-    end
-    alias michael_Window_SaveFile_update update
-    def update
-      michael_Window_SaveFile_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 20)
-    end
+  alias michael_Window_SaveFile_initialize initialize
+  alias michael_Window_SaveFile_update update
+  def initialize(height, index)
+    michael_Window_SaveFile_initialize(height, index)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 20) if String(self.class) == 'Window_SaveFile'
+  end
+  def update
+    michael_Window_SaveFile_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 20) if String(self.class) == 'Window_SaveFile'
   end
 end
 #==============================================================================
 # Window_ShopCommand
 #==============================================================================
 class Window_ShopCommand < Window_HorzCommand
-  if String(self.class) == 'Window_ShopCommand'
-    alias michael_Window_ShopCommand_initialize initialize
-    def initialize(window_width, purchase_only)
-      michael_Window_ShopCommand_initialize(window_width, purchase_only)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 21)
-    end
-    alias michael_Window_ShopCommand_update update
-    def update
-      michael_Window_ShopCommand_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 21)
-    end
+  alias michael_Window_ShopCommand_initialize initialize
+  alias michael_Window_ShopCommand_update update
+  def initialize(window_width, purchase_only)
+    michael_Window_ShopCommand_initialize(window_width, purchase_only)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 21) if String(self.class) == 'Window_ShopCommand'
+  end
+  def update
+    michael_Window_ShopCommand_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 21) if String(self.class) == 'Window_ShopCommand'
   end
 end
 #==============================================================================
 # Window_ShopBuy
 #==============================================================================
 class Window_ShopBuy < Window_Selectable
-  if String(self.class) == 'Window_ShopBuy'
-    alias michael_Window_ShopBuy_initialize initialize
-    def initialize(x, y, height, shop_goods)
-      michael_Window_ShopBuy_initialize(x, y, height, shop_goods)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 22)
-    end
-    alias michael_Window_ShopBuy_update update
-    def update
-      michael_Window_ShopBuy_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 22)
-    end
+  alias michael_Window_ShopBuy_initialize initialize
+  alias michael_Window_ShopBuy_update update
+  def initialize(x, y, height, shop_goods)
+    michael_Window_ShopBuy_initialize(x, y, height, shop_goods)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 22) if String(self.class) == 'Window_ShopBuy'
+  end
+  def update
+    michael_Window_ShopBuy_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 22) if String(self.class) == 'Window_ShopBuy'
   end
 end
 #==============================================================================
 # Window_ShopSell
 #==============================================================================
 class Window_ShopSell < Window_ItemList
-  if String(self.class) == 'Window_ShopSell'
-    alias michael_Window_ShopSell_initialize initialize
-    def initialize(x, y, width, height)
-      michael_Window_ShopSell_initialize(x, y, width, height)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 23)
-    end
-    alias michael_Window_ShopSell_update update
-    def update
-      michael_Window_ShopSell_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 23)
-    end
+  alias michael_Window_ShopSell_initialize initialize
+  alias michael_Window_ShopSell_update update
+  def initialize(x, y, width, height)
+    michael_Window_ShopSell_initialize(x, y, width, height)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 23) if String(self.class) == 'Window_ShopSell'
+  end
+  def update
+    michael_Window_ShopSell_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 23) if String(self.class) == 'Window_ShopSell'
   end
 end
 #==============================================================================
 # Window_ShopNumber
 #==============================================================================
 class Window_ShopNumber < Window_Selectable
-  if String(self.class) == 'Window_ShopNumber'
-    alias michael_Window_ShopNumber_initialize initialize
-    def initialize(x, y, height)
-      michael_Window_ShopNumber_initialize(x, y, height)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 24)
-    end
-    alias michael_Window_ShopNumber_update update
-    def update
-      michael_Window_ShopNumber_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 24)
-    end
+  alias michael_Window_ShopNumber_initialize initialize
+  alias michael_Window_ShopNumber_update update
+  def initialize(x, y, height)
+    michael_Window_ShopNumber_initialize(x, y, height)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 24) if String(self.class) == 'Window_ShopNumber'
+  end
+  def update
+    michael_Window_ShopNumber_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 24) if String(self.class) == 'Window_ShopNumber'
   end
 end
 #==============================================================================
 # Window_ShopStatus
 #==============================================================================
 class Window_ShopStatus < Window_Base
-  if String(self.class) == 'Window_ShopStatus'
-    alias michael_Window_ShopStatus_initialize initialize
-    def initialize(x, y, width, height)
-      michael_Window_ShopStatus_initialize(x, y, width, height)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 25)
-    end
-    alias michael_Window_ShopStatus_update update
-    def update
-      michael_Window_ShopStatus_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 25)
-    end
+  alias michael_Window_ShopStatus_initialize initialize
+  alias michael_Window_ShopStatus_update update
+  def initialize(x, y, width, height)
+    michael_Window_ShopStatus_initialize(x, y, width, height)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 25) if String(self.class) == 'Window_ShopStatus'
+  end
+  def update
+    michael_Window_ShopStatus_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 25) if String(self.class) == 'Window_ShopStatus'
   end
 end
 #==============================================================================
 # Window_NameEdit
 #==============================================================================
 class Window_NameEdit < Window_Base
-  if String(self.class) == 'Window_NameEdit'
-    alias michael_Window_NameEdit_initialize initialize
-    def initialize(actor, max_char)
-      michael_Window_NameEdit_initialize(actor, max_char)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 26)
-    end
-    alias michael_Window_NameEdit_update update
-    def update
-      michael_Window_NameEdit_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 26)
-    end
+  alias michael_Window_NameEdit_initialize initialize
+  alias michael_Window_NameEdit_update update
+  def initialize(actor, max_char)
+    michael_Window_NameEdit_initialize(actor, max_char)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 26) if String(self.class) == 'Window_NameEdit'
+  end
+  def update
+    michael_Window_NameEdit_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 26) if String(self.class) == 'Window_NameEdit'
   end
 end
 #==============================================================================
 # Window_NameInput
 #==============================================================================
 class Window_NameInput < Window_Selectable
-  if String(self.class) == 'Window_NameInput'
-    alias michael_Window_NameInput_initialize initialize
-    def initialize(edit_window)
-      michael_Window_NameInput_initialize(edit_window)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 27)
-    end
-    alias michael_Window_NameInput_update update
-    def update
-      michael_Window_NameInput_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 27)
-    end
+  alias michael_Window_NameInput_initialize initialize
+  alias michael_Window_NameInput_update update
+  def initialize(edit_window)
+    michael_Window_NameInput_initialize(edit_window)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 27) if String(self.class) == 'Window_NameInput'
+  end
+  def update
+    michael_Window_NameInput_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 27) if String(self.class) == 'Window_NameInput'
   end
 end
 #==============================================================================
 # Window_ChoiceList
 #==============================================================================
 class Window_ChoiceList < Window_Command
-  if String(self.class) == 'Window_ChoiceList'
-    alias michael_Window_ChoiceList_initialize initialize
-    def initialize(message_window)
-      michael_Window_ChoiceList_initialize(message_window)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 28)
-    end
-    alias michael_Window_ChoiceList_update update
-    def update
-      michael_Window_ChoiceList_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 28)
-    end
+  alias michael_Window_ChoiceList_initialize initialize
+  alias michael_Window_ChoiceList_update update
+  def initialize(message_window)
+    michael_Window_ChoiceList_initialize(message_window)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 28) if String(self.class) == 'Window_ChoiceList'
+  end
+  def update
+    michael_Window_ChoiceList_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 28) if String(self.class) == 'Window_ChoiceList'
   end
 end
 #==============================================================================
 # Window_NumberInput
 #==============================================================================
 class Window_NumberInput < Window_Base
-  if String(self.class) == 'Window_NumberInput'
-    alias michael_Window_NumberInput_initialize initialize
-    def initialize(message_window)
-      michael_Window_NumberInput_initialize(message_window)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 29)
-    end
-    alias michael_Window_NumberInput_update update
-    def update
-      michael_Window_NumberInput_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 29)
-    end
+  alias michael_Window_NumberInput_initialize initialize
+  alias michael_Window_NumberInput_update update
+  def initialize(message_window)
+    michael_Window_NumberInput_initialize(message_window)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 29) if String(self.class) == 'Window_NumberInput'
+  end
+  def update
+    michael_Window_NumberInput_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 29) if String(self.class) == 'Window_NumberInput'
   end
 end
 #==============================================================================
 # Window_KeyItem
 #==============================================================================
 class Window_KeyItem < Window_ItemList
-  if String(self.class) == 'Window_KeyItem'
-    alias michael_Window_KeyItem_initialize initialize
-    def initialize(message_window)
-      michael_Window_KeyItem_initialize(message_window)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 30)
-    end
-    alias michael_Window_KeyItem_update update
-    def update
-      michael_Window_KeyItem_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 30)
-    end
+  alias michael_Window_KeyItem_initialize initialize
+  alias michael_Window_KeyItem_update update
+  def initialize(message_window)
+    michael_Window_KeyItem_initialize(message_window)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 30) if String(self.class) == 'Window_KeyItem'
+  end
+  def update
+    michael_Window_KeyItem_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 30) if String(self.class) == 'Window_KeyItem'
   end
 end
 #==============================================================================
 # Window_Message
 #==============================================================================
 class Window_Message < Window_Base
-  if String(self.class) == 'Window_Message'
-    alias michael_Window_Message_initialize initialize
-    def initialize
-      michael_Window_Message_initialize
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 31)
-      @gold_window.update
-    end
-    alias michael_Window_Message_update update
-    def update
-      michael_Window_Message_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 31)
-    end
+  alias michael_Window_Message_initialize initialize
+  alias michael_Window_Message_update update
+  def initialize
+    michael_Window_Message_initialize
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 31) if String(self.class) == 'Window_Message'
+    @gold_window.update
+  end
+  def update
+    michael_Window_Message_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 31) if String(self.class) == 'Window_Message'
   end
 end
 #==============================================================================
 # Window_ScrollText
 #==============================================================================
 class Window_ScrollText < Window_Base
-  if String(self.class) == 'Window_ScrollText'
-    alias michael_Window_ScrollText_initialize initialize
-    def initialize
-      michael_Window_ScrollText_initialize
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 32)
-    end
-    alias michael_Window_ScrollText_update update
-    def update
-      michael_Window_ScrollText_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 32)
-    end
+  alias michael_Window_ScrollText_initialize initialize
+  alias michael_Window_ScrollText_update update
+  def initialize
+    michael_Window_ScrollText_initialize
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 32) if String(self.class) == 'Window_ScrollText'
+  end
+  def update
+    michael_Window_ScrollText_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 32) if String(self.class) == 'Window_ScrollText'
   end
 end
 #==============================================================================
 # Window_MapName
 #==============================================================================
 class Window_MapName < Window_Base
-  if String(self.class) == 'Window_MapName'
-    alias michael_Window_MapName_initialize initialize
-    def initialize
-      michael_Window_MapName_initialize
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 33)
-    end
-    alias michael_Window_MapName_update update
-    def update
-      michael_Window_MapName_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 33)
-    end
+  alias michael_Window_MapName_initialize initialize
+  alias michael_Window_MapName_update update
+  def initialize
+    michael_Window_MapName_initialize
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 33) if String(self.class) == 'Window_MapName'
+  end
+  def update
+    michael_Window_MapName_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 33) if String(self.class) == 'Window_MapName'
   end
 end
 #==============================================================================
 # Window_BattleLog
 #==============================================================================
 class Window_BattleLog < Window_Selectable
-  if String(self.class) == 'Window_BattleLog'
-    alias michael_Window_BattleLog_initialize initialize
-    def initialize
-      michael_Window_BattleLog_initialize
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 34)
-    end
-    alias michael_Window_BattleLog_update update
-    def update
-      michael_Window_BattleLog_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 34)
-    end
+  alias michael_Window_BattleLog_initialize initialize
+  alias michael_Window_BattleLog_update update
+  def initialize
+    michael_Window_BattleLog_initialize
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 34) if String(self.class) == 'Window_BattleLog'
+  end
+  def update
+    michael_Window_BattleLog_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 34) if String(self.class) == 'Window_BattleLog'
   end
 end
 #==============================================================================
 # Window_PartyCommand
 #=========================-====================================================
 class Window_PartyCommand < Window_Command
-  if String(self.class) == 'Window_PartyCommand'
-    alias michael_Window_PartyCommand_initialize initialize
-    def initialize
-      michael_Window_PartyCommand_initialize
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 35)
-    end
-    alias michael_Window_PartyCommand_update update
-    def update
-      michael_Window_PartyCommand_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 35)
-    end
+  alias michael_Window_PartyCommand_initialize initialize
+  alias michael_Window_PartyCommand_update update
+  def initialize
+    michael_Window_PartyCommand_initialize
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 35) if String(self.class) == 'Window_PartyCommand'
+  end
+  def update
+    michael_Window_PartyCommand_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 35) if String(self.class) == 'Window_PartyCommand'
   end
 end
 #==============================================================================
 # Window_ActorCommand
 #==============================================================================
 class Window_ActorCommand < Window_Command
-  if String(self.class) == 'Window_ActorCommand'
-    alias michael_Window_ActorCommand_initialize initialize
-    def initialize
-      michael_Window_ActorCommand_initialize
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 36)
-    end
-    alias michael_Window_ActorCommand_update update
-    def update
-      michael_Window_ActorCommand_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 36)
-    end
+  alias michael_Window_ActorCommand_initialize initialize
+  alias michael_Window_ActorCommand_update update
+  def initialize
+    michael_Window_ActorCommand_initialize
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 36) if String(self.class) == 'Window_ActorCommand'
+  end
+  def update
+    michael_Window_ActorCommand_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 36) if String(self.class) == 'Window_ActorCommand'
   end
 end
 #==============================================================================
 # Window_BattleStatus
 #==============================================================================
 class Window_BattleStatus < Window_Selectable
-  if String(self.class) == 'Window_BattleStatus'
-    alias michael_Window_BattleStatus_initialize initialize
-    def initialize
-      michael_Window_BattleStatus_initialize
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 37)
-    end
-    alias michael_Window_BattleStatus_update update
-    def update
-      michael_Window_BattleStatus_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 37)
-    end
+  alias michael_Window_BattleStatus_initialize initialize
+  alias michael_Window_BattleStatus_update update
+  def initialize
+    michael_Window_BattleStatus_initialize
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 37) if String(self.class) == 'Window_BattleStatus'
+  end
+  def update
+    michael_Window_BattleStatus_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 37) if String(self.class) == 'Window_BattleStatus'
   end
 end
 #==============================================================================
 # Window_BattleActor
 #==============================================================================
 class Window_BattleActor < Window_BattleStatus
-  if String(self.class) == 'Window_BattleActor'
-    alias michael_Window_BattleActor_initialize initialize
-    def initialize(info_viewport)
-      michael_Window_BattleActor_initialize(info_viewport)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 38)
-    end
-    alias michael_Window_BattleActor_update update
-    def update
-      michael_Window_BattleActor_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 38)
-    end
+  alias michael_Window_BattleActor_initialize initialize
+  alias michael_Window_BattleActor_update update
+  def initialize(info_viewport)
+    michael_Window_BattleActor_initialize(info_viewport)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 38) if String(self.class) == 'Window_BattleActor'
+  end
+  def update
+    michael_Window_BattleActor_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 38) if String(self.class) == 'Window_BattleActor'
   end
 end
 #==============================================================================
 # Window_BattleEnemy
 #==============================================================================
 class Window_BattleEnemy < Window_Selectable
-  if String(self.class) == 'Window_BattleEnemy'
-    alias michael_Window_BattleEnemy_initialize initialize
-    def initialize(info_viewport)
-      michael_Window_BattleEnemy_initialize(info_viewport)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 39)
-    end
-    alias michael_Window_BattleEnemy_update update
-    def update
-      michael_Window_BattleEnemy_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 39)
-    end
+  alias michael_Window_BattleEnemy_update update
+  alias michael_Window_BattleEnemy_initialize initialize
+  def initialize(info_viewport)
+    michael_Window_BattleEnemy_initialize(info_viewport)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 39) if String(self.class) == 'Window_BattleEnemy'
+  end
+  def update
+    michael_Window_BattleEnemy_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 39) if String(self.class) == 'Window_BattleEnemy'
   end
 end
 #==============================================================================
 # Window_BattleSkill
 #==============================================================================
 class Window_BattleSkill < Window_SkillList
-  if String(self.class) == 'Window_BattleSkill'
-    alias michael_Window_BattleSkill_initialize initialize
-    def initialize(help_window, info_viewport)
-      michael_Window_BattleSkill_initialize(help_window, info_viewport)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 40)
-    end
-    alias michael_Window_BattleSkill_update update
-    def update
-      michael_Window_BattleSkill_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 40)
-    end
+  alias michael_Window_BattleSkill_initialize initialize
+  alias michael_Window_BattleSkill_update update
+  def initialize(help_window, info_viewport)
+    michael_Window_BattleSkill_initialize(help_window, info_viewport)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 40) if String(self.class) == 'Window_BattleSkill'
+  end
+  def update
+    michael_Window_BattleSkill_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 40) if String(self.class) == 'Window_BattleSkill'
   end
 end
 #==============================================================================
 # Window_BattleItem
 #==============================================================================
 class Window_BattleItem < Window_ItemList
-  if String(self.class) == 'Window_BattleItem'
-    alias michael_Window_BattleItem_initialize initialize
-    def initialize(help_window, info_viewport)
-      michael_Window_BattleItem_initialize(help_window, info_viewport)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 41)
-    end
-    alias michael_Window_BattleItem_update update
-    def update
-      michael_Window_BattleItem_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 41)
-    end
+  alias michael_Window_BattleItem_initialize initialize
+  alias michael_Window_BattleItem_update update
+  def initialize(help_window, info_viewport)
+    michael_Window_BattleItem_initialize(help_window, info_viewport)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 41) if String(self.class) == 'Window_BattleItem'
+  end
+  def update
+    michael_Window_BattleItem_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 41) if String(self.class) == 'Window_BattleItem'
   end
 end
 #==============================================================================
 # Window_TitleCommand
 #==============================================================================
 class Window_TitleCommand < Window_Command
-  if String(self.class) == 'Window_TitleCommand'
-    alias michael_Window_TitleCommand_initialize initialize
-    def initialize
-      michael_Window_TitleCommand_initialize
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 42)
-    end
-    alias michael_Window_TitleCommand_update update
-    def update
-      michael_Window_TitleCommand_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 42)
-    end
+  alias michael_Window_TitleCommand_initialize initialize
+  alias michael_Window_TitleCommand_update update
+  def initialize
+    michael_Window_TitleCommand_initialize
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 42) if String(self.class) == 'Window_TitleCommand'
+  end
+  def update
+    michael_Window_TitleCommand_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 42) if String(self.class) == 'Window_TitleCommand'
   end
 end
 #==============================================================================
 # Window_GameEnd
 #==============================================================================
 class Window_GameEnd < Window_Command
-  if String(self.class) == 'Window_GameEnd'
-    alias michael_Window_GameEnd_initialize initialize
-    def initialize
-      michael_Window_GameEnd_initialize
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 43)
-    end
-    alias michael_Window_GameEnd_update update
-    def update
-      michael_Window_GameEnd_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 43)
-    end
+  alias michael_Window_GameEnd_initialize initialize
+  alias michael_Window_GameEnd_update update
+  def initialize
+    michael_Window_GameEnd_initialize
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 43) if String(self.class) == 'Window_GameEnd'
+  end
+  def update
+    michael_Window_GameEnd_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 43) if String(self.class) == 'Window_GameEnd'
   end
 end
 #==============================================================================
 # Window_DebugLeft
 #==============================================================================
 class Window_DebugLeft < Window_Selectable
-  if String(self.class) == 'Window_DebugLeft'
     alias michael_Window_DebugLeft_initialize initialize
+    alias michael_Window_DebugLeft_update update
     def initialize(x, y)
       michael_Window_DebugLeft_initialize(x, y)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 44)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 44) if String(self.class) == 'Window_DebugLeft'
     end
-    alias michael_Window_DebugLeft_update update
     def update
       michael_Window_DebugLeft_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 44)
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 44) if String(self.class) == 'Window_DebugLeft'
     end
-  end
 end
 #==============================================================================
 # Window_DebugRight
 #==============================================================================
 class Window_DebugRight < Window_Selectable
-  if String(self.class) == 'Window_DebugRight'
-    alias michael_Window_DebugRight_initialize initialize
-    def initialize(x, y, width)
-      michael_Window_DebugRight_initialize(x, y, width)
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 45)
-    end
-    alias michael_Window_DebugRight_update update
-    def update
-      michael_Window_DebugRight_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 45)
-    end
+  alias michael_Window_DebugRight_initialize initialize
+  alias michael_Window_DebugRight_update update
+  def initialize(x, y, width)
+    michael_Window_DebugRight_initialize(x, y, width)
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 45) if String(self.class) == 'Window_DebugRight'
+  end
+  def update
+    michael_Window_DebugRight_update
+    @michael_self_background_ftw_101.michael_window_background_sprite(self, 45) if String(self.class) == 'Window_DebugRight'
   end
 end
 #==============================================================================
@@ -1146,15 +1056,54 @@ class Sprite
     end
   end
 end
-#Below scenes' methods are exclusively overloaded for the beloved attention-seeker, @gold_window
+#==============================================================================
+# Scene_Base
+#==============================================================================
+class Scene_Base
+  alias michael_Scene_Base_start start
+  def start
+    michael_Scene_Base_start
+    self.update if String(self.class) == 'Scene_Base'
+  end
+end
+#==============================================================================
+# Scene_Title
+#==============================================================================
+class Scene_Title < Scene_Base
+  alias michael_Scene_Title_start start
+  def start
+    michael_Scene_Title_start
+    self.update if String(self.class) == 'Scene_Title'
+  end
+end
+#==============================================================================
+# Scene_Map
+#==============================================================================
+class Scene_Map < Scene_Base
+  alias michael_Scene_Map_start start
+  def start
+    michael_Scene_Map_start
+    self.update if String(self.class) == 'Scene_Map'
+  end
+end
+#==============================================================================
+# Scene_MenuBase
+#==============================================================================
+class Scene_MenuBase < Scene_Base
+  alias michael_Scene_MenuBase_start start
+  def start
+    michael_Scene_MenuBase_start
+    self.update if String(self.class) == 'Scene_MenuBase'
+  end
+end
 #==============================================================================
 # Scene_Menu
 #==============================================================================
 class Scene_Menu < Scene_MenuBase
-  alias michael_Scene_Menu_create_gold_window create_gold_window
-  def create_gold_window
-    michael_Scene_Menu_create_gold_window
-    @gold_window.update
+  alias michael_Scene_Menu_start start
+  def start
+    michael_Scene_Menu_start
+    self.update if String(self.class) == 'Scene_Menu'
   end
 end
 #==============================================================================
