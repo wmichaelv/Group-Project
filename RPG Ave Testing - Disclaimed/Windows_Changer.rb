@@ -1079,6 +1079,7 @@ class Sprite                                      #Another hidden script ftw!
     end
   end
 end
+=begin #Scene_Base, Scene_Save, and Scene_File are left out for unnecessary process
 #==============================================================================
 # Scene_Base
 #==============================================================================
@@ -1086,9 +1087,10 @@ class Scene_Base
   alias michael_Scene_Base_start start
   def start
     michael_Scene_Base_start
-    self.update if String(self.class) == 'Scene_Base'
+    update_all_windows
   end
 end
+=end
 #==============================================================================
 # Scene_Title
 #==============================================================================
@@ -1096,7 +1098,7 @@ class Scene_Title < Scene_Base
   alias michael_Scene_Title_start start
   def start
     michael_Scene_Title_start
-    self.update if String(self.class) == 'Scene_Title'
+    update_all_windows
   end
 end
 #==============================================================================
@@ -1106,7 +1108,7 @@ class Scene_Map < Scene_Base
   alias michael_Scene_Map_start start
   def start
     michael_Scene_Map_start
-    self.update if String(self.class) == 'Scene_Map'
+    update_all_windows
   end
 end
 #==============================================================================
@@ -1116,7 +1118,7 @@ class Scene_MenuBase < Scene_Base
   alias michael_Scene_MenuBase_start start
   def start
     michael_Scene_MenuBase_start
-    self.update if String(self.class) == 'Scene_MenuBase'
+    update_all_windows
   end
 end
 #==============================================================================
@@ -1126,7 +1128,7 @@ class Scene_Menu < Scene_MenuBase
   alias michael_Scene_Menu_start start
   def start
     michael_Scene_Menu_start
-    self.update if String(self.class) == 'Scene_Menu'
+    update_all_windows
   end
 end
 #==============================================================================
@@ -1136,7 +1138,7 @@ class Scene_ItemBase < Scene_MenuBase
   alias michael_Scene_ItemBase_start start
   def start
     michael_Scene_ItemBase_start
-    self.update if String(self.class) == 'Scene_ItemBase'
+    update_all_windows
   end
 end
 #==============================================================================
@@ -1146,7 +1148,7 @@ class Scene_Item < Scene_ItemBase
   alias michael_Scene_Item_start start
   def start
     michael_Scene_Item_start
-    self.update if String(self.class) == 'Scene_Item'
+    update_all_windows
   end
 end
 #==============================================================================
@@ -1156,7 +1158,7 @@ class Scene_Skill < Scene_ItemBase
   alias michael_Scene_Skill_start start
   def start
     michael_Scene_Skill_start
-    self.update if String(self.class) == 'Scene_Skill'
+    update_all_windows
   end
 end
 #==============================================================================
@@ -1166,7 +1168,7 @@ class Scene_Equip < Scene_MenuBase
   alias michael_Scene_Equip_start start
   def start
     michael_Scene_Equip_start
-    self.update if String(self.class) == 'Scene_Equip'
+    update_all_windows
   end
 end
 #==============================================================================
@@ -1176,7 +1178,7 @@ class Scene_Status < Scene_MenuBase
   alias michael_Scene_Status_start start
   def start
     michael_Scene_Status_start
-    self.update if String(self.class) == 'Scene_Status'
+    update_all_windows
   end
 end
 #==============================================================================
@@ -1186,7 +1188,7 @@ class Scene_File < Scene_MenuBase
   alias michael_Scene_File_start start
   def start
     michael_Scene_File_start
-    self.update if String(self.class) == 'Scene_File'
+    update_all_windows
   end
 end
 #==============================================================================
@@ -1196,7 +1198,7 @@ class Scene_End < Scene_MenuBase
   alias michael_Scene_End_start start
   def start
     michael_Scene_End_start
-    self.update if String(self.class) == 'Scene_End'
+    update_all_windows
   end
 end
 #==============================================================================
@@ -1206,7 +1208,7 @@ class Scene_Shop < Scene_MenuBase
   alias michael_Scene_Shop_start start
   def start
     michael_Scene_Shop_start
-    self.update if String(self.class) == 'Scene_Shop'
+    update_all_windows
   end
 end
 #==============================================================================
@@ -1216,7 +1218,7 @@ class Scene_Name < Scene_MenuBase
   alias michael_Scene_Name_start start
   def start
     michael_Scene_Name_start
-    self.update if String(self.class) == 'Scene_Name'
+    update_all_windows
   end
 end
 #==============================================================================
@@ -1226,7 +1228,7 @@ class Scene_Debug < Scene_MenuBase
   alias michael_Scene_Debug_start start
   def start
     michael_Scene_Debug_start
-    self.update if String(self.class) == 'Scene_Debug'
+    update_all_windows
   end
 end
 #==============================================================================
