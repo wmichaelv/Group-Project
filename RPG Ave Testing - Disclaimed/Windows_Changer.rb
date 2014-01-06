@@ -79,7 +79,6 @@
 #==============================================================================
 # Installation
 #==============================================================================
-# - This script will OVERLOAD all windows.
 # - This script will OVERLOAD all DEFAULT windows.
 # - Place this script to be below other overloading windows script. If you are
 #   not sure where, place it to be the lowest of the material section.
@@ -89,15 +88,14 @@
 #
 #==============================================================================
 # How to Use:
-#  There are 3 commands so far (More would be added in the future)
 #  - window_on(window #, 'file_name.extention_name')
 #  For Example:
-#  window_on(6, 'ex.jpg') -> activate window #5 background(window_gold_changer)
+#  window_on(6, 'ex.jpg') -> activate window #6 background(window_gold_changer)
 #                            with ex.jpg as the content
-#                         -> Btw, window #5 is Window_Gold
+#                         -> Btw, window #6 is Window_Gold
 #  - window_change(window #, 'file_name.extention_name')
 #  For Example:
-#  window_change(6, 'new.jpg') -> Change the window #5 background content with
+#  window_change(6, 'new.jpg') -> Change the window #6 background content with
 #                                 new.jpg
 #                              -> Make sure that switch is 'on' or else nothing
 #                                 would happen.
@@ -111,10 +109,10 @@
 #
 #  - window_center(i)
 #  For Example:
-#  window_center(6) -> Move the window #5 background content to center position
+#  window_center(6) -> Move the window #6 background content to center position
 #                       Default position is at the center (0,0) of the graphic and
 #                       occupy the size of the graphic (if your picture has size
-#                       larger than the graphic (580 x 444), it will fill the graphic)
+#                       larger than the graphic (544 x 416), it will fill the graphic)
 #                    -> Make sure that switch is 'on' or else nothing would happen.
 #
 #  - window_move(i, x, y, width, height)
@@ -122,7 +120,7 @@
 #  window_move(6, 24, -24, 400, 400)
 #  -> TIPS: If you are not sure how to adjust, the coordinate, starts with
 #           window_center first.
-#  -> move the window #5 background content to (24,-24) position. Remember that
+#  -> move the window #6 background content to (24,-24) position. Remember that
 #     center coordinate is (0,0) and to move up, y needs to be negative, to move
 #     down, y needs to be positive, to move left, x needs to be negative, to move
 #     right, x needs to be positive.
@@ -135,20 +133,20 @@
 #
 #  - window_default(i)
 #  For Example:
-#  window_default(6) -> Turn off movement switch for window #5 background
-#                    -> This will return window #5 to the original position
+#  window_default(6) -> Turn off movement switch for window #6 background
+#                    -> This will return window #6 to the original position
 #
 #  - window_depth(i, depth)
 #  For Example:
-#  window_depth(6, -1) -> Increases the depthness of window #5 background content
+#  window_depth(6, -1) -> Increases the depthness of window #6 background content
 #                         by -1, which means, if there's other window background
-#                         in the graphic beside window #5 background, that window
-#                         background will appear to be above window #5 background.
+#                         in the graphic beside window #6 background, that window
+#                         background will appear to be above window #6 background.
 #                      -> Make sure that switch is 'on' or else nothing would happen.
 #
 # - window_opacity(i, opacity)
 # For Example:
-# window_opacity(6, 0) -> Set window #5 background opacity to 0 (100% transparent).
+# window_opacity(6, 0) -> Set window #6 background opacity to 0 (100% transparent).
 #                      -> Opacity value is from 0 (fully see-through) to 255 (solid).
 #                      -> Make sure that switch is 'on' or else nothing would happen.
 #                      -> Default opacity is 255 when window background is on.
@@ -340,7 +338,7 @@ class Window_Base < Window
     alias michael_Window_Base_update update
     def update
       michael_Window_Base_update
-      @michael_self_background_ftw_101.michael_window_background_sprite(self, 1) if String(self.class) == 'Window_Base'
+      @michael_self_background_ftw_101.michael_window_background_sprite(self, 1)
     end
   end
 end
