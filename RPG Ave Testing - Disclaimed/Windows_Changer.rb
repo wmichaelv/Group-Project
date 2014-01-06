@@ -108,6 +108,9 @@
 #  - window_show_all(i) -> JUST USE THIS COMMAND and window_on if you're confused with
 #                          coordination. Basically window_show_all will display
 #                          your picture from the center of the window.
+#                       -> Do I have to use this for every picture that's oversized?
+#                       -> No, just do window_on(6, 'ex.jpg', 'show_all') <<< see the 'show_all'?
+#                          (don't forget the quotation mark)
 #  - window_show_all_move(i, x, y) -> To move the fixed position
 #
 #  - window_center(i)
