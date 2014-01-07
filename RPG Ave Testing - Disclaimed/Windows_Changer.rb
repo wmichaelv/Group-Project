@@ -303,14 +303,15 @@ end
 class Window_Base < Window
   attr_accessor :oh_I_got_changed
   attr_accessor :michael_bg_vp
-  alias michael_Base_initialize initialize
+  attr_accessor :michael_bg_sp
+  alias michael_Window_Base_initialize initialize
   alias michael_Window_Base_update update
   alias michael_Window_Base_dispose dispose
   alias michael_Window_Base_show show
   alias michael_Window_Base_hide hide
 
   def initialize(x, y, width, height)
-    michael_Base_initialize(x, y, width, height)
+    michael_Window_Base_initialize(x, y, width, height)
     self.oh_I_got_changed = false
     create_michael_bg_vp
     create_michael_bg_sp
@@ -323,11 +324,11 @@ class Window_Base < Window
   end                                  #and class Game_Interpreter. Everything else is aliased.
 
   def create_michael_bg_sp
-    @michael_bg_sp = Sprite.new
+    self.michael_bg_sp = Sprite.new
   end
                                                #Everything is disposed here
   def dispose                                  #Basically every window made,
-    @michael_bg_sp.dispose                     #1 viewport and 1 sprite are also made
+    self.michael_bg_sp.dispose                 #1 viewport and 1 sprite are also made
     self.michael_bg_vp.dispose
     michael_Window_Base_dispose
   end
@@ -341,42 +342,96 @@ class Window_Base < Window
   end
 
   def show
+    self.michael_bg_sp.visible = true
     michael_Window_Base_show
-    @michael_bg_sp.visible = true
     self
   end
 
   def hide
+    self.michael_bg_sp.visible = false
     michael_Window_Base_hide
-    @michael_bg_sp.visible = false
     self
   end
 
   def update
     michael_Window_Base_update
-    @michael_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_bg_ary[self.class])
+    self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_bg_ary[self.class])
   end
-  alias window_x x
+=begin
+  alias testing_123_visibility visible
+  def visible
+    self.michael_bg_sp.visible = self.testing_123_visibility if !self.michael_bg_sp.disposed?
+    self.testing_123_visibility
+  end
+
+  alias testing_visibility visible=
+  def visible=(arg)
+    self.michael_bg_sp.visible = self.testing_visibility(arg) if !self.michael_bg_sp.disposed?
+    self.testing_visibility(arg)
+  end
+
+  alias testing_123_x x
   def x
-    @michael_bg_sp.x = self.window_x if $game_message.michael_wndw_bg_ary[self.class][5].nil? && $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]] && !self.disposed?
-    window_x
+    self.michael_bg_sp.x = self.testing_123_x if $game_message.michael_wndw_bg_ary[self.class][5].nil? && !self.michael_bg_sp.disposed?
+    self.testing_123_x
   end
-  alias window_y y
+
+  alias testing_x x=
+  def x=(arg)
+    self.michael_bg_sp.x = self.testing_x(arg) if $game_message.michael_wndw_bg_ary[self.class][5].nil? && !self.michael_bg_sp.disposed?
+    self.testing_x(arg)
+  end
+
+  alias testing_123_y y
   def y
-    @michael_bg_sp.y = self.window_y if $game_message.michael_wndw_bg_ary[self.class][5].nil? && $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]] && !self.disposed?
-    window_y
+    self.michael_bg_sp.y = self.testing_123_y if $game_message.michael_wndw_bg_ary[self.class][5].nil? && !self.michael_bg_sp.disposed?
+    self.testing_123_y
   end
-  alias window_width width
-  def width
-    @michael_bg_sp.src_rect.width = self.window_width if $game_message.michael_wndw_bg_ary[self.class][5].nil? && $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]] && !self.disposed?
-    window_width
+
+  alias testing_y y=
+  def y=(arg)
+    self.michael_bg_sp.y = self.testing_y(arg) if $game_message.michael_wndw_bg_ary[self.class][5].nil? && !self.michael_bg_sp.disposed?
+    self.testing_y(arg)
   end
-  alias window_height height
-  def height
-    @michael_bg_sp.src_rect.height = self.window_height if $game_message.michael_wndw_bg_ary[self.class][5].nil? && $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]] && !@michael_bg_sp.disposed?
-    window_height
+
+  alias testing_123_width contents_width
+  def contents_width
+    if !self.michael_bg_sp.nil?
+      self.michael_bg_sp.src_rect.width = self.testing_123_width if $game_message.michael_wndw_bg_ary[self.class][5].nil? && !self.michael_bg_sp.disposed?
+    end
+    self.testing_123_width
+  end
+
+  alias testing_width width=
+  def width=(arg)
+    self.michael_bg_sp.src_rect.width = self.testing_width(arg) if $game_message.michael_wndw_bg_ary[self.class][5].nil? && !self.michael_bg_sp.disposed?
+    self.testing_width(arg)
+  end
+
+  alias testing_123_height contents_height
+  def contents_height
+    if !self.michael_bg_sp.nil?
+      self.michael_bg_sp.src_rect.height = self.testing_123_height if $game_message.michael_wndw_bg_ary[self.class][5].nil? && !self.michael_bg_sp.disposed?
+    end
+    self.testing_123_height
+  end
+
+  alias testing_height height=
+  def height=(arg)
+    self.michael_bg_sp.src_rect.height = self.testing_height(arg) if $game_message.michael_wndw_bg_ary[self.class][5].nil? && !self.michael_bg_sp.disposed?
+    self.testing_height(arg)
+  end
+=end
+end
+=begin
+class Window_Message < Window_Base
+  alias michael_Window_Message_create_all_windows create_all_windows
+  def create_all_windows
+    michael_Window_Message_create_all_windows
+    @gold_window.update
   end
 end
+=end
 #==============================================================================
 # Sprite
 #==============================================================================
@@ -471,6 +526,40 @@ class Sprite                                      #Another hidden script ftw!
 
 end
 #==============================================================================
+# Scene_Menu
+#==============================================================================
+class Scene_Menu < Scene_MenuBase
+  alias michael_Scene_Menu_create_gold_window create_gold_window
+  def create_gold_window
+    michael_Scene_Menu_create_gold_window
+    @gold_window.update
+  end
+end
+#==============================================================================
+# Scene_Shop
+#==============================================================================
+class Scene_Shop < Scene_MenuBase
+  alias michael_Scene_Shop_create_gold_window create_gold_window
+  def create_gold_window
+    michael_Scene_Shop_create_gold_window
+    @gold_window.update
+  end
+end
+
+#==============================================================================
+# Scene_Battle
+#==============================================================================
+class Scene_Battle < Scene_Base
+  alias michael_Scene_Battle_start start
+  def start
+    michael_Scene_Battle_start
+    instance_variables.each do |varname|
+      ivar = instance_variable_get(varname)
+      ivar.update if ivar.is_a?(Window) && !ivar.disposed?
+    end
+  end
+end
+#==============================================================================
 # Game_Message
 #==============================================================================
 class Game_Message
@@ -517,6 +606,7 @@ end
 class Game_Interpreter
   def window_off(i)
     $game_switches[i + Wndw_Cgr::SSP] = false
+    window_default(i)
   end
   def window_on(i, name, type_movement = nil)
     $game_switches[i + Wndw_Cgr::SSP] = true
@@ -581,7 +671,6 @@ class Game_Interpreter
     }
   end
   def window_move_all(i, x, y, rect_x, rect_y, rect_width, rect_height)
-    #Feeling pro, sir?
     $game_message.michael_wndw_bg_ary.each_value {
       |value| value[5] = 'move_all'if value[0] == i
     }
