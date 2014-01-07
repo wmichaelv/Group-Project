@@ -166,7 +166,7 @@
 #  Have Fun!
 #
 #==============================================================================
-module Windows_Changer
+module Wndw_Cgr #Window Changer
   #============================================================================
   # Windows Changer = USE Game_Interpret for activation (scroll all the way
   #                   down for the key words (window_on and window_off))
@@ -175,7 +175,8 @@ module Windows_Changer
   # Default Switch = off (switch only available for activate windows)
   # This is for Original Windows - Scroll Down for Windows from other scripts
   # the array stores these values:
-  # [file_name,
+  # [window number,
+  #  file_name,
   #  file_directory,
   #  sprite.z,
   #  sprite.opacity,
@@ -187,104 +188,106 @@ module Windows_Changer
   #  sprite.src_rect.width,
   #  sprite.src_rect.height]
   #============================================================================
-  Michael_Windows_Background_ftw_101_Array = {
+  Michael_Wndw_Bg_Ary = { #Window Background Array
   Window =>
-  [0,"Element #0","Graphics\\Windows",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [0,"Element #0","Graphics\\Windows",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_Base =>
-  [1,"Element #1","Graphics\\Windows\\Window_Base",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [1,"Element #1","Graphics\\Windows\\Window_Base",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_Selectable =>
-  [2,"Element #2","Graphics\\Windows\\Window_Selectable",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [2,"Element #2","Graphics\\Windows\\Window_Selectable",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_Command =>
-  [3,"Element #3","Graphics\\Windows\\Window_Command",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [3,"Element #3","Graphics\\Windows\\Window_Command",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_HorzCommand =>
-  [4,"Element #4","Graphics\\Windows\\Window_HorzCommand",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [4,"Element #4","Graphics\\Windows\\Window_HorzCommand",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_Help =>
-  [5,"Element #5","Graphics\\Windows\\Window_Help",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [5,"Element #5","Graphics\\Windows\\Window_Help",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_Gold =>
-  [6,"Element #6","Graphics\\Windows\\Window_Gold",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [6,"Element #6","Graphics\\Windows\\Window_Gold",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_MenuCommand =>
-  [7,"Element #7","Graphics\\Windows\\Window_MenuCommand",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [7,"Element #7","Graphics\\Windows\\Window_MenuCommand",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_MenuStatus =>
-  [8,"Element #8","Graphics\\Windows\\Window_MenuStatus",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [8,"Element #8","Graphics\\Windows\\Window_MenuStatus",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_MenuActor =>
-  [9,"Element #9","Graphics\\Windows\\Window_MenuActor",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [9,"Element #9","Graphics\\Windows\\Window_MenuActor",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_ItemCategory =>
-  [10,"Element #10","Graphics\\Windows\\Window_ItemCategory",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [10,"Element #10","Graphics\\Windows\\Window_ItemCategory",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_ItemList =>
-  [11,"Element #11","Graphics\\Windows\\Window_ItemList",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [11,"Element #11","Graphics\\Windows\\Window_ItemList",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_SkillCommand =>
-  [12,"Element #12","Graphics\\Windows\\Window_SkillCommand",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [12,"Element #12","Graphics\\Windows\\Window_SkillCommand",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_SkillStatus =>
-  [13,"Element #13","Graphics\\Windows\\Window_SkillStatus",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [13,"Element #13","Graphics\\Windows\\Window_SkillStatus",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_SkillList =>
-  [14,"Element #14","Graphics\\Windows\\Window_SkillList",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [14,"Element #14","Graphics\\Windows\\Window_SkillList",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_EquipStatus =>
-  [15,"Element #15","Graphics\\Windows\\Window_EquipStatus",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [15,"Element #15","Graphics\\Windows\\Window_EquipStatus",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_EquipCommand =>
-  [16,"Element #16","Graphics\\Windows\\Window_EquipCommand",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [16,"Element #16","Graphics\\Windows\\Window_EquipCommand",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_EquipSlot =>
-  [17,"Element #17","Graphics\\Windows\\Window_EquipSlot",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [17,"Element #17","Graphics\\Windows\\Window_EquipSlot",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_EquipItem =>
-  [18,"Element #18","Graphics\\Windows\\Window_EquipItem",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [18,"Element #18","Graphics\\Windows\\Window_EquipItem",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_Status =>
-  [19,"Element #19","Graphics\\Windows\\Window_Status",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [19,"Element #19","Graphics\\Windows\\Window_Status",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_SaveFile =>
-  [20,"Element #20","Graphics\\Windows\\Window_SaveFile",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [20,"Element #20","Graphics\\Windows\\Window_SaveFile",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_ShopCommand =>
-  [21,"Element #21","Graphics\\Windows\\Window_ShopCommand",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [21,"Element #21","Graphics\\Windows\\Window_ShopCommand",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_ShopBuy =>
-  [22,"Element #22","Graphics\\Windows\\Window_ShopBuy",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [22,"Element #22","Graphics\\Windows\\Window_ShopBuy",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_ShopSell =>
-  [23,"Element #23","Graphics\\Windows\\Window_ShopSell",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [23,"Element #23","Graphics\\Windows\\Window_ShopSell",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_ShopNumber =>
-  [24,"Element #24","Graphics\\Windows\\Window_ShopNumber",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [24,"Element #24","Graphics\\Windows\\Window_ShopNumber",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_ShopStatus =>
-  [25,"Element #25","Graphics\\Windows\\Window_ShopStatus",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [25,"Element #25","Graphics\\Windows\\Window_ShopStatus",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_NameEdit =>
-  [26,"Element #26","Graphics\\Windows\\Window_NameEdit",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [26,"Element #26","Graphics\\Windows\\Window_NameEdit",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_NameInput =>
-  [27,"Element #27","Graphics\\Windows\\Window_NameInput",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [27,"Element #27","Graphics\\Windows\\Window_NameInput",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_ChoiceList =>
-  [28,"Element #28","Graphics\\Windows\\Window_ChoiceList",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [28,"Element #28","Graphics\\Windows\\Window_ChoiceList",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_NumberInput =>
-  [29,"Element #29","Graphics\\Windows\\Window_NumberInput",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [29,"Element #29","Graphics\\Windows\\Window_NumberInput",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_KeyItem =>
-  [30,"Element #30","Graphics\\Windows\\Window_KeyItem",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [30,"Element #30","Graphics\\Windows\\Window_KeyItem",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_Message =>
-  [31,"Element #31","Graphics\\Windows\\Window_Message",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [31,"Element #31","Graphics\\Windows\\Window_Message",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_ScrollText =>
-  [32,"Element #32","Graphics\\Windows\\Window_ScrollText",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [32,"Element #32","Graphics\\Windows\\Window_ScrollText",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_MapName =>
-  [33,"Element #33","Graphics\\Windows\\Window_MapName",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [33,"Element #33","Graphics\\Windows\\Window_MapName",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_BattleLog =>
-  [34,"Element #34","Graphics\\Windows\\Window_BattleLog",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [34,"Element #34","Graphics\\Windows\\Window_BattleLog",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_PartyCommand =>
-  [35,"Element #35","Graphics\\Windows\\Window_PartyCommand",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [35,"Element #35","Graphics\\Windows\\Window_PartyCommand",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_ActorCommand =>
-  [36,"Element #36","Graphics\\Windows\\Window_ActorCommand",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [36,"Element #36","Graphics\\Windows\\Window_ActorCommand",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_BattleStatus =>
-  [37,"Element #37","Graphics\\Windows\\Window_BattleStatus",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [37,"Element #37","Graphics\\Windows\\Window_BattleStatus",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_BattleActor =>
-  [38,"Element #38","Graphics\\Windows\\Window_BattleActor",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [38,"Element #38","Graphics\\Windows\\Window_BattleActor",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_BattleEnemy =>
-  [39,"Element #39","Graphics\\Windows\\Window_BattleEnemy",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [39,"Element #39","Graphics\\Windows\\Window_BattleEnemy",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_BattleSkill =>
-  [40,"Element #40","Graphics\\Windows\\Window_BattleSkill",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [40,"Element #40","Graphics\\Windows\\Window_BattleSkill",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_BattleItem =>
-  [41,"Element #41","Graphics\\Windows\\Window_BattleItem",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [41,"Element #41","Graphics\\Windows\\Window_BattleItem",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_TitleCommand =>
-  [42,"Element #42","Graphics\\Windows\\Window_TitleCommand",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [42,"Element #42","Graphics\\Windows\\Window_TitleCommand",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_GameEnd =>
-  [43,"Element #43","Graphics\\Windows\\Window_GameEnd",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [43,"Element #43","Graphics\\Windows\\Window_GameEnd",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_DebugLeft =>
-  [44,"Element #44","Graphics\\Windows\\Window_DebugLeft",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [44,"Element #44","Graphics\\Windows\\Window_DebugLeft",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   Window_DebugRight =>
-  [45,"Element #45","Graphics\\Windows\\Window_DebugRight",nil,nil,'false',nil,nil,nil,nil,nil,nil],
+  [45,"Element #45","Graphics\\Windows\\Window_DebugRight",nil,nil,nil,nil,nil,nil,nil,nil,nil],
   }  #Add more elements here
 
-  Number_Of_Element = 46 #Modify this number as more elements are added
+  NOE = 46 #NUMBER_OF_ELEMENT
+                         #Modify this number as more elements are added
 
-  Starting_Switch_Point = 500 #Modify this number if script clash with other script(s)
+  SSP = 500 #STARTING_SWITCH_POINT
+            #Modify this number if script clash with other script(s)
 end
 #==============================================================================
 # Cache
@@ -295,40 +298,38 @@ module Cache
   end
 end
 #==============================================================================
-# Window
+# Window_Base
 #==============================================================================
-class Window
-
+class Window_Base < Window
   attr_accessor :oh_I_got_changed
-  attr_accessor :michael_background_viewport_101
-  alias michael_Window_initialize initialize
-  def initialize(x, y, width, height)                  #Gotta love hidden script!
-    michael_Window_initialize(x, y, width, height)
+  attr_accessor :michael_bg_vp
+  alias michael_Base_initialize initialize
+  alias michael_Window_Base_update update
+  alias michael_Window_Base_dispose dispose
+  alias michael_Window_Base_show show
+  alias michael_Window_Base_hide hide
+
+  def initialize(x, y, width, height)
+    michael_Base_initialize(x, y, width, height)
     self.oh_I_got_changed = false
-    create_michael_background_viewport_101_102_103_104
-    create_michael_background_sprite_101
+    create_michael_bg_vp
+    create_michael_bg_sp
+    @michael_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_bg_ary[self.class])
   end
 
-  def create_michael_background_viewport_101_102_103_104 #Naming convention ftw
-    @michael_background_viewport_101 = Viewport.new      #The only locations where new member functions are created
-    @michael_background_viewport_101.z = self.z - 1      #are class Window, class Sprite, module Cache
-end                                                      #and class Game_Interpreter. Everything else is aliased.
+  def create_michael_bg_vp             #Naming convention ftw
+    self.michael_bg_vp = Viewport.new  #The only locations where new member functions are created
+    self.michael_bg_vp.z = self.z - 1  #are class Window_Base, class Sprite, module Cache
+  end                                  #and class Game_Interpreter. Everything else is aliased.
 
-  def create_michael_background_sprite_101
-    @michael_self_background_ftw_101 = Sprite.new
+  def create_michael_bg_sp
+    @michael_bg_sp = Sprite.new
   end
-
-  alias michael_Window_update update
-  def update
-    michael_Window_update
-    @michael_self_background_ftw_101.michael_window_background_sprite(self, $game_message.michael_windows_background_ftw_101[self.class])
-  end
-
-  alias michael_Window_dispose dispose                 #Everything is disposed here
-  def dispose                                          #Basically every window made,
-    michael_Window_dispose                             #1 viewport and 1 sprite are also made
-    @michael_background_viewport_101.dispose
-    @michael_self_background_ftw_101.dispose
+                                               #Everything is disposed here
+  def dispose                                  #Basically every window made,
+    @michael_bg_sp.dispose                     #1 viewport and 1 sprite are also made
+    self.michael_bg_vp.dispose
+    michael_Window_Base_dispose
   end
 
   def did_I_get_changed?
@@ -338,42 +339,62 @@ end                                                      #and class Game_Interpr
   def change_me_by_michael
     self.oh_I_got_changed = true
   end
-end
-#==============================================================================
-# Window_Base
-#==============================================================================
-class Window_Base < Window
-  alias michael_Window_Base_show show
-  alias michael_Window_Base_hide hide
+
   def show
     michael_Window_Base_show
-    @michael_self_background_ftw_101.visible = true
+    @michael_bg_sp.visible = true
     self
   end
+
   def hide
     michael_Window_Base_hide
-    @michael_self_background_ftw_101.visible = false
+    @michael_bg_sp.visible = false
     self
+  end
+
+  def update
+    michael_Window_Base_update
+    @michael_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_bg_ary[self.class])
+  end
+  alias window_x x
+  def x
+    @michael_bg_sp.x = self.window_x if $game_message.michael_wndw_bg_ary[self.class][5].nil? && $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]] && !self.disposed?
+    window_x
+  end
+  alias window_y y
+  def y
+    @michael_bg_sp.y = self.window_y if $game_message.michael_wndw_bg_ary[self.class][5].nil? && $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]] && !self.disposed?
+    window_y
+  end
+  alias window_width width
+  def width
+    @michael_bg_sp.src_rect.width = self.window_width if $game_message.michael_wndw_bg_ary[self.class][5].nil? && $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]] && !self.disposed?
+    window_width
+  end
+  alias window_height height
+  def height
+    @michael_bg_sp.src_rect.height = self.window_height if $game_message.michael_wndw_bg_ary[self.class][5].nil? && $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]] && !@michael_bg_sp.disposed?
+    window_height
   end
 end
 #==============================================================================
 # Sprite
 #==============================================================================
 class Sprite                                      #Another hidden script ftw!
-  def michael_window_background_sprite(window, i)
-    ($game_switches[Windows_Changer::Starting_Switch_Point + i[0]]) michael_bg_switch_on(window,i) : michael_bg_switch_off(window, i)
+  def michael_sp_updt(window, i)
+    $game_switches[Wndw_Cgr::SSP + i[0]] ? michael_bg_on(window,i) : michael_bg_off(window, i)
   end
 
-  def michael_bg_switch_on(window, i)
+  def michael_bg_on(window, i)
     michael_set_self_vp(window)
     michael_save_wndw_opa(window) unless window.did_I_get_changed?
     michael_clear_wndw_opa(window)
-    michael_set_self_properties(window, i)
-    michael_modify_self(i) unless i[5] == 'false'
+    michael_set_self_ppts(window, i) #SET SELF'S PROPERTIES
+    michael_modify_self(window, i) unless i[5].nil?
   end
 
   def michael_set_self_vp(window)
-    self.viewport = (window.viewport) ? window.viewport : window.michael_background_viewport_101
+    self.viewport = (window.viewport) ? window.viewport : window.michael_bg_vp
   end
 
   def michael_save_wndw_opa(window)
@@ -387,7 +408,7 @@ class Sprite                                      #Another hidden script ftw!
     window.change_me_by_michael
   end
 
-  def michael_set_self_properties(window, i)
+  def michael_set_self_ppts(window, i)
     self.x = window.x
     self.y = window.y
     self.src_rect.width = window.width
@@ -401,8 +422,8 @@ class Sprite                                      #Another hidden script ftw!
     self.opacity = i[4] if (self.visible) && !(i[4].nil?)
   end
 
-  def michael_modify_self(i)
-    case String(i[5])
+  def michael_modify_self(window, i)
+    case i[5]
     when 'show_all'
       self.x -= ((self.bitmap.width - window.width) / 2)
       self.src_rect.x = 0 if self.x < 0
@@ -439,8 +460,7 @@ class Sprite                                      #Another hidden script ftw!
     end
   end
 
-  #This will return window to default opacity after window_off
-  def michael_bg_switch_off(window, i)
+  def michael_bg_off(window, i)
     self.visible = false
     window.oh_I_got_changed = false
     if ((window.openness == 255) && window.visible)
@@ -450,178 +470,15 @@ class Sprite                                      #Another hidden script ftw!
   end
 
 end
-=begin #Scene_Base, Scene_Save, and Scene_File are left out for unnecessary process
-#==============================================================================
-# Scene_Base
-#==============================================================================
-class Scene_Base
-  alias michael_Scene_Base_start start
-  def start
-    michael_Scene_Base_start
-    update_all_windows
-  end
-end
-=end
-#==============================================================================
-# Scene_Title
-#==============================================================================
-class Scene_Title < Scene_Base
-  alias michael_Scene_Title_start start
-  def start
-    michael_Scene_Title_start
-    update_all_windows
-  end
-end
-#==============================================================================
-# Scene_Map
-#==============================================================================
-class Scene_Map < Scene_Base
-  alias michael_Scene_Map_start start
-  def start
-    michael_Scene_Map_start
-    update_all_windows
-  end
-end
-#==============================================================================
-# Scene_MenuBase
-#==============================================================================
-class Scene_MenuBase < Scene_Base
-  alias michael_Scene_MenuBase_start start
-  def start
-    michael_Scene_MenuBase_start
-    update_all_windows
-  end
-end
-#==============================================================================
-# Scene_Menu
-#==============================================================================
-class Scene_Menu < Scene_MenuBase
-  alias michael_Scene_Menu_start start
-  def start
-    michael_Scene_Menu_start
-    update_all_windows
-  end
-end
-#==============================================================================
-# Scene_ItemBase
-#==============================================================================
-class Scene_ItemBase < Scene_MenuBase
-  alias michael_Scene_ItemBase_start start
-  def start
-    michael_Scene_ItemBase_start
-    update_all_windows
-  end
-end
-#==============================================================================
-# Scene_Item
-#==============================================================================
-class Scene_Item < Scene_ItemBase
-  alias michael_Scene_Item_start start
-  def start
-    michael_Scene_Item_start
-    update_all_windows
-  end
-end
-#==============================================================================
-# Scene_Skill
-#==============================================================================
-class Scene_Skill < Scene_ItemBase
-  alias michael_Scene_Skill_start start
-  def start
-    michael_Scene_Skill_start
-    update_all_windows
-  end
-end
-#==============================================================================
-# Scene_Equip
-#==============================================================================
-class Scene_Equip < Scene_MenuBase
-  alias michael_Scene_Equip_start start
-  def start
-    michael_Scene_Equip_start
-    update_all_windows
-  end
-end
-#==============================================================================
-# Scene_Status
-#==============================================================================
-class Scene_Status < Scene_MenuBase
-  alias michael_Scene_Status_start start
-  def start
-    michael_Scene_Status_start
-    update_all_windows
-  end
-end
-#==============================================================================
-# Scene_File
-#==============================================================================
-class Scene_File < Scene_MenuBase
-  alias michael_Scene_File_start start
-  def start
-    michael_Scene_File_start
-    update_all_windows
-  end
-end
-#==============================================================================
-# Scene_End
-#==============================================================================
-class Scene_End < Scene_MenuBase
-  alias michael_Scene_End_start start
-  def start
-    michael_Scene_End_start
-    update_all_windows
-  end
-end
-#==============================================================================
-# Scene_Shop
-#==============================================================================
-class Scene_Shop < Scene_MenuBase
-  alias michael_Scene_Shop_start start
-  def start
-    michael_Scene_Shop_start
-    update_all_windows
-  end
-end
-#==============================================================================
-# Scene_Name
-#==============================================================================
-class Scene_Name < Scene_MenuBase
-  alias michael_Scene_Name_start start
-  def start
-    michael_Scene_Name_start
-    update_all_windows
-  end
-end
-#==============================================================================
-# Scene_Debug
-#==============================================================================
-class Scene_Debug < Scene_MenuBase
-  alias michael_Scene_Debug_start start
-  def start
-    michael_Scene_Debug_start
-    update_all_windows
-  end
-end
-#==============================================================================
-# Scene_Battle
-#==============================================================================
-class Scene_Battle < Scene_Base
-  alias michael_Scene_Battle_start start
-  def start
-    michael_Scene_Battle_start
-    update_all_windows
-  end
-end
 #==============================================================================
 # Game_Message
 #==============================================================================
 class Game_Message
-  attr_accessor :michael_windows_background_ftw_101
-  alias michael_initialize initialize
+  attr_accessor :michael_wndw_bg_ary
+  alias michael_ini initialize
   def initialize
-    michael_initialize
-    @michael_windows_background_ftw_101 =
-    Windows_Changer::Michael_Windows_Background_ftw_101_Array
+    michael_ini
+    @michael_wndw_bg_ary = Wndw_Cgr::Michael_Wndw_Bg_Ary
   end
 end
 #==============================================================================
@@ -629,14 +486,16 @@ end
 #==============================================================================
 module DataManager
   class << self
-    alias michael_data_manager_101_init init
+    alias michael_dt_mngr_init init
   end
   def self.init
-    michael_data_manager_101_init
-    create_Windows_Changer_directory
+    michael_dt_mngr_init
+    create_Wndw_Cgr_directory
   end
-  def self.create_Windows_Changer_directory
-    Windows_Changer::Michael_Windows_Background_ftw_101_Array.each_value {|value| Dir.mkdir(value[2]) if !File.exists?(value[2])}
+  def self.create_Wndw_Cgr_directory
+    $game_message.michael_wndw_bg_ary.each_value {
+      |value| Dir.mkdir(value[2]) if !File.exists?(value[2])
+    }
   end
 end
 #===============================================================================
@@ -649,7 +508,7 @@ module DataManager
   def self.create_game_objects
     michael_Scene_Battle_create_game_objects
     #Default setting = false
-    $game_switches[Windows_Changer::Starting_Switch_Point...Windows_Changer::Starting_Switch_Point + Windows_Changer::Number_Of_Element] = false
+    $game_switches[Wndw_Cgr::SSP...Wndw_Cgr::SSP + Wndw_Cgr::NOE] = false
   end
 end
 #===============================================================================
@@ -657,91 +516,91 @@ end
 #===============================================================================
 class Game_Interpreter
   def window_off(i)
-    $game_switches[i + Windows_Changer::Starting_Switch_Point] = false
+    $game_switches[i + Wndw_Cgr::SSP] = false
   end
-  def window_on(i, name, type_movement = 'false')
-    $game_switches[i + Windows_Changer::Starting_Switch_Point] = true
-    $game_message.michael_windows_background_ftw_101.each_value {
+  def window_on(i, name, type_movement = nil)
+    $game_switches[i + Wndw_Cgr::SSP] = true
+    $game_message.michael_wndw_bg_ary.each_value {
       |value| value[1] = "#{name}"  if value[0] == i
     }
-    $game_message.michael_windows_background_ftw_101.each_value {
+    $game_message.michael_wndw_bg_ary.each_value {
       |value| value[5] = String(type_movement) if value[0] == i
-    } if String(type_movement) == 'false' || 'show_all' || 'center'
+    } if String(type_movement) == nil || 'show_all' || 'center'
   end
   def window_depth(i, depth)
-    $game_message.michael_windows_background_ftw_101.each_value {
+    $game_message.michael_wndw_bg_ary.each_value {
       |value| value[3] = depth if value[0] == i
     }
   end
   def window_opacity(i, opacity)
-    $game_message.michael_windows_background_ftw_101.each_value {
+    $game_message.michael_wndw_bg_ary.each_value {
       |value| value[4] = opacity if value[0] == i
     }
   end
   def window_default(i)
-    $game_message.michael_windows_background_ftw_101.each_value {
+    $game_message.michael_wndw_bg_ary.each_value {
       |value| value[3] = nil if value[0] == i
     }
-    $game_message.michael_windows_background_ftw_101.each_value {
+    $game_message.michael_wndw_bg_ary.each_value {
       |value| value[4] = nil if value[0] == i
     }
-    $game_message.michael_windows_background_ftw_101.each_value {
-      |value| value[5] = 'false' if value[0] == i
+    $game_message.michael_wndw_bg_ary.each_value {
+      |value| value[5] = nil if value[0] == i
     }
   end
   def window_show_all(i)
-    $game_message.michael_windows_background_ftw_101.each_value {
+    $game_message.michael_wndw_bg_ary.each_value {
       |value| value[5] = 'show_all' if value[0] == i
     }
   end
   def window_show_all_move(i, x, y)
-    $game_message.michael_windows_background_ftw_101.each_value {
+    $game_message.michael_wndw_bg_ary.each_value {
       |value| value[5] = 'move' if value[0] == i
     }
-    $game_message.michael_windows_background_ftw_101.each_value {
+    $game_message.michael_wndw_bg_ary.each_value {
       |value| value[6] = x if value[0] == i
     }
-    $game_message.michael_windows_background_ftw_101.each_value {
+    $game_message.michael_wndw_bg_ary.each_value {
       |value| value[7] = y if value[0] == i
     }
   end
   def window_move_origin(i,x,y)
-    $game_message.michael_windows_background_ftw_101.each_value {
+    $game_message.michael_wndw_bg_ary.each_value {
       |value| value[5] = 'move_origin' if value[0] == i
     }
-    $game_message.michael_windows_background_ftw_101.each_value {
+    $game_message.michael_wndw_bg_ary.each_value {
       |value| value[6] = x if value[0] == i
     }
-    $game_message.michael_windows_background_ftw_101.each_value {
+    $game_message.michael_wndw_bg_ary.each_value {
       |value| value[7] = y if value[0] == i
     }
   end
   def window_center(i)
-    $game_message.michael_windows_background_ftw_101.each_value {
+    $game_message.michael_wndw_bg_ary.each_value {
       |value| value[5] = 'center' if value[0] == i
     }
   end
   def window_move_all(i, x, y, rect_x, rect_y, rect_width, rect_height)
     #Feeling pro, sir?
-    $game_message.michael_windows_background_ftw_101.each_value {
+    $game_message.michael_wndw_bg_ary.each_value {
       |value| value[5] = 'move_all'if value[0] == i
     }
-    $game_message.michael_windows_background_ftw_101.each_value {
+    $game_message.michael_wndw_bg_ary.each_value {
       |value| value[6] = x if value[0] == i
     }
-    $game_message.michael_windows_background_ftw_101.each_value {
+    $game_message.michael_wndw_bg_ary.each_value {
       |value| value[7] = y if value[0] == i
     }
-    $game_message.michael_windows_background_ftw_101.each_value {
+    $game_message.michael_wndw_bg_ary.each_value {
       |value| value[8] = rect_x if value[0] == i
     }
-    $game_message.michael_windows_background_ftw_101.each_value {
+    $game_message.michael_wndw_bg_ary.each_value {
       |value| value[9] = rect_y if value[0] == i
     }
-    $game_message.michael_windows_background_ftw_101.each_value {
+    $game_message.michael_wndw_bg_ary.each_value {
       |value| value[10] = rect_width if value[0] == i
     }
-    $game_message.michael_windows_background_ftw_101.each_value {
+    $game_message.michael_wndw_bg_ary.each_value {
       |value| value[11] = rect_height if value[0] == i
     }
   end
