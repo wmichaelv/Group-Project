@@ -473,53 +473,53 @@ if JMSC::SEF::YSE_OverlayMapping
       speed = JMSC::SEF::Slide_Speed
       case d
       when 2
-        #@spriteset.tilemap.oy += h + ($game_map.height * 32 - h) * 2
+        @spriteset.tilemap.oy += h + ($game_map.height * 32 - h) * 2
         @slidemap2.y = Graphics.height
         $game_temp.jms_met_slidex = 0
         $game_temp.jms_met_slidey = h
         for i in 0...h / speed
           @slidemap.oy += speed
           @slidemap2.y -= speed
-          #@spriteset.tilemap.oy += speed
+          @spriteset.tilemap.oy += speed
           $game_temp.jms_met_slidey -= speed
           @spriteset.update_characters
           Graphics.update
         end
       when 4
-        #@spriteset.tilemap.ox -= w + ($game_map.width * 32 - w) * 2
+        @spriteset.tilemap.ox -= w + ($game_map.width * 32 - w) * 2
         @slidemap2.x = -Graphics.width
         $game_temp.jms_met_slidex = -w
         $game_temp.jms_met_slidey = 0
         for i in 0...w / speed
           @slidemap.ox -= speed
           @slidemap2.x += speed
-          #@spriteset.tilemap.ox -= speed
+          @spriteset.tilemap.ox -= speed
           $game_temp.jms_met_slidex += speed
           @spriteset.update_characters
           Graphics.update
         end
       when 6
-        #@spriteset.tilemap.ox += w + ($game_map.width * 32 - w) * 2
+        @spriteset.tilemap.ox += w + ($game_map.width * 32 - w) * 2
         @slidemap2.x = Graphics.width
         $game_temp.jms_met_slidex = w
         $game_temp.jms_met_slidey = 0
         for i in 0...w / speed
           @slidemap.ox += speed
           @slidemap2.x -= speed
-          #@spriteset.tilemap.ox += speed
+          @spriteset.tilemap.ox += speed
           $game_temp.jms_met_slidex -= speed
           @spriteset.update_characters
           Graphics.update
           end
       when 8
-        #@spriteset.tilemap.oy -= h + ($game_map.height * 32 - h) * 2
+        @spriteset.tilemap.oy -= h + ($game_map.height * 32 - h) * 2
         @slidemap2.y = -Graphics.height
         $game_temp.jms_met_slidex = 0
         $game_temp.jms_met_slidey = -h
         for i in 0...h / speed
           @slidemap.oy -= speed
           @slidemap2.y += speed
-          #@spriteset.tilemap.oy -= speed
+          @spriteset.tilemap.oy -= speed
           $game_temp.jms_met_slidey += speed
           @spriteset.update_characters
           Graphics.update
