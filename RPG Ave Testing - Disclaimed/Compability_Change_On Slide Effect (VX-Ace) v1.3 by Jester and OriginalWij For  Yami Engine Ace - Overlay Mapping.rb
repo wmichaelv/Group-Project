@@ -57,7 +57,7 @@ module JMSC # Jester Mini-Script Customization
     MA_HoverAlert = false #Modern Algebra's Hover Alert. (Overwrites Sprite_HoverAlert update!)
     Pearl_Life_Bars = false #falcao's Pearl v2 "Life Bar"
     Pearl_Skillbar = false #falcao's Pearl v2 "Skillbar"
-    YSE_OverlayMapping = true #add-on
+    Michael_Compatible = true #add-on
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
 # END OF CUSTOMIZATION!
@@ -416,16 +416,8 @@ end #Pearl Lifebars
 #==============================================================================
 # Compability add-on
 #==============================================================================
-#Yami Overlay
 
-if JMSC::SEF::YSE_OverlayMapping
-  class Spriteset_Map
-    attr_accessor :parallax
-    attr_accessor :ground
-    attr_accessor :par
-    attr_accessor :light
-    attr_accessor :shadow
-  end
+if JMSC::SEF::Michael_Compatible
 
   class Scene_Map < Scene_Base
 
