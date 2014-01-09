@@ -428,51 +428,98 @@ if JMSC::SEF::YSE_OverlayMapping
   end
 
   class Scene_Map < Scene_Base
+
+    def jms_met_slideprocessing
+    trans_slide = true
+    if $jimported[:jms_met]
+      trans_slide = false unless $game_player.jms_met_overedge? == 0
+    end
+    $game_player.transparent = true if $game_player.vehicle_type == :walk && trans_slide
+    @spriteset.update
+    @spriteset.dispose_pictures
+    @slidemap = Sprite.new
+    @slidemap.bitmap = Graphics.snap_to_bitmap
+    @slidemap.z = 1
+    @spriteset.create_pictures
+    jms_met_pretransfer #pre-transfer
+    $game_temp.fade_type = 666
+    perform_transfer
+    $game_map.autoplay
+    $game_map.update
+    @spriteset.create_characters
+    @spriteset = Spriteset_Map.new
+    @slidemap.visible = false
+    @slidemap2 = Sprite.new
+    @slidemap2.bitmap = Graphics.snap_to_bitmap
+    @slidemap2.z = 1
+    @slidemap2.src_rect.x = 0
+    @slidemap2.src_rect.y = 0
+    @slidemap.visible = true
+    jms_met_preslide #pre-slide
+    $game_player.transparent = false if $game_player.vehicle_type == :walk
+    jms_met_performslide($game_player.direction)
+    @slidemap.dispose
+    @slidemap2.dispose
+    @spriteset.update
+    Input.update
+    $game_temp.jms_met_slidex = 0
+    $game_temp.jms_met_slidey = 0
+    $game_temp.jms_met_sliding = false
+  end
+
     def jms_met_performslide(d)
       w = Graphics.width
       h = Graphics.height
       speed = JMSC::SEF::Slide_Speed
       case d
       when 2
-        @spriteset.tilemap.oy += h + ($game_map.height * 32 - h) * 2
+        #@spriteset.tilemap.oy += h + ($game_map.height * 32 - h) * 2
+        @slidemap2.y = Graphics.height
         $game_temp.jms_met_slidex = 0
         $game_temp.jms_met_slidey = h
         for i in 0...h / speed
           @slidemap.oy += speed
-          @spriteset.tilemap.oy += speed
+          @slidemap2.y -= speed
+          #@spriteset.tilemap.oy += speed
           $game_temp.jms_met_slidey -= speed
           @spriteset.update_characters
           Graphics.update
         end
       when 4
-        @spriteset.tilemap.ox -= w + ($game_map.width * 32 - w) * 2
+        #@spriteset.tilemap.ox -= w + ($game_map.width * 32 - w) * 2
+        @slidemap2.x = -Graphics.width
         $game_temp.jms_met_slidex = -w
         $game_temp.jms_met_slidey = 0
         for i in 0...w / speed
           @slidemap.ox -= speed
-          @spriteset.tilemap.ox -= speed
+          @slidemap2.x += speed
+          #@spriteset.tilemap.ox -= speed
           $game_temp.jms_met_slidex += speed
           @spriteset.update_characters
           Graphics.update
         end
       when 6
-        @spriteset.tilemap.ox += w + ($game_map.width * 32 - w) * 2
+        #@spriteset.tilemap.ox += w + ($game_map.width * 32 - w) * 2
+        @slidemap2.x = Graphics.width
         $game_temp.jms_met_slidex = w
         $game_temp.jms_met_slidey = 0
         for i in 0...w / speed
           @slidemap.ox += speed
-          @spriteset.tilemap.ox += speed
+          @slidemap2.x -= speed
+          #@spriteset.tilemap.ox += speed
           $game_temp.jms_met_slidex -= speed
           @spriteset.update_characters
           Graphics.update
           end
       when 8
-        @spriteset.tilemap.oy -= h + ($game_map.height * 32 - h) * 2
+        #@spriteset.tilemap.oy -= h + ($game_map.height * 32 - h) * 2
+        @slidemap2.y = -Graphics.height
         $game_temp.jms_met_slidex = 0
         $game_temp.jms_met_slidey = -h
         for i in 0...h / speed
           @slidemap.oy -= speed
-          @spriteset.tilemap.oy -= speed
+          @slidemap2.y += speed
+          #@spriteset.tilemap.oy -= speed
           $game_temp.jms_met_slidey += speed
           @spriteset.update_characters
           Graphics.update
@@ -482,6 +529,5 @@ if JMSC::SEF::YSE_OverlayMapping
   end
 
 
-
-
 end
+
