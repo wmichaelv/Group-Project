@@ -1,12 +1,9 @@
-
 #===============================================================================
 #     Michael Customized Parthanandix's Simple Horizontal Menu
 #
 # Derived from Parthanandix's Simple Horizontal Menu
 # Change: -Scene_Item is combined with Scene_Menu
 #===============================================================================
-
-
 module HelpText
   # Change the help text below for each of the menu options.
   Item_Help = "Use an item."
@@ -21,8 +18,62 @@ module HelpText
   # This is to display help text when selecting an actor for a personal command.
   Select_Actor_Help = "Choose an actor."
 end
+#==============================================================================
+# ** Window_ItemList
+#------------------------------------------------------------------------------
+#  This window displays a list of party items on the item screen.
+#==============================================================================
+
+class Window_ItemList < Window_Selectable
+  def initialize(x, y, width, height)
+    super
+    @category = :none
+    @data = []
+  end
+  def category=(category)
+    return if @category == category
+    @category = category
+    refresh
+    self.oy = 0
+  end
+  def col_max; return 2; end
+  def item_max; @data ? @data.size : 1; end
+  def item; @data && index >= 0 ? @data[index] : nil; end
+  def current_item_enabled?; enable?(@data[index]); end
+  def include?(item)
+    case @category
+    when :item
+      item.is_a?(RPG::Item) || item.is_a?(RPG::Weapon) || item.is_a?(RPG::Armor)
+    else
+      false
+    end
+  end
+  def enable?(item); $game_party.usable?(item); end
+  def make_item_list
+    @data = $game_party.all_items.select {|item| include?(item) }
+    @data.push(nil) if include?(nil)
+  end
+  def select_last; select(@data.index($game_party.last_item.object) || 0); end
+  def draw_item(index)
+    item = @data[index]
+    if item
+      rect = item_rect(index)
+      rect.width -= 4
+      draw_item_name(item, rect.x, rect.y, enable?(item))
+      draw_item_number(rect, item)
+    end
+  end
+  def draw_item_number(rect, item)
+    draw_text(rect, sprintf(":%2d", $game_party.item_number(item)), 2)
+  end
+  def update_help; @help_window.set_item(item); end
+  def refresh; make_item_list; create_contents; draw_all_items; end
+end
 
 class Window_Parthanandix < Window_HorzCommand
+
+  attr_reader   :item_window
+
   def make_command_list
     add_command(Vocab::item, :item)
     add_command(Vocab::continue, :load)
@@ -31,6 +82,14 @@ class Window_Parthanandix < Window_HorzCommand
   end
   def window_width
     return Graphics.width
+  end
+  def update
+    super
+    @item_window.category = :item if @item_window
+  end
+  def item_window=(item_window)
+    @item_window = item_window
+    #update
   end
   def col_max
     return 5
@@ -119,7 +178,6 @@ class Scene_derived_by_michael < Scene_Base
     create_actor_window
     create_help_window
     create_command_window
-    create_category_window
     create_item_window
   end
 
@@ -140,28 +198,24 @@ class Scene_derived_by_michael < Scene_Base
     @command_window.set_handler(:cancel,    method(:return_scene))
   end
 
-  def command_item; @command_window.hide; @category_window.show.activate; end
+  def command_item; @item_window.activate; @item_window.select_last; end
   def command_load; SceneManager.call(Scene_Load); end
   def command_game_end; SceneManager.call(Scene_End); end
-	def on_personal_cancel; return_scene; end
-
+  def on_personal_cancel; return_scene; end
   def create_gold_window
     @gold_window = Window_Gold.new
     @gold_window.x = 0
     @gold_window.y = 368
     @gold_window.width = 200
   end
-
   def create_actor_window
     @actor_window = Window_MenuActor.new
     @actor_window.set_handler(:ok,     method(:on_actor_ok))
     @actor_window.set_handler(:cancel, method(:on_actor_cancel))
   end
-
   def item; @item_window.item; end
   def user; $game_party.movable_members.max_by {|member| member.pha }; end
   def cursor_left?; @item_window.index % 2 == 0; end
-
   def show_sub_window(window)
     width_remain = Graphics.width - window.width
     window.x = cursor_left? ? width_remain : 0
@@ -169,17 +223,14 @@ class Scene_derived_by_michael < Scene_Base
     @viewport.rect.width = width_remain
     window.show.activate
   end
-
   def hide_sub_window(window)
     @viewport.rect.x = @viewport.ox = 0
     @viewport.rect.width = Graphics.width
     window.hide.deactivate
     activate_item_window
   end
-
   def on_actor_ok; (item_usable?) ? use_item : Sound.play_buzzer; end
   def on_actor_cancel; hide_sub_window(@actor_window); end
-
   def determine_item
     if item.for_friend?
       show_sub_window(@actor_window)
@@ -189,9 +240,7 @@ class Scene_derived_by_michael < Scene_Base
       activate_item_window
     end
   end
-
   def activate_item_window; @item_window.refresh; @item_window.activate; end
-
   def item_target_actors
     if !item.for_friend?
       []
@@ -201,21 +250,17 @@ class Scene_derived_by_michael < Scene_Base
       [$game_party.members[@actor_window.index]]
     end
   end
-
   def item_usable?; user.usable?(item) && item_effects_valid?; end
-
   def item_effects_valid?
     item_target_actors.any? do |target|
       target.item_test(user, item)
     end
   end
-
   def use_item_to_actors
     item_target_actors.each do |target|
       item.repeats.times { target.item_apply(user, item) }
     end
   end
-
   def use_item
     play_se_for_item
     user.use_item(item)
@@ -224,40 +269,24 @@ class Scene_derived_by_michael < Scene_Base
     check_gameover
     @actor_window.refresh
   end
-
   def check_common_event; SceneManager.goto(Scene_Map) if $game_temp.common_event_reserved?; end
-
   def create_help_window
     @help_window = Window_NewHelp.new
     @help_window.z = @actor_window.z - 1
     @help_window.x = 200
     @help_window.y = 368
   end
-
-  def create_category_window
-    @category_window = Window_ItemCategory.new
-    @category_window.viewport = @viewport
-    @category_window.help_window = @help_window
-    @category_window.y = 0
-    @category_window.set_handler(:ok,     method(:on_category_ok))
-    @category_window.set_handler(:cancel, method(:on_category_cancel))
-  end
-
-  def on_category_ok; @item_window.activate; @item_window.select_last; end
-
-  def on_category_cancel; @category_window.hide.unselect; @command_window.show.activate; end
-
   def create_item_window
     @item_window = Window_ItemList.new(0, 48, Graphics.width, Graphics.height - 96)
     @item_window.viewport = @viewport
     @item_window.help_window = @help_window
     @item_window.set_handler(:ok,     method(:on_item_ok))
     @item_window.set_handler(:cancel, method(:on_item_cancel))
-    @category_window.item_window = @item_window
+    @command_window.item_window = @item_window
   end
 
   def on_item_ok; $game_party.last_item.object = item; determine_item; end
-  def on_item_cancel; @item_window.unselect; @category_window.activate; end
+  def on_item_cancel; @item_window.unselect; @command_window.activate; end
   def play_se_for_item; Sound.play_use_item; end
   def use_item; super; @item_window.redraw_current_item; end
   def next_actor; @actor = $game_party.menu_actor_next; on_actor_change; end
