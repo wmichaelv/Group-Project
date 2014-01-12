@@ -26,8 +26,10 @@
 #==============================================================================
 
 #==============================================================================
-#  Biography lol
+# Script Biography lol
 #==============================================================================
+# 2013.01.12 --Improve option on resize and add feature for color
+# 2013.01.11 --Add feature to resizing picture based on height & width ratio / user input
 # 2013.01.09 --Auto-Generate all Window sub-classes. -Add feature for auto and manual.
 # 2013.01.08 --Can't keep track on what happened today.
 # 2013.01.07 --FLICKER GOODBYE - flicker bug is fixed. 100% working. I'll give up if I found another  bug.
@@ -58,7 +60,7 @@
 #            --Scene_MenuBase is added
 #            --Fixed bugs for 'name'
 #            --Fixed bugs on various Scenes
-# 2013.12.24 --Script is uploaded
+# 2013.12.24 --Script is uploaded << Ver. 1.0
 # 2013.12.23 --Window_Message is completed
 # 2013.12.22 --Scene_Equip is completed
 #            --Scene_Skill is completed
@@ -528,7 +530,7 @@ class Window
   def initialize(x, y, width, height)
 
     self.oh_I_got_changed = false
-    create_michael_bg_sp(x,y, width, height)
+    create_michael_bg_sp(x, y, width, height)
     michael_Window_initialize(x, y, width, height)
     create_michael_bg_vp
     self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_bg_ary[self.class])
@@ -544,14 +546,13 @@ class Window
                                        #and class Game_Interpreter. Everything else is aliased.
   end
 
-  def create_michael_bg_sp(x, y, w, h)
+  def create_michael_bg_sp(w_x, w_y, w_w, w_h)
 
     self.michael_bg_sp = Sprite.new
-    self.michael_bg_sp.x = x
-    self.michael_bg_sp.y = y
-    self.michael_bg_sp.src_rect.width = w
-    self.michael_bg_sp.src_rect.height = h
-
+    self.michael_bg_sp.x = w_x
+    self.michael_bg_sp.y = w_y
+    self.michael_bg_sp.src_rect.width = w_w
+    self.michael_bg_sp.src_rect.height = w_h
   end
 
   def did_I_get_changed?
@@ -611,12 +612,12 @@ class Window
 
   end
 
-  def width
-
-    self.michael_bg_sp.src_rect.width = self.michael_sp_width
-    self.michael_sp_width
-
-  end
+  #def width
+  #
+  #  self.michael_bg_sp.src_rect.width = self.michael_sp_width
+  #  self.michael_sp_width
+  #
+  #end
 
   def width=(arg)
 
@@ -625,19 +626,19 @@ class Window
 
   end
 
-  def height
+  #def height
+  #
+  #  self.michael_bg_sp.src_rect.height = self.michael_sp_height
+  #  self.michael_sp_height
+  #
+  #end
 
-    self.michael_bg_sp.src_rect.height = self.michael_sp_height
-    self.michael_sp_height
-
-  end
-
-  def height=(arg)
-
-    self.michael_sp_height_asgn(arg)
-    self.michael_bg_sp.src_rect.height = arg
-
-  end
+  #def height=(arg)
+  #
+  #  self.michael_sp_height_asgn(arg)
+  #  self.michael_bg_sp.src_rect.height = arg
+  #
+  #end
 
 end
 
@@ -687,9 +688,10 @@ class Sprite
 
     self.x = window.x
     self.y = window.y
-    self.src_rect.width = window.width
-    self.src_rect.height = window.height
-
+    unless caller[1][/`.*'/][1..-2] == 'initialize'
+    #  self.src_rect.width = window.width
+    #  self.src_rect.height = window.height
+    end
     self.visible = ((window.open?) && (window.visible))
 
     #======================= Where picture is loaded =======================#
@@ -704,18 +706,21 @@ class Sprite
 
   def michael_modify_self(window, i)
 
-    case i[5]
-
-    when i[5].match('mtype_show_all__')
+    i[5].match('mtype_show_all__') do
 
       self.x -= ((self.bitmap.width - window.width) / 2)
       self.src_rect.x = 0 if self.x < 0
       self.y -= ((self.bitmap.height - window.height) / 2)
       self.src_rect.y = 0 if self.y < 0
-      self.src_rect.width = Graphics.width
-      self.src_rect.height = Graphics.height
 
-    when i[5].match('mtype_move__')
+      #unless caller_locations(1,1)[1].label == 'initialize'
+        #self.src_rect.width = Graphics.width
+        #self.src_rect.height = Graphics.height
+      #end
+
+    end
+
+    i[5].match('mtype_move__') do
 
       self.x += (i[6] - ((self.bitmap.width - window.width) / 2))
       self.src_rect.x = 0 if self.x < 0
@@ -724,14 +729,18 @@ class Sprite
       self.src_rect.width = Graphics.width
       self.src_rect.height = Graphics.height
 
-    when i[5].match('mtype_move_origin__')
+    end
+
+    i[5].match('mtype_move_origin__') do
 
       self.x += i[6]
       self.src_rect.x = 0 if self.x < 0
       self.y += i[7]
       self.src_rect.y = 0 if self.y < 0
 
-    when i[5].match('mtype_center__')
+    end
+
+    i[5].match('mtype_center__') do
 
       self.x = (Graphics.width - self.bitmap.width) / 2
       self.src_rect.x = 0 if self.x < 0
@@ -740,7 +749,9 @@ class Sprite
       self.src_rect.width = Graphics.width
       self.src_rect.height = Graphics.height
 
-    when i[5].match('mtype_move_all__')
+    end
+
+    i[5].match('mtype_move_all__') do
 
       self.x = i[6]
       self.y = i[7]
@@ -749,9 +760,13 @@ class Sprite
       self.src_rect.width = i[10]
       self.src_rect.height = i[11]
 
-    when i[5].match('rtype_show_all__')
-    when i[5].match('rtype_origin__')
-    when i[5].match('rtype_resize_all__')
+    end
+
+    i[5].match('rtype_show_all__') do
+    end
+    i[5].match('rtype_origin__') do
+    end
+    i[5].match('rtype_resize_all__') do
     end
 
   end
@@ -874,13 +889,13 @@ class Game_Interpreter
 
     end
 
-    def window_show_all(i)
+    def window_show_all(class_type)
 
       $game_message.michael_wndw_bg_ary[class_type][5] << 'mtype_show_all__'
 
     end
 
-    def window_show_all_move(i, x, y)
+    def window_show_all_move(class_type, x, y)
 
       $game_message.michael_wndw_bg_ary[class_type][5] = 'mtype_move__'
       $game_message.michael_wndw_bg_ary[class_type][6] = x
@@ -888,7 +903,7 @@ class Game_Interpreter
 
     end
 
-    def window_move_origin(i,x,y)
+    def window_move_origin(class_type,x,y)
 
       $game_message.michael_wndw_bg_ary[class_type][5] = 'mtype_move_origin__'
       $game_message.michael_wndw_bg_ary[class_type][6] = x
@@ -896,7 +911,7 @@ class Game_Interpreter
 
     end
 
-    def window_center(i)
+    def window_center(class_type)
 
       $game_message.michael_wndw_bg_ary[class_type][5] = 'mtype_center__'
 
