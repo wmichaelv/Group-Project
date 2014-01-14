@@ -4,7 +4,7 @@ Disable_Flicker_Test = true
 #==============================================================================
 #
 # Michael Windows Changer
-# Last Updated: 2014.01.09
+# Last Updated: 2014.01.14
 # Requirement: RPG Maker VX Ace
 #             -Knowledge of 'how to use scripts'
 #             -Knowledge of Window Designation (basically know which window is
@@ -44,6 +44,8 @@ Disable_Flicker_Test = true
 #==============================================================================
 # Script Biography lol
 #==============================================================================
+# 2013.01.14 --Fixed resize math
+# 2013.01.13 --Enabled Psuedo name
 # 2013.01.12 --Improve option on resize and add feature for color
 # 2013.01.11 --Add feature to resizing picture based on height & width ratio / user input
 # 2013.01.09 --Auto-Generate all Window sub-classes. -Add feature for auto and manual.
@@ -118,11 +120,16 @@ Disable_Flicker_Test = true
 #
 #==============================================================================
 # How to Use:
+#
+# #====================== Only Make Window Transparent =======================#
+#
 #  - window_blank(window_type)
 #  For Example:
 #  window_blank(Window_Gold)
 #             -> Make window_gold to be transparent (content is not transparent
 #                though, you can still see your gold amount)
+#
+# #============================= On/Off Switch ===============================#
 #
 #  - window_on(window_type, 'file_name.extention_name')
 #  For Example:
@@ -139,6 +146,8 @@ Disable_Flicker_Test = true
 #                window rectangle back to the boring blue color with its
 #                redundant white padding.
 #
+# #================================ Nickname =================================#
+#
 #  - window_nickname(window_type, nickname)
 #  For Example:
 #  window_nickname(Window_Gold, 'gold')
@@ -146,6 +155,11 @@ Disable_Flicker_Test = true
 #                a window_type for Window_Gold, you could just use the nickname.
 #             -> For example: window_on('gold', 'ex.jpg')
 #             -> Please don't forget the quotation marks!
+#             -> Don't do window_nickname('gold_lol', gold)
+#             -> If you want to change the nickname, just do
+#                window_nickname(Window_Gold, 'gold')
+#
+# #================================ Movement =================================#
 #
 #  - window_show_all(window_type)
 #             -> JUST USE THIS COMMAND and window_on if you're confused with
@@ -183,11 +197,15 @@ Disable_Flicker_Test = true
 #           To set Graphics' height and width:
 #           window_move(5, 24, -24, Graphics.width, Graphics.height)
 #
+# #============================ Default ======================================#
+#
 #  - window_default(window_type)
 #  For Example:
 #  window_default(Window_Gold)
 #              -> Turn off movement switch for Window_Gold background
 #              -> This will return Window_Gold to the original position
+#
+# #============================= Depth =======================================#
 #
 #  - window_depth(window_type, depth)
 #  For Example:
@@ -198,6 +216,8 @@ Disable_Flicker_Test = true
 #                  background will appear to be above Window_Gold background.
 #               -> Make sure that switch is 'on' or else nothing would happen.
 #
+# #============================ Opacity ======================================#
+#
 # - window_opacity(window_type, opacity)
 # For Example:
 # window_opacity(Window_Gold, 0)
@@ -206,17 +226,19 @@ Disable_Flicker_Test = true
 #               -> Make sure that switch is 'on' or else nothing would happen.
 #               -> Default opacity is 255 when window background is on.
 #
-# - window_nickname(window_type, nickname)
-# For Example:
-# window_nickname(Window_Gold, gold_lol)
-#               -> Next time you would like to type Window_Gold, you could just
-#                  type gold_lol like window_on(gold_lol, 'file_name')
-#               -> Recommended to use if the window_type is too long to type,
-#                  though please remember all the nicknames you have placed. :D
-#               -> Don't do window_nickname(gold_lol, gold)
-#               -> If you want to change the nickname, just do
-#                  window_nickname(Window_Gold, gold)
+# #============================= Color =======================================#
 #
+# - window_color(window_type, red, green, blue, alpha)
+#               -> I don't think I need to explain this one. .-.
+#               -> Just remember that red, green, blue, alpha are from 0 - 255.
+#
+# #============================ Resizing =====================================#
+# window_r_default(class_type) -> Default resize, taking the size of the window
+# window_r_pixel(class_type, _zoom_x, _zoom_y) -> resize by full_size of the picture/bitmap/sprite
+# window_r(class_type, _zoom_x, zoom_y) -> resize after resizing from window
+# window_r_i(class_type, streched_width, streched_height) -> resize by integer (Window_Gold,200,200) -> resized into a box
+#
+# #============================== End ========================================#
 #
 #  Have Fun!
 #
