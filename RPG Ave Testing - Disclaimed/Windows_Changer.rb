@@ -823,8 +823,8 @@ class Sprite
 
       #=========================== Relocate ============================#
 
-      self.x = sp_offset_x
-      self.y = sp_offset_y
+      self.x = sp_offset_x #Added for organized code (resize type)
+      self.y = sp_offset_y #Added for organized code (resize type)
 
     end
 
@@ -880,21 +880,17 @@ class Sprite
 
       store_sp_w_float = self.bitmap.width.to_f
       store_sp_h_float = self.bitmap.height.to_f
-      store_wndw_w_float = window.width.to_f
-      store_wndw_h_float = window.height.to_f
 
-      self.zoom_x = (i[12] * store_wndw_w_float / store_sp_w_float)
-      self.zoom_y = (i[13] * store_wndw_h_float / store_sp_h_float)
+      self.zoom_x = i[12] / store_sp_w_float
+      self.zoom_y = i[13] / store_sp_h_float
       self.src_rect.width = Graphics.width
       self.src_rect.height = Graphics.height
 
       #=========================== Relocate ============================#
 
-      self.x = sp_offset_x + ((i[12] * store_sp_w_float /  store_sp_w_float -
-      store_sp_w_float / store_sp_w_float) / 2)
+      self.x = sp_offset_x + ((i[12] / store_sp_w_float - store_sp_w_float) / 2)
       self.src_rect.x = 0 if self.x < 0
-      self.y = sp_offset_y + ((i[13] * store_sp_h_float / store_wndw_h_float -
-      store_sp_h_float / store_wndw_h_float) / 2)
+      self.y = sp_offset_y + ((i[13] / store_sp_h_float - store_sp_h_float) / 2)
       self.src_rect.y = 0 if self.y < 0
 
     end
@@ -923,10 +919,14 @@ class Rect
   alias michael_Rect_set_special set
 
   def set(*args)
-    #$michael_cursor_rect_bg_vp.z = 500
+
     michael_Rect_set_special(*args)
+
     if self.michael_nickname_the_cursor_rect == 'cursor_rect'
-      self.clear
+
+      #gonna add stuff here for select & unselected choice
+
+      #self.clear
 
     end
   end
