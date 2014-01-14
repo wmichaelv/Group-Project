@@ -848,7 +848,9 @@ class Sprite
 
       #=========================== Relocate ============================#
 
-      #No relocation is necessary for default resizement.
+      #No relocation is necessary for default resizement, but for organized purpose
+      self.x = window.x
+      self.y = window.y
 
     end
 
@@ -909,9 +911,9 @@ class Sprite
 
       #=========================== Relocate ============================#
 
-      self.x +=((i[12] * store_sp_w_float - store_sp_w_float) / 2)
+      self.x -=((i[12] * store_sp_w_float - store_sp_w_float) / 2)
       self.src_rect.x = 0 if self.x < 0
-      self.y += ((i[13] * store_sp_h_float - store_sp_h_float) / 2)
+      self.y -= ((i[13] * store_sp_h_float - store_sp_h_float) / 2)
       self.src_rect.y = 0 if self.y < 0
 
     end
@@ -932,10 +934,10 @@ class Sprite
 
       #=========================== Relocate ============================#
 
-      self.x += ((i[12] * store_sp_w_float /  store_sp_w_float -
+      self.x -= ((i[12] * store_sp_w_float /  store_sp_w_float -
       store_sp_w_float / store_sp_w_float) / 2)
       self.src_rect.x = 0 if self.x < 0
-      self.y += ((i[13] * store_sp_h_float / store_wndw_h_float -
+      self.y -= ((i[13] * store_sp_h_float / store_wndw_h_float -
       store_sp_h_float / store_wndw_h_float) / 2)
       self.src_rect.y = 0 if self.y < 0
 
@@ -955,9 +957,9 @@ class Sprite
 
       #=========================== Relocate ============================#
 
-      self.x += ((i[12] / store_sp_w_float - store_sp_w_float) / 2)
+      self.x -= ((i[12] / store_sp_w_float - store_sp_w_float) / 2)
       self.src_rect.x = 0 if self.x < 0
-      self.y += ((i[13] / store_sp_h_float - store_sp_h_float) / 2)
+      self.y -= ((i[13] / store_sp_h_float - store_sp_h_float) / 2)
       self.src_rect.y = 0 if self.y < 0
 
     end
