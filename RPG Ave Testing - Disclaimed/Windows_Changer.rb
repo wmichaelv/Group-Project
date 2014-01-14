@@ -28,6 +28,20 @@ Disable_Flicker_Test = true
 #==============================================================================
 
 #==============================================================================
+# Self-To-Do-List
+#==============================================================================
+# Just take this as upcoming features
+#
+# - Do the sprite resize feature
+# - Do the sprite color feature
+# - Do the sprite cursor feature
+# - Do the window movement
+# - Do the window resize
+# - Do the animation attachment
+#
+#==============================================================================
+
+#==============================================================================
 # Script Biography lol
 #==============================================================================
 # 2013.01.12 --Improve option on resize and add feature for color
@@ -214,7 +228,7 @@ class Window
 
   def self.get_all_descendants
 
-    ObjectSpace.each_object(Class).select { |derived| derived < self }
+    ObjectSpace.each_object(Class).select { |klass| klass < self }
 
   end
 
@@ -304,7 +318,7 @@ module Wndw_Cgr #Window Changer
       Michael_Wndw_Bg_Ary[derived_classes] <<
       ((Special_Window.has_key?(derived_classes)) ?
       Special_Window[derived_classes] : (Folder_Name == '') ?
-      "Graphics\\Windows\\" + String(derived_classes) : Folder_Name)
+      "Graphics\\Windows\\#{derived_classes}" : Folder_Name)
       Michael_Wndw_Bg_Ary[derived_classes] << nil << nil << ''
       Michael_Wndw_Bg_Ary[derived_classes] << nil << nil << nil << nil << nil << nil
       Michael_Wndw_Bg_Ary[derived_classes] << nil << nil
@@ -315,7 +329,7 @@ module Wndw_Cgr #Window Changer
 
       #============================= Psuedo List =========================#
 
-      Wndw_Psuedo_Names = {}
+      Wndw_Psuedo_Names = Hash.new
 
   else
 
@@ -512,7 +526,7 @@ module Wndw_Cgr #Window Changer
     [44,"Element #44","Graphics\\Windows\\Window_DebugLeft",nil,nil,nil,nil,nil,nil,nil,nil,nil],
     Window_DebugRight =>
     [45,"Element #45","Graphics\\Windows\\Window_DebugRight",nil,nil,nil,nil,nil,nil,nil,nil,nil],
-    }  #Add more elements here
+    }  #Add more elements manually here
 
     NOE = 46 #NUMBER_OF_ELEMENT
              #Modify this number as more elements are added
@@ -531,6 +545,7 @@ module Cache
   end
 
 end
+
 #==============================================================================
 # Window
 #==============================================================================
@@ -546,9 +561,9 @@ class Window
   alias michael_sp_openness_asgn openness=
   alias michael_sp_x_asgn x=
   alias michael_sp_y_asgn y=
-  alias michael_sp_width width
+  alias michael_sp_width width #To avoid flicker error
   alias michael_sp_width_asgn width=
-  alias michael_sp_height height
+  alias michael_sp_height height #To avoid flicker error
   alias michael_sp_height_asgn height=
 
   def initialize(x, y, width, height)
@@ -673,50 +688,6 @@ class Window
 end
 
 #==============================================================================
-# Window_Base
-#==============================================================================
-class Window_Base < Window
-
-  alias michael_wndw_base_show show
-  alias michael_wndw_base_hide hide
-  alias michael_wndw_base_open open
-  alias michael_wndw_base_close close
-
-  def show
-
-    michael_wndw_base_show
-    self.michael_bg_sp.visible = (self.open? && self.visible)
-    self
-
-  end
-
-  def hide
-
-    michael_wndw_base_hide
-    self.michael_bg_sp.visible = (self.open? && self.visible)
-    self
-
-  end
-
-  def open
-
-    michael_wndw_base_open
-    self.michael_bg_sp.visible = (self.open? && self.visible)
-    self
-
-  end
-
-  def close
-
-    michael_wndw_base_close
-    self.michael_bg_sp.visible = (self.open? && self.visible)
-    self
-
-  end
-
-end
-
-#==============================================================================
 # Sprite
 #==============================================================================
 class Sprite
@@ -760,8 +731,8 @@ class Sprite
 
   def michael_set_self_ppts(window, i)
 
-    self.x = window.x
-    self.y = window.y
+    sp_offset_x = self.x = window.x
+    sp_offset_y = self.y = window.y
     unless caller[1][/`.*'/][1..-2] == 'initialize'
       self.src_rect.width = window.width
       self.src_rect.height = window.height
@@ -785,9 +756,9 @@ class Sprite
 
     i[5].match('mtype_show_all__') do
 
-      self.x -= ((self.bitmap.width - window.width) / 2)
+      sp_offset_x = self.x -= ((self.bitmap.width - window.width) / 2)
       self.src_rect.x = 0 if self.x < 0
-      self.y -= ((self.bitmap.height - window.height) / 2)
+      sp_offset_y = self.y -= ((self.bitmap.height - window.height) / 2)
       self.src_rect.y = 0 if self.y < 0
       self.src_rect.width = Graphics.width
       self.src_rect.height = Graphics.height
@@ -796,9 +767,9 @@ class Sprite
 
     i[5].match('mtype_move__') do
 
-      self.x += (i[6] - ((self.bitmap.width - window.width) / 2))
+      sp_offset_x = self.x += (i[6] - ((self.bitmap.width - window.width) / 2))
       self.src_rect.x = 0 if self.x < 0
-      self.y += (i[7] - ((self.bitmap.height - window.height) / 2))
+      sp_offset_y = self.y += (i[7] - ((self.bitmap.height - window.height) / 2))
       self.src_rect.y = 0 if self.y < 0
       self.src_rect.width = Graphics.width
       self.src_rect.height = Graphics.height
@@ -807,18 +778,18 @@ class Sprite
 
     i[5].match('mtype_move_origin__') do
 
-      self.x += i[6]
+      sp_offset_x = self.x += i[6]
       self.src_rect.x = 0 if self.x < 0
-      self.y += i[7]
+      sp_offset_y = self.y += i[7]
       self.src_rect.y = 0 if self.y < 0
 
     end
 
     i[5].match('mtype_center__') do
 
-      self.x = (Graphics.width - self.bitmap.width) / 2
+      sp_offset_x = self.x = (Graphics.width - self.bitmap.width) / 2
       self.src_rect.x = 0 if self.x < 0
-      self.y = (Graphics.height - self.bitmap.height) / 2
+      sp_offset_y = self.y = (Graphics.height - self.bitmap.height) / 2
       self.src_rect.y = 0 if self.y < 0
       self.src_rect.width = Graphics.width
       self.src_rect.height = Graphics.height
@@ -827,8 +798,8 @@ class Sprite
 
     i[5].match('mtype_move_all__') do
 
-      self.x = i[6]
-      self.y = i[7]
+      sp_offset_x = self.x = i[6]
+      sp_offset_y = self.y = i[7]
       self.src_rect.x = i[8]
       self.src_rect.y = i[9]
       self.src_rect.width = i[10]
@@ -836,11 +807,96 @@ class Sprite
 
     end
 
-    i[5].match('rtype_show_all__') do
+    i[5].match('rtype_window_default__') do
+
+      #============================ Resized ============================#
+
+      store_sp_w_float = self.bitmap.width.to_f
+      store_sp_h_float = self.bitmap.height.to_f
+      store_wndw_w_float = window.width.to_f #+ 12 #paddings
+      store_wndw_h_float = window.height.to_f #+ 12
+
+      self.zoom_x = store_wndw_w_float / store_sp_w_float
+      self.zoom_y = store_wndw_h_float / store_sp_h_float
+      self.src_rect.width = Graphics.width
+      self.src_rect.height = Graphics.height
+
+      #=========================== Relocate ============================#
+
+      self.x = sp_offset_x
+      self.y = sp_offset_y
+
     end
-    i[5].match('rtype_origin__') do
+
+    i[5].match('rtype_actual_pixel__') do
+
+      #============================ Resized ============================#
+
+      store_sp_w_float = self.bitmap.width.to_f
+      store_sp_h_float = self.bitmap.height.to_f
+
+      self.zoom_x = i[12]
+      self.zoom_y = i[13]
+      self.src_rect.width = Graphics.width
+      self.src_rect.height = Graphics.height
+
+      #=========================== Relocate ============================#
+
+      self.x = sp_offset_x + ((i[12] * store_sp_w_float - store_sp_w_float) / 2)
+      self.src_rect.x = 0 if self.x < 0
+      self.y = sp_offset_y + ((i[13] * store_sp_h_float - store_sp_h_float) / 2)
+      self.src_rect.y = 0 if self.y < 0
+
     end
-    i[5].match('rtype_resize_all__') do
+
+    i[5].match('rtype_by_window__') do
+
+      #============================ Resized ============================#
+
+      store_sp_w_float = self.bitmap.width.to_f
+      store_sp_h_float = self.bitmap.height.to_f
+      store_wndw_w_float = window.width.to_f
+      store_wndw_h_float = window.height.to_f
+
+      self.zoom_x = (i[12] * store_wndw_w_float / store_sp_w_float)
+      self.zoom_y = (i[13] * store_wndw_h_float / store_sp_h_float)
+      self.src_rect.width = Graphics.width
+      self.src_rect.height = Graphics.height
+
+      #=========================== Relocate ============================#
+
+      self.x = sp_offset_x + ((i[12] * store_sp_w_float /  store_sp_w_float -
+      store_sp_w_float / store_sp_w_float) / 2)
+      self.src_rect.x = 0 if self.x < 0
+      self.y = sp_offset_y + ((i[13] * store_sp_h_float / store_wndw_h_float -
+      store_sp_h_float / store_wndw_h_float) / 2)
+      self.src_rect.y = 0 if self.y < 0
+
+    end
+
+    i[5].match('rtype_by_integer__') do
+
+      #============================ Resized ============================#
+
+      store_sp_w_float = self.bitmap.width.to_f
+      store_sp_h_float = self.bitmap.height.to_f
+      store_wndw_w_float = window.width.to_f
+      store_wndw_h_float = window.height.to_f
+
+      self.zoom_x = (i[12] * store_wndw_w_float / store_sp_w_float)
+      self.zoom_y = (i[13] * store_wndw_h_float / store_sp_h_float)
+      self.src_rect.width = Graphics.width
+      self.src_rect.height = Graphics.height
+
+      #=========================== Relocate ============================#
+
+      self.x = sp_offset_x + ((i[12] * store_sp_w_float /  store_sp_w_float -
+      store_sp_w_float / store_sp_w_float) / 2)
+      self.src_rect.x = 0 if self.x < 0
+      self.y = sp_offset_y + ((i[13] * store_sp_h_float / store_wndw_h_float -
+      store_sp_h_float / store_wndw_h_float) / 2)
+      self.src_rect.y = 0 if self.y < 0
+
     end
 
   end
@@ -858,6 +914,49 @@ class Sprite
   end
 
 end
+
+#==============================================================================
+# Rect
+#==============================================================================
+class Rect
+  attr_accessor :michael_nickname_the_cursor_rect
+  alias michael_Rect_set_special set
+
+  def set(*args)
+    #$michael_cursor_rect_bg_vp.z = 500
+    michael_Rect_set_special(*args)
+    if self.michael_nickname_the_cursor_rect == 'cursor_rect'
+      self.clear
+
+    end
+  end
+
+end
+
+#==============================================================================
+# Scene_Base
+#==============================================================================
+
+class Scene_Base
+
+  alias michael_Scene_Base_main main
+
+  def main
+    $michael_cursor_rect_bg_sp = Sprite.new     #I'll remove the global once
+    $michael_cursor_rect_bg_vp = Viewport.new   #that I found a better solution
+    $michael_cursor_rect_bg_sp.viewport = $michael_cursor_rect_bg_vp
+    #$michael_cursor_rect_bg_vp.z = 500
+    #$michael_cursor_rect_bg_sp.bitmap = Cache.cache_extended("Graphics\\Windows\\Window_Message", 'color')
+    #$michael_cursor_rect_bg_sp.src_rect.set(0,0,Graphics.width, Graphics.height)
+    #$michael_cursor_rect_bg_sp.zoom_x = 2
+
+    michael_Scene_Base_main
+    $michael_cursor_rect_bg_vp.dispose
+    $michael_cursor_rect_bg_sp.dispose
+  end
+
+end
+
 #==============================================================================
 # Game_Message
 #==============================================================================
@@ -945,7 +1044,7 @@ class Game_Interpreter
 
     end
 
-    def window_on(class_type, file_name, type_movement = '')
+    def window_on(class_type, file_name, type_movement = '', type_resize = '')
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
@@ -957,6 +1056,9 @@ class Game_Interpreter
       if type_movement.match(/(show_all|center)/)
         $game_message.michael_wndw_bg_ary[name][5].slice!(/mtype+\w+?(__)/)
         $game_message.michael_wndw_bg_ary[name][5] << 'mtype_' << type_movement << '__'
+      else
+        $game_message.michael_wndw_bg_ary[name][5].slice!(/rtype+\w+?(__)/)
+        $game_message.michael_wndw_bg_ary[name][5] << 'rtype_window_default__'
       end
 
     end
@@ -995,6 +1097,7 @@ class Game_Interpreter
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
+      $game_message.michael_wndw_bg_ary[name][5].slice!(/mtype+\w+?(__)/)
       $game_message.michael_wndw_bg_ary[name][5] << 'mtype_show_all__'
 
     end
@@ -1004,7 +1107,8 @@ class Game_Interpreter
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_wndw_bg_ary[name][5] = 'mtype_move__'
+      $game_message.michael_wndw_bg_ary[name][5].slice!(/mtype+\w+?(__)/)
+      $game_message.michael_wndw_bg_ary[name][5] << 'mtype_move__'
       $game_message.michael_wndw_bg_ary[name][6] = x
       $game_message.michael_wndw_bg_ary[name][7] = y
 
@@ -1015,7 +1119,8 @@ class Game_Interpreter
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_wndw_bg_ary[name][5] = 'mtype_move_origin__'
+      $game_message.michael_wndw_bg_ary[name][5].slice!(/mtype+\w+?(__)/)
+      $game_message.michael_wndw_bg_ary[name][5] << 'mtype_move_origin__'
       $game_message.michael_wndw_bg_ary[name][6] = x
       $game_message.michael_wndw_bg_ary[name][7] = y
 
@@ -1026,7 +1131,8 @@ class Game_Interpreter
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_wndw_bg_ary[name][5] = 'mtype_center__'
+      $game_message.michael_wndw_bg_ary[name][5].slice!(/mtype+\w+?(__)/)
+      $game_message.michael_wndw_bg_ary[name][5] << 'mtype_center__'
 
     end
 
@@ -1035,7 +1141,8 @@ class Game_Interpreter
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_wndw_bg_ary[name][5] = 'mtype_move_all__'
+      $game_message.michael_wndw_bg_ary[name][5].slice!(/mtype+\w+?(__)/)
+      $game_message.michael_wndw_bg_ary[name][5] << 'mtype_move_all__'
       $game_message.michael_wndw_bg_ary[name][6] = x
       $game_message.michael_wndw_bg_ary[name][7] = y
       $game_message.michael_wndw_bg_ary[name][8] = rect_x
@@ -1050,6 +1157,58 @@ class Game_Interpreter
       $game_message.michael_wndw_bg_psuedo[class_type] = name
 
     end
+
+    #Index :D
+    #mtype = movement type
+    #r = resize
+    #rtype = resize type
+
+    def window_r_default(class_type)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_bg_ary[name][5].slice!(/rtype+\w+?(__)/)
+      $game_message.michael_wndw_bg_ary[name][5] << 'rtype_window_default__'
+
+    end
+
+    def window_r_pixel(class_type, _zoom_x, _zoom_y)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_bg_ary[name][5].slice!(/rtype+\w+?(__)/)
+      $game_message.michael_wndw_bg_ary[name][5] << 'rtype_actual_pixel__'
+      $game_message.michael_wndw_bg_ary[name][12] = _zoom_x
+      $game_message.michael_wndw_bg_ary[name][13] = _zoom_y
+
+    end
+
+    def window_r(class_type, _zoom_x, zoom_y)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_bg_ary[name][5].slice!(/rtype+\w+?(__)/)
+      $game_message.michael_wndw_bg_ary[name][5] << 'rtype_by_window__'
+      $game_message.michael_wndw_bg_ary[name][12] = _zoom_x
+      $game_message.michael_wndw_bg_ary[name][13] = _zoom_y
+
+    end
+
+    def window_r_i(class_type, streched_width, streched_height)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_bg_ary[name][5].slice!(/rtype+\w+?(__)/)
+      $game_message.michael_wndw_bg_ary[name][5] << 'rtype_by_integer__'
+      $game_message.michael_wndw_bg_ary[name][12] = streched_width
+      $game_message.michael_wndw_bg_ary[name][13] = streched_height
+
+    end
+
 
   else
 
