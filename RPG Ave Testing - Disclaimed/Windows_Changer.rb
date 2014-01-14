@@ -870,7 +870,7 @@ class Sprite
       self.y += ((store_sp_h_float * store_wndw_w_float / store_sp_w_float -
       store_sp_h_float) / 2)
       self.src_rect.y = 0 if self.y < 0
-
+      self.x = window.x
     end
 
     i[5].match('rtype_window_height__') do
@@ -888,9 +888,10 @@ class Sprite
 
       #=========================== Relocate ============================#
 
-      self.x += ((store_sp_w_float * store_wndw_h_float / store_sp_h_float -
+      self.x -= ((store_sp_w_float * (store_wndw_h_float / store_sp_h_float) -
       store_sp_w_float) / 2)
       self.src_rect.x = 0 if self.x < 0
+      self.y = window.y
 
     end
 
