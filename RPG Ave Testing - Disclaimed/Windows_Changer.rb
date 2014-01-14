@@ -32,7 +32,7 @@ Disable_Flicker_Test = true
 #==============================================================================
 # Just take this as upcoming features
 #
-# - Do the sprite resize feature
+# - Fix the sprite resize feature
 # - Do the sprite color feature
 # - Do the sprite cursor feature
 # - Do the window movement
@@ -329,7 +329,7 @@ module Wndw_Cgr #Window Changer
 
       #============================= Psuedo List =========================#
 
-      Wndw_Psuedo_Names = Hash.new
+      Wndw_Psuedo_Names = {}
 
   else
 
@@ -703,9 +703,12 @@ class Sprite
     michael_set_self_vp(window)
     michael_save_wndw_opa(window) unless window.did_I_get_changed?
     michael_clear_wndw_opa(window)
-    michael_set_self_ppts(window, i) #SET SELF'S PROPERTIES
-    michael_modify_self(window, i) unless i[5] == ''
-
+    unless i[1] == 'THIS_IS_A_BLANK_PICTURE_YES_USER_WANTS_A_BLANK_WINDOW_ONLY'
+      michael_set_self_ppts(window, i) #SET SELF'S PROPERTIES
+      michael_modify_self(window, i) unless i[5] == ''
+    else
+      self.visible = false
+    end
   end
 
   def michael_set_self_vp(window)
@@ -731,8 +734,8 @@ class Sprite
 
   def michael_set_self_ppts(window, i)
 
-    sp_offset_x = self.x = window.x
-    sp_offset_y = self.y = window.y
+    self.x = window.x
+    self.y = window.y
     unless caller[1][/`.*'/][1..-2] == 'initialize'
       self.src_rect.width = window.width
       self.src_rect.height = window.height
@@ -741,11 +744,9 @@ class Sprite
 
     #======================= Where picture is loaded =======================#
 
-    unless i[1] == 'THIS_IS_A_BLANK_PICTURE_YES_USER_WANTS_A_BLANK_WINDOW_ONLY'
-      name = i[1]
-      folder = i[2]
-      self.bitmap = Cache.cache_extended(folder, name)
-    end
+    name = i[1]
+    folder = i[2]
+    self.bitmap = Cache.cache_extended(folder, name)
 
     self.z += i[3] unless i[3].nil?
     self.opacity = i[4] if (self.visible) && !(i[4].nil?)
@@ -756,9 +757,9 @@ class Sprite
 
     i[5].match('mtype_show_all__') do
 
-      sp_offset_x = self.x -= ((self.bitmap.width - window.width) / 2)
+      self.x -= ((self.bitmap.width - window.width) / 2)
       self.src_rect.x = 0 if self.x < 0
-      sp_offset_y = self.y -= ((self.bitmap.height - window.height) / 2)
+      self.y -= ((self.bitmap.height - window.height) / 2)
       self.src_rect.y = 0 if self.y < 0
       self.src_rect.width = Graphics.width
       self.src_rect.height = Graphics.height
@@ -767,9 +768,9 @@ class Sprite
 
     i[5].match('mtype_move__') do
 
-      sp_offset_x = self.x += (i[6] - ((self.bitmap.width - window.width) / 2))
+      self.x += (i[6] - ((self.bitmap.width - window.width) / 2))
       self.src_rect.x = 0 if self.x < 0
-      sp_offset_y = self.y += (i[7] - ((self.bitmap.height - window.height) / 2))
+      self.y += (i[7] - ((self.bitmap.height - window.height) / 2))
       self.src_rect.y = 0 if self.y < 0
       self.src_rect.width = Graphics.width
       self.src_rect.height = Graphics.height
@@ -778,18 +779,18 @@ class Sprite
 
     i[5].match('mtype_move_origin__') do
 
-      sp_offset_x = self.x += i[6]
+      self.x += i[6]
       self.src_rect.x = 0 if self.x < 0
-      sp_offset_y = self.y += i[7]
+      self.y += i[7]
       self.src_rect.y = 0 if self.y < 0
 
     end
 
     i[5].match('mtype_center__') do
 
-      sp_offset_x = self.x = (Graphics.width - self.bitmap.width) / 2
+      self.x = (Graphics.width - self.bitmap.width) / 2
       self.src_rect.x = 0 if self.x < 0
-      sp_offset_y = self.y = (Graphics.height - self.bitmap.height) / 2
+      self.y = (Graphics.height - self.bitmap.height) / 2
       self.src_rect.y = 0 if self.y < 0
       self.src_rect.width = Graphics.width
       self.src_rect.height = Graphics.height
@@ -798,8 +799,8 @@ class Sprite
 
     i[5].match('mtype_move_all__') do
 
-      sp_offset_x = self.x = i[6]
-      sp_offset_y = self.y = i[7]
+      @sp_offset_x = self.x = i[6]
+      @sp_offset_y = self.y = i[7]
       self.src_rect.x = i[8]
       self.src_rect.y = i[9]
       self.src_rect.width = i[10]
@@ -823,8 +824,7 @@ class Sprite
 
       #=========================== Relocate ============================#
 
-      self.x = sp_offset_x #Added for organized code (resize type)
-      self.y = sp_offset_y #Added for organized code (resize type)
+      #No relocation is necessary for default resizement.
 
     end
 
@@ -842,9 +842,9 @@ class Sprite
 
       #=========================== Relocate ============================#
 
-      self.x = sp_offset_x + ((i[12] * store_sp_w_float - store_sp_w_float) / 2)
+      self.x +=((i[12] * store_sp_w_float - store_sp_w_float) / 2)
       self.src_rect.x = 0 if self.x < 0
-      self.y = sp_offset_y + ((i[13] * store_sp_h_float - store_sp_h_float) / 2)
+      self.y += ((i[13] * store_sp_h_float - store_sp_h_float) / 2)
       self.src_rect.y = 0 if self.y < 0
 
     end
@@ -865,10 +865,10 @@ class Sprite
 
       #=========================== Relocate ============================#
 
-      self.x = sp_offset_x + ((i[12] * store_sp_w_float /  store_sp_w_float -
+      self.x += ((i[12] * store_sp_w_float /  store_sp_w_float -
       store_sp_w_float / store_sp_w_float) / 2)
       self.src_rect.x = 0 if self.x < 0
-      self.y = sp_offset_y + ((i[13] * store_sp_h_float / store_wndw_h_float -
+      self.y += ((i[13] * store_sp_h_float / store_wndw_h_float -
       store_sp_h_float / store_wndw_h_float) / 2)
       self.src_rect.y = 0 if self.y < 0
 
@@ -888,12 +888,14 @@ class Sprite
 
       #=========================== Relocate ============================#
 
-      self.x = sp_offset_x + ((i[12] / store_sp_w_float - store_sp_w_float) / 2)
+      self.x += ((i[12] / store_sp_w_float - store_sp_w_float) / 2)
       self.src_rect.x = 0 if self.x < 0
-      self.y = sp_offset_y + ((i[13] / store_sp_h_float - store_sp_h_float) / 2)
+      self.y += ((i[13] / store_sp_h_float - store_sp_h_float) / 2)
       self.src_rect.y = 0 if self.y < 0
 
     end
+
+    i[5].match('ctype__') do; self.color.set(i[14], i[15], i[16], i[17]); end;
 
   end
 
@@ -1154,7 +1156,7 @@ class Game_Interpreter
 
     def window_nickname(class_type, name)
 
-      $game_message.michael_wndw_bg_psuedo[class_type] = name
+      $game_message.michael_wndw_bg_psuedo[name] = class_type
 
     end
 
@@ -1162,6 +1164,7 @@ class Game_Interpreter
     #mtype = movement type
     #r = resize
     #rtype = resize type
+    #ctype = color type
 
     def window_r_default(class_type)
 
@@ -1209,6 +1212,21 @@ class Game_Interpreter
 
     end
 
+    def window_color(class_type, red, green, blue, alpha)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_bg_ary[name][5].slice!(/ctype+\w+?(__)/)
+      #there's only 1 ctype for now. Maybe more will be added when I got some coloring ideas.
+      #I'm open for suggestions & advices. :D
+      $game_message.michael_wndw_bg_ary[name][5] << 'ctype__'
+      $game_message.michael_wndw_bg_ary[name][14] = red
+      $game_message.michael_wndw_bg_ary[name][15] = green
+      $game_message.michael_wndw_bg_ary[name][16] = blue
+      $game_message.michael_wndw_bg_ary[name][17] = alpha
+
+    end
 
   else
 
