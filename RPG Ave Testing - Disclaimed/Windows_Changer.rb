@@ -104,6 +104,12 @@ Disable_Flicker_Test = true
 #
 #==============================================================================
 # How to Use:
+#  - window_blank(window_type)
+#  For Example:
+#  window_blank(Window_Gold)
+#             -> Make window_gold to be transparent (content is not transparent
+#                though, you can still see your gold amount)
+#
 #  - window_on(window_type, 'file_name.extention_name')
 #  For Example:
 #  window_on(Window_Gold, 'ex.jpg')
@@ -638,13 +644,6 @@ class Window
 
   end
 
-  #def height
-  #
-  #  self.michael_bg_sp.src_rect.height = self.michael_sp_height
-  #  self.michael_sp_height
-  #
-  #end
-
   def height=(arg)
 
     self.michael_sp_height_asgn(arg)
@@ -668,6 +667,50 @@ class Window
 
     end
 
+
+  end
+
+end
+
+#==============================================================================
+# Window_Base
+#==============================================================================
+class Window_Base < Window
+
+  alias michael_wndw_base_show show
+  alias michael_wndw_base_hide hide
+  alias michael_wndw_base_open open
+  alias michael_wndw_base_close close
+
+  def show
+
+    michael_wndw_base_show
+    self.michael_bg_sp.visible = (self.open? && self.visible)
+    self
+
+  end
+
+  def hide
+
+    michael_wndw_base_hide
+    self.michael_bg_sp.visible = (self.open? && self.visible)
+    self
+
+  end
+
+  def open
+
+    michael_wndw_base_open
+    self.michael_bg_sp.visible = (self.open? && self.visible)
+    self
+
+  end
+
+  def close
+
+    michael_wndw_base_close
+    self.michael_bg_sp.visible = (self.open? && self.visible)
+    self
 
   end
 
@@ -727,9 +770,12 @@ class Sprite
 
     #======================= Where picture is loaded =======================#
 
-    name = i[1]
-    folder = i[2]
-    self.bitmap = Cache.cache_extended(folder, name)
+    unless i[1] == 'THIS_IS_A_BLANK_PICTURE_YES_USER_WANTS_A_BLANK_WINDOW_ONLY'
+      name = i[1]
+      folder = i[2]
+      self.bitmap = Cache.cache_extended(folder, name)
+    end
+
     self.z += i[3] unless i[3].nil?
     self.opacity = i[4] if (self.visible) && !(i[4].nil?)
 
@@ -877,6 +923,16 @@ end
 class Game_Interpreter
 
   if Wndw_Cgr::Auto
+
+    def window_blank(class_type)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_switches[Wndw_Cgr::SSP +
+      $game_message.michael_wndw_bg_ary[name][0]] = true
+      $game_message.michael_wndw_bg_ary[name][1] = 'THIS_IS_A_BLANK_PICTURE_YES_USER_WANTS_A_BLANK_WINDOW_ONLY'
+    end
 
     def window_off(class_type)
 
