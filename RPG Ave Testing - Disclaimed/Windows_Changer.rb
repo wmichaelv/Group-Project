@@ -1,4 +1,6 @@
 
+Disable_Flicker_Test = true
+
 #==============================================================================
 #
 # Michael Windows Changer
@@ -184,6 +186,18 @@
 #               -> Make sure that switch is 'on' or else nothing would happen.
 #               -> Default opacity is 255 when window background is on.
 #
+# - window_nickname(window_type, nickname)
+# For Example:
+# window_nickname(Window_Gold, gold_lol)
+#               -> Next time you would like to type Window_Gold, you could just
+#                  type gold_lol like window_on(gold_lol, 'file_name')
+#               -> Recommended to use if the window_type is too long to type,
+#                  though please remember all the nicknames you have placed. :D
+#               -> Don't do window_nickname(gold_lol, gold)
+#               -> If you want to change the nickname, just do
+#                  window_nickname(Window_Gold, gold)
+#
+#
 #  Have Fun!
 #
 #==============================================================================
@@ -292,6 +306,10 @@ module Wndw_Cgr #Window Changer
     end
 
       #================= End Window Descendants Initializer ==============#
+
+      #============================= Psuedo List =========================#
+
+      Wndw_Psuedo_Names = {}
 
   else
 
@@ -530,7 +548,7 @@ class Window
   def initialize(x, y, width, height)
 
     self.oh_I_got_changed = false
-    create_michael_bg_sp(x, y, width, height)
+    (Disable_Flicker_Test) ? create_michael_bg_sp : create_michael_bg_sp(x, y, width, height)
     michael_Window_initialize(x, y, width, height)
     create_michael_bg_vp
     self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_bg_ary[self.class])
@@ -546,13 +564,14 @@ class Window
                                        #and class Game_Interpreter. Everything else is aliased.
   end
 
-  def create_michael_bg_sp(w_x, w_y, w_w, w_h)
+  def create_michael_bg_sp(w_x = nil, w_y = nil, w_w = nil, w_h = nil)
 
     self.michael_bg_sp = Sprite.new
-    self.michael_bg_sp.x = w_x
-    self.michael_bg_sp.y = w_y
-    self.michael_bg_sp.src_rect.width = w_w
-    self.michael_bg_sp.src_rect.height = w_h
+    self.michael_bg_sp.x = w_x unless w_x.nil?
+    self.michael_bg_sp.y = w_y unless w_y.nil?
+    self.michael_bg_sp.src_rect.width = w_w unless w_w.nil?
+    self.michael_bg_sp.src_rect.height = w_h unless w_h.nil?
+
   end
 
   def did_I_get_changed?
@@ -612,13 +631,6 @@ class Window
 
   end
 
-  #def width
-  #
-  #  self.michael_bg_sp.src_rect.width = self.michael_sp_width
-  #  self.michael_sp_width
-  #
-  #end
-
   def width=(arg)
 
     self.michael_sp_width_asgn(arg)
@@ -633,12 +645,31 @@ class Window
   #
   #end
 
-  #def height=(arg)
-  #
-  #  self.michael_sp_height_asgn(arg)
-  #  self.michael_bg_sp.src_rect.height = arg
-  #
-  #end
+  def height=(arg)
+
+    self.michael_sp_height_asgn(arg)
+    self.michael_bg_sp.src_rect.height = arg
+
+  end
+
+  if Disable_Flicker_Test
+
+    def width
+
+      self.michael_bg_sp.src_rect.width = self.michael_sp_width
+      self.michael_sp_width
+
+    end
+
+    def height
+
+      self.michael_bg_sp.src_rect.height = self.michael_sp_height
+      self.michael_sp_height
+
+    end
+
+
+  end
 
 end
 
@@ -689,8 +720,8 @@ class Sprite
     self.x = window.x
     self.y = window.y
     unless caller[1][/`.*'/][1..-2] == 'initialize'
-    #  self.src_rect.width = window.width
-    #  self.src_rect.height = window.height
+      self.src_rect.width = window.width
+      self.src_rect.height = window.height
     end
     self.visible = ((window.open?) && (window.visible))
 
@@ -712,11 +743,8 @@ class Sprite
       self.src_rect.x = 0 if self.x < 0
       self.y -= ((self.bitmap.height - window.height) / 2)
       self.src_rect.y = 0 if self.y < 0
-
-      #unless caller_locations(1,1)[1].label == 'initialize'
-        #self.src_rect.width = Graphics.width
-        #self.src_rect.height = Graphics.height
-      #end
+      self.src_rect.width = Graphics.width
+      self.src_rect.height = Graphics.height
 
     end
 
@@ -790,12 +818,14 @@ end
 class Game_Message
 
   attr_accessor :michael_wndw_bg_ary
+  attr_accessor :michael_wndw_bg_psuedo
   alias michael_ini initialize
 
   def initialize
 
     michael_ini
     @michael_wndw_bg_ary = Wndw_Cgr::Michael_Wndw_Bg_Ary
+    @michael_wndw_bg_psuedo = Wndw_Cgr::Wndw_Psuedo_Names
 
   end
 
@@ -850,82 +880,118 @@ class Game_Interpreter
 
     def window_off(class_type)
 
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
       $game_switches[Wndw_Cgr::SSP +
-      $game_message.michael_wndw_bg_ary[class_type][0]] = false
-      window_default(class_type)
+      $game_message.michael_wndw_bg_ary[name][0]] = false
+      window_default(name)
 
     end
 
-    def window_on(class_type, name, type_movement = '')
+    def window_on(class_type, file_name, type_movement = '')
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
       $game_switches[Wndw_Cgr::SSP +
-      $game_message.michael_wndw_bg_ary[class_type][0]] = true
-      $game_message.michael_wndw_bg_ary[class_type][1] = name
+      $game_message.michael_wndw_bg_ary[name][0]] = true
+      $game_message.michael_wndw_bg_ary[name][1] = file_name
 
-      if type_movement == /(show_all|center)/
-        $game_message.michael_wndw_bg_ary[class_type][5].slice!(/mtype+\w+?(__)/)
-        $game_message.michael_wndw_bg_ary[class_type][5] << 'mtype_' << type_movement << '__'
+      if type_movement.match(/(show_all|center)/)
+        $game_message.michael_wndw_bg_ary[name][5].slice!(/mtype+\w+?(__)/)
+        $game_message.michael_wndw_bg_ary[name][5] << 'mtype_' << type_movement << '__'
       end
 
     end
 
     def window_depth(class_type, depth)
 
-      $game_message.michael_wndw_bg_ary[class_type][3] = depth
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_bg_ary[name][3] = depth
 
     end
 
     def window_opacity(class_type, opacity)
 
-      $game_message.michael_wndw_bg_ary[class_type][4] = opacity
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_bg_ary[name][4] = opacity
 
     end
 
     def window_default(class_type)
 
-      $game_message.michael_wndw_bg_ary[class_type][3] = nil
-      $game_message.michael_wndw_bg_ary[class_type][4] = nil
-      $game_message.michael_wndw_bg_ary[class_type][5] = ''
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_bg_ary[name][3] = nil
+      $game_message.michael_wndw_bg_ary[name][4] = nil
+      $game_message.michael_wndw_bg_ary[name][5] = ''
 
     end
 
     def window_show_all(class_type)
 
-      $game_message.michael_wndw_bg_ary[class_type][5] << 'mtype_show_all__'
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_bg_ary[name][5] << 'mtype_show_all__'
 
     end
 
     def window_show_all_move(class_type, x, y)
 
-      $game_message.michael_wndw_bg_ary[class_type][5] = 'mtype_move__'
-      $game_message.michael_wndw_bg_ary[class_type][6] = x
-      $game_message.michael_wndw_bg_ary[class_type][7] = y
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_bg_ary[name][5] = 'mtype_move__'
+      $game_message.michael_wndw_bg_ary[name][6] = x
+      $game_message.michael_wndw_bg_ary[name][7] = y
 
     end
 
     def window_move_origin(class_type,x,y)
 
-      $game_message.michael_wndw_bg_ary[class_type][5] = 'mtype_move_origin__'
-      $game_message.michael_wndw_bg_ary[class_type][6] = x
-      $game_message.michael_wndw_bg_ary[class_type][7] = y
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_bg_ary[name][5] = 'mtype_move_origin__'
+      $game_message.michael_wndw_bg_ary[name][6] = x
+      $game_message.michael_wndw_bg_ary[name][7] = y
 
     end
 
     def window_center(class_type)
 
-      $game_message.michael_wndw_bg_ary[class_type][5] = 'mtype_center__'
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_bg_ary[name][5] = 'mtype_center__'
 
     end
 
-    def window_move_all(i, x, y, rect_x, rect_y, rect_width, rect_height)
+    def window_move_all(class_type, x, y, rect_x, rect_y, rect_width, rect_height)
 
-      $game_message.michael_wndw_bg_ary[class_type][5] = 'mtype_move_all__'
-      $game_message.michael_wndw_bg_ary[class_type][6] = x
-      $game_message.michael_wndw_bg_ary[class_type][7] = y
-      $game_message.michael_wndw_bg_ary[class_type][8] = rect_x
-      $game_message.michael_wndw_bg_ary[class_type][9] = rect_y
-      $game_message.michael_wndw_bg_ary[class_type][10] = rect_width
-      $game_message.michael_wndw_bg_ary[class_type][11] = rect_height
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_bg_ary[name][5] = 'mtype_move_all__'
+      $game_message.michael_wndw_bg_ary[name][6] = x
+      $game_message.michael_wndw_bg_ary[name][7] = y
+      $game_message.michael_wndw_bg_ary[name][8] = rect_x
+      $game_message.michael_wndw_bg_ary[name][9] = rect_y
+      $game_message.michael_wndw_bg_ary[name][10] = rect_width
+      $game_message.michael_wndw_bg_ary[name][11] = rect_height
+
+    end
+
+    def window_nickname(class_type, name)
+
+      $game_message.michael_wndw_bg_psuedo[class_type] = name
 
     end
 
