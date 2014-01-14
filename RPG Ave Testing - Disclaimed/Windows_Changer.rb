@@ -237,6 +237,8 @@ Disable_Flicker_Test = true
 # window_r_pixel(class_type, _zoom_x, _zoom_y) -> resize by full_size of the picture/bitmap/sprite
 # window_r(class_type, _zoom_x, zoom_y) -> resize after resizing from window
 # window_r_i(class_type, streched_width, streched_height) -> resize by integer (Window_Gold,200,200) -> resized into a box
+# window_r_fit_w(class_type) -> resized based on window.width
+# window_r_fit_h(class_type) -> resized based on window.height
 #
 # #============================== End ========================================#
 #
@@ -850,6 +852,48 @@ class Sprite
 
     end
 
+    i[5].match('rtype_window_width__') do
+
+      #============================ Resized ============================#
+
+      store_sp_w_float = self.bitmap.width.to_f
+      store_sp_h_float = self.bitmap.height.to_f
+      store_wndw_w_float = window.width.to_f
+
+      self.zoom_x = store_wndw_w_float / store_sp_w_float
+      self.zoom_y = store_wndw_w_float / store_sp_w_float
+      self.src_rect.width = Graphics.width
+      self.src_rect.height = Graphics.height
+
+      #=========================== Relocate ============================#
+
+      self.y += ((store_sp_h_float * store_wndw_w_float / store_sp_w_float -
+      store_sp_h_float) / 2)
+      self.src_rect.y = 0 if self.y < 0
+
+    end
+
+    i[5].match('rtype_window_height__') do
+
+      #============================ Resized ============================#
+
+      store_sp_w_float = self.bitmap.width.to_f
+      store_sp_h_float = self.bitmap.height.to_f
+      store_wndw_h_float = window.height.to_f
+
+      self.zoom_x = store_wndw_h_float / store_sp_h_float
+      self.zoom_y = store_wndw_h_float / store_sp_h_float
+      self.src_rect.width = Graphics.width
+      self.src_rect.height = Graphics.height
+
+      #=========================== Relocate ============================#
+
+      self.x += ((store_sp_w_float * store_wndw_h_float / store_sp_h_float -
+      store_sp_w_float) / 2)
+      self.src_rect.x = 0 if self.x < 0
+
+    end
+
     i[5].match('rtype_actual_pixel__') do
 
       #============================ Resized ============================#
@@ -1195,6 +1239,26 @@ class Game_Interpreter
 
       $game_message.michael_wndw_bg_ary[name][5].slice!(/rtype+\w+?(__)/)
       $game_message.michael_wndw_bg_ary[name][5] << 'rtype_window_default__'
+
+    end
+
+    def window_r_fit_w(class_type)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_bg_ary[name][5].slice!(/rtype+\w+?(__)/)
+      $game_message.michael_wndw_bg_ary[name][5] << 'rtype_window_width__'
+
+    end
+
+    def window_r_fit_h(class_type)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_bg_ary[name][5].slice!(/rtype+\w+?(__)/)
+      $game_message.michael_wndw_bg_ary[name][5] << 'rtype_window_height__'
 
     end
 
