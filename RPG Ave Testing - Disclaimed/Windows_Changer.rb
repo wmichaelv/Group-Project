@@ -1,6 +1,4 @@
-
-Disable_Flicker_Test = true
-
+#Disable_Flicker_Test = false
 #==============================================================================
 #
 # Michael Windows Changer
@@ -32,8 +30,6 @@ Disable_Flicker_Test = true
 #==============================================================================
 # Just take this as upcoming features
 #
-# - Fix the sprite resize feature
-# - Do the sprite color feature
 # - Do the sprite cursor feature
 # - Do the window movement
 # - Do the window resize
@@ -44,6 +40,8 @@ Disable_Flicker_Test = true
 #==============================================================================
 # Script Biography lol
 #==============================================================================
+# 2013.01.15 --Fixed resize -- Credit to Mithram for zoom's behavior
+#            --window_r_default is combined with default assignment.
 # 2013.01.14 --Fixed resize math
 # 2013.01.13 --Enabled Psuedo name
 # 2013.01.12 --Improve option on resize and add feature for color
@@ -137,6 +135,7 @@ Disable_Flicker_Test = true
 #             -> activate Window_Gold background with ex.jpg as the content
 #             -> If you want to change the picture, just do the same
 #                thing, but use different file_name.
+#             -> picture will be resized as how big the window is.
 #
 #  - window_off(window_type)
 #  For Example:
@@ -233,7 +232,7 @@ Disable_Flicker_Test = true
 #               -> Just remember that red, green, blue, alpha are from 0 - 255.
 #
 # #============================ Resizing =====================================#
-# window_r_default(class_type) -> Default resize, taking the size of the window
+#
 # window_r_pixel(class_type, _zoom_x, _zoom_y) -> resize by full_size of the picture/bitmap/sprite
 # window_r(class_type, _zoom_x, zoom_y) -> resize after resizing from window
 # window_r_i(class_type, streched_width, streched_height) -> resize by integer (Window_Gold,200,200) -> resized into a box
@@ -593,10 +592,12 @@ class Window
   def initialize(x, y, width, height)
 
     self.oh_I_got_changed = false
-    (Disable_Flicker_Test) ? create_michael_bg_sp : create_michael_bg_sp(x, y, width, height)
+    #(Disable_Flicker_Test) ? create_michael_bg_sp : create_michael_bg_sp(x, y, width, height)
+    create_michael_bg_sp(x, y, width, height)
     michael_Window_initialize(x, y, width, height)
     create_michael_bg_vp
     self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_bg_ary[self.class])
+    cursor_rect.michael_nickname_the_cursor_rect = 'cursor_rect'
 
   end
 
@@ -613,7 +614,9 @@ class Window
 
     self.michael_bg_sp = Sprite.new
     self.michael_bg_sp.x = w_x unless w_x.nil?
+    self.michael_bg_sp.michael_sp_x_offset = w_x unless w_x.nil?
     self.michael_bg_sp.y = w_y unless w_y.nil?
+    self.michael_bg_sp.michael_sp_y_offset = w_y unless w_y.nil?
     self.michael_bg_sp.src_rect.width = w_w unless w_w.nil?
     self.michael_bg_sp.src_rect.height = w_h unless w_h.nil?
 
@@ -653,12 +656,24 @@ class Window
     self.michael_sp_visible_asgn(arg)
     self.michael_bg_sp.visible = (self.open? && self.visible)
 
+    if !($game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]])
+
+      self.michael_bg_sp.visible = false
+
+    end
+
   end
 
   def openness=(arg)
 
     self.michael_sp_openness_asgn(arg)
     self.michael_bg_sp.visible = (self.open? && self.visible)
+
+    if !($game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]])
+
+      self.michael_bg_sp.visible = false
+
+    end
 
   end
 
@@ -690,6 +705,8 @@ class Window
 
   end
 
+=begin
+
   if Disable_Flicker_Test
 
     def width
@@ -706,8 +723,9 @@ class Window
 
     end
 
-
   end
+
+=end
 
 end
 
@@ -716,23 +734,35 @@ end
 #==============================================================================
 class Sprite
 
-  def michael_sp_updt(wndw, i)
+  attr_accessor :michael_sp_ppts_dup
+  attr_accessor :nullify_zoom_x
+  attr_accessor :nullify_zoom_y
+  attr_accessor :michael_sp_x_offset
+  attr_accessor :michael_sp_y_offset
 
-    $game_switches[Wndw_Cgr::SSP + i[0]] ? michael_bg_on(wndw,i) : michael_bg_off(wndw, i)
+  def michael_sp_updt(wndw, i, cursor = 'none')
+
+    $game_switches[Wndw_Cgr::SSP + i[0]] ? michael_bg_on(wndw,i, cursor) : michael_bg_off(wndw, i)
 
   end
 
-  def michael_bg_on(window, i)
+  def michael_bg_on(window, i, cursor)
+
+    self.michael_sp_ppts_dup = [nil, '', '', nil, nil, '', nil, nil, nil, nil,
+                                nil, nil, nil, nil, nil, nil, nil, nil] if self.michael_sp_ppts_dup.nil?
 
     michael_set_self_vp(window)
     michael_save_wndw_opa(window) unless window.did_I_get_changed?
     michael_clear_wndw_opa(window)
-    unless i[1] == 'THIS_IS_A_BLANK_PICTURE_YES_USER_WANTS_A_BLANK_WINDOW_ONLY'
-      michael_set_self_ppts(window, i) #SET SELF'S PROPERTIES
-      michael_modify_self(window, i) unless i[5] == ''
-    else
-      self.visible = false
-    end
+    michael_mandatory_update(window)
+
+    #unless self.michael_sp_ppts_dup == i
+
+      michael_apply_change(window, i, cursor)
+      self.michael_sp_ppts_dup = i.dup
+
+    #end
+
   end
 
   def michael_set_self_vp(window)
@@ -756,211 +786,289 @@ class Sprite
 
   end
 
-  def michael_set_self_ppts(window, i)
+  def michael_mandatory_update(window)
 
-    self.x = window.x
-    self.y = window.y
-    unless caller[1][/`.*'/][1..-2] == 'initialize'
-      self.src_rect.width = window.width
-      self.src_rect.height = window.height
+    #if caller[4][/`.*'/][1..-2] == 'initialize'
+
+
+      #self.michael_sp_x_offset -= window.x unless self.michael_sp_x_offset.nil?
+      #self.michael_sp_y_offset -= window.y unless self.michael_sp_y_offset.nil?
+
+      self.x = window.x #+= (self.michael_sp_x_offset / 2) unless self.michael_sp_x_offset.nil?
+      self.src_rect.x = 0 if self.x < 0
+
+      #self.x = 200
+
+      self.y = window.y #+= (self.michael_sp_y_offset / 2) unless self.michael_sp_y_offset.nil?
+      self.src_rect.y = 0 if self.y < 0
+
+      #self.michael_sp_x_offset = window.x
+      #self.michael_sp_y_offset = window.y
+
+    #end
+
+    self.visible = (window.open? && window.visible)
+
+  end
+
+  def michael_apply_change(window, i, cursor)
+
+    unless i[1] == 'THIS_IS_A_BLANK_PICTURE_YES_USER_WANTS_A_BLANK_WINDOW_ONLY'
+      michael_set_dflt_ppts(window, i, cursor) #SET DEFAULT PROPERTIES
+      michael_modify_self(window, i) unless i[5] == ''
+    else
+      self.visible = false
     end
-    self.visible = ((window.open?) && (window.visible))
+
+  end
+
+  def michael_set_dflt_ppts(window, i, cursor)
 
     #======================= Where picture is loaded =======================#
 
-    name = i[1]
-    folder = i[2]
-    self.bitmap = Cache.cache_extended(folder, name)
+    if self.michael_sp_ppts_dup[1] != i[1] ||
+       self.michael_sp_ppts_dup[2] != i[2]
+
+      case cursor
+
+      when 'select'; self.bitmap = Cache.cache_extended( i[2], i[1] + '_select')
+      when 'unselect'; self.bitmap = Cache.cache_extended( i[2], i[1] + '_unselect')
+      else; self.bitmap = Cache.cache_extended( i[2], i[1])
+
+      end
+
+      self.nullify_zoom_x = 1
+      self.nullify_zoom_y = 1
+
+    end
 
     self.z += i[3] unless i[3].nil?
     self.opacity = i[4] if (self.visible) && !(i[4].nil?)
+
+    if i[5] == ''
+
+      #============================ Resized ============================#
+
+      store_sp_w_float = self.bitmap.width.to_f
+      store_sp_h_float = self.bitmap.height.to_f
+      store_wndw_w_float = window.width.to_f
+      store_wndw_h_float = window.height.to_f
+
+      self.zoom_x = self.nullify_zoom_x
+      self.zoom_y = self.nullify_zoom_y
+
+      self.zoom_x = store_wndw_w_float / store_sp_w_float
+      self.zoom_y = store_wndw_h_float / store_sp_h_float
+      self.src_rect.width = self.bitmap.width
+      self.src_rect.height = self.bitmap.height
+
+      self.nullify_zoom_x = 1 / (store_wndw_w_float / store_sp_w_float)
+      self.nullify_zoom_y = 1 / (store_wndw_h_float / store_sp_h_float)
+
+    end
 
   end
 
   def michael_modify_self(window, i)
 
-    i[5].match('mtype_show_all__') do
+    i[5].match('mtype') do
 
-      self.x -= ((self.bitmap.width - window.width) / 2)
-      self.src_rect.x = 0 if self.x < 0
-      self.y -= ((self.bitmap.height - window.height) / 2)
-      self.src_rect.y = 0 if self.y < 0
-      self.src_rect.width = Graphics.width
-      self.src_rect.height = Graphics.height
+      i[5].match('mtype_show_all__') do
 
-    end
+        self.x -= ((self.bitmap.width - window.width) / 2)
+        self.src_rect.x = 0 if self.x < 0
+        self.y -= ((self.bitmap.height - window.height) / 2)
+        self.src_rect.y = 0 if self.y < 0
+        self.src_rect.width = self.bitmap.width
+        self.src_rect.height = self.bitmap.height
 
-    i[5].match('mtype_move__') do
+      end
 
-      self.x += (i[6] - ((self.bitmap.width - window.width) / 2))
-      self.src_rect.x = 0 if self.x < 0
-      self.y += (i[7] - ((self.bitmap.height - window.height) / 2))
-      self.src_rect.y = 0 if self.y < 0
-      self.src_rect.width = Graphics.width
-      self.src_rect.height = Graphics.height
+      i[5].match('mtype_move__') do
 
-    end
+        self.x += (i[6] - ((self.bitmap.width - window.width) / 2))
+        self.src_rect.x = 0 if self.x < 0
+        self.y += (i[7] - ((self.bitmap.height - window.height) / 2))
+        self.src_rect.y = 0 if self.y < 0
+        self.src_rect.width = self.bitmap.width
+        self.src_rect.height = self.bitmap.height
 
-    i[5].match('mtype_move_origin__') do
+      end
 
-      self.x += i[6]
-      self.src_rect.x = 0 if self.x < 0
-      self.y += i[7]
-      self.src_rect.y = 0 if self.y < 0
+      i[5].match('mtype_move_origin__') do
 
-    end
+        self.x += i[6]
+        self.src_rect.x = 0 if self.x < 0
+        self.y += i[7]
+        self.src_rect.y = 0 if self.y < 0
 
-    i[5].match('mtype_center__') do
+      end
 
-      self.x = (Graphics.width - self.bitmap.width) / 2
-      self.src_rect.x = 0 if self.x < 0
-      self.y = (Graphics.height - self.bitmap.height) / 2
-      self.src_rect.y = 0 if self.y < 0
-      self.src_rect.width = Graphics.width
-      self.src_rect.height = Graphics.height
+      i[5].match('mtype_center__') do
 
-    end
+        self.x = (Graphics.width - self.bitmap.width) / 2
+        self.src_rect.x = 0 if self.x < 0
+        self.y = (Graphics.height - self.bitmap.height) / 2
+        self.src_rect.y = 0 if self.y < 0
+        self.src_rect.width = self.bitmap.width
+        self.src_rect.height = self.bitmap.height
 
-    i[5].match('mtype_move_all__') do
+      end
 
-      @sp_offset_x = self.x = i[6]
-      @sp_offset_y = self.y = i[7]
-      self.src_rect.x = i[8]
-      self.src_rect.y = i[9]
-      self.src_rect.width = i[10]
-      self.src_rect.height = i[11]
+      i[5].match('mtype_move_all__') do
 
-    end
+        self.x = i[6]
+        self.y = i[7]
+        self.src_rect.x = i[8]
+        self.src_rect.y = i[9]
+        self.src_rect.width = i[10]
+        self.src_rect.height = i[11]
 
-    i[5].match('rtype_window_default__') do
-
-      #============================ Resized ============================#
-
-      store_sp_w_float = self.bitmap.width.to_f
-      store_sp_h_float = self.bitmap.height.to_f
-      store_wndw_w_float = window.width.to_f #+ 12 #paddings
-      store_wndw_h_float = window.height.to_f #+ 12
-
-      self.zoom_x = store_wndw_w_float / store_sp_w_float
-      self.zoom_y = store_wndw_h_float / store_sp_h_float
-      self.src_rect.width = Graphics.width
-      self.src_rect.height = Graphics.height
-
-      #=========================== Relocate ============================#
-
-      #No relocation is necessary for default resizement, but for organized purpose
-      self.x = window.x
-      self.y = window.y
+      end
 
     end
 
-    i[5].match('rtype_window_width__') do
 
-      #============================ Resized ============================#
+    i[5].match('rtype') do
 
-      store_sp_w_float = self.bitmap.width.to_f
-      store_sp_h_float = self.bitmap.height.to_f
-      store_wndw_w_float = window.width.to_f
+      i[5].match('rtype_window_width__') do
 
-      self.zoom_x = store_wndw_w_float / store_sp_w_float
-      self.zoom_y = store_wndw_w_float / store_sp_w_float
-      self.src_rect.width = Graphics.width
-      self.src_rect.height = Graphics.height
+        #============================ Resized ============================#
 
-      #=========================== Relocate ============================#
+        store_sp_w_float = self.bitmap.width.to_f
+        store_sp_h_float = self.bitmap.height.to_f
+        store_wndw_w_float = window.width.to_f
 
-      self.y += ((store_sp_h_float * store_wndw_w_float / store_sp_w_float -
-      store_sp_h_float) / 2)
-      self.src_rect.y = 0 if self.y < 0
-      self.x = window.x
-    end
+        self.zoom_x = self.nullify_zoom_x
+        self.zoom_y = self.nullify_zoom_y
 
-    i[5].match('rtype_window_height__') do
+        self.zoom_x = store_wndw_w_float / store_sp_w_float
+        self.zoom_y = store_wndw_w_float / store_sp_w_float
+        self.src_rect.width = self.bitmap.width
+        self.src_rect.height = self.bitmap.height
 
-      #============================ Resized ============================#
+        self.nullify_zoom_x = 1 / (store_wndw_w_float / store_sp_w_float)
+        self.nullify_zoom_y = 1 / (store_wndw_w_float / store_sp_w_float)
 
-      store_sp_w_float = self.bitmap.width.to_f
-      store_sp_h_float = self.bitmap.height.to_f
-      store_wndw_h_float = window.height.to_f
+        #=========================== Relocate ============================#
 
-      self.zoom_x = store_wndw_h_float / store_sp_h_float
-      self.zoom_y = store_wndw_h_float / store_sp_h_float
-      self.src_rect.width = Graphics.width
-      self.src_rect.height = Graphics.height
+        self.y += ((window.height - self.bitmap.height) / 2)
+        self.src_rect.y = 0 if self.y < 0
 
-      #=========================== Relocate ============================#
+      end
 
-      self.x -= ((store_sp_w_float * (store_wndw_h_float / store_sp_h_float) -
-      store_sp_w_float) / 2)
-      self.src_rect.x = 0 if self.x < 0
-      self.y = window.y
+      i[5].match('rtype_window_height__') do
 
-    end
+        #============================ Resized ============================#
 
-    i[5].match('rtype_actual_pixel__') do
+        store_sp_w_float = self.bitmap.width.to_f
+        store_sp_h_float = self.bitmap.height.to_f
+        store_wndw_h_float = window.height.to_f
 
-      #============================ Resized ============================#
+        self.zoom_x = self.nullify_zoom_x
+        self.zoom_y = self.nullify_zoom_y
 
-      store_sp_w_float = self.bitmap.width.to_f
-      store_sp_h_float = self.bitmap.height.to_f
+        self.zoom_x = store_wndw_h_float / store_sp_h_float
+        self.zoom_y = store_wndw_h_float / store_sp_h_float
+        self.src_rect.width = self.bitmap.width
+        self.src_rect.height = self.bitmap.height
 
-      self.zoom_x = i[12]
-      self.zoom_y = i[13]
-      self.src_rect.width = Graphics.width
-      self.src_rect.height = Graphics.height
+        self.nullify_zoom_x = 1 / (store_wndw_h_float / store_sp_h_float)
+        self.nullify_zoom_y = 1 / (store_wndw_h_float / store_sp_h_float)
 
-      #=========================== Relocate ============================#
+        #=========================== Relocate ============================#
 
-      self.x -=((i[12] * store_sp_w_float - store_sp_w_float) / 2)
-      self.src_rect.x = 0 if self.x < 0
-      self.y -= ((i[13] * store_sp_h_float - store_sp_h_float) / 2)
-      self.src_rect.y = 0 if self.y < 0
+        self.x -= ((store_sp_w_float * (store_wndw_h_float / store_sp_h_float) -
+        store_sp_w_float) / 2)
+        self.src_rect.x = 0 if self.x < 0
 
-    end
+      end
 
-    i[5].match('rtype_by_window__') do
+      i[5].match('rtype_actual_pixel__') do
 
-      #============================ Resized ============================#
+        #============================ Resized ============================#
 
-      store_sp_w_float = self.bitmap.width.to_f
-      store_sp_h_float = self.bitmap.height.to_f
-      store_wndw_w_float = window.width.to_f
-      store_wndw_h_float = window.height.to_f
+        store_sp_w_float = self.bitmap.width.to_f
+        store_sp_h_float = self.bitmap.height.to_f
 
-      self.zoom_x = (i[12] * store_wndw_w_float / store_sp_w_float)
-      self.zoom_y = (i[13] * store_wndw_h_float / store_sp_h_float)
-      self.src_rect.width = Graphics.width
-      self.src_rect.height = Graphics.height
+        self.zoom_x = self.nullify_zoom_x
+        self.zoom_y = self.nullify_zoom_y
 
-      #=========================== Relocate ============================#
+        self.zoom_x = i[12]
+        self.zoom_y = i[13]
+        self.src_rect.width = self.bitmap.width
+        self.src_rect.height = self.bitmap.height
 
-      self.x -= ((i[12] * store_sp_w_float /  store_sp_w_float -
-      store_sp_w_float / store_sp_w_float) / 2)
-      self.src_rect.x = 0 if self.x < 0
-      self.y -= ((i[13] * store_sp_h_float / store_wndw_h_float -
-      store_sp_h_float / store_wndw_h_float) / 2)
-      self.src_rect.y = 0 if self.y < 0
+        self.nullify_zoom_x = 1 / i[12]
+        self.nullify_zoom_y = 1 / i[13]
 
-    end
 
-    i[5].match('rtype_by_integer__') do
+        #=========================== Relocate ============================#
 
-      #============================ Resized ============================#
+        self.x -=((i[12] * store_sp_w_float - store_sp_w_float) / 2)
+        self.src_rect.x = 0 if self.x < 0
+        self.y -= ((i[13] * store_sp_h_float - store_sp_h_float) / 2)
+        self.src_rect.y = 0 if self.y < 0
 
-      store_sp_w_float = self.bitmap.width.to_f
-      store_sp_h_float = self.bitmap.height.to_f
+      end
 
-      self.zoom_x = i[12] / store_sp_w_float
-      self.zoom_y = i[13] / store_sp_h_float
-      self.src_rect.width = Graphics.width
-      self.src_rect.height = Graphics.height
+      i[5].match('rtype_by_window__') do
 
-      #=========================== Relocate ============================#
+        #============================ Resized ============================#
 
-      self.x -= ((i[12] / store_sp_w_float - store_sp_w_float) / 2)
-      self.src_rect.x = 0 if self.x < 0
-      self.y -= ((i[13] / store_sp_h_float - store_sp_h_float) / 2)
-      self.src_rect.y = 0 if self.y < 0
+        store_sp_w_float = self.bitmap.width.to_f
+        store_sp_h_float = self.bitmap.height.to_f
+        store_wndw_w_float = window.width.to_f
+        store_wndw_h_float = window.height.to_f
+
+        self.zoom_x = self.nullify_zoom_x
+        self.zoom_y = self.nullify_zoom_y
+
+        self.zoom_x = (i[12] * store_wndw_w_float / store_sp_w_float)
+        self.zoom_y = (i[13] * store_wndw_h_float / store_sp_h_float)
+        self.src_rect.width = self.bitmap.width
+        self.src_rect.height = self.bitmap.height
+
+        self.nullify_zoom_x = 1 / (i[12] * store_wndw_w_float / store_sp_w_float)
+        self.nullify_zoom_y = 1 / (i[13] * store_wndw_h_float / store_sp_h_float)
+
+        #=========================== Relocate ============================#
+
+        self.x -= ((i[12] * store_sp_w_float /  store_sp_w_float -
+        store_sp_w_float / store_sp_w_float) / 2)
+        self.src_rect.x = 0 if self.x < 0
+        self.y -= ((i[13] * store_sp_h_float / store_wndw_h_float -
+        store_sp_h_float / store_wndw_h_float) / 2)
+        self.src_rect.y = 0 if self.y < 0
+
+      end
+
+      i[5].match('rtype_by_integer__') do
+
+        #============================ Resized ============================#
+
+        store_sp_w_float = self.bitmap.width.to_f
+        store_sp_h_float = self.bitmap.height.to_f
+
+        self.zoom_x = self.nullify_zoom_x
+        self.zoom_y = self.nullify_zoom_y
+
+        self.zoom_x = (i[12] / store_sp_w_float)
+        self.zoom_y = (i[13] / store_sp_h_float)
+        self.src_rect.width = self.bitmap.width
+        self.src_rect.height = self.bitmap.height
+
+        self.nullify_zoom_x = 1 / (i[12] / store_sp_w_float)
+        self.nullify_zoom_y = 1 / (i[13] / store_sp_h_float)
+
+        #=========================== Relocate ============================#
+
+        self.x -= ((i[12] / store_sp_w_float - store_sp_w_float) / 2)
+        self.src_rect.x = 0 if self.x < 0
+        self.y -= ((i[13] / store_sp_h_float - store_sp_h_float) / 2)
+        self.src_rect.y = 0 if self.y < 0
+
+      end
 
     end
 
@@ -973,9 +1081,10 @@ class Sprite
     self.visible = false
     window.oh_I_got_changed = false
 
-    if ((window.openness == 255) && window.visible)
+    if (window.open? && window.visible)
       window.back_opacity = @michael_wndw_b_opa unless @michael_wndw_b_opa.nil?
       window.opacity = @michael_wndw_opa unless @michael_wndw_opa.nil?
+
     end
 
   end
@@ -985,21 +1094,41 @@ end
 #==============================================================================
 # Rect
 #==============================================================================
+
 class Rect
+
   attr_accessor :michael_nickname_the_cursor_rect
-  alias michael_Rect_set_special set
+
+  alias michael_Rect_set set
+  alias michael_Rect_empty empty
 
   def set(*args)
 
-    michael_Rect_set_special(*args)
-
+    michael_Rect_set(*args)
+=begin
     if self.michael_nickname_the_cursor_rect == 'cursor_rect'
 
       #gonna add stuff here for select & unselected choice
+      #$michael_cursor_rect_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_bg_ary[self.class], 'select')
+      $michael_cursor_rect_bg_sp.visible = true
+      $michael_cursor_rect_bg_sp.x = self.x
+      $michael_cursor_rect_bg_sp.y = self.y
 
-      #self.clear
+
+      empty
 
     end
+=end
+  end
+
+  def emtpy
+    #if self.michael_nickname_the_cursor_rect == 'cursor_rect'#if caller[1][/`.*'/][1..-2] == 'set'
+      #$michael_cursor_rect_bg_sp.visible = false
+    #end
+    #$michael_cursor_rect_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_bg_ary[self.class], 'unselect')
+
+    michael_Rect_empty
+
   end
 
 end
@@ -1016,14 +1145,17 @@ class Scene_Base
     $michael_cursor_rect_bg_sp = Sprite.new     #I'll remove the global once
     $michael_cursor_rect_bg_vp = Viewport.new   #that I found a better solution
     $michael_cursor_rect_bg_sp.viewport = $michael_cursor_rect_bg_vp
-    #$michael_cursor_rect_bg_vp.z = 500
-    #$michael_cursor_rect_bg_sp.bitmap = Cache.cache_extended("Graphics\\Windows\\Window_Message", 'color')
+    $michael_cursor_rect_bg_vp.z = 500
+    $michael_cursor_rect_bg_sp.bitmap = Cache.cache_extended("Graphics\\Windows\\Window_Message", 'color')
+    $michael_cursor_rect_bg_sp.visible = false
     #$michael_cursor_rect_bg_sp.src_rect.set(0,0,Graphics.width, Graphics.height)
     #$michael_cursor_rect_bg_sp.zoom_x = 2
 
     michael_Scene_Base_main
+
     $michael_cursor_rect_bg_vp.dispose
     $michael_cursor_rect_bg_sp.dispose
+
   end
 
 end
@@ -1035,6 +1167,7 @@ class Game_Message
 
   attr_accessor :michael_wndw_bg_ary
   attr_accessor :michael_wndw_bg_psuedo
+
   alias michael_ini initialize
 
   def initialize
@@ -1115,7 +1248,7 @@ class Game_Interpreter
 
     end
 
-    def window_on(class_type, file_name, type_movement = '', type_resize = '')
+    def window_on(class_type, file_name, type_movement = '')
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
@@ -1128,8 +1261,7 @@ class Game_Interpreter
         $game_message.michael_wndw_bg_ary[name][5].slice!(/mtype+\w+?(__)/)
         $game_message.michael_wndw_bg_ary[name][5] << 'mtype_' << type_movement << '__'
       else
-        $game_message.michael_wndw_bg_ary[name][5].slice!(/rtype+\w+?(__)/)
-        $game_message.michael_wndw_bg_ary[name][5] << 'rtype_window_default__'
+        window_default(name)
       end
 
     end
@@ -1234,16 +1366,6 @@ class Game_Interpreter
     #r = resize
     #rtype = resize type
     #ctype = color type
-
-    def window_r_default(class_type)
-
-      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
-      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
-
-      $game_message.michael_wndw_bg_ary[name][5].slice!(/rtype+\w+?(__)/)
-      $game_message.michael_wndw_bg_ary[name][5] << 'rtype_window_default__'
-
-    end
 
     def window_r_fit_w(class_type)
 
