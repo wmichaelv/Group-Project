@@ -1,7 +1,7 @@
 #==============================================================================
 #
 # Michael Windows Changer
-# Last Updated: 2014.01.14
+# Last Updated: 2014.01.16
 # Requirement: RPG Maker VX Ace
 #             -Knowledge of 'how to use scripts'
 #             -Knowledge of Window Designation (basically know which window is
@@ -39,6 +39,7 @@
 #==============================================================================
 # Script Biography lol
 #==============================================================================
+# 2013.01.16 --cursor_rect is up to customized.
 # 2013.01.15 --Fixed resize -- Credit to Mithram for zoom's behavior
 #            --window_r_default is combined with default assignment.
 # 2013.01.14 --Fixed resize math
@@ -303,32 +304,43 @@ module Wndw_Cgr #Window Changer
     ##============================ Auto Procedure =========================##
 
     Michael_Wndw_Bg_Ary = Hash.new {|h,k| h[k]=[]}
+    Michael_Wndw_Cursor = Hash.new {|h,k| h[k]=[]} #I believe there should be a better way
+                                                   #but I'm in a bit of rush here. .-.
 
         #==================== Start Window Initializer =================#
 
     Michael_Wndw_Bg_Ary[Window] << 0                      #indexed for game_switch purpose
+    Michael_Wndw_Cursor[Window] << 0
 
     Michael_Wndw_Bg_Ary[Window] << "file_name"
+    Michael_Wndw_Cursor[Window] << "file_name"
 
     Michael_Wndw_Bg_Ary[Window] << ((Folder_Name == '') ?  #Windows folder should be
     "Graphics\\Windows" : Folder_Name)                     #created unless user only
                                                            #want to put everything in folder.
+    Michael_Wndw_Cursor[Window] << ((Folder_Name == '') ?
+    "Graphics\\Windows" : Folder_Name)
 
           #================ z, opacity, modify_type ================#
 
     Michael_Wndw_Bg_Ary[Window] << nil << nil << ''
+    Michael_Wndw_Cursor[Window] << nil << nil << ''
 
           #=========== x, y, rect_x, rect_y, rect_w, rect_h ==========#
 
     Michael_Wndw_Bg_Ary[Window] << nil << nil << nil << nil << nil << nil
+    Michael_Wndw_Cursor[Window] << nil << nil << nil << nil << nil << nil
+
 
           #================ extend(zoom) width, height ===============#
 
     Michael_Wndw_Bg_Ary[Window] << nil << nil
+    Michael_Wndw_Cursor[Window] << nil << nil
 
           #============== color :red :green :blue :alpha =============#
 
     Michael_Wndw_Bg_Ary[Window] << nil << nil << nil << nil
+    Michael_Wndw_Cursor[Window] << nil << nil << nil << nil
 
         #===================== End Window Initializer ==================#
 
@@ -345,6 +357,16 @@ module Wndw_Cgr #Window Changer
       Michael_Wndw_Bg_Ary[derived_classes] << nil << nil << nil << nil << nil << nil
       Michael_Wndw_Bg_Ary[derived_classes] << nil << nil
       Michael_Wndw_Bg_Ary[derived_classes] << nil << nil << nil << nil
+      Michael_Wndw_Cursor[derived_classes] << i
+      Michael_Wndw_Cursor[derived_classes] << "file_name"
+      Michael_Wndw_Cursor[derived_classes] <<
+      ((Special_Window.has_key?(derived_classes)) ?
+      Special_Window[derived_classes] : (Folder_Name == '') ?
+      "Graphics\\Windows\\#{derived_classes}" : Folder_Name)
+      Michael_Wndw_Cursor[derived_classes] << nil << nil << ''
+      Michael_Wndw_Cursor[derived_classes] << nil << nil << nil << nil << nil << nil
+      Michael_Wndw_Cursor[derived_classes] << nil << nil
+      Michael_Wndw_Cursor[derived_classes] << nil << nil << nil << nil
     end
 
       #================= End Window Descendants Initializer ==============#
@@ -598,6 +620,8 @@ class Window
     create_michael_bg_vp
     self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_bg_ary[self.class])
     customize_michael_cursor_rect(w_x, w_y)
+    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_updt(self, $game_message.michael_wndw_cursor[self.class])
+
   end
 
   #============================ Start New Methods ============================#
@@ -625,8 +649,8 @@ class Window
 
     cursor_rect.michael_nickname_the_cursor_rect = 'cursor_rect'
     initialize_michael_cursor_bg_sp
-    initialize_michael_cursor_bg_ppt(w_x, w_y)
     initialize_michael_cursor_bg_sp_offset
+    initialize_michael_cursor_bg_ppt(w_x, w_y)
 
   end
 
@@ -637,23 +661,26 @@ class Window
 
   end
 
-  def initialize_michael_cursor_bg_ppt(w_x, w_y)
-
-    cursor_rect.michael_cursor_rect_bg_sp.viewport = michael_bg_vp
-    cursor_rect.michael_cursor_rect_bg_sp.bitmap = Cache.cache_extended("Graphics\\Windows\\Window_BattleStatus", 'color')
-    cursor_rect.michael_cursor_rect_bg_sp.src_rect.width = cursor_rect.width
-    cursor_rect.michael_cursor_rect_bg_sp.src_rect.height = cursor_rect.height
-    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_x_offset = w_x
-    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_y_offset = w_y
-    cursor_rect.michael_cursor_rect_bg_sp.michael_set_self_vp(self)
-  end
-
   def initialize_michael_cursor_bg_sp_offset
 
     cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_x_offset = 0
     cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_y_offset = 0
     cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_w_offset = 0
     cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_h_offset = 0
+
+  end
+
+  def initialize_michael_cursor_bg_ppt(w_x, w_y)
+
+    cursor_rect.michael_cursor_rect_bg_sp.viewport = michael_bg_vp
+    cursor_rect.michael_cursor_rect_bg_sp.bitmap = Cache.cache_extended("Graphics\\Windows\\Window_BattleStatus", 'color')
+    cursor_rect.michael_cursor_rect_bg_sp.src_rect.width = cursor_rect.width
+    cursor_rect.michael_cursor_rect_bg_sp.src_rect.height = cursor_rect.height
+    cursor_rect.michael_cursor_rect_bg_sp.x = w_x +
+    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_x_offset #I'll need a better naming convention here .-.
+    cursor_rect.michael_cursor_rect_bg_sp.y = w_y +
+    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_y_offset
+    cursor_rect.michael_cursor_rect_bg_sp.michael_set_self_vp(self)
 
   end
 
@@ -684,8 +711,8 @@ class Window
 
     michael_Window_update
     self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_bg_ary[self.class])
-    cursor_rect.michael_cursor_rect_bg_sp.michael_set_self_vp(self)
-    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_mandatory_update(self)
+    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_updt(self, $game_message.michael_wndw_cursor[self.class])
+
   end
 
   def visible=(arg)
@@ -718,7 +745,8 @@ class Window
 
     self.michael_sp_x_asgn(arg)
     self.michael_bg_sp.x = arg
-    self.cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_x_offset = arg
+    self.cursor_rect.michael_cursor_rect_bg_sp.x = arg +
+    self.cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_x_offset#michael_cursor_sp_x_offset = arg
 
   end
 
@@ -726,7 +754,8 @@ class Window
 
     self.michael_sp_y_asgn(arg)
     self.michael_bg_sp.y = arg
-    self.cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_y_offset = arg
+    self.cursor_rect.michael_cursor_rect_bg_sp.y = arg +
+    self.cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_y_offset#.michael_cursor_sp_y_offset = arg
 
   end
 
@@ -760,6 +789,7 @@ class Sprite
   attr_accessor :michael_cursor_sp_y_offset
   attr_accessor :michael_cursor_sp_w_offset
   attr_accessor :michael_cursor_sp_h_offset
+  attr_accessor :_I_do_have_bitmap
 
   def michael_sp_updt(wndw, i, cursor = 'none')
 
@@ -776,13 +806,8 @@ class Sprite
     michael_save_wndw_opa(window) unless window.did_I_get_changed?
     michael_clear_wndw_opa(window)
     michael_mandatory_update(window)
-
-    #unless self.michael_sp_ppts_dup == i
-
-      michael_apply_change(window, i, cursor)
-      self.michael_sp_ppts_dup = i.dup
-
-    #end
+    michael_apply_change(window, i, cursor)
+    self.michael_sp_ppts_dup = i.dup
 
   end
 
@@ -807,13 +832,6 @@ class Sprite
 
   end
 
-  def michael_cursor_mandatory_update(window)
-    self.michael_cursor_sp_x_offset = window.x
-    self.michael_cursor_sp_y_offset = window.y
-    self.visible = (window.open? && window.visible)
-    self.visible = false if window.cursor_rect.michael_window_sp_counter
-  end
-
   def michael_mandatory_update(window)
 
     self.x = window.x
@@ -830,7 +848,7 @@ class Sprite
 
     unless i[1] == 'THIS_IS_A_BLANK_PICTURE_YES_USER_WANTS_A_BLANK_WINDOW_ONLY'
       michael_set_dflt_ppts(window, i, cursor) #SET DEFAULT PROPERTIES
-      michael_modify_self(window, i) unless i[5] == ''
+      michael_modify_self(window, i) unless i[5] == '' && !(self._I_do_have_bitmap)
     else
       self.visible = false
     end
@@ -844,11 +862,22 @@ class Sprite
     if self.michael_sp_ppts_dup[1] != i[1] ||
        self.michael_sp_ppts_dup[2] != i[2]
 
-      case cursor
+      begin
 
-      when 'select'; self.bitmap = Cache.cache_extended( i[2], i[1] + '_select')
-      when 'unselect'; self.bitmap = Cache.cache_extended( i[2], i[1] + '_unselect')
-      else; self.bitmap = Cache.cache_extended( i[2], i[1])
+        case cursor
+
+        when 'select'; self.bitmap = Cache.cache_extended( i[2], i[1] + '_select')
+        when 'unselect'; self.bitmap = Cache.cache_extended( i[2], i[1] + '_unselect')
+        else; self.bitmap = Cache.cache_extended( i[2], i[1])
+
+        end
+
+        self._I_do_have_bitmap = true
+
+      rescue
+
+        self._I_do_have_bitmap = false
+        return
 
       end
 
@@ -1104,6 +1133,51 @@ class Sprite
 
   end
 
+
+  def michael_cursor_updt(window, i, cursor = 'select')
+
+    $game_switches[Wndw_Cgr::SSP + i[0]] ? michael_cursor_on(wndw, i, cursor) : michael_cursor_off(i)
+
+  end
+
+  def michael_cursor_on(wndw, i, cursor)
+
+    self.michael_sp_ppts_dup = [nil, '', '', nil, nil, '', nil, nil, nil, nil,
+                                nil, nil, nil, nil, nil, nil, nil, nil] if self.michael_sp_ppts_dup.nil?
+
+    michael_set_self_vp(window)
+    michael_cursor_mandatory_update(window)
+    michael_cursor_apply_change(window, i, cursor)
+    self.michael_sp_ppts_dup = i.dup
+
+  end
+
+  def michael_cursor_mandatory_update(window)
+
+    self.x = window.x + self.michael_cursor_sp_x_offset
+    self.y = window.y + self.michael_cursor_sp_y_offset
+    self.visible = (window.open? && window.visible)
+    self.visible = false if window.cursor_rect.michael_window_sp_counter
+
+  end
+
+  def michael_cursor_apply_change(window, i, cursor)
+
+      michael_set_dflt_ppts(window.cursor, i, cursor) #SET DEFAULT PROPERTIES
+      michael_modify_self(window.cursor, i) unless i[5] == '' && !(self._I_do_have_bitmap)
+
+  end
+
+
+
+  def michael_cursor_off(i)
+
+    i[1] = ''
+    self.visible = false
+    self._I_do_have_bitmap = false
+
+  end
+
 end
 
 #==============================================================================
@@ -1114,10 +1188,9 @@ class Rect
 
   attr_accessor :michael_nickname_the_cursor_rect
   attr_accessor :michael_cursor_rect_bg_sp
-  attr_accessor :michael_cursor_store_x
-  attr_accessor :michael_cursor_store_y
   attr_accessor :michael_cursor_sp_counter
   attr_accessor :michael_window_sp_counter
+
   alias michael_Rect_set set
   alias michael_Rect_empty empty
 
@@ -1127,36 +1200,26 @@ class Rect
 
     michael_Rect_set(*args)
 
-    if self.michael_nickname_the_cursor_rect == 'cursor_rect'
-      #self.michael_cursor_rect_bg_sp.visible = true
+    if self.michael_nickname_the_cursor_rect == 'cursor_rect' &&
+       self.michael_cursor_rect_bg_sp._I_do_have_bitmap
 
-      self.michael_cursor_rect_bg_sp.x = self.x + 12
-      self.michael_cursor_rect_bg_sp.y = self.y + 12
-      self.michael_cursor_rect_bg_sp.src_rect.width = self.width
-      self.michael_cursor_rect_bg_sp.src_rect.height = self.height
-
-      michael_apply_bg_sp_offset
-
+      self.michael_cursor_rect_bg_sp.michael_cursor_sp_x_offset = self.x + 12
+      self.michael_cursor_rect_bg_sp.michael_cursor_sp_y_offset = self.y + 12
       self.michael_cursor_sp_counter = false
       empty
-      self.michael_cursor_sp_counter = true
 
     end
 
-  end
-
-  def michael_apply_bg_sp_offset
-
-    self.michael_cursor_rect_bg_sp.x += self.michael_cursor_rect_bg_sp.michael_cursor_sp_x_offset
-    self.michael_cursor_rect_bg_sp.y += self.michael_cursor_rect_bg_sp.michael_cursor_sp_y_offset
-    self.michael_cursor_rect_bg_sp.src_rect.width += self.michael_cursor_rect_bg_sp.michael_cursor_sp_w_offset
-    self.michael_cursor_rect_bg_sp.src_rect.height += self.michael_cursor_rect_bg_sp.michael_cursor_sp_h_offset
+    self.michael_cursor_sp_counter = true
 
   end
 
   def empty
-    self.michael_window_sp_counter = michael_cursor_sp_counter
+
     michael_Rect_empty
+
+    self.michael_window_sp_counter = michael_cursor_sp_counter
+
   end
 
 end
@@ -1167,6 +1230,7 @@ end
 class Game_Message
 
   attr_accessor :michael_wndw_bg_ary
+  attr_accessor :michael_wndw_cursor
   attr_accessor :michael_wndw_bg_psuedo
 
   alias michael_ini initialize
@@ -1175,6 +1239,7 @@ class Game_Message
 
     michael_ini
     @michael_wndw_bg_ary = Wndw_Cgr::Michael_Wndw_Bg_Ary
+    @michael_wndw_cursor = Wndw_Cgr::Michael_Wndw_Cursor
     @michael_wndw_bg_psuedo = Wndw_Cgr::Wndw_Psuedo_Names
 
   end
@@ -1439,6 +1504,10 @@ class Game_Interpreter
       $game_message.michael_wndw_bg_ary[name][17] = alpha
 
     end
+
+    #========================= Cursor Interpreter =========================#
+
+    #soon to be filled :p
 
   else
 
