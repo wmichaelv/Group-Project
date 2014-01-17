@@ -589,15 +589,15 @@ class Window
   alias michael_sp_height height #To avoid flicker error
   alias michael_sp_height_asgn height=
 
-  def initialize(x, y, width, height)
+  def initialize(w_x, w_y, w_w, w_h)
 
     self.oh_I_got_changed = false
     #(Disable_Flicker_Test) ? create_michael_bg_sp : create_michael_bg_sp(x, y, width, height)
-    create_michael_bg_sp(x, y, width, height)
-    michael_Window_initialize(x, y, width, height)
+    create_michael_bg_sp(w_x, w_y, w_w, w_h)
+    michael_Window_initialize(w_x, w_y, w_w, w_h)
     create_michael_bg_vp
     self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_bg_ary[self.class])
-    customize_michael_cursor_rect
+    customize_michael_cursor_rect(w_x, w_y)
   end
 
   #============================ Start New Methods ============================#
@@ -621,11 +621,11 @@ class Window
 
   end
 
-  def customize_michael_cursor_rect
+  def customize_michael_cursor_rect(w_x, w_y)
 
     cursor_rect.michael_nickname_the_cursor_rect = 'cursor_rect'
     initialize_michael_cursor_bg_sp
-    initialize_michael_cursor_bg_ppt
+    initialize_michael_cursor_bg_ppt(w_x, w_y)
     initialize_michael_cursor_bg_sp_offset
 
   end
@@ -637,13 +637,15 @@ class Window
 
   end
 
-  def initialize_michael_cursor_bg_ppt
+  def initialize_michael_cursor_bg_ppt(w_x, w_y)
 
     cursor_rect.michael_cursor_rect_bg_sp.viewport = michael_bg_vp
     cursor_rect.michael_cursor_rect_bg_sp.bitmap = Cache.cache_extended("Graphics\\Windows\\Window_BattleStatus", 'color')
     cursor_rect.michael_cursor_rect_bg_sp.src_rect.width = cursor_rect.width
     cursor_rect.michael_cursor_rect_bg_sp.src_rect.height = cursor_rect.height
-    #cursor_rect.michael_cursor_rect_bg_sp.z = self.z
+    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_x_offset = w_x
+    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_y_offset = w_y
+    cursor_rect.michael_cursor_rect_bg_sp.michael_set_self_vp(self)
   end
 
   def initialize_michael_cursor_bg_sp_offset
@@ -716,6 +718,7 @@ class Window
 
     self.michael_sp_x_asgn(arg)
     self.michael_bg_sp.x = arg
+    self.cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_x_offset = arg
 
   end
 
@@ -723,6 +726,7 @@ class Window
 
     self.michael_sp_y_asgn(arg)
     self.michael_bg_sp.y = arg
+    self.cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_y_offset = arg
 
   end
 
@@ -804,8 +808,10 @@ class Sprite
   end
 
   def michael_cursor_mandatory_update(window)
-    self.michael_cursor_sp_x_offset = window.x + 12 #12 is half-padding (full
-    self.michael_cursor_sp_y_offset = window.y + 12 #padding is 24 both opposite sides)
+    self.michael_cursor_sp_x_offset = window.x
+    self.michael_cursor_sp_y_offset = window.y
+    self.visible = (window.open? && window.visible)
+    self.visible = false if window.cursor_rect.michael_window_sp_counter
   end
 
   def michael_mandatory_update(window)
@@ -831,7 +837,7 @@ class Sprite
 
   end
 
-  def michael_set_dflt_ppts(window, i)
+  def michael_set_dflt_ppts(window, i, cursor)
 
     #======================= Where picture is loaded =======================#
 
@@ -1111,6 +1117,7 @@ class Rect
   attr_accessor :michael_cursor_store_x
   attr_accessor :michael_cursor_store_y
   attr_accessor :michael_cursor_sp_counter
+  attr_accessor :michael_window_sp_counter
   alias michael_Rect_set set
   alias michael_Rect_empty empty
 
@@ -1121,22 +1128,19 @@ class Rect
     michael_Rect_set(*args)
 
     if self.michael_nickname_the_cursor_rect == 'cursor_rect'
-        self.michael_cursor_rect_bg_sp.visible = true
-        self.michael_cursor_store_x = self.x if self.michael_cursor_store_x.nil?
-        self.michael_cursor_store_y = self.y if self.michael_cursor_store_y.nil?
-        self.michael_cursor_rect_bg_sp.x = self.x#+= (self.x - self.michael_cursor_store_x)
-        self.michael_cursor_store_x == self.x
-        self.michael_cursor_rect_bg_sp.y = self.y#+= (self.y - self.michael_cursor_store_y)
-        self.michael_cursor_store_y == self.y
+      #self.michael_cursor_rect_bg_sp.visible = true
 
+      self.michael_cursor_rect_bg_sp.x = self.x + 12
+      self.michael_cursor_rect_bg_sp.y = self.y + 12
+      self.michael_cursor_rect_bg_sp.src_rect.width = self.width
+      self.michael_cursor_rect_bg_sp.src_rect.height = self.height
 
-        self.michael_cursor_rect_bg_sp.src_rect.width = self.width
-        self.michael_cursor_rect_bg_sp.src_rect.height = self.height
+      michael_apply_bg_sp_offset
 
-        michael_apply_bg_sp_offset
-        self.michael_cursor_sp_counter = false
-        empty
-        self.michael_cursor_sp_counter = true
+      self.michael_cursor_sp_counter = false
+      empty
+      self.michael_cursor_sp_counter = true
+
     end
 
   end
@@ -1151,8 +1155,7 @@ class Rect
   end
 
   def empty
-    self.michael_cursor_rect_bg_sp.visible = false if michael_cursor_sp_counter
-
+    self.michael_window_sp_counter = michael_cursor_sp_counter
     michael_Rect_empty
   end
 
