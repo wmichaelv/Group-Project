@@ -1,7 +1,7 @@
 #==============================================================================
 #
 # Michael Windows Changer
-# Last Updated: 2014.01.16
+# Last Updated: 2014.01.17
 # Requirement: RPG Maker VX Ace
 #             -Knowledge of 'how to use scripts'
 #             -Knowledge of Window Designation (basically know which window is
@@ -39,7 +39,8 @@
 #==============================================================================
 # Script Biography lol
 #==============================================================================
-# 2013.01.16 --cursor_rect is up to customized.
+# 2013.01.17 --Implementing interpreter
+# 2013.01.16 --cursor_rect is up to customization.
 # 2013.01.15 --Fixed resize -- Credit to Mithram for zoom's behavior
 #            --window_r_default is combined with default assignment.
 # 2013.01.14 --Fixed resize math
@@ -239,7 +240,41 @@
 # window_r_fit_w(class_type) -> resized based on window.width
 # window_r_fit_h(class_type) -> resized based on window.height
 #
-# #============================== End ========================================#
+# #============================= Cursor =====================================#
+#
+# How to apply:
+#  cursor and window background need to have similar name.
+#  if you use 'file_name' as your background, your cursor name should be
+#  'file_name_select'. (You need to add '_select' (see the underscore) to the end of the file_name
+#  Another example would be:
+#  window background file_name = testing_if_picture_come_out.png
+#  then your cursor name should be
+#  cursor file_name = testing_if_picture_come_out_select.png
+#
+#  If cursor doesn't work, let me know.
+#
+#  If you don't want to change the cursor, no need to create the
+#  'file_name_select', script will use the default cursor in that case.
+#
+# Interpreters that come with cursor:
+#
+#  cursor_depth(class_type, depth)
+#  cursor_opacity(class_type, opacity)
+#  cursor_default(class_type)
+#  cursor_show_all(class_type)
+#  cursor_show_all_move(class_type, x, y)
+#  cursor_move_origin(class_type,x,y)
+#  cursor_r_fit_w(class_type)
+#  cursor_r_fit_h(class_type)
+#  cursor_r_pixel(class_type, _zoom_x, _zoom_y)
+#  cursor_r(class_type, _zoom_x, zoom_y)
+#  cursor_r_i(class_type, streched_width, streched_height)
+#  cursor_color(class_type, red, green, blue, alpha)
+#
+# They all have same functionality as the window background intrepreter, but they
+# modify the cursor instead of the window.
+#
+# #============================== End =======================================#
 #
 #  Have Fun!
 #
@@ -680,7 +715,7 @@ class Window
     cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_x_offset #I'll need a better naming convention here .-.
     cursor_rect.michael_cursor_rect_bg_sp.y = w_y +
     cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_y_offset
-    cursor_rect.michael_cursor_rect_bg_sp.michael_set_self_vp(self)
+    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_updt(self, $game_message.michael_wndw_cursor[self.class])
 
   end
 
@@ -859,30 +894,26 @@ class Sprite
 
     #======================= Where picture is loaded =======================#
 
+    begin
+
     if self.michael_sp_ppts_dup[1] != i[1] ||
        self.michael_sp_ppts_dup[2] != i[2]
 
-      begin
 
-        case cursor
 
-        when 'select'; self.bitmap = Cache.cache_extended( i[2], i[1] + '_select')
-        when 'unselect'; self.bitmap = Cache.cache_extended( i[2], i[1] + '_unselect')
-        else; self.bitmap = Cache.cache_extended( i[2], i[1])
+      case cursor
 
-        end
-
-        self._I_do_have_bitmap = true
-
-      rescue
-
-        self._I_do_have_bitmap = false
-        return
+      when 'select'; self.bitmap = Cache.cache_extended( i[2], i[1] + '_select')
+      when 'unselect'; self.bitmap = Cache.cache_extended( i[2], i[1] + '_unselect')
+      else; self.bitmap = Cache.cache_extended( i[2], i[1])
 
       end
 
-      self.nullify_zoom_x = 1
-      self.nullify_zoom_y = 1
+      self._I_do_have_bitmap = true
+
+
+      self.nullify_zoom_x = 1.0
+      self.nullify_zoom_y = 1.0
 
     end
 
@@ -908,6 +939,13 @@ class Sprite
 
       self.nullify_zoom_x = 1 / (store_wndw_w_float / store_sp_w_float)
       self.nullify_zoom_y = 1 / (store_wndw_h_float / store_sp_h_float)
+
+    end
+
+    rescue
+
+      self._I_do_have_bitmap = false
+      return
 
     end
 
@@ -1136,11 +1174,11 @@ class Sprite
 
   def michael_cursor_updt(window, i, cursor = 'select')
 
-    $game_switches[Wndw_Cgr::SSP + i[0]] ? michael_cursor_on(wndw, i, cursor) : michael_cursor_off(i)
+    $game_switches[Wndw_Cgr::SSP + i[0]] ? michael_cursor_on(window, i, cursor) : michael_cursor_off(i)
 
   end
 
-  def michael_cursor_on(wndw, i, cursor)
+  def michael_cursor_on(window, i, cursor)
 
     self.michael_sp_ppts_dup = [nil, '', '', nil, nil, '', nil, nil, nil, nil,
                                 nil, nil, nil, nil, nil, nil, nil, nil] if self.michael_sp_ppts_dup.nil?
@@ -1163,8 +1201,8 @@ class Sprite
 
   def michael_cursor_apply_change(window, i, cursor)
 
-      michael_set_dflt_ppts(window.cursor, i, cursor) #SET DEFAULT PROPERTIES
-      michael_modify_self(window.cursor, i) unless i[5] == '' && !(self._I_do_have_bitmap)
+      michael_set_dflt_ppts(window.cursor_rect, i, cursor) #SET DEFAULT PROPERTIES
+      michael_modify_self(window.cursor_rect, i) unless i[5] == '' && !(self._I_do_have_bitmap)
 
   end
 
@@ -1322,6 +1360,7 @@ class Game_Interpreter
       $game_switches[Wndw_Cgr::SSP +
       $game_message.michael_wndw_bg_ary[name][0]] = true
       $game_message.michael_wndw_bg_ary[name][1] = file_name
+      $game_message.michael_wndw_cursor[name][1] = file_name
 
       if type_movement.match(/(show_all|center)/)
         $game_message.michael_wndw_bg_ary[name][5].slice!(/mtype+\w+?(__)/)
@@ -1508,6 +1547,140 @@ class Game_Interpreter
     #========================= Cursor Interpreter =========================#
 
     #soon to be filled :p
+
+  def cursor_depth(class_type, depth)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_cursor[name][3] = depth
+
+    end
+
+    def cursor_opacity(class_type, opacity)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_cursor[name][4] = opacity
+
+    end
+
+    def cursor_default(class_type)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_cursor[name][3] = nil
+      $game_message.michael_wndw_cursor[name][4] = nil
+      $game_message.michael_wndw_cursor[name][5] = ''
+
+
+    end
+
+    def cursor_show_all(class_type)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_cursor[name][5].slice!(/mtype+\w+?(__)/)
+      $game_message.michael_wndw_cursor[name][5] << 'mtype_show_all__'
+
+    end
+
+    def cursor_show_all_move(class_type, x, y)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_cursor[name][5].slice!(/mtype+\w+?(__)/)
+      $game_message.michael_wndw_cursor[name][5] << 'mtype_move__'
+      $game_message.michael_wndw_cursor[name][6] = x
+      $game_message.michael_wndw_cursor[name][7] = y
+
+    end
+
+    def cursor_move_origin(class_type,x,y)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_cursor[name][5].slice!(/mtype+\w+?(__)/)
+      $game_message.michael_wndw_cursor[name][5] << 'mtype_move_origin__'
+      $game_message.michael_wndw_cursor[name][6] = x
+      $game_message.michael_wndw_cursor[name][7] = y
+
+    end
+
+    def cursor_r_fit_w(class_type)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_cursor[name][5].slice!(/rtype+\w+?(__)/)
+      $game_message.michael_wndw_cursor[name][5] << 'rtype_window_width__'
+
+    end
+
+    def cursor_r_fit_h(class_type)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_cursor[name][5].slice!(/rtype+\w+?(__)/)
+      $game_message.michael_wndw_cursor[name][5] << 'rtype_window_height__'
+
+    end
+
+    def cursor_r_pixel(class_type, _zoom_x, _zoom_y)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_cursor[name][5].slice!(/rtype+\w+?(__)/)
+      $game_message.michael_wndw_cursor[name][5] << 'rtype_actual_pixel__'
+      $game_message.michael_wndw_cursor[name][12] = _zoom_x
+      $game_message.michael_wndw_cursor[name][13] = _zoom_y
+
+    end
+
+    def cursor_r(class_type, _zoom_x, zoom_y)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_cursor[name][5].slice!(/rtype+\w+?(__)/)
+      $game_message.michael_wndw_cursor[name][5] << 'rtype_by_window__'
+      $game_message.michael_wndw_cursor[name][12] = _zoom_x
+      $game_message.michael_wndw_cursor[name][13] = _zoom_y
+
+    end
+
+    def cursor_r_i(class_type, streched_width, streched_height)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_cursor[name][5].slice!(/rtype+\w+?(__)/)
+      $game_message.michael_wndw_cursor[name][5] << 'rtype_by_integer__'
+      $game_message.michael_wndw_cursor[name][12] = streched_width
+      $game_message.michael_wndw_cursor[name][13] = streched_height
+
+    end
+
+    def cursor_color(class_type, red, green, blue, alpha)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_wndw_cursor[name][5].slice!(/ctype+\w+?(__)/)
+      $game_message.michael_wndw_cursor[name][5] << 'ctype__'
+      $game_message.michael_wndw_cursor[name][14] = red
+      $game_message.michael_wndw_cursor[name][15] = green
+      $game_message.michael_wndw_cursor[name][16] = blue
+      $game_message.michael_wndw_cursor[name][17] = alpha
+
+    end
 
   else
 
