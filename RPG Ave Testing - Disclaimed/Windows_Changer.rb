@@ -1,4 +1,3 @@
-#Disable_Flicker_Test = false
 #==============================================================================
 #
 # Michael Windows Changer
@@ -577,6 +576,7 @@ class Window
   attr_accessor :oh_I_got_changed
   attr_accessor :michael_bg_vp
   attr_accessor :michael_bg_sp
+  attr_accessor :michael_cursor_rect
   alias michael_Window_initialize initialize
   alias michael_Window_update update
   alias michael_Window_dispose dispose
@@ -597,8 +597,7 @@ class Window
     michael_Window_initialize(x, y, width, height)
     create_michael_bg_vp
     self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_bg_ary[self.class])
-    cursor_rect.michael_nickname_the_cursor_rect = 'cursor_rect'
-
+    customize_michael_cursor_rect
   end
 
   #============================ Start New Methods ============================#
@@ -622,6 +621,40 @@ class Window
 
   end
 
+  def customize_michael_cursor_rect
+
+    cursor_rect.michael_nickname_the_cursor_rect = 'cursor_rect'
+    initialize_michael_cursor_bg_sp
+    initialize_michael_cursor_bg_ppt
+    initialize_michael_cursor_bg_sp_offset
+
+  end
+
+  def initialize_michael_cursor_bg_sp
+
+    cursor_rect.michael_cursor_rect_bg_sp = Sprite.new
+    cursor_rect.michael_cursor_rect_bg_sp.visible = false
+
+  end
+
+  def initialize_michael_cursor_bg_ppt
+
+    cursor_rect.michael_cursor_rect_bg_sp.viewport = michael_bg_vp
+    cursor_rect.michael_cursor_rect_bg_sp.bitmap = Cache.cache_extended("Graphics\\Windows\\Window_BattleStatus", 'color')
+    cursor_rect.michael_cursor_rect_bg_sp.src_rect.width = cursor_rect.width
+    cursor_rect.michael_cursor_rect_bg_sp.src_rect.height = cursor_rect.height
+    #cursor_rect.michael_cursor_rect_bg_sp.z = self.z
+  end
+
+  def initialize_michael_cursor_bg_sp_offset
+
+    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_x_offset = 0
+    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_y_offset = 0
+    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_w_offset = 0
+    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_h_offset = 0
+
+  end
+
   def did_I_get_changed?
 
     return self.oh_I_got_changed
@@ -639,6 +672,7 @@ class Window
   def dispose                                  #Everything is disposed here
                                                #Basically every window made,
     self.michael_bg_sp.dispose                 #1 viewport and 1 sprite are also made
+    cursor_rect.michael_cursor_rect_bg_sp.dispose
     self.michael_bg_vp.dispose
     michael_Window_dispose
 
@@ -648,7 +682,8 @@ class Window
 
     michael_Window_update
     self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_bg_ary[self.class])
-
+    cursor_rect.michael_cursor_rect_bg_sp.michael_set_self_vp(self)
+    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_mandatory_update(self)
   end
 
   def visible=(arg)
@@ -705,28 +740,6 @@ class Window
 
   end
 
-=begin
-
-  if Disable_Flicker_Test
-
-    def width
-
-      self.michael_bg_sp.src_rect.width = self.michael_sp_width
-      self.michael_sp_width
-
-    end
-
-    def height
-
-      self.michael_bg_sp.src_rect.height = self.michael_sp_height
-      self.michael_sp_height
-
-    end
-
-  end
-
-=end
-
 end
 
 #==============================================================================
@@ -739,6 +752,10 @@ class Sprite
   attr_accessor :nullify_zoom_y
   attr_accessor :michael_sp_x_offset
   attr_accessor :michael_sp_y_offset
+  attr_accessor :michael_cursor_sp_x_offset
+  attr_accessor :michael_cursor_sp_y_offset
+  attr_accessor :michael_cursor_sp_w_offset
+  attr_accessor :michael_cursor_sp_h_offset
 
   def michael_sp_updt(wndw, i, cursor = 'none')
 
@@ -786,26 +803,18 @@ class Sprite
 
   end
 
+  def michael_cursor_mandatory_update(window)
+    self.michael_cursor_sp_x_offset = window.x + 12 #12 is half-padding (full
+    self.michael_cursor_sp_y_offset = window.y + 12 #padding is 24 both opposite sides)
+  end
+
   def michael_mandatory_update(window)
 
-    #if caller[4][/`.*'/][1..-2] == 'initialize'
+    self.x = window.x
+    self.src_rect.x = 0 if self.x < 0
 
-
-      #self.michael_sp_x_offset -= window.x unless self.michael_sp_x_offset.nil?
-      #self.michael_sp_y_offset -= window.y unless self.michael_sp_y_offset.nil?
-
-      self.x = window.x #+= (self.michael_sp_x_offset / 2) unless self.michael_sp_x_offset.nil?
-      self.src_rect.x = 0 if self.x < 0
-
-      #self.x = 200
-
-      self.y = window.y #+= (self.michael_sp_y_offset / 2) unless self.michael_sp_y_offset.nil?
-      self.src_rect.y = 0 if self.y < 0
-
-      #self.michael_sp_x_offset = window.x
-      #self.michael_sp_y_offset = window.y
-
-    #end
+    self.y = window.y
+    self.src_rect.y = 0 if self.y < 0
 
     self.visible = (window.open? && window.visible)
 
@@ -822,7 +831,7 @@ class Sprite
 
   end
 
-  def michael_set_dflt_ppts(window, i, cursor)
+  def michael_set_dflt_ppts(window, i)
 
     #======================= Where picture is loaded =======================#
 
@@ -1098,64 +1107,53 @@ end
 class Rect
 
   attr_accessor :michael_nickname_the_cursor_rect
-
+  attr_accessor :michael_cursor_rect_bg_sp
+  attr_accessor :michael_cursor_store_x
+  attr_accessor :michael_cursor_store_y
+  attr_accessor :michael_cursor_sp_counter
   alias michael_Rect_set set
   alias michael_Rect_empty empty
+
+
 
   def set(*args)
 
     michael_Rect_set(*args)
-=begin
+
     if self.michael_nickname_the_cursor_rect == 'cursor_rect'
+        self.michael_cursor_rect_bg_sp.visible = true
+        self.michael_cursor_store_x = self.x if self.michael_cursor_store_x.nil?
+        self.michael_cursor_store_y = self.y if self.michael_cursor_store_y.nil?
+        self.michael_cursor_rect_bg_sp.x = self.x#+= (self.x - self.michael_cursor_store_x)
+        self.michael_cursor_store_x == self.x
+        self.michael_cursor_rect_bg_sp.y = self.y#+= (self.y - self.michael_cursor_store_y)
+        self.michael_cursor_store_y == self.y
 
-      #gonna add stuff here for select & unselected choice
-      #$michael_cursor_rect_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_bg_ary[self.class], 'select')
-      $michael_cursor_rect_bg_sp.visible = true
-      $michael_cursor_rect_bg_sp.x = self.x
-      $michael_cursor_rect_bg_sp.y = self.y
 
+        self.michael_cursor_rect_bg_sp.src_rect.width = self.width
+        self.michael_cursor_rect_bg_sp.src_rect.height = self.height
 
-      empty
-
+        michael_apply_bg_sp_offset
+        self.michael_cursor_sp_counter = false
+        empty
+        self.michael_cursor_sp_counter = true
     end
-=end
+
   end
 
-  def emtpy
-    #if self.michael_nickname_the_cursor_rect == 'cursor_rect'#if caller[1][/`.*'/][1..-2] == 'set'
-      #$michael_cursor_rect_bg_sp.visible = false
-    #end
-    #$michael_cursor_rect_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_bg_ary[self.class], 'unselect')
+  def michael_apply_bg_sp_offset
+
+    self.michael_cursor_rect_bg_sp.x += self.michael_cursor_rect_bg_sp.michael_cursor_sp_x_offset
+    self.michael_cursor_rect_bg_sp.y += self.michael_cursor_rect_bg_sp.michael_cursor_sp_y_offset
+    self.michael_cursor_rect_bg_sp.src_rect.width += self.michael_cursor_rect_bg_sp.michael_cursor_sp_w_offset
+    self.michael_cursor_rect_bg_sp.src_rect.height += self.michael_cursor_rect_bg_sp.michael_cursor_sp_h_offset
+
+  end
+
+  def empty
+    self.michael_cursor_rect_bg_sp.visible = false if michael_cursor_sp_counter
 
     michael_Rect_empty
-
-  end
-
-end
-
-#==============================================================================
-# Scene_Base
-#==============================================================================
-
-class Scene_Base
-
-  alias michael_Scene_Base_main main
-
-  def main
-    $michael_cursor_rect_bg_sp = Sprite.new     #I'll remove the global once
-    $michael_cursor_rect_bg_vp = Viewport.new   #that I found a better solution
-    $michael_cursor_rect_bg_sp.viewport = $michael_cursor_rect_bg_vp
-    $michael_cursor_rect_bg_vp.z = 500
-    $michael_cursor_rect_bg_sp.bitmap = Cache.cache_extended("Graphics\\Windows\\Window_Message", 'color')
-    $michael_cursor_rect_bg_sp.visible = false
-    #$michael_cursor_rect_bg_sp.src_rect.set(0,0,Graphics.width, Graphics.height)
-    #$michael_cursor_rect_bg_sp.zoom_x = 2
-
-    michael_Scene_Base_main
-
-    $michael_cursor_rect_bg_vp.dispose
-    $michael_cursor_rect_bg_sp.dispose
-
   end
 
 end
