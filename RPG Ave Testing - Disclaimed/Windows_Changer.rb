@@ -1,7 +1,7 @@
 #==============================================================================
 #
 # Michael Windows Changer
-# Last Updated: 2014.01.17
+# Last Updated: 2014.01.18
 # Requirement: RPG Maker VX Ace
 #             -Knowledge of 'how to use scripts'
 #             -Knowledge of Window Designation (basically know which window is
@@ -39,6 +39,7 @@
 #==============================================================================
 # Script Biography lol
 #==============================================================================
+# 2013.01.18 --Window hash table is created.
 # 2013.01.17 --Implementing interpreter -- Demo is out :D
 # 2013.01.16 --cursor_rect is up to customization.
 # 2013.01.15 --Fixed resize -- Credit to Mithram for zoom's behavior
