@@ -341,11 +341,13 @@ module Wndw_Cgr #Window Changer
     Michael_Wndw_Bg_Ary = Hash.new {|h,k| h[k]=[]}
     Michael_Wndw_Cursor = Hash.new {|h,k| h[k]=[]} #I believe there should be a better way
                                                    #but I'm in a bit of rush here. .-.
+    Michael_Windows_Ary = Hash.new {|h,k| h[k]=[]} #I really need to hash these hash tables...
 
         #==================== Start Window Initializer =================#
 
     Michael_Wndw_Bg_Ary[Window] << 0                      #indexed for game_switch purpose
     Michael_Wndw_Cursor[Window] << 0
+    Michael_Windows_Ary[Window] << 0
 
     Michael_Wndw_Bg_Ary[Window] << "file_name"
     Michael_Wndw_Cursor[Window] << "file_name"
@@ -360,17 +362,20 @@ module Wndw_Cgr #Window Changer
 
     Michael_Wndw_Bg_Ary[Window] << nil << nil << ''
     Michael_Wndw_Cursor[Window] << nil << nil << ''
+    Michael_Windows_Ary[Window] << nil << nil << ''
 
           #=========== x, y, rect_x, rect_y, rect_w, rect_h ==========#
 
     Michael_Wndw_Bg_Ary[Window] << nil << nil << nil << nil << nil << nil
     Michael_Wndw_Cursor[Window] << nil << nil << nil << nil << nil << nil
+    Michael_Windows_Ary[Window] << nil << nil << nil << nil << nil << nil
 
 
           #================ extend(zoom) width, height ===============#
 
     Michael_Wndw_Bg_Ary[Window] << nil << nil
     Michael_Wndw_Cursor[Window] << nil << nil
+    Michael_Windows_Ary[Window] << nil << nil
 
           #============== color :red :green :blue :alpha =============#
 
@@ -382,6 +387,7 @@ module Wndw_Cgr #Window Changer
       #================ Start Window Descendants Initializer =============#
 
     Window.get_all_descendants.each.with_index(1) do |derived_classes,i|
+
       Michael_Wndw_Bg_Ary[derived_classes] << i
       Michael_Wndw_Bg_Ary[derived_classes] << "file_name"
       Michael_Wndw_Bg_Ary[derived_classes] <<
@@ -392,6 +398,7 @@ module Wndw_Cgr #Window Changer
       Michael_Wndw_Bg_Ary[derived_classes] << nil << nil << nil << nil << nil << nil
       Michael_Wndw_Bg_Ary[derived_classes] << nil << nil
       Michael_Wndw_Bg_Ary[derived_classes] << nil << nil << nil << nil
+
       Michael_Wndw_Cursor[derived_classes] << i
       Michael_Wndw_Cursor[derived_classes] << "file_name"
       Michael_Wndw_Cursor[derived_classes] <<
@@ -402,6 +409,12 @@ module Wndw_Cgr #Window Changer
       Michael_Wndw_Cursor[derived_classes] << nil << nil << nil << nil << nil << nil
       Michael_Wndw_Cursor[derived_classes] << nil << nil
       Michael_Wndw_Cursor[derived_classes] << nil << nil << nil << nil
+
+      Michael_Windows_Ary[derived_classes] << i
+      Michael_Windows_Ary[derived_classes] << nil << nil << ''
+      Michael_Windows_Ary[derived_classes] << nil << nil << nil << nil << nil << nil
+      Michael_Windows_Ary[derived_classes] << nil << nil
+
     end
 
       #================= End Window Descendants Initializer ==============#
