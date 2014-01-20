@@ -1,7 +1,7 @@
 #==============================================================================
 #
 # Michael Windows Changer
-# Last Updated: 2014.01.18
+# Last Updated: 2014.01.19
 # Requirement: RPG Maker VX Ace
 #             -Knowledge of 'how to use scripts'
 #             -Knowledge of Window Designation (basically know which window is
@@ -29,9 +29,7 @@
 #==============================================================================
 # Just take this as upcoming features
 #
-# - Do the sprite cursor feature
-# - Do the window movement
-# - Do the window resize
+# - Add more sprite layers (both cursor and window)
 # - Do the animation attachment
 #
 #==============================================================================
@@ -39,8 +37,9 @@
 #==============================================================================
 # Script Biography lol
 #==============================================================================
+# 2013.01.19 --Window is up to customized.
 # 2013.01.18 --Window hash table is created.
-# 2013.01.17 --Implementing interpreter -- Demo is out :D
+# 2013.01.17 --Implementing interpreter for cursor -- Demo is out :D
 # 2013.01.16 --cursor_rect is up to customization.
 # 2013.01.15 --Fixed resize -- Credit to Mithram for zoom's behavior
 #            --window_r_default is combined with default assignment.
@@ -630,6 +629,7 @@ end
 #==============================================================================
 # Cache
 #==============================================================================
+
 module Cache
 
   def self.cache_extended(folder, filename)
@@ -642,12 +642,21 @@ end
 #==============================================================================
 # Window
 #==============================================================================
+
 class Window
 
   attr_accessor :oh_I_got_changed
   attr_accessor :michael_bg_vp
   attr_accessor :michael_bg_sp
   attr_accessor :michael_cursor_rect
+  attr_accessor :michael_custom_initialize
+  attr_accessor :michael_custom_update
+  attr_accessor :michael_allow_offset
+  attr_accessor :michael_x_offset
+  attr_accessor :michael_y_offset
+  attr_accessor :michael_w_offset
+  attr_accessor :michael_h_offset
+
   alias michael_Window_initialize initialize
   alias michael_Window_update update
   alias michael_Window_dispose dispose
@@ -655,18 +664,18 @@ class Window
   alias michael_sp_openness_asgn openness=
   alias michael_sp_x_asgn x=
   alias michael_sp_y_asgn y=
-  alias michael_sp_width width #To avoid flicker error
   alias michael_sp_width_asgn width=
-  alias michael_sp_height height #To avoid flicker error
   alias michael_sp_height_asgn height=
 
   def initialize(w_x, w_y, w_w, w_h)
 
     self.oh_I_got_changed = false
-    #(Disable_Flicker_Test) ? create_michael_bg_sp : create_michael_bg_sp(x, y, width, height)
+
     create_michael_bg_sp(w_x, w_y, w_w, w_h)
     michael_Window_initialize(w_x, w_y, w_w, w_h)
     create_michael_bg_vp
+    initialize_window_offset
+    customize_michael_window(self, $game_message.michael_windows_ary[self.class])
     self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_bg_ary[self.class])
     customize_michael_cursor_rect(w_x, w_y)
     cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_updt(self, $game_message.michael_wndw_cursor[self.class])
@@ -674,13 +683,6 @@ class Window
   end
 
   #============================ Start New Methods ============================#
-
-  def create_michael_bg_vp
-
-    self.michael_bg_vp = Viewport.new  #The only locations where new member functions are created
-    self.michael_bg_vp.z = self.z - 1  #are class Window_Base, class Sprite, module Cache
-                                       #and class Game_Interpreter. Everything else is aliased.
-  end
 
   def create_michael_bg_sp(w_x = nil, w_y = nil, w_w = nil, w_h = nil)
 
@@ -691,6 +693,35 @@ class Window
     self.michael_bg_sp.michael_sp_y_offset = w_y unless w_y.nil?
     self.michael_bg_sp.src_rect.width = w_w unless w_w.nil?
     self.michael_bg_sp.src_rect.height = w_h unless w_h.nil?
+
+  end
+
+  def create_michael_bg_vp
+
+    self.michael_bg_vp = Viewport.new  #The only locations where new member functions are created
+    self.michael_bg_vp.z = self.z - 1  #are class Window_Base, class Sprite, module Cache
+                                       #and class Game_Interpreter. Everything else is aliased.
+
+  end
+
+  def initialize_window_offset
+
+    self.michael_allow_offset = false
+    self.michael_x_offset = 0
+    self.michael_y_offset = 0
+    self.michael_w_offset = 0
+    self.michael_h_offset = 0
+
+  end
+
+  def customize_michael_window(window, i)
+
+    self.michael_custom_initialize = (caller[0][/`.*'/][1..-2] == "initialize")
+    self.michael_custom_update = (caller[0][/`.*'/][1..-2] == "update")
+
+
+    self.michael_custom_initialize = false
+    self.michael_custom_update = false
 
   end
 
@@ -758,6 +789,7 @@ class Window
   def update
 
     michael_Window_update
+    customize_michael_window(self, $game_message.michael_windows_ary[self.class])
     self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_bg_ary[self.class])
     cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_updt(self, $game_message.michael_wndw_cursor[self.class])
 
@@ -768,9 +800,10 @@ class Window
     self.michael_sp_visible_asgn(arg)
     self.michael_bg_sp.visible = (self.open? && self.visible)
 
-    if !($game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]])
+    unless $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
 
       self.michael_bg_sp.visible = false
+      cursor_rect.michael_cursor_rect_bg_sp.visible = false
 
     end
 
@@ -781,9 +814,10 @@ class Window
     self.michael_sp_openness_asgn(arg)
     self.michael_bg_sp.visible = (self.open? && self.visible)
 
-    if !($game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]])
+    unless $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
 
       self.michael_bg_sp.visible = false
+      cursor_rect.michael_cursor_rect_bg_sp.visible = false
 
     end
 
@@ -791,33 +825,113 @@ class Window
 
   def x=(arg)
 
-    self.michael_sp_x_asgn(arg)
-    self.michael_bg_sp.x = arg
-    self.cursor_rect.michael_cursor_rect_bg_sp.x = arg +
-    self.cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_x_offset#michael_cursor_sp_x_offset = arg
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
+
+      if self.michael_custom_initialize || self.michael_custom_update
+
+        unless self.michael_allow_offset
+
+          self.michael_sp_x_asgn(arg)
+          self.michael_bg_sp.x = arg
+          self.cursor_rect.michael_cursor_rect_bg_sp.x = arg +
+          self.cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_x_offset
+
+        else
+
+          self.michael_sp_x_asgn(arg + self.michael_x_offset)
+          self.michael_bg_sp.x = arg + self.michael_x_offset
+          self.cursor_rect.michael_cursor_rect_bg_sp.x = arg +
+          self.cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_x_offset +
+          self.michael_x_offset
+
+        end
+
+      else; self.michael_x_offset = arg; end
+
+    else; self.michael_sp_x_asgn(arg); end
 
   end
 
   def y=(arg)
 
-    self.michael_sp_y_asgn(arg)
-    self.michael_bg_sp.y = arg
-    self.cursor_rect.michael_cursor_rect_bg_sp.y = arg +
-    self.cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_y_offset#.michael_cursor_sp_y_offset = arg
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
+
+      if self.michael_custom_initialize || self.michael_custom_update
+
+        unless self.michael_allow_offset
+
+          self.michael_sp_y_asgn(arg)
+          self.michael_bg_sp.y = arg
+          self.cursor_rect.michael_cursor_rect_bg_sp.y = arg +
+          self.cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_y_offset
+
+        else
+
+          self.michael_sp_y_asgn(arg + self.michael_y_offset)
+          self.michael_bg_sp.x = arg + self.michael_y_offset
+          self.cursor_rect.michael_cursor_rect_bg_sp.y = arg +
+          self.cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_y_offset +
+          self.michael_y_offset
+
+        end
+
+      else; self.michael_y_offset = arg; end
+
+    else; self.michael_sp_y_asgn(arg); end
 
   end
 
   def width=(arg)
 
-    self.michael_sp_width_asgn(arg)
-    self.michael_bg_sp.src_rect.width = arg
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
+
+      if self.michael_custom_initialize || self.michael_custom_update
+
+        unless self.michael_allow_offset
+
+          self.michael_sp_width_asgn(arg)
+          self.michael_bg_sp.src_rect.width = arg
+
+        else
+
+          self.michael_sp_width_asgn(arg + self.michael_w_offset)
+          self.michael_bg_sp.src_rect.width = arg + self.michael_w_offset
+
+        end
+
+      else; self.michael_w_offset = arg; end
+
+    else; self.michael_sp_width_asgn(arg); end
 
   end
 
   def height=(arg)
 
-    self.michael_sp_height_asgn(arg)
-    self.michael_bg_sp.src_rect.height = arg
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
+
+      if self.michael_custom_initialize || self.michael_custom_update
+
+        unless self.michael_allow_offset
+
+          self.michael_sp_height_asgn(arg)
+          self.michael_bg_sp.src_rect.height = arg
+
+        else
+
+          self.michael_sp_height_asgn(arg + self.michael_h_offset)
+          self.michael_bg_sp.src_rect.height = arg + self.michael_h_offset
+
+        end
+
+      else
+
+        self.michael_h_offset = arg
+
+        if
+
+      end
+
+    else; self.michael_sp_height_asgn(arg); end
 
   end
 
@@ -826,6 +940,7 @@ end
 #==============================================================================
 # Sprite
 #==============================================================================
+
 class Sprite
 
   attr_accessor :michael_sp_ppts_dup
@@ -1478,8 +1593,10 @@ end
 #==============================================================================
 # Game_Message
 #==============================================================================
+
 class Game_Message
 
+  attr_accessor :michael_windows_ary
   attr_accessor :michael_wndw_bg_ary
   attr_accessor :michael_wndw_cursor
   attr_accessor :michael_wndw_bg_psuedo
@@ -1489,6 +1606,7 @@ class Game_Message
   def initialize
 
     michael_ini
+    @michael_windows_ary = Wndw_Cgr::Michael_Windows_Ary
     @michael_wndw_bg_ary = Wndw_Cgr::Michael_Wndw_Bg_Ary
     @michael_wndw_cursor = Wndw_Cgr::Michael_Wndw_Cursor
     @michael_wndw_bg_psuedo = Wndw_Cgr::Wndw_Psuedo_Names
@@ -1499,6 +1617,7 @@ end
 #==============================================================================
 # DataManager
 #==============================================================================
+
 module DataManager
 
   class << self
@@ -1540,6 +1659,7 @@ end
 #===============================================================================
 # Game Interpreter
 #===============================================================================
+
 class Game_Interpreter
 
   if Wndw_Cgr::Auto
@@ -1552,6 +1672,7 @@ class Game_Interpreter
       $game_switches[Wndw_Cgr::SSP +
       $game_message.michael_wndw_bg_ary[name][0]] = true
       $game_message.michael_wndw_bg_ary[name][1] = 'THIS_IS_A_BLANK_PICTURE_YES_USER_WANTS_A_BLANK_WINDOW_ONLY'
+
     end
 
     def window_off(class_type)
@@ -1924,6 +2045,7 @@ class Game_Interpreter
 
           end
         }
+
       end
 
     end
