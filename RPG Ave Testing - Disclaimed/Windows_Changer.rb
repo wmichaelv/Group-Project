@@ -362,13 +362,13 @@ module Wndw_Cgr #Window Changer
 
     Michael_Wndw_Bg_Ary[Window] << nil << nil << ''
     Michael_Wndw_Cursor[Window] << nil << nil << ''
-    Michael_Windows_Ary[Window] << nil << nil << ''
+    Michael_Windows_Ary[Window] << ''
 
           #=========== x, y, rect_x, rect_y, rect_w, rect_h ==========#
 
     Michael_Wndw_Bg_Ary[Window] << nil << nil << nil << nil << nil << nil
     Michael_Wndw_Cursor[Window] << nil << nil << nil << nil << nil << nil
-    Michael_Windows_Ary[Window] << nil << nil << nil << nil << nil << nil
+    Michael_Windows_Ary[Window] << nil << nil << nil << nil #Only x, y, w, h necessary
 
 
           #================ extend(zoom) width, height ===============#
@@ -411,8 +411,8 @@ module Wndw_Cgr #Window Changer
       Michael_Wndw_Cursor[derived_classes] << nil << nil << nil << nil
 
       Michael_Windows_Ary[derived_classes] << i
-      Michael_Windows_Ary[derived_classes] << nil << nil << ''
-      Michael_Windows_Ary[derived_classes] << nil << nil << nil << nil << nil << nil
+      Michael_Windows_Ary[derived_classes] << ''
+      Michael_Windows_Ary[derived_classes] << nil << nil << nil << nil
       Michael_Windows_Ary[derived_classes] << nil << nil
 
     end
@@ -649,9 +649,6 @@ class Window
   attr_accessor :michael_bg_vp
   attr_accessor :michael_bg_sp
   attr_accessor :michael_cursor_rect
-  attr_accessor :michael_custom_initialize
-  attr_accessor :michael_custom_update
-  attr_accessor :michael_allow_offset
   attr_accessor :michael_x_offset
   attr_accessor :michael_y_offset
   attr_accessor :michael_w_offset
@@ -671,18 +668,269 @@ class Window
 
     self.oh_I_got_changed = false
 
-    create_michael_bg_sp(w_x, w_y, w_w, w_h)
-    michael_Window_initialize(w_x, w_y, w_w, w_h)
-    create_michael_bg_vp
     initialize_window_offset
-    customize_michael_window(self, $game_message.michael_windows_ary[self.class])
+
+    update_michael_window_offset($game_message.michael_windows_ary[self.class],
+                                 w_x, w_y, w_w, w_h)
+
+    create_michael_bg_sp(w_x + self.michael_x_offset,
+                         w_y + self.michael_y_offset,
+                         w_w + self.michael_w_offset,
+                         w_h + self.michael_h_offset)
+
+    michael_Window_initialize(w_x + self.michael_x_offset,
+                              w_y + self.michael_y_offset,
+                              w_w + self.michael_w_offset,
+                              w_h + self.michael_h_offset)
+
+    create_michael_bg_vp
+
     self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_bg_ary[self.class])
-    customize_michael_cursor_rect(w_x, w_y)
+
+    customize_michael_cursor_rect(w_x + self.michael_x_offset,
+                                  w_y + self.michael_y_offset)
+
     cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_updt(self, $game_message.michael_wndw_cursor[self.class])
 
   end
 
+   #======================== Start Operator Overloading ========================#
+
+  def visible=(arg)
+
+    self.michael_sp_visible_asgn(arg)
+    self.michael_bg_sp.visible = (self.open? && self.visible)
+
+    unless $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
+
+      self.michael_bg_sp.visible = false
+      cursor_rect.michael_cursor_rect_bg_sp.visible = false
+
+    end
+
+  end
+
+  def openness=(arg)
+
+    self.michael_sp_openness_asgn(arg)
+    self.michael_bg_sp.visible = (self.open? && self.visible)
+
+    unless $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
+
+      self.michael_bg_sp.visible = false
+      cursor_rect.michael_cursor_rect_bg_sp.visible = false
+
+    end
+
+  end
+
+  def x=(arg)
+
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
+
+      michael_update_x_offset(arg, $game_message.michael_wndw_bg_ary[self.class])
+      self.michael_sp_x_asgn(arg + self.michael_x_offset)
+      self.michael_bg_sp.x = arg + self.michael_x_offset
+      self.cursor_rect.michael_cursor_rect_bg_sp.x = arg +
+      self.cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_x_offset +
+      self.michael_x_offset
+
+    else; self.michael_sp_x_asgn(arg); end
+
+  end
+
+  def y=(arg)
+
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
+
+      michael_update_y_offset(arg, $game_message.michael_wndw_bg_ary[self.class])
+
+      self.michael_sp_y_asgn(arg + self.michael_y_offset)
+      self.michael_bg_sp.x = arg + self.michael_y_offset
+      self.cursor_rect.michael_cursor_rect_bg_sp.y = arg +
+      self.cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_y_offset +
+      self.michael_y_offset
+
+    else; self.michael_sp_y_asgn(arg); end
+
+  end
+
+  def width=(arg)
+
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
+
+      michael_update_w_offset(arg, $game_message.michael_wndw_bg_ary[self.class])
+      self.michael_sp_width_asgn(arg + self.michael_w_offset)
+      self.michael_bg_sp.src_rect.width = arg + self.michael_w_offset
+
+    else; self.michael_sp_width_asgn(arg); end
+
+  end
+
+  def height=(arg)
+
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
+
+      michael_update_h_offset(arg, $game_message.michael_wndw_bg_ary[self.class])
+      self.michael_sp_height_asgn(arg + self.michael_h_offset)
+      self.michael_bg_sp.src_rect.height = arg + self.michael_h_offset
+
+    else; self.michael_sp_height_asgn(arg); end
+
+  end
+
+  #========================= End Operator Overloading =========================#
+
   #============================ Start New Methods ============================#
+
+  def initialize_window_offset
+
+    self.michael_x_offset = 0
+    self.michael_y_offset = 0
+    self.michael_w_offset = 0
+    self.michael_h_offset = 0
+
+  end
+
+  def customize_michael_window(i, w_x = nil, w_y = nil, w_w = nil, w_h = nil)
+
+    i[1].match('mtype') do
+
+      i[1].match('mtype_coordinate__') do
+
+        if w_x
+
+          self.michael_x_offset = i[2] - w_x
+          self.michael_y_offset = i[3] - w_y
+
+        else
+
+          self.michael_x_offset = i[2] - self.x
+          self.michael_y_offset = 1[3] - self.y
+
+        end
+
+      end
+
+      i[1].match('mtype_everything__') do
+
+        if w_x
+
+          self.michael_x_offset = i[2] - w_x
+          self.michael_y_offset = i[3] - w_y
+          self.michael_w_offset = i[4] - w_w
+          self.michael_h_offset = i[5] - w_h
+
+        else
+
+          self.michael_x_offset = i[2] - self.x
+          self.michael_y_offset = 1[3] - self.y
+          self.michael_w_offset = i[4] - self.width
+          self.michael_h_offset = i[5] - self.height
+
+        end
+
+      end
+
+      i[1].match('mtype_extend_original__') do
+
+        self.michael_x_offset = i[2]
+        self.michael_y_offset = i[3]
+        self.michael_w_offset = i[4] unless i[4].nil?
+        self.michael_h_offset = i[5] unless i[5].nil?
+
+      end
+
+      i[1].match('mtype_center__') do
+
+        if w_x
+
+          self.michael_x_offset = 272 - w_x - w_w / 2
+          self.michael_y_offset = 272 - w_y - w_h / 2
+
+        else
+
+          self.michael_x_offset = 272 - self.x - self.width / 2
+          self.michael_y_offset = 272 - self.y - self.height / 2
+
+        end
+
+      end
+
+    end
+
+    i[1].match('rtype') do
+
+      i[1].match('rtype_by_integer__') do
+
+        if w_w
+
+          self.michael_w_offset = i[6] - w_w
+          self.michael_h_offset = i[7] - w_h
+
+        else
+
+          self.michael_w_offset = i[6] - self.width
+          self.michael_h_offset = i[7] - self.height
+
+        end
+
+      end
+
+      i[1].match('rtype_by_original__') do
+
+        self.michael_w_offset = i[6]
+        self.michael_h_offset = i[7]
+
+      end
+
+      i[1].match('rtype_by_ratio__') do
+
+        if w_w
+
+          self.michael_w_offset = w_w * (i[6] - 1)
+          self.michael_h_offset = w_h * (i[7] - 1)
+
+        else
+
+          self.michael_w_offset = self.width * (i[6] - 1)
+          self.michael_h_offset = self.height * (i[7] - 1)
+
+        end
+
+      end
+
+    end
+
+  end
+
+  def michael_update_x_offset(a_v, i) #assigned value
+
+    return if (self.x - a_v) = self.michael_x_offset
+    self.michael_x_offset += a_v - self.x
+
+  end
+
+  def michael_update_y_offset(a_v, i)
+
+    return if (self.y - a_v) = self.michael_y_offset
+    self.michael_y_offset += a_v - self.y
+
+  end
+
+  def michael_update_w_offset(a_v, i)
+
+    return if (self.width - a_v) = self.michael_w_offset
+    self.michael_w_offset += a_v - self.width
+
+  end
+
+  def michael_update_h_offset(a_v, i)
+
+    return if (self.height - a_v) = self.michael_h_offset
+    self.michael_h_offset += a_v - self.height
+
+  end
 
   def create_michael_bg_sp(w_x = nil, w_y = nil, w_w = nil, w_h = nil)
 
@@ -701,27 +949,6 @@ class Window
     self.michael_bg_vp = Viewport.new  #The only locations where new member functions are created
     self.michael_bg_vp.z = self.z - 1  #are class Window_Base, class Sprite, module Cache
                                        #and class Game_Interpreter. Everything else is aliased.
-
-  end
-
-  def initialize_window_offset
-
-    self.michael_allow_offset = false
-    self.michael_x_offset = 0
-    self.michael_y_offset = 0
-    self.michael_w_offset = 0
-    self.michael_h_offset = 0
-
-  end
-
-  def customize_michael_window(window, i)
-
-    self.michael_custom_initialize = (caller[0][/`.*'/][1..-2] == "initialize")
-    self.michael_custom_update = (caller[0][/`.*'/][1..-2] == "update")
-
-
-    self.michael_custom_initialize = false
-    self.michael_custom_update = false
 
   end
 
@@ -795,146 +1022,6 @@ class Window
 
   end
 
-  def visible=(arg)
-
-    self.michael_sp_visible_asgn(arg)
-    self.michael_bg_sp.visible = (self.open? && self.visible)
-
-    unless $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
-
-      self.michael_bg_sp.visible = false
-      cursor_rect.michael_cursor_rect_bg_sp.visible = false
-
-    end
-
-  end
-
-  def openness=(arg)
-
-    self.michael_sp_openness_asgn(arg)
-    self.michael_bg_sp.visible = (self.open? && self.visible)
-
-    unless $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
-
-      self.michael_bg_sp.visible = false
-      cursor_rect.michael_cursor_rect_bg_sp.visible = false
-
-    end
-
-  end
-
-  def x=(arg)
-
-    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
-
-      if self.michael_custom_initialize || self.michael_custom_update
-
-        unless self.michael_allow_offset
-
-          self.michael_sp_x_asgn(arg)
-          self.michael_bg_sp.x = arg
-          self.cursor_rect.michael_cursor_rect_bg_sp.x = arg +
-          self.cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_x_offset
-
-        else
-
-          self.michael_sp_x_asgn(arg + self.michael_x_offset)
-          self.michael_bg_sp.x = arg + self.michael_x_offset
-          self.cursor_rect.michael_cursor_rect_bg_sp.x = arg +
-          self.cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_x_offset +
-          self.michael_x_offset
-
-        end
-
-      else; self.michael_x_offset = arg; end
-
-    else; self.michael_sp_x_asgn(arg); end
-
-  end
-
-  def y=(arg)
-
-    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
-
-      if self.michael_custom_initialize || self.michael_custom_update
-
-        unless self.michael_allow_offset
-
-          self.michael_sp_y_asgn(arg)
-          self.michael_bg_sp.y = arg
-          self.cursor_rect.michael_cursor_rect_bg_sp.y = arg +
-          self.cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_y_offset
-
-        else
-
-          self.michael_sp_y_asgn(arg + self.michael_y_offset)
-          self.michael_bg_sp.x = arg + self.michael_y_offset
-          self.cursor_rect.michael_cursor_rect_bg_sp.y = arg +
-          self.cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_y_offset +
-          self.michael_y_offset
-
-        end
-
-      else; self.michael_y_offset = arg; end
-
-    else; self.michael_sp_y_asgn(arg); end
-
-  end
-
-  def width=(arg)
-
-    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
-
-      if self.michael_custom_initialize || self.michael_custom_update
-
-        unless self.michael_allow_offset
-
-          self.michael_sp_width_asgn(arg)
-          self.michael_bg_sp.src_rect.width = arg
-
-        else
-
-          self.michael_sp_width_asgn(arg + self.michael_w_offset)
-          self.michael_bg_sp.src_rect.width = arg + self.michael_w_offset
-
-        end
-
-      else; self.michael_w_offset = arg; end
-
-    else; self.michael_sp_width_asgn(arg); end
-
-  end
-
-  def height=(arg)
-
-    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
-
-      if self.michael_custom_initialize || self.michael_custom_update
-
-        unless self.michael_allow_offset
-
-          self.michael_sp_height_asgn(arg)
-          self.michael_bg_sp.src_rect.height = arg
-
-        else
-
-          self.michael_sp_height_asgn(arg + self.michael_h_offset)
-          self.michael_bg_sp.src_rect.height = arg + self.michael_h_offset
-
-        end
-
-      else
-
-        self.michael_h_offset = arg
-
-        if
-
-      end
-
-    else; self.michael_sp_height_asgn(arg); end
-
-  end
-
 end
 
 #==============================================================================
@@ -970,7 +1057,6 @@ class Sprite
     michael_clear_wndw_opa(window)
     michael_mandatory_update(window)
     michael_apply_change(window, i, cursor)
-    #self.michael_sp_ppts_dup = i.dup
 
   end
 
@@ -1024,64 +1110,63 @@ class Sprite
 
     begin
 
-    if self.michael_sp_ppts_dup[1] != i[1] ||
-       self.michael_sp_ppts_dup[2] != i[2]
+      if self.michael_sp_ppts_dup[1] != i[1] ||
+         self.michael_sp_ppts_dup[2] != i[2]
 
 
 
-      if cursor == 'select'
-        self.bitmap = Cache.cache_extended( i[2], (i[1] + '_select'))
-      elsif cursor == 'unselect'
-        self.bitmap = Cache.cache_extended( i[2], (i[1] + '_unselect'))
-      else
-        self.bitmap = Cache.cache_extended( i[2], i[1])
-      end
+        if cursor == 'select'
+          self.bitmap = Cache.cache_extended( i[2], (i[1] + '_select'))
+        elsif cursor == 'unselect'
+          self.bitmap = Cache.cache_extended( i[2], (i[1] + '_unselect'))
+        else
+          self.bitmap = Cache.cache_extended( i[2], i[1])
+        end
 
-      self._I_do_have_bitmap = true
+        self._I_do_have_bitmap = true
 
+        self.nullify_zoom_x = 1 if self.nullify_zoom_x.nil?
+        self.nullify_zoom_y = 1 if self.nullify_zoom_y.nil?
 
-      self.nullify_zoom_x = 1 if self.nullify_zoom_x.nil?
-      self.nullify_zoom_y = 1 if self.nullify_zoom_y.nil?
-
-      self.michael_sp_ppts_dup = i.dup
-
-    end
-
-    self.viewport.z += i[3] unless i[3].nil?
-
-    self.opacity = i[4] if (self.visible) && !(i[4].nil?)
-
-    if i[5] == ''
-
-      #============================ Resized ============================#
-
-      store_sp_w_float = self.bitmap.width.to_f
-      store_sp_h_float = self.bitmap.height.to_f
-
-      if window.is_a?(Rect)
-
-        store_wndw_w_float = michael_cursor_sp_w_offset.to_f
-        store_wndw_h_float = michael_cursor_sp_h_offset.to_f
-
-      else
-
-        store_wndw_w_float = window.width.to_f
-        store_wndw_h_float = window.height.to_f
+        self.michael_sp_ppts_dup = i.dup
 
       end
 
-      self.zoom_x = self.nullify_zoom_x
-      self.zoom_y = self.nullify_zoom_y
+      self.viewport.z += i[3] unless i[3].nil?
 
-      self.zoom_x = store_wndw_w_float / store_sp_w_float
-      self.zoom_y = store_wndw_h_float / store_sp_h_float
-      self.src_rect.width = self.bitmap.width
-      self.src_rect.height = self.bitmap.height
+      self.opacity = i[4] if (self.visible) && !(i[4].nil?)
 
-      self.nullify_zoom_x = 1 / (store_wndw_w_float / store_sp_w_float)
-      self.nullify_zoom_y = 1 / (store_wndw_h_float / store_sp_h_float)
+      if i[5] == ''
 
-    end
+        #============================ Resized ============================#
+
+        store_sp_w_float = self.bitmap.width.to_f
+        store_sp_h_float = self.bitmap.height.to_f
+
+        if window.is_a?(Rect)
+
+          store_wndw_w_float = michael_cursor_sp_w_offset.to_f
+          store_wndw_h_float = michael_cursor_sp_h_offset.to_f
+
+        else
+
+          store_wndw_w_float = window.width.to_f
+          store_wndw_h_float = window.height.to_f
+
+        end
+
+        self.zoom_x = self.nullify_zoom_x
+        self.zoom_y = self.nullify_zoom_y
+
+        self.zoom_x = store_wndw_w_float / store_sp_w_float
+        self.zoom_y = store_wndw_h_float / store_sp_h_float
+        self.src_rect.width = self.bitmap.width
+        self.src_rect.height = self.bitmap.height
+
+        self.nullify_zoom_x = 1 / (store_wndw_w_float / store_sp_w_float)
+        self.nullify_zoom_y = 1 / (store_wndw_h_float / store_sp_h_float)
+
+      end
 
     rescue
 
