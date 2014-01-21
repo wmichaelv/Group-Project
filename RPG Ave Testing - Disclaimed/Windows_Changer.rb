@@ -744,7 +744,6 @@ class Window
     if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
 
       michael_update_y_offset(arg, $game_message.michael_wndw_bg_ary[self.class])
-
       self.michael_sp_y_asgn(arg + self.michael_y_offset)
       self.michael_bg_sp.x = arg + self.michael_y_offset
       self.cursor_rect.michael_cursor_rect_bg_sp.y = arg +
@@ -846,12 +845,12 @@ class Window
         if w_x
 
           self.michael_x_offset = 272 - w_x - w_w / 2
-          self.michael_y_offset = 272 - w_y - w_h / 2
+          self.michael_y_offset = 208 - w_y - w_h / 2
 
         else
 
           self.michael_x_offset = 272 - self.x - self.width / 2
-          self.michael_y_offset = 272 - self.y - self.height / 2
+          self.michael_y_offset = 208 - self.y - self.height / 2
 
         end
 
@@ -906,29 +905,77 @@ class Window
 
   def michael_update_x_offset(a_v, i) #assigned value
 
-    return if (self.x - a_v) = self.michael_x_offset
-    self.michael_x_offset += a_v - self.x
+    i[1].match('mtype') do
+
+      i[1].match('mtype_coordinate__') do; self.michael_x_offset = i[2] - a_v; end
+
+      i[1].match('mtype_everything__') do; self.michael_x_offset = i[2] - a_v; end
+
+      i[1].match('mtype_extend_original__') do; self.michael_x_offset = i[2]; end
+
+      i[1].match('mtype_center__') do; self.michael_x_offset = 272 - a_v - self.width / 2; end
+
+    end
 
   end
 
   def michael_update_y_offset(a_v, i)
 
-    return if (self.y - a_v) = self.michael_y_offset
-    self.michael_y_offset += a_v - self.y
+    i[1].match('mtype') do
+
+      i[1].match('mtype_coordinate__') do; self.michael_y_offset = i[3] - a_v; end
+
+      i[1].match('mtype_everything__') do; self.michael_y_offset = i[3] - a_v; end
+
+      i[1].match('mtype_extend_original__') do; self.michael_y_offset = i[3]; end
+
+      i[1].match('mtype_center__') do; self.michael_y_offset = 208 - a_v - self.width / 2; end
+
+    end
 
   end
 
   def michael_update_w_offset(a_v, i)
 
-    return if (self.width - a_v) = self.michael_w_offset
-    self.michael_w_offset += a_v - self.width
+    i[1].match('mtype') do
+
+      i[1].match('mtype_everything__') do; self.michael_w_offset = i[4] - a_v; end
+
+      i[1].match('mtype_extend_original__') do; self.michael_w_offset = i[4] unless i[4].nil?; end
+
+    end
+
+    i[1].match('rtype') do
+
+      i[1].match('rtype_by_integer__') do; self.michael_w_offset = i[6] - a_v; end
+
+      i[1].match('rtype_by_original__') do; self.michael_w_offset = i[6]; end
+
+      i[1].match('rtype_by_ratio__') do; self.michael_w_offset = a_v * (i[6] - 1); end
+
+    end
 
   end
 
   def michael_update_h_offset(a_v, i)
 
-    return if (self.height - a_v) = self.michael_h_offset
-    self.michael_h_offset += a_v - self.height
+    i[1].match('mtype') do
+
+      i[1].match('mtype_everything__') do; self.michael_h_offset = i[5] - a_v; end
+
+      i[1].match('mtype_extend_original__') do; self.michael_h_offset = i[5] unless i[5].nil?; end
+
+    end
+
+    i[1].match('rtype') do
+
+      i[1].match('rtype_by_integer__') do; self.michael_h_offset = i[7] - a_v; end
+
+      i[1].match('rtype_by_original__') do; self.michael_h_offset = i[7]; end
+
+      i[1].match('rtype_by_ratio__') do; self.michael_h_offset = a_v * (i[7] - 1); end
+
+    end
 
   end
 
@@ -990,6 +1037,24 @@ class Window
 
   end
 
+  def reset_michael_offset
+
+    self.x -= self.michael_x_offset
+    self.y -= self.michael_y_offset
+    self.width -= self.michael_w_offset
+    self.height -= self.michael_h_offset
+
+  end
+
+  def apply_michael_offset
+
+    self.x += self.michael_x_offset
+    self.y += self.michael_y_offset
+    self.width += self.michael_w_offset
+    self.height += self.michael_h_offset
+
+  end
+
   def did_I_get_changed?
 
     return self.oh_I_got_changed
@@ -1016,7 +1081,9 @@ class Window
   def update
 
     michael_Window_update
+    reset_michael_offset
     customize_michael_window(self, $game_message.michael_windows_ary[self.class])
+    apply_michael_offset(self)
     self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_bg_ary[self.class])
     cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_updt(self, $game_message.michael_wndw_cursor[self.class])
 
@@ -1689,6 +1756,9 @@ class Game_Message
   alias michael_ini initialize
 
   def initialize
+
+
+
 
     michael_ini
     @michael_windows_ary = Wndw_Cgr::Michael_Windows_Ary
