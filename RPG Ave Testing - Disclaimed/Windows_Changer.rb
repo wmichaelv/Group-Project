@@ -633,6 +633,7 @@ end
 module Cache
 
   def self.cache_extended(folder, filename)
+
     load_bitmap("#{folder}/", "#{filename}")
 
   end
@@ -791,7 +792,7 @@ class Window
 
   end
 
-  def customize_michael_window(i, w_x = nil, w_y = nil, w_w = nil, w_h = nil)
+  def update_michael_window_offset(i, w_x = nil, w_y = nil, w_w = nil, w_h = nil)
 
     i[1].match('mtype') do
 
@@ -1082,8 +1083,8 @@ class Window
 
     michael_Window_update
     reset_michael_offset
-    customize_michael_window(self, $game_message.michael_windows_ary[self.class])
-    apply_michael_offset(self)
+    update_michael_window_offset($game_message.michael_windows_ary[self.class])
+    apply_michael_offset
     self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_bg_ary[self.class])
     cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_updt(self, $game_message.michael_wndw_cursor[self.class])
 
@@ -2172,6 +2173,8 @@ class Game_Interpreter
       $game_message.michael_wndw_cursor[name][17] = alpha
 
     end
+
+    #def window_s_
 
   else
 
