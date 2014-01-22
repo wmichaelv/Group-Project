@@ -2119,7 +2119,7 @@ class Game_Interpreter
 
     #========================= Window Interpreter =========================#
 
-    def window_w_ori(class_type)
+    def window_w_default(class_type)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
