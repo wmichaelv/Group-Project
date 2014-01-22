@@ -1,7 +1,7 @@
 #==============================================================================
 #
 # Michael Windows Changer
-# Last Updated: 2014.01.19
+# Last Updated: 2014.01.21
 # Requirement: RPG Maker VX Ace
 #             -Knowledge of 'how to use scripts'
 #             -Knowledge of Window Designation (basically know which window is
@@ -37,6 +37,8 @@
 #==============================================================================
 # Script Biography lol
 #==============================================================================
+# 2013.01.21 --Increasing efficiency + Installing interpreter
+# 2013.01.20 --Increasing efficiency
 # 2013.01.19 --Window is up to customized.
 # 2013.01.18 --Window hash table is created.
 # 2013.01.17 --Implementing interpreter for cursor -- Demo is out :D
@@ -654,6 +656,7 @@ class Window
   attr_accessor :michael_y_offset
   attr_accessor :michael_w_offset
   attr_accessor :michael_h_offset
+  attr_accessor :michael_ary_dup
 
   alias michael_Window_initialize initialize
   alias michael_Window_update update
@@ -674,6 +677,8 @@ class Window
     update_michael_window_offset($game_message.michael_windows_ary[self.class],
                                  w_x, w_y, w_w, w_h)
 
+    self.michael_ary_dup = $game_message.michael_windows_ary[self.class].dup
+
     create_michael_bg_sp(w_x + self.michael_x_offset,
                          w_y + self.michael_y_offset,
                          w_w + self.michael_w_offset,
@@ -692,6 +697,8 @@ class Window
                                   w_y + self.michael_y_offset)
 
     cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_updt(self, $game_message.michael_wndw_cursor[self.class])
+
+    @do_usual_update_once = true
 
   end
 
@@ -729,7 +736,7 @@ class Window
 
     if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
 
-      michael_update_x_offset(arg, $game_message.michael_wndw_bg_ary[self.class])
+      michael_update_x_offset(arg, $game_message.michael_windows_ary[self.class])
       self.michael_sp_x_asgn(arg + self.michael_x_offset)
       self.michael_bg_sp.x = arg + self.michael_x_offset
       self.cursor_rect.michael_cursor_rect_bg_sp.x = arg +
@@ -744,9 +751,9 @@ class Window
 
     if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
 
-      michael_update_y_offset(arg, $game_message.michael_wndw_bg_ary[self.class])
+      michael_update_y_offset(arg, $game_message.michael_windows_ary[self.class])
       self.michael_sp_y_asgn(arg + self.michael_y_offset)
-      self.michael_bg_sp.x = arg + self.michael_y_offset
+      self.michael_bg_sp.y = arg + self.michael_y_offset
       self.cursor_rect.michael_cursor_rect_bg_sp.y = arg +
       self.cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_y_offset +
       self.michael_y_offset
@@ -759,7 +766,7 @@ class Window
 
     if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
 
-      michael_update_w_offset(arg, $game_message.michael_wndw_bg_ary[self.class])
+      michael_update_w_offset(arg, $game_message.michael_windows_ary[self.class])
       self.michael_sp_width_asgn(arg + self.michael_w_offset)
       self.michael_bg_sp.src_rect.width = arg + self.michael_w_offset
 
@@ -771,7 +778,7 @@ class Window
 
     if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
 
-      michael_update_h_offset(arg, $game_message.michael_wndw_bg_ary[self.class])
+      michael_update_h_offset(arg, $game_message.michael_windows_ary[self.class])
       self.michael_sp_height_asgn(arg + self.michael_h_offset)
       self.michael_bg_sp.src_rect.height = arg + self.michael_h_offset
 
@@ -984,9 +991,7 @@ class Window
 
     self.michael_bg_sp = Sprite.new
     self.michael_bg_sp.x = w_x unless w_x.nil?
-    self.michael_bg_sp.michael_sp_x_offset = w_x unless w_x.nil?
     self.michael_bg_sp.y = w_y unless w_y.nil?
-    self.michael_bg_sp.michael_sp_y_offset = w_y unless w_y.nil?
     self.michael_bg_sp.src_rect.width = w_w unless w_w.nil?
     self.michael_bg_sp.src_rect.height = w_h unless w_h.nil?
 
@@ -1044,6 +1049,10 @@ class Window
     self.y -= self.michael_y_offset
     self.width -= self.michael_w_offset
     self.height -= self.michael_h_offset
+    #self.michael_sp_x_asgn(self.x - self.michael_x_offset)
+    #self.michael_sp_y_asgn(self.y - self.michael_y_offset)
+    #self.michael_sp_width_asgn(self.width - self.michael_w_offset)
+    #self.michael_sp_height_asgn(self.height - self.michael_h_offset)
 
   end
 
@@ -1053,6 +1062,10 @@ class Window
     self.y += self.michael_y_offset
     self.width += self.michael_w_offset
     self.height += self.michael_h_offset
+    #self.michael_sp_x_asgn(self.x + self.michael_x_offset)
+    #self.michael_sp_y_asgn(self.y + self.michael_y_offset)
+    #self.michael_sp_width_asgn(self.width + self.michael_w_offset)
+    #self.michael_sp_height_asgn(self.height + self.michael_h_offset)
 
   end
 
@@ -1082,9 +1095,19 @@ class Window
   def update
 
     michael_Window_update
-    reset_michael_offset
-    update_michael_window_offset($game_message.michael_windows_ary[self.class])
-    apply_michael_offset
+    if self.michael_ary_dup != $game_message.michael_windows_ary[self.class]
+      self.michael_ary_dup = $game_message.michael_windows_ary[self.class]
+      reset_michael_offset
+      update_michael_window_offset(self.michael_ary_dup)
+      apply_michael_offset
+    else
+      if @do_usual_update_once
+        @do_usual_update_once = false
+        reset_michael_offset
+        update_michael_window_offset(self.michael_ary_dup)
+        apply_michael_offset
+      end
+    end
     self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_bg_ary[self.class])
     cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_updt(self, $game_message.michael_wndw_cursor[self.class])
 
@@ -1099,8 +1122,6 @@ end
 class Sprite
 
   attr_accessor :michael_sp_ppts_dup
-  attr_accessor :nullify_zoom_x
-  attr_accessor :nullify_zoom_y
   attr_accessor :michael_sp_x_offset
   attr_accessor :michael_sp_y_offset
   attr_accessor :michael_cursor_sp_x_offset
@@ -1193,9 +1214,6 @@ class Sprite
 
         self._I_do_have_bitmap = true
 
-        self.nullify_zoom_x = 1 if self.nullify_zoom_x.nil?
-        self.nullify_zoom_y = 1 if self.nullify_zoom_y.nil?
-
         self.michael_sp_ppts_dup = i.dup
 
       end
@@ -1204,7 +1222,8 @@ class Sprite
 
       self.opacity = i[4] if (self.visible) && !(i[4].nil?)
 
-      if i[5] == ''
+
+      unless i[5].match('rtype')
 
         #============================ Resized ============================#
 
@@ -1223,16 +1242,10 @@ class Sprite
 
         end
 
-        self.zoom_x = self.nullify_zoom_x
-        self.zoom_y = self.nullify_zoom_y
-
         self.zoom_x = store_wndw_w_float / store_sp_w_float
         self.zoom_y = store_wndw_h_float / store_sp_h_float
         self.src_rect.width = self.bitmap.width
         self.src_rect.height = self.bitmap.height
-
-        self.nullify_zoom_x = 1 / (store_wndw_w_float / store_sp_w_float)
-        self.nullify_zoom_y = 1 / (store_wndw_h_float / store_sp_h_float)
 
       end
 
@@ -1346,7 +1359,7 @@ class Sprite
 
       if window.is_a?(Rect)
 
-      i[5].match('rtype_window_width__') do
+        i[5].match('rtype_window_width__') do
 
           #============================ Resized ============================#
 
@@ -1355,16 +1368,10 @@ class Sprite
           store_wndw_w_float = michael_cursor_sp_w_offset.to_f
           store_wndw_h_float = michael_cursor_sp_h_offset.to_f
 
-          self.zoom_x = self.nullify_zoom_x
-          self.zoom_y = self.nullify_zoom_y
-
           self.zoom_x = store_wndw_w_float / store_sp_w_float
           self.zoom_y = store_wndw_w_float / store_sp_w_float
           self.src_rect.width = self.bitmap.width
           self.src_rect.height = self.bitmap.height
-
-          self.nullify_zoom_x = 1 / (store_wndw_w_float / store_sp_w_float)
-          self.nullify_zoom_y = 1 / (store_wndw_w_float / store_sp_w_float)
 
           #=========================== Relocate ============================#
 
@@ -1382,16 +1389,10 @@ class Sprite
           store_wndw_w_float = michael_cursor_sp_w_offset.to_f
           store_wndw_h_float = michael_cursor_sp_h_offset.to_f
 
-          self.zoom_x = self.nullify_zoom_x
-          self.zoom_y = self.nullify_zoom_y
-
           self.zoom_x = store_wndw_h_float / store_sp_h_float
           self.zoom_y = store_wndw_h_float / store_sp_h_float
           self.src_rect.width = self.bitmap.width
           self.src_rect.height = self.bitmap.height
-
-          self.nullify_zoom_x = 1 / (store_wndw_h_float / store_sp_h_float)
-          self.nullify_zoom_y = 1 / (store_wndw_h_float / store_sp_h_float)
 
           #=========================== Relocate ============================#
 
@@ -1408,16 +1409,10 @@ class Sprite
           store_sp_w_float = self.bitmap.width.to_f
           store_sp_h_float = self.bitmap.height.to_f
 
-          self.zoom_x = self.nullify_zoom_x
-          self.zoom_y = self.nullify_zoom_y
-
           self.zoom_x = i[12]
           self.zoom_y = i[13]
           self.src_rect.width = self.bitmap.width
           self.src_rect.height = self.bitmap.height
-
-          self.nullify_zoom_x = 1 / i[12]
-          self.nullify_zoom_y = 1 / i[13]
 
 
           #=========================== Relocate ============================#
@@ -1438,16 +1433,11 @@ class Sprite
           store_wndw_w_float = michael_cursor_sp_w_offset.to_f
           store_wndw_h_float = michael_cursor_sp_h_offset.to_f
 
-          self.zoom_x = self.nullify_zoom_x
-          self.zoom_y = self.nullify_zoom_y
-
           self.zoom_x = (i[12] * store_wndw_w_float / store_sp_w_float)
           self.zoom_y = (i[13] * store_wndw_h_float / store_sp_h_float)
+
           self.src_rect.width = self.bitmap.width
           self.src_rect.height = self.bitmap.height
-
-          self.nullify_zoom_x = 1 / (i[12] * store_wndw_w_float / store_sp_w_float)
-          self.nullify_zoom_y = 1 / (i[13] * store_wndw_h_float / store_sp_h_float)
 
           #=========================== Relocate ============================#
 
@@ -1467,16 +1457,10 @@ class Sprite
           store_sp_w_float = self.bitmap.width.to_f
           store_sp_h_float = self.bitmap.height.to_f
 
-          self.zoom_x = self.nullify_zoom_x
-          self.zoom_y = self.nullify_zoom_y
-
           self.zoom_x = (i[12] / store_sp_w_float)
           self.zoom_y = (i[13] / store_sp_h_float)
           self.src_rect.width = self.bitmap.width
           self.src_rect.height = self.bitmap.height
-
-          self.nullify_zoom_x = 1 / (i[12] / store_sp_w_float)
-          self.nullify_zoom_y = 1 / (i[13] / store_sp_h_float)
 
           #=========================== Relocate ============================#
 
@@ -1497,16 +1481,10 @@ class Sprite
           store_sp_h_float = self.bitmap.height.to_f
           store_wndw_w_float = window.width.to_f
 
-          self.zoom_x = self.nullify_zoom_x
-          self.zoom_y = self.nullify_zoom_y
-
           self.zoom_x = store_wndw_w_float / store_sp_w_float
           self.zoom_y = store_wndw_w_float / store_sp_w_float
           self.src_rect.width = self.bitmap.width
           self.src_rect.height = self.bitmap.height
-
-          self.nullify_zoom_x = 1 / (store_wndw_w_float / store_sp_w_float)
-          self.nullify_zoom_y = 1 / (store_wndw_w_float / store_sp_w_float)
 
           #=========================== Relocate ============================#
 
@@ -1523,16 +1501,10 @@ class Sprite
           store_sp_h_float = self.bitmap.height.to_f
           store_wndw_h_float = window.height.to_f
 
-          self.zoom_x = self.nullify_zoom_x
-          self.zoom_y = self.nullify_zoom_y
-
           self.zoom_x = store_wndw_h_float / store_sp_h_float
           self.zoom_y = store_wndw_h_float / store_sp_h_float
           self.src_rect.width = self.bitmap.width
           self.src_rect.height = self.bitmap.height
-
-          self.nullify_zoom_x = 1 / (store_wndw_h_float / store_sp_h_float)
-          self.nullify_zoom_y = 1 / (store_wndw_h_float / store_sp_h_float)
 
           #=========================== Relocate ============================#
 
@@ -1549,16 +1521,10 @@ class Sprite
           store_sp_w_float = self.bitmap.width.to_f
           store_sp_h_float = self.bitmap.height.to_f
 
-          self.zoom_x = self.nullify_zoom_x
-          self.zoom_y = self.nullify_zoom_y
-
           self.zoom_x = i[12]
           self.zoom_y = i[13]
           self.src_rect.width = self.bitmap.width
           self.src_rect.height = self.bitmap.height
-
-          self.nullify_zoom_x = 1 / i[12]
-          self.nullify_zoom_y = 1 / i[13]
 
 
           #=========================== Relocate ============================#
@@ -1579,16 +1545,10 @@ class Sprite
           store_wndw_w_float = window.width.to_f
           store_wndw_h_float = window.height.to_f
 
-          self.zoom_x = self.nullify_zoom_x
-          self.zoom_y = self.nullify_zoom_y
-
           self.zoom_x = (i[12] * store_wndw_w_float / store_sp_w_float)
           self.zoom_y = (i[13] * store_wndw_h_float / store_sp_h_float)
           self.src_rect.width = self.bitmap.width
           self.src_rect.height = self.bitmap.height
-
-          self.nullify_zoom_x = 1 / (i[12] * store_wndw_w_float / store_sp_w_float)
-          self.nullify_zoom_y = 1 / (i[13] * store_wndw_h_float / store_sp_h_float)
 
           #=========================== Relocate ============================#
 
@@ -1608,16 +1568,10 @@ class Sprite
           store_sp_w_float = self.bitmap.width.to_f
           store_sp_h_float = self.bitmap.height.to_f
 
-          self.zoom_x = self.nullify_zoom_x
-          self.zoom_y = self.nullify_zoom_y
-
           self.zoom_x = (i[12] / store_sp_w_float)
           self.zoom_y = (i[13] / store_sp_h_float)
           self.src_rect.width = self.bitmap.width
           self.src_rect.height = self.bitmap.height
-
-          self.nullify_zoom_x = 1 / (i[12] / store_sp_w_float)
-          self.nullify_zoom_y = 1 / (i[13] / store_sp_h_float)
 
           #=========================== Relocate ============================#
 
@@ -1757,9 +1711,6 @@ class Game_Message
   alias michael_ini initialize
 
   def initialize
-
-
-
 
     michael_ini
     @michael_windows_ary = Wndw_Cgr::Michael_Windows_Ary
@@ -2066,7 +2017,6 @@ class Game_Interpreter
       $game_message.michael_wndw_cursor[name][3] = nil
       $game_message.michael_wndw_cursor[name][4] = nil
       $game_message.michael_wndw_cursor[name][5] = ''
-
 
     end
 
