@@ -38,6 +38,7 @@
 # Script Biography lol
 #==============================================================================
 # 2013.01.21 --Increasing efficiency + Installing interpreter
+#            --Demo is added
 # 2013.01.20 --Increasing efficiency
 # 2013.01.19 --Window is up to customized.
 # 2013.01.18 --Window hash table is created.
@@ -242,7 +243,7 @@
 # window_r_fit_w(class_type) -> resized based on window.width
 # window_r_fit_h(class_type) -> resized based on window.height
 #
-# #============================= Cursor =====================================#
+# #============================= Cursor ======================================#
 #
 # How to apply:
 #  cursor and window background need to have similar name.
@@ -275,6 +276,34 @@
 #
 # They all have same functionality as the window background intrepreter, but they
 # modify the cursor instead of the window.
+#
+# #============================= Window ======================================#
+#
+# Warning: Adjusting window's width and height will adjust the content
+#          This script is purely graphic, it doesn't include interpreter to adjust
+#          content due to various scripts using different naming and measurement
+#          for their content
+#
+# Note: Window_Message's content would do weird stuff when adjusted. I suggest to
+#       avoid adjusting Window_Message's window though adding sprite is fine.
+#
+# How to apply:
+#
+# - Use window_on(class_type, 'doesnt_need_to_have_actual_picture_here_but_still_insert_something')
+# - if window_on isn't used, then flicker will happen.
+# - if flicker happens, that means you forgot to use window_on for the particular window
+#
+# Interpreters that come with window:
+#
+# window_w_default(class_type) -> Set window to default position, size and depth
+# window_w_coordinate(class_type, x, y) -> set window at x, y coordinate
+# window_w_change_all(class_type, x, y, w, h) -> set window at x,y coordinate and w,h size
+# window_w_move_ori(class_type, x, y) -> move from original position by x,y
+# window_w_move_ori(class_type, x, y, w, h) -> move & strech from original position by x,y,w,h
+# window_w_center(class_type) -> place window at the center of screen
+# window_w_r_pixel(class_type, w, h) -> resize window width and height by w, h
+# window_w_r_ratio(class_type, w, h) -> resize window width and height by ratio w, h
+# window_w_depth(class_type, z) -> increase window depth by z, put z as negative number to decrease depth
 #
 # #============================== End =======================================#
 #
