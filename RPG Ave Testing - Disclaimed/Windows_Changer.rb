@@ -884,7 +884,7 @@ class Window
 
       end
 
-      i[1].match('rtype_by_original__') do
+      i[1].match('rtype_by_interger__') do
 
         self.michael_w_offset = i[6]
         self.michael_h_offset = i[7]
@@ -2124,7 +2124,90 @@ class Game_Interpreter
 
     end
 
-    #def window_s_
+    #========================= Window Interpreter =========================#
+
+    def window_w_ori(class_type)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_windows_ary[name][1] = ''
+
+    end
+
+    def window_w_coordinate(class_type, x, y)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_windows_ary[name][1].slice!(/mtype+\w+?(__)/)
+      $game_message.michael_windows_ary[name][1] << 'mtype_coordinate__'
+      $game_message.michael_windows_ary[name][2] = x
+      $game_message.michael_windows_ary[name][3] = y
+
+    end
+
+    def window_w_change_all(class_type, x, y, w, h)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_windows_ary[name][1].slice!(/mtype+\w+?(__)/)
+      $game_message.michael_windows_ary[name][1] << 'mtype_everything__'
+      $game_message.michael_windows_ary[name][2] = x
+      $game_message.michael_windows_ary[name][3] = y
+      $game_message.michael_windows_ary[name][4] = w
+      $game_message.michael_windows_ary[name][5] = h
+
+    end
+
+    def window_w_move_ori(class_type, x, y, w = nil, h = nil)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_windows_ary[name][1].slice!(/mtype+\w+?(__)/)
+      $game_message.michael_windows_ary[name][1] << 'mtype_extend_original__'
+      $game_message.michael_windows_ary[name][2] = x
+      $game_message.michael_windows_ary[name][3] = y
+      $game_message.michael_windows_ary[name][4] = w unless w.nil?
+      $game_message.michael_windows_ary[name][5] = h unless h.nil?
+
+    end
+
+    def window_w_center(class_type)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_windows_ary[name][1].slice!(/mtype+\w+?(__)/)
+      $game_message.michael_windows_ary[name][1] << 'mtype_center__'
+
+    end
+
+    def window_w_r_pixel(class_type, w, h)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_windows_ary[name][1].slice!(/mtype+\w+?(__)/)
+      $game_message.michael_windows_ary[name][1] << 'mtype_extend_original__'
+      $game_message.michael_windows_ary[name][6] = w
+      $game_message.michael_windows_ary[name][7] = h
+
+    end
+
+    def window_w_r_ratio(class_type, w, h)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_windows_ary[name][1].slice!(/mtype+\w+?(__)/)
+      $game_message.michael_windows_ary[name][1] << 'mtype_extend_original__'
+      $game_message.michael_windows_ary[name][6] = w
+      $game_message.michael_windows_ary[name][7] = h
+
+    end
 
   else
 
