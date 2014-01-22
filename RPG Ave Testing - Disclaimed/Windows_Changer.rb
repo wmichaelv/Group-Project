@@ -884,13 +884,6 @@ class Window
 
       end
 
-      i[1].match('rtype_by_interger__') do
-
-        self.michael_w_offset = i[6]
-        self.michael_h_offset = i[7]
-
-      end
-
       i[1].match('rtype_by_ratio__') do
 
         if w_w
@@ -2191,7 +2184,7 @@ class Game_Interpreter
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
       $game_message.michael_windows_ary[name][1].slice!(/mtype+\w+?(__)/)
-      $game_message.michael_windows_ary[name][1] << 'mtype_extend_original__'
+      $game_message.michael_windows_ary[name][1] << 'rtype_by_integer__'
       $game_message.michael_windows_ary[name][6] = w
       $game_message.michael_windows_ary[name][7] = h
 
@@ -2203,7 +2196,7 @@ class Game_Interpreter
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
       $game_message.michael_windows_ary[name][1].slice!(/mtype+\w+?(__)/)
-      $game_message.michael_windows_ary[name][1] << 'mtype_extend_original__'
+      $game_message.michael_windows_ary[name][1] << 'rtype_by_ratio__'
       $game_message.michael_windows_ary[name][6] = w
       $game_message.michael_windows_ary[name][7] = h
 
