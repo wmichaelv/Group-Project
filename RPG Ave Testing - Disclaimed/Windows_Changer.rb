@@ -384,6 +384,10 @@ module Wndw_Cgr #Window Changer
     Michael_Wndw_Bg_Ary[Window] << nil << nil << nil << nil
     Michael_Wndw_Cursor[Window] << nil << nil << nil << nil
 
+          #======================== add-ons... =======================#
+
+    Michael_Windows_Ary[Window] << nil #I forgot about the depth :(
+
         #===================== End Window Initializer ==================#
 
       #================ Start Window Descendants Initializer =============#
@@ -416,6 +420,7 @@ module Wndw_Cgr #Window Changer
       Michael_Windows_Ary[derived_classes] << ''
       Michael_Windows_Ary[derived_classes] << nil << nil << nil << nil
       Michael_Windows_Ary[derived_classes] << nil << nil
+      Michael_Windows_Ary[derived_classes] << nil #I forgot about the depth :(
 
     end
 
@@ -688,6 +693,8 @@ class Window
                               w_y + self.michael_y_offset,
                               w_w + self.michael_w_offset,
                               w_h + self.michael_h_offset)
+
+    update_michael_window_depth($game_message.michael_windows_ary[self.class])
 
     create_michael_bg_vp
 
@@ -990,6 +997,12 @@ class Window
 
   end
 
+  def update_michael_window_depth(i)
+
+    self.z += i[8] unless i[8].nil?
+
+  end
+
   def create_michael_bg_vp
 
     self.michael_bg_vp = Viewport.new  #The only locations where new member functions are created
@@ -1092,12 +1105,14 @@ class Window
       self.michael_ary_dup = $game_message.michael_windows_ary[self.class]
       reset_michael_offset
       update_michael_window_offset(self.michael_ary_dup)
+      update_michael_window_depth($game_message.michael_windows_ary[self.class])
       apply_michael_offset
     else
       if @do_usual_update_once
         @do_usual_update_once = false
         reset_michael_offset
         update_michael_window_offset(self.michael_ary_dup)
+        update_michael_window_depth($game_message.michael_windows_ary[self.class])
         apply_michael_offset
       end
     end
@@ -2125,6 +2140,7 @@ class Game_Interpreter
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
       $game_message.michael_windows_ary[name][1] = ''
+      $game_message.michael_windows_ary[name][8] = nil
 
     end
 
@@ -2199,6 +2215,15 @@ class Game_Interpreter
       $game_message.michael_windows_ary[name][1] << 'rtype_by_ratio__'
       $game_message.michael_windows_ary[name][6] = w
       $game_message.michael_windows_ary[name][7] = h
+
+    end
+
+    def window_w_depth(class_type, z)
+
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
+      $game_message.michael_windows_ary[name][8] = z
 
     end
 
