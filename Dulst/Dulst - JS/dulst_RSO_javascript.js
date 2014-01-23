@@ -1,6 +1,5 @@
 //Here we go...
 
-
 function flashMessage(e) {
   $(document).one("mousemove",function(t) {
     $("#jquery-notify-elem").remove();
@@ -24,9 +23,11 @@ function flashMessage(e) {
 !function(e,t) {
   function n(e) {
     var t=pt[e]= {};
-    return K.each(e.split(tt),function(e,n) {
+    return K.each(e.split(tt),
+    function(e,n) {
       t[n]=!0
-    }),t
+    }),
+    t
   }
   function i(e,n,i) {
     if(i===t&&1===e.nodeType) {
@@ -185,30 +186,34 @@ function flashMessage(e) {
       return s?(s!==c[0]&&c.unshift(s),i[s]):void 0
   }
   function I(e,t) {
-    var n,i,o,r,s=e.dataTypes.slice(),a=s[0],l= {},c=0;
-    if(e.dataFilter&&(t=e.dataFilter(t,e.dataType)),s[1])for(n in e.converters)l[n.toLowerCase()]=e.converters[n];
+    var n,i,o,r,s=e.dataTypes.slice(), a = s[0], l = {} , c = 0;
+    if (e.dataFilter && (t = e.dataFilter(t, e.dataType)), s[1]) for (n in e.converters)l[n.toLowerCase()]=e.converters[n];
     for(; o=s[++c];)if("*"!==o) {
         if("*"!==a&&a!==o) {
-          if(n=l[a+" "+o]||l["* "+o],!n)for(i in l)if(r=i.split(" "),r[1]===o&&(n=l[a+" "+r[0]]||l["* "+r[0]])) {
-                n===!0?n=l[i]:l[i]!==!0&&(o=r[0],s.splice(c--,0,o));
+          if(n = l[a+" "+o] || l["* "+o], !n) 
+            for(i in l)
+              if(r=i.split(" ") , r[1] === o && (n = l[a+" "+r[0]] || l["* " + r[0]])) {
+                n === !0? n = l[i]:l[i] !==! 0 && (o = r[0], s.splice(c--,0,o));
                 break
               }
-          if(n!==!0)if(n&&e["throws"])t=n(t);
+          if (n !==! 0)
+            if ( n && e["throws"])
+              t = n(t);
             else try {
-                t=n(t)
-              } catch(d) {
-return {state:"parsererror"
-        ,error:
-                        n?d:"No conversion from "+a+" to "+o
-                       }
+              t = n(t)
+            } catch(d) {
+              return {
+                state:"parsererror"
+                , error: n?d:"No conversion from "+a+" to "+o
               }
+            }
         }
-               a=o
-      }
-         return {state:"success"
-                 ,data:
-                     t
-                    }
+      a = o
+    }
+    return {
+      state:"success",
+      data: t
+    }
   }
   function N() {
     try {
