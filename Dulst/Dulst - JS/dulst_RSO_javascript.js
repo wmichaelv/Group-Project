@@ -1,84 +1,109 @@
 //Here we go...
 
-function flashMessage(e) {
-  $(document).one("mousemove",function(t) {
-    $("#jquery-notify-elem").remove();
-    var n = $("<div />", {
-      id:"jquery-notify-elem",
-      "class":"notification-message flashMessage ui-tooltip"
+function flashMessage( e ) {
+  $( document ).one( "mousemove" , function( t ) {
+    $( "#jquery-notify-elem" ).remove();
+    var n = $( "<div />", {
+      id     : "jquery-notify-elem",
+      "class": "notification-message flashMessage ui-tooltip"
     });
+
     n.html('<div class="ui-tooltip-content">
-            <div class="main-message">'+e+'</div>
+            <div class="main-message">' + e + '</div>
             <div class="dismiss-message">(Click on this box to dismiss)</div>
             </div>'),
+
     n.css( {
-      left:t.pageX,
-      top:t.pageY
-    }).click(function() {
+      left: t.pageX,
+      top : t.pageY
+    }).click( function() {
       n.remove()
-    }).appendTo("body").show()
+    }).appendTo( "body" ).show()
   })
 }
 
-!function(e,t) {
-  function n(e) {
-    var t=pt[e]= {};
-    return K.each(e.split(tt),
-    function(e,n) {
-      t[n]=!0
+!function( e, t ) {
+  function n( e ) {
+    var t = pt[ e ] = {};
+    return K.each( e.split( tt ),
+    function( e , n ) {
+      t[ n ] =! 0
     }),
     t
   }
-  function i(e,n,i) {
-    if(i===t&&1===e.nodeType) {
-      var o="data-"+n.replace(gt,"-$1").toLowerCase();
-      if(i=e.getAttribute(o),"string"==typeof i) {
+
+  function i( e, n, i) {
+    if ( i === t && 1 === e.nodeType) {
+      var o = "data-" + n.replace( gt, "-$1").toLowerCase();
+      if ( i = e.getAttribute( o ) , "string" == typeof i) {
         try {
-          i="true"===i?!0:"false"===i?!1:"null"===i?null:+i+""===i?+i:mt.test(i)?K.parseJSON(i):i
-        } catch(r) {} K.data(e,n,i)
-      } else i=t
-      }
-             return i
+          i = "true" === i? 
+            !0               : "false" === i?
+            !1               : "null" === i?
+            null             : + i + "" === i?
+            + i              : mt.test( i )?
+            K.parseJSON( i ) : i
+        } catch( r ) {} K.data( e, n, i)
+      } else 
+        i = t
+    }
+    return i
   }
-  function o(e) {
+
+  function o( e ) {
     var t;
-    for(t in e)if(("data"!==t||!K.isEmptyObject(e[t]))&&"toJSON"!==t)return!1;
-    return!0
+    for (t in e)
+      if(( "data" !== t || !K.isEmptyObject( e[ t ] )) && "toJSON" !== t)
+        return !1;
+    return !0
   }
+
   function r() {
-    return!1
+    return !1
   }
+
   function s() {
-    return!0
+    return !0
   }
-  function a(e) {
-    return!e||!e.parentNode||11===e.parentNode.nodeType
+
+  function a( e ) {
+    return !e || !e.parentNode || 11 === e.parentNode.nodeType
   }
-  function l(e,t) {
-    do e=e[t];
-    while(e&&1!==e.nodeType);
+
+  function l( e, t ) {
+    do e = e[ t ];
+    while ( e && 1 !== e.nodeType );
     return e
   }
-  function c(e,t,n) {
-    if(t=t||0,K.isFunction(t))return K.grep(e,function(e,i) {
-      var o=!!t.call(e,i,e);
-      return o===n
-    });
-    if(t.nodeType)return K.grep(e,function(e) {
-      return e===t===n
-    });
+
+  function c( e, t, n ) {
+    if ( t = t || 0, K.isFunction( t ))
+      return K.grep( e, function( e, i ) {
+        var o =!! t.call( e, i, e );
+        return o === n
+      });
+
+    if( t.nodeType )
+      return K.grep( e, function( e ) {
+        return e === t === n
+      });
+
     if("string"==typeof t) {
       var i=K.grep(e,function(e) {
         return 1===e.nodeType
       });
-      if(Lt.test(t))return K.filter(t,i,!n);
-      t=K.filter(t,i)
+
+      if ( Lt.test( t ))
+        return K.filter( t, i, !n );
+      t = K.filter( t, i )
     }
-    return K.grep(e,function(e) {
-      return K.inArray(e,t)>=0===n
+
+    return K.grep( e, function( e ) {
+      return K.inArray( e ,t ) >= 0 === n
     })
   }
-  function d(e) {
+  
+  function d( e ) {
     var t=Bt.split("|"),n=e.createDocumentFragment();
     if(n.createElement)for(; t.length;)n.createElement(t.pop());
     return n
