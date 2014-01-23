@@ -1,7 +1,7 @@
 #==============================================================================
 #
 # Michael Windows Changer
-# Last Updated: 2014.01.21
+# Last Updated: 2014.01.22
 # Requirement: RPG Maker VX Ace
 #             -Knowledge of 'how to use scripts'
 #             -Knowledge of Window Designation (basically know which window is
@@ -37,35 +37,36 @@
 #==============================================================================
 # Script Biography lol
 #==============================================================================
-# 2013.01.21 --Increasing efficiency + Installing interpreter
+# 2014.01.22 --Creating Super Hash
+# 2014.01.21 --Increasing efficiency + Installing interpreter
 #            --Demo is added
-# 2013.01.20 --Increasing efficiency
-# 2013.01.19 --Window is up to customized.
-# 2013.01.18 --Window hash table is created.
-# 2013.01.17 --Implementing interpreter for cursor -- Demo is out :D
-# 2013.01.16 --cursor_rect is up to customization.
-# 2013.01.15 --Fixed resize -- Credit to Mithram for zoom's behavior
+# 2014.01.20 --Increasing efficiency
+# 2014.01.19 --Window is up to customized.
+# 2014.01.18 --Window hash table is created.
+# 2014.01.17 --Implementing interpreter for cursor -- Demo is out :D
+# 2014.01.16 --cursor_rect is up to customization.
+# 2014.01.15 --Fixed resize -- Credit to Mithram for zoom's behavior
 #            --window_r_default is combined with default assignment.
-# 2013.01.14 --Fixed resize math
-# 2013.01.13 --Enabled Psuedo name
-# 2013.01.12 --Improve option on resize and add feature for color
-# 2013.01.11 --Add feature to resizing picture based on height & width ratio / user input
-# 2013.01.09 --Auto-Generate all Window sub-classes. -Add feature for auto and manual.
-# 2013.01.08 --Can't keep track on what happened today.
-# 2013.01.07 --FLICKER GOODBYE - flicker bug is fixed. 100% working. I'll give up if I found another  bug.
-# 2013.01.06 --Increaseeeeeeeeeeeeddddddd readibility. .______________________.
+# 2014.01.14 --Fixed resize math
+# 2014.01.13 --Enabled Psuedo name
+# 2014.01.12 --Improve option on resize and add feature for color
+# 2014.01.11 --Add feature to resizing picture based on height & width ratio / user input
+# 2014.01.09 --Auto-Generate all Window sub-classes. -Add feature for auto and manual.
+# 2014.01.08 --Can't keep track on what happened today.
+# 2014.01.07 --FLICKER GOODBYE - flicker bug is fixed. 100% working. I'll give up if I found another  bug.
+# 2014.01.06 --Increaseeeeeeeeeeeeddddddd readibility. .______________________.
 #            --File is trimmed down and readibility is increased - Credit to Mithran
-# 2013.01.05 --File is trimmed down
-# 2013.01.03 --window_show_all and window_move_origin and their counter-parts
+# 2014.01.05 --File is trimmed down
+# 2014.01.03 --window_show_all and window_move_origin and their counter-parts
 #              are introduced
 #            --Reforming the arrays
 #            --Increased readibility :/
-# 2013.01.02 --Naming convention is improved
+# 2014.01.02 --Naming convention is improved
 #            --Some methods are simplified
 #            --File is trimmed down
 #            --@temp1 & @temp2 variables are removed
 #            --Replacing switch on the windows itself instead of scenes
-# 2013.01.01 --window_opacity(i, opacity) is introduced
+# 2014.01.01 --window_opacity(i, opacity) is introduced
 # 2013.12.30 --Trimmed down the file size
 # 2013.12.27 --Fixed window_default(i)
 #            --window_depth(i, depth) is introduced & implemented
@@ -455,9 +456,16 @@ module Wndw_Cgr #Window Changer
 
       #================= End Window Descendants Initializer ==============#
 
+      #============================= Super Hash ==========================#
+
+    Window_Super_Hash = Hash.new
+    Window_Super_Hash[Window] = Michael_Windows_Ary
+    Window_Super_Hash[Cursor] = Michael_Wndw_Cursor
+    Window_Super_Hash[Sprite] = Michael_Wndw_Bg_Ary
+
       #============================= Psuedo List =========================#
 
-      Wndw_Psuedo_Names = {}
+    Wndw_Psuedo_Names = {}
 
   else
 
