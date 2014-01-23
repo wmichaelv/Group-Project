@@ -102,25 +102,32 @@ function flashMessage( e ) {
       return K.inArray( e ,t ) >= 0 === n
     })
   }
-  
+
   function d( e ) {
-    var t=Bt.split("|"),n=e.createDocumentFragment();
-    if(n.createElement)for(; t.length;)n.createElement(t.pop());
+    var t = Bt.split("|"), n = e.createDocumentFragment();
+    if ( n.createElement ) 
+      for (; t.length;)
+        n.createElement( t.pop() );
     return n
   }
-  function u(e,t) {
-    return e.getElementsByTagName(t)[0]||e.appendChild(e.ownerDocument.createElement(t))
+
+  function u( e, t ) {
+    return e.getElementsByTagName( t )[0] || e.appendChild(e.ownerDocument.createElement(t))
   }
-  function h(e,t) {
-    if(1===t.nodeType&&K.hasData(e)) {
-      var n,i,o,r=K._data(e),s=K._data(t,r),a=r.events;
-      if(a) {
-        delete s.handle,s.events= {};
-        for(n in a)for(i=0,o=a[n].length; o>i; i++)K.event.add(t,n,a[n][i])
-          }
-      s.data&&(s.data=K.extend( {},s.data))
+
+  function h( e, t ) {
+    if ( 1 === t.nodeType && K.hasData(e)) {
+      var n, i, o, r = K._data(e), s = K._data(t ,r ), a = r.events;
+      if ( a ) {
+        delete s.handle,s.events = {};
+        for ( n in a )
+          for ( i = 0, o = a[ n ].length;  o > i; i++)
+            K.event.add( t, n, a[ n ][ i ])
+      }
+      s.data && ( s.data = K.extend( {},s.data))
     }
   }
+  //Done till here, katon please continue after me. .-.
   function f(e,t) {
     var n;
     1===t.nodeType&&(t.clearAttributes&&t.clearAttributes(),t.mergeAttributes&&t.mergeAttributes(e),n=t.nodeName.toLowerCase(),"object"===n?(t.parentNode&&(t.outerHTML=e.outerHTML),K.support.html5Clone&&e.innerHTML&&!K.trim(t.innerHTML)&&(t.innerHTML=e.innerHTML)):"input"===n&&Yt.test(e.type)?(t.defaultChecked=t.checked=e.checked,t.value!==e.value&&(t.value=e.value)):"option"===n?t.selected=e.defaultSelected:"input"===n||"textarea"===n?t.defaultValue=e.defaultValue:"script"===n&&t.text!==e.text&&(t.text=e.text),t.removeAttribute(K.expando))
