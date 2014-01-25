@@ -509,57 +509,57 @@ time {
 }
 
 #left {
-  width:182px;
-  float:right;
-  height:100%;
-  -webkit-box-sizing:border-box;
-  -moz-box-sizing:border-box;
-  -o-box-sizing:border-box;
-  box-sizing:border-box;
-  position:relative;
-  border-right:.5em #2f2f2f solid;
-  right:0
+  width              : 182px;
+  float              : right;
+  height             : 100%;
+  -webkit-box-sizing : border-box;
+  -moz-box-sizing    : border-box;
+  -o-box-sizing      : border-box;
+  box-sizing         : border-box;
+  position           : relative;
+  border-right       : .5em #2f2f2f solid;
+  right              : 0
 }
+
 #right {
-  width:182px;
-  float:right;
-  height:100%;
-  -webkit-box-sizing:border-box;
-  -moz-box-sizing:border-box;
-  -o-box-sizing:border-box;
-  box-sizing:border-box;
-  left:50%;
+  width              : 182px;
+  float              : right;
+  height             : 100%;
+  -webkit-box-sizing : border-box;
+  -moz-box-sizing    : border-box;
+  -o-box-sizing      : border-box;
+  box-sizing         : border-box;
+  left               : 50%;
   position:relative
 }
+
 .colright,.colmid,.colleft {
-  float:
- left;
- width:100%;
- position:
- relative;
- height:100%
+  float    : left;
+  width    : 100%;
+  position : relative;
+  height   : 100%
 }
- .colmid{float:
-   left;
-   width:200%;
-   margin-left:
-   -182px;
-   position:
-   relative;
-   right:100%
+
+/* Done till here */
+
+.colmid {
+  float:left;
+  width:200%;
+  margin-left:-182px;
+  position:relative;
+  right:100%
  }
- .colleft{float:
-   left;
-   width:100%;
-   margin-left:
-   -50%;
-   position:
-   relative;
-   left:364px
- }
- .hide{display:
-   none
- }
+
+.colleft{
+float:left;
+  width:100%;
+  margin-left:-50%;
+  position:relative;
+  left:364px
+}
+.hide {
+  display:none
+}
 #header {
   width:100%;
   height:3.5em !important;
@@ -721,39 +721,35 @@ time {
 #header #mainMenu .menuItem.searchBox {
   margin:0 5px
 }
- .pageHelp{padding:1em;
-   margin:0 0 1px;
-   background:
-   #404040}
-   div.pager{clear:
-     both;
-     padding:10px;
-     margin-left:30px;
-   }
-   div.pager .pager-list{float:
-     left
-   }
-   div.pager li{border:
-     none;
-     display:
-     inline-block;
-     border:1px solid rgba(0,0,0,0.4);
-     -webkit-border-radius:3px;
-     -moz-border-radius:3px;
-     -o-border-radius:3px;
-     border-radius:3px;
-     cursor:
-     pointer;
-     padding:
-     .3em .7em;
-     text-align:
-     center;
-     font-size:13px;
-     line-height:1.5;
-     font-family:'Helvetica Neue'
-     ,Arial,Helvetica,sans-serif;
-     color:
-#ccc;
+
+.pageHelp {
+  padding:1em;
+  margin:0 0 1px;
+  background:#404040
+}
+div.pager {
+  clear:both;
+  padding:10px;
+  margin-left:30px;
+}
+div.pager .pager-list {
+  float:left
+}
+div.pager li {
+  border:none;
+  display:inline-block;
+  border:1px solid rgba(0,0,0,0.4);
+  -webkit-border-radius:3px;
+  -moz-border-radius:3px;
+  -o-border-radius:3px;
+  border-radius:3px;
+  cursor:pointer;
+  padding:.3em .7em;
+  text-align:center;
+  font-size:13px;
+  line-height:1.5;
+  font-family:'Helvetica Neue',Arial,Helvetica,sans-serif;
+  color:#ccc;
   text-shadow:rgba(0,0,0,0.5) 0 0 5px;
   background:#3c3c3c;
   background:-webkit-gradient(linear,left top,left bottom,color-stop(0,#464646),color-stop(1,#373737));
