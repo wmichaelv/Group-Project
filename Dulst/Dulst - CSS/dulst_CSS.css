@@ -357,84 +357,138 @@ mark {
   font-style       : italic;
   font-weight      : bold
 }
-/* Done till here */
 
-abbr[title],dfn[title]{border-bottom:1px dotted;
-         cursor:
-         help
-       }
-       table{border-collapse:
-         collapse;
-         border-spacing:0
-       }
-       hr{display:
-         block;
-         height:1px;
-         border:0;
-         border-top:1px solid #ccc;margin:1em 0;padding:0}
-         ul,ol{list-style:
-           none
-         }
-         sub{font-size:
-           .5em
-         }
-         .ui-tabs{position:
-           relative;
-           padding:
-           .2em;
-           zoom:1
-         }
-         .ui-tabs .ui-tabs-nav{margin-bottom:1em;
-           padding:
-           .2em .2em 0;
-           padding-left:1em
-         }
-         .ui-tabs .ui-tabs-nav li{list-style:
-           none;
-           position:
-           relative;
-           white-space:
-           nowrap
-         }
-         .ui-tabs .ui-tabs-nav li.ui-tabs-selected a,.ui-tabs .ui-tabs-nav li.ui-state-disabled a,.ui-tabs .ui-tabs-nav li.ui-state-processing a{cursor:
-           text
-         }
-         .ui-tabs .ui-tabs-nav li a,.ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a{cursor:
-           pointer
-         }
-         .ui-tabs .ui-tabs-panel{display:
-           block;
-           border-width:0;
-           padding:1em
-         }
-         .ui-tabs .ui-tabs-hide{display:
-           none !important
-         }
-         a,span.link{cursor:
-           pointer;
-           color:
-           #ffea00;text-decoration:none;}
-           a:
-           hover,span.link:
-           hover,a:
-           focus,span.link:
-           focus{color:
-            #fff}
-            #invisibleTemplates,#tydai,.invisibleTemplates{display:none}
-            html,body{height:100%;
-             overflow:
-             hidden
-           }
-           body{font-size:13px;
-             line-height:1.5;
-             font-family:'Helvetica Neue'
-             ,Arial,Helvetica,sans-serif;
-             color:
-             #ccc;margin:0 auto;background:#2f2f2f}
-             time{color:
-              #999}
-              #wrapper{padding-top:3.5em;margin-top:-3.5em;float:left;height:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-o-box-sizing:border-box;box-sizing:border-box;width:100%;}
-              #wrapper .col1wrap{height:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-o-box-sizing:border-box;box-sizing:border-box;width:50%;right:182px;float:left;position:relative;}
+abbr[title],
+dfn[title] {
+  border-bottom:1px dotted;
+  cursor:help
+}
+
+table {
+  border-collapse:collapse;
+  border-spacing:0
+}
+
+hr {
+  display    : block;
+  height     : 1px;
+  border     : 0;
+  border-top : 1px solid #ccc;
+  margin     : 1em 0;
+  padding    : 0
+}
+
+ul,
+ol {
+  list-style : none
+}
+
+sub {
+  font-size : .5em
+}
+
+.ui-tabs {
+  position : relative;
+  padding  : .2em;
+  zoom     : 1
+}
+
+.ui-tabs .ui-tabs-nav {
+  margin-bottom : 1em;
+  padding       : .2em .2em 0;
+  padding-left  : 1em
+}
+
+.ui-tabs .ui-tabs-nav li {
+  list-style  : none;
+  position    : relative;
+  white-space : nowrap
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a,
+.ui-tabs .ui-tabs-nav li.ui-state-disabled a,
+.ui-tabs .ui-tabs-nav li.ui-state-processing a {
+  cursor : text
+}
+
+.ui-tabs .ui-tabs-nav li a,
+.ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a {
+  cursor : pointer
+}
+
+.ui-tabs .ui-tabs-panel {
+  display      : block;
+  border-width : 0;
+  padding      : 1em
+}
+
+.ui-tabs .ui-tabs-hide {
+  display : none !important
+}
+
+a,
+span.link { 
+  cursor          : pointer;
+  color           : #ffea00;
+  text-decoration : none;
+}
+
+a         : hover,
+span.link : hover,
+a         : focus,
+span.link : focus {
+  color : #fff
+}
+
+#invisibleTemplates,
+#tydai,
+.invisibleTemplates { 
+  display : none
+}
+
+html,
+body {
+  height : 100%;
+  overflow : hidden
+}
+
+body { 
+  font-size   : 13px;
+  line-height : 1.5;
+  font-family : 'Helvetica Neue',Arial,Helvetica,sans-serif;
+  color       : #ccc;
+  margin      : 0 auto;
+  background  : #2f2f2f
+}
+
+time {
+  color : #999
+}
+
+#wrapper {
+  padding-top        : 3.5em;
+  margin-top         : -3.5em;
+  float              : left;
+  height             : 100%;
+  -webkit-box-sizing : border-box;
+  -moz-box-sizing    : border-box;
+  -o-box-sizing      : border-box;
+  box-sizing         : border-box;
+  width              : 100%;
+}
+
+
+
+#wrapper .col1wrap {
+  height:100%;
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -o-box-sizing:border-box;
+  box-sizing:border-box;
+  width:50%;
+  right:182px;
+  float:left;
+  position:relative;}
               #wrapper .col1wrap #main{margin-left:182px;margin-right:182px;left:200%;height:100%;position:relative;}
               #wrapper .col1wrap #main #content{height:100%;overflow-y:scroll;overflow-x:hidden}
               #wrapper .col1wrap #main #content-right{height:100%;overflow-y:scroll;overflow-x:hidden}
