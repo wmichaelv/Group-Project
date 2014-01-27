@@ -1,4 +1,14 @@
 #==============================================================================
+# Script's Monkey Patch
+#==============================================================================
+
+class Hash
+  def last_value
+    values.last
+  end
+end
+
+#==============================================================================
 #
 # Michael Windows Changer
 # Last Updated: 2014.01.27
@@ -371,55 +381,67 @@ module Wndw_Cgr #Window Changer
 
     ##============================ Auto Procedure =========================##
 
-    Michael_Wndw_Bg_Ary = Hash.new {|h,k| h[k]=[]}
-    Michael_Wndw_Cursor = Hash.new {|h,k| h[k]=[]} #I believe there should be a better way
-                                                   #but I'm in a bit of rush here. .-.
-    Michael_Windows_Ary = Hash.new {|h,k| h[k]=[]} #I really need to hash these hash tables...
+    
+    #============================= Super Hash ==========================#
 
-        #==================== Start Window Initializer =================#
+    Window_S_H = Hash.new {|h,k| h[k]=[]} #Window_Super_Hash
 
-    Michael_Wndw_Bg_Ary[Window] << 0                      #indexed for game_switch purpose
-    Michael_Wndw_Cursor[Window] << 0
-    Michael_Windows_Ary[Window] << 0
+    Michael_W = Array.new                 #Window Array
+    Michael_C = Hash.new {|h,k| h[k]=[]}  #Cursor Hash Array
+    Michael_S = Hash.new {|h,k| h[k]=[]}  #Sprite Hash Array
 
-    Michael_Wndw_Bg_Ary[Window] << "file_name"
-    Michael_Wndw_Cursor[Window] << "file_name"
+    Window_S_H[Window] << Michael_W << Michael_C << Michael_S
 
-    Michael_Wndw_Bg_Ary[Window] << ((Folder_Name == '') ?  #Windows folder should be
-    "Graphics\\Windows" : Folder_Name)                     #created unless user only
-                                                           #want to put everything in folder.
-    Michael_Wndw_Cursor[Window] << ((Folder_Name == '') ?
+    # 0 => Michael_W
+    # 1 => Michael_C
+    # 2 => Michael_S
+
+      #==================== Start Window Initializer =================#
+
+    Window_S_H[Window][0] << 0 #indexed for game_switch purpose
+
+    Window_S_H[Window][1]['Layer1'] << 0
+    Window_S_H[Window][2]['Layer1'] << 0
+
+    Window_S_H[Window][1]['Layer1'] << "file_name"
+    Window_S_H[Window][2]['Layer1'] << "file_name"
+
+    Window_S_H[Window][1]['Layer1'] 
+    << ((Folder_Name == '') ?
     "Graphics\\Windows" : Folder_Name)
+
+    Window_S_H[Window][2]['Layer1'] 
+    << ((Folder_Name == '') ?           #Windows folder should be
+    "Graphics\\Windows" : Folder_Name)  #created unless user only
+                                        #want to put everything in folder.
 
           #================ z, opacity, modify_type ================#
 
-    Michael_Wndw_Bg_Ary[Window] << nil << nil << ''
-    Michael_Wndw_Cursor[Window] << nil << nil << ''
-    Michael_Windows_Ary[Window] << ''
+    Window_S_H[Window][0] << '' #Only modify_type is relevant for Window
+    Window_S_H[Window][1]['Layer1'] << nil << nil << ''
+    Window_S_H[Window][2]['Layer1'] << nil << nil << ''
 
           #=========== x, y, rect_x, rect_y, rect_w, rect_h ==========#
 
-    Michael_Wndw_Bg_Ary[Window] << nil << nil << nil << nil << nil << nil
-    Michael_Wndw_Cursor[Window] << nil << nil << nil << nil << nil << nil
-    Michael_Windows_Ary[Window] << nil << nil << nil << nil #Only x, y, w, h necessary
+    Window_S_H[Window][0] << nil << nil << nil << nil #Only x, y, w, h necessary
+    Window_S_H[Window][1]['Layer1'] << nil << nil << nil << nil << nil << nil
+    Window_S_H[Window][2]['Layer1'] << nil << nil << nil << nil << nil << nil
 
 
           #================ extend(zoom) width, height ===============#
 
-    Michael_Wndw_Bg_Ary[Window] << nil << nil
-    Michael_Wndw_Cursor[Window] << nil << nil
-    Michael_Windows_Ary[Window] << nil << nil
+    Window_S_H[Window][0] << nil << nil
+    Window_S_H[Window][1]['Layer1'] << nil << nil
+    Window_S_H[Window][2]['Layer1'] << nil << nil
 
           #============== color :red :green :blue :alpha =============#
 
-    Michael_Wndw_Bg_Ary[Window] << nil << nil << nil << nil
-    Michael_Wndw_Cursor[Window] << nil << nil << nil << nil
+    Window_S_H[Window][1]['Layer1'] << nil << nil << nil << nil
+    Window_S_H[Window][2]['Layer1'] << nil << nil << nil << nil
 
           #======================== add-ons... =======================#
 
-    Michael_Wndw_Bg_Ary[Window] << 1 #Layer #
-    Michael_Wndw_Cursor[Window] << 1 #Layer #
-    Michael_Windows_Ary[Window] << nil #I forgot about the depth :(
+    Window_S_H[Window][0] << nil #I forgot about the depth :(
 
         #===================== End Window Initializer ==================#
 
@@ -427,46 +449,37 @@ module Wndw_Cgr #Window Changer
 
     Window.get_all_descendants.each.with_index(1) do |derived_classes,i|
 
-      Michael_Wndw_Bg_Ary[derived_classes] << i
-      Michael_Wndw_Bg_Ary[derived_classes] << "file_name"
-      Michael_Wndw_Bg_Ary[derived_classes] <<
+      Window_S_H[derived_classes][0] << i
+      Window_S_H[derived_classes][0] << ''
+      Window_S_H[derived_classes][0] << nil << nil << nil << nil
+      Window_S_H[derived_classes][0] << nil << nil
+      Window_S_H[derived_classes][0] << nil #I forgot about the depth :(
+
+      Window_S_H[derived_classes][1]['Layer1'] << i
+      Window_S_H[derived_classes][1]['Layer1'] << "file_name"
+      Window_S_H[derived_classes][1]['Layer1'] <<
       ((Special_Window.has_key?(derived_classes)) ?
       Special_Window[derived_classes] : (Folder_Name == '') ?
       "Graphics\\Windows\\#{derived_classes}" : Folder_Name)
-      Michael_Wndw_Bg_Ary[derived_classes] << nil << nil << ''
-      Michael_Wndw_Bg_Ary[derived_classes] << nil << nil << nil << nil << nil << nil
-      Michael_Wndw_Bg_Ary[derived_classes] << nil << nil
-      Michael_Wndw_Bg_Ary[derived_classes] << nil << nil << nil << nil
-      Michael_Wndw_Bg_Ary[derived_classes] << 1
+      Window_S_H[derived_classes][1]['Layer1'] << nil << nil << ''
+      Window_S_H[derived_classes][1]['Layer1'] << nil << nil << nil << nil << nil << nil
+      Window_S_H[derived_classes][1]['Layer1'] << nil << nil
+      Window_S_H[derived_classes][1]['Layer1'] << nil << nil << nil << nil
 
-      Michael_Wndw_Cursor[derived_classes] << i
-      Michael_Wndw_Cursor[derived_classes] << "file_name"
-      Michael_Wndw_Cursor[derived_classes] <<
+      Window_S_H[derived_classes][2]['Layer1'] << i
+      Window_S_H[derived_classes][2]['Layer1'] << "file_name"
+      Window_S_H[derived_classes][2]['Layer1'] <<
       ((Special_Window.has_key?(derived_classes)) ?
       Special_Window[derived_classes] : (Folder_Name == '') ?
       "Graphics\\Windows\\#{derived_classes}" : Folder_Name)
-      Michael_Wndw_Cursor[derived_classes] << nil << nil << ''
-      Michael_Wndw_Cursor[derived_classes] << nil << nil << nil << nil << nil << nil
-      Michael_Wndw_Cursor[derived_classes] << nil << nil
-      Michael_Wndw_Cursor[derived_classes] << nil << nil << nil << nil
-      Michael_Wndw_Cursor[derived_classes] << 1
-
-      Michael_Windows_Ary[derived_classes] << i
-      Michael_Windows_Ary[derived_classes] << ''
-      Michael_Windows_Ary[derived_classes] << nil << nil << nil << nil
-      Michael_Windows_Ary[derived_classes] << nil << nil
-      Michael_Windows_Ary[derived_classes] << nil #I forgot about the depth :(
+      Window_S_H[derived_classes][2]['Layer1'] << nil << nil << ''
+      Window_S_H[derived_classes][2]['Layer1'] << nil << nil << nil << nil << nil << nil
+      Window_S_H[derived_classes][2]['Layer1'] << nil << nil
+      Window_S_H[derived_classes][2]['Layer1'] << nil << nil << nil << nil
 
     end
 
       #================= End Window Descendants Initializer ==============#
-
-      #============================= Super Hash ==========================#
-
-    Window_Super_Hash = Hash.new
-    Window_Super_Hash['Window'] = Michael_Windows_Ary.clone
-    Window_Super_Hash['Cursor'] = Michael_Wndw_Cursor.clone
-    Window_Super_Hash['Sprite'] = Michael_Wndw_Bg_Ary.clone
 
       #============================= Psuedo List =========================#
 
@@ -671,6 +684,7 @@ module Wndw_Cgr #Window Changer
 
     NOE = 46 #NUMBER_OF_ELEMENT
              #Modify this number as more elements are added
+
   end
 
 end
@@ -740,7 +754,11 @@ class Window
 
     create_michael_bg_vp
 
-    self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_bg_ary[self.class])
+    layer = 0
+    $game_message.michael_wndw_Supr_Hash.each_key {|key| layer += 1 if key.match('Sprite') }
+
+    for 
+    self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_Supr_Hash['Sprite' + layer][self.class])
 
     customize_michael_cursor_rect(w_x + self.michael_x_offset,
                                   w_y + self.michael_y_offset)
@@ -758,7 +776,7 @@ class Window
     self.michael_sp_visible_asgn(arg)
     self.michael_bg_sp.visible = (self.open? && self.visible)
 
-    unless $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
+    unless $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_Supr_Hash['Sprite' + layer][self.class][0]]
 
       self.michael_bg_sp.visible = false
       cursor_rect.michael_cursor_rect_bg_sp.visible = false
@@ -772,7 +790,7 @@ class Window
     self.michael_sp_openness_asgn(arg)
     self.michael_bg_sp.visible = (self.open? && self.visible)
 
-    unless $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
+    unless $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_Supr_Hash['Sprite' + layer][self.class][0]]
 
       self.michael_bg_sp.visible = false
       cursor_rect.michael_cursor_rect_bg_sp.visible = false
@@ -783,7 +801,7 @@ class Window
 
   def x=(arg)
 
-    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_Supr_Hash['Sprite' + layer][self.class][0]]
 
       michael_update_x_offset(arg, $game_message.michael_windows_ary[self.class])
       self.michael_sp_x_asgn(arg + self.michael_x_offset)
@@ -798,7 +816,7 @@ class Window
 
   def y=(arg)
 
-    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_Supr_Hash['Sprite' + layer][self.class][0]]
 
       michael_update_y_offset(arg, $game_message.michael_windows_ary[self.class])
       self.michael_sp_y_asgn(arg + self.michael_y_offset)
@@ -813,7 +831,7 @@ class Window
 
   def width=(arg)
 
-    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_Supr_Hash['Sprite' + layer][self.class][0]]
 
       michael_update_w_offset(arg, $game_message.michael_windows_ary[self.class])
       self.michael_sp_width_asgn(arg + self.michael_w_offset)
@@ -825,7 +843,7 @@ class Window
 
   def height=(arg)
 
-    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_bg_ary[self.class][0]]
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_wndw_Supr_Hash['Sprite' + layer][self.class][0]]
 
       michael_update_h_offset(arg, $game_message.michael_windows_ary[self.class])
       self.michael_sp_height_asgn(arg + self.michael_h_offset)
@@ -1158,7 +1176,7 @@ class Window
         apply_michael_offset
       end
     end
-    self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_bg_ary[self.class])
+    self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_wndw_Supr_Hash['Sprite' + layer][self.class])
     cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_updt(self, $game_message.michael_wndw_cursor[self.class])
 
   end
@@ -1753,7 +1771,7 @@ end
 
 class Game_Message
 
-  attr_accessor :michael_wndw_Supr_Hash
+  attr_accessor :michael_WSH #Windows Super Hash
   attr_accessor :michael_wndw_bg_psuedo
 
   alias michael_ini initialize
@@ -1761,7 +1779,7 @@ class Game_Message
   def initialize
 
     michael_ini
-    @michael_wndw_Supr_Hash = Wndw_Cgr::Window_Super_Hash
+    @michael_WSH = Wndw_Cgr::Window_S_H
     @michael_wndw_bg_psuedo = Wndw_Cgr::Wndw_Psuedo_Names
 
   end
@@ -1789,8 +1807,8 @@ module DataManager
 
   def self.create_Wndw_Cgr_directory
 
-    $game_message.michael_wndw_bg_ary.each_value {
-      |value| Dir.mkdir(value[2]) if !File.exists?(value[2])
+    $game_message.michael_WSH.each_value {
+      |v| Dir.mkdir(v[1]['Layer1'][2]) if !File.exists?(v[1]['Layer1'][2])
     }
 
   end
@@ -1803,7 +1821,7 @@ module DataManager
 
     (Wndw_Cgr::Auto) ?
     $game_switches[Wndw_Cgr::SSP...Wndw_Cgr::SSP +
-    $game_message.michael_wndw_bg_ary.size] = false :
+    $game_message.michael_WSH.size] = false :
     $game_switches[Wndw_Cgr::SSP...Wndw_Cgr::SSP + Wndw_Cgr::NOE] = false
 
   end
@@ -1823,8 +1841,8 @@ class Game_Interpreter
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
       $game_switches[Wndw_Cgr::SSP +
-      $game_message.michael_wndw_bg_ary[name][0]] = true
-      $game_message.michael_wndw_bg_ary[name][1] = 'THIS_IS_A_BLANK_PICTURE_YES_USER_WANTS_A_BLANK_WINDOW_ONLY'
+      $game_message.michael_wndw_Supr_Hash['Windows'][name][0]] = true
+      $game_message.michael_wndw_Supr_Hash['Sprite1'][name][1] = 'THIS_IS_A_BLANK_PICTURE_YES_USER_WANTS_A_BLANK_WINDOW_ONLY'
 
     end
 
@@ -1834,118 +1852,136 @@ class Game_Interpreter
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
       $game_switches[Wndw_Cgr::SSP +
-      $game_message.michael_wndw_bg_ary[name][0]] = false
+      $game_message.michael_wndw_Supr_Hash['Windows'][name][0]] = false
+
       window_default(name)
 
     end
 
-    def window_on(class_type, file_name, type_movement = '', layer = 1)
+    def window_on(class_type, file_name = '', type_movement = '', layer = 1)
+
+      for i in 2..layer
+
+        $game_message.michael_wndw_Supr_Hash['Sprite' + String(i)] = 
+        $game_message.michael_wndw_Supr_Hash['Sprite1'].clone
+
+      end
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_switches[Wndw_Cgr::SSP +
-      $game_message.michael_wndw_bg_ary[name][0]] = true
-      $game_message.michael_wndw_bg_ary[name][1] = file_name
-      $game_message.michael_wndw_cursor[name][1] = file_name
+      unless layer == 0
 
-      if type_movement.match(/(show_all)/)
-        $game_message.michael_wndw_bg_ary[name][5].slice!(/mtype+\w+?(__)/)
-        $game_message.michael_wndw_bg_ary[name][5] << 'mtype_' << type_movement << '__'
-        $game_message.michael_wndw_cursor[name][5].slice!(/mtype+\w+?(__)/)
-        $game_message.michael_wndw_cursor[name][5] << 'mtype_' << type_movement << '__'
+        $game_switches[Wndw_Cgr::SSP +
+        $game_message.michael_wndw_Supr_Hash['Windows'][0]] = true
+        $game_message.michael_wndw_Supr_Hash['Sprite1'][1] = file_name
+        $game_message.michael_wndw_Supr_Hash['Sprite1'][1] = file_name
+
+        if type_movement.match(/(show_all)/)
+          $game_message.michael_wndw_Supr_Hash['Sprite1'][5].slice!(/mtype+\w+?(__)/)
+          $game_message.michael_wndw_Supr_Hash['Sprite1'][5] << 'mtype_' << type_movement << '__'
+          $game_message.michael_wndw_Supr_Hash['Sprite1'][5].slice!(/mtype+\w+?(__)/)
+          $game_message.michael_wndw_Supr_Hash['Sprite1'][5] << 'mtype_' << type_movement << '__'
+        else
+          window_default(name)
+        end
+
       else
-        window_default(name)
+
+        $game_switches[Wndw_Cgr::SSP +
+        $game_message.michael_wndw_Supr_Hash['Windows'][name][0]] = true
+        $game_message.michael_wndw_Supr_Hash['Sprite1'][name][1] = 'THIS_IS_A_BLANK_PICTURE_YES_USER_WANTS_A_BLANK_WINDOW_ONLY'
+
       end
 
     end
 
-    def window_depth(class_type, depth)
+    def sprite_depth(class_type, depth, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_wndw_bg_ary[name][3] = depth
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][3] = depth
 
     end
 
-    def window_opacity(class_type, opacity)
+    def sprite_opacity(class_type, opacity, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_wndw_bg_ary[name][4] = opacity
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][4] = opacity
 
     end
 
-    def window_default(class_type)
+    def sprite_default(class_type, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_wndw_bg_ary[name][3] = nil
-      $game_message.michael_wndw_bg_ary[name][4] = nil
-      $game_message.michael_wndw_bg_ary[name][5] = ''
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][3] = nil
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][4] = nil
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][5] = ''
 
     end
 
-    def window_show_all(class_type)
+    def window_show_all(class_type, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_wndw_bg_ary[name][5].slice!(/mtype+\w+?(__)/)
-      $game_message.michael_wndw_bg_ary[name][5] << 'mtype_show_all__'
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][5].slice!(/mtype+\w+?(__)/)
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][5] << 'mtype_show_all__'
 
     end
 
-    def window_show_all_move(class_type, x, y)
+    def window_show_all_move(class_type, x, y, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_wndw_bg_ary[name][5].slice!(/mtype+\w+?(__)/)
-      $game_message.michael_wndw_bg_ary[name][5] << 'mtype_move__'
-      $game_message.michael_wndw_bg_ary[name][6] = x
-      $game_message.michael_wndw_bg_ary[name][7] = y
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][5].slice!(/mtype+\w+?(__)/)
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][5] << 'mtype_move__'
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][6] = x
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][7] = y
 
     end
 
-    def window_move_origin(class_type,x,y)
+    def window_move_origin(class_type,x,y, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_wndw_bg_ary[name][5].slice!(/mtype+\w+?(__)/)
-      $game_message.michael_wndw_bg_ary[name][5] << 'mtype_move_origin__'
-      $game_message.michael_wndw_bg_ary[name][6] = x
-      $game_message.michael_wndw_bg_ary[name][7] = y
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][5].slice!(/mtype+\w+?(__)/)
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][5] << 'mtype_move_origin__'
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][6] = x
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][7] = y
 
     end
 
-    def window_center(class_type)
+    def window_center(class_type, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_wndw_bg_ary[name][5].slice!(/mtype+\w+?(__)/)
-      $game_message.michael_wndw_bg_ary[name][5] << 'mtype_center__'
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][5].slice!(/mtype+\w+?(__)/)
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][5] << 'mtype_center__'
 
     end
 
-    def window_move_all(class_type, x, y, rect_x, rect_y, rect_width, rect_height)
+    def window_move_all(class_type, x, y, rect_x, rect_y, rect_width, rect_height, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_wndw_bg_ary[name][5].slice!(/mtype+\w+?(__)/)
-      $game_message.michael_wndw_bg_ary[name][5] << 'mtype_move_all__'
-      $game_message.michael_wndw_bg_ary[name][6] = x
-      $game_message.michael_wndw_bg_ary[name][7] = y
-      $game_message.michael_wndw_bg_ary[name][8] = rect_x
-      $game_message.michael_wndw_bg_ary[name][9] = rect_y
-      $game_message.michael_wndw_bg_ary[name][10] = rect_width
-      $game_message.michael_wndw_bg_ary[name][11] = rect_height
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][5].slice!(/mtype+\w+?(__)/)
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][5] << 'mtype_move_all__'
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][6] = x
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][7] = y
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][8] = rect_x
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][9] = rect_y
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][10] = rect_width
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][11] = rect_height
 
     end
 
@@ -1961,75 +1997,75 @@ class Game_Interpreter
     #rtype = resize type
     #ctype = color type
 
-    def window_r_fit_w(class_type)
+    def window_r_fit_w(class_type, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_wndw_bg_ary[name][5].slice!(/rtype+\w+?(__)/)
-      $game_message.michael_wndw_bg_ary[name][5] << 'rtype_window_width__'
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][5].slice!(/rtype+\w+?(__)/)
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][5] << 'rtype_window_width__'
 
     end
 
-    def window_r_fit_h(class_type)
+    def window_r_fit_h(class_type, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_wndw_bg_ary[name][5].slice!(/rtype+\w+?(__)/)
-      $game_message.michael_wndw_bg_ary[name][5] << 'rtype_window_height__'
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][5].slice!(/rtype+\w+?(__)/)
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][5] << 'rtype_window_height__'
 
     end
 
-    def window_r_pixel(class_type, _zoom_x, _zoom_y)
+    def window_r_pixel(class_type, _zoom_x, _zoom_y, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_wndw_bg_ary[name][5].slice!(/rtype+\w+?(__)/)
-      $game_message.michael_wndw_bg_ary[name][5] << 'rtype_actual_pixel__'
-      $game_message.michael_wndw_bg_ary[name][12] = _zoom_x
-      $game_message.michael_wndw_bg_ary[name][13] = _zoom_y
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][5].slice!(/rtype+\w+?(__)/)
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][5] << 'rtype_actual_pixel__'
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][12] = _zoom_x
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][13] = _zoom_y
 
     end
 
-    def window_r(class_type, _zoom_x, zoom_y)
+    def window_r(class_type, _zoom_x, zoom_y, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_wndw_bg_ary[name][5].slice!(/rtype+\w+?(__)/)
-      $game_message.michael_wndw_bg_ary[name][5] << 'rtype_by_window__'
-      $game_message.michael_wndw_bg_ary[name][12] = _zoom_x
-      $game_message.michael_wndw_bg_ary[name][13] = _zoom_y
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][5].slice!(/rtype+\w+?(__)/)
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][5] << 'rtype_by_window__'
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][12] = _zoom_x
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][13] = _zoom_y
 
     end
 
-    def window_r_i(class_type, streched_width, streched_height)
+    def window_r_i(class_type, streched_width, streched_height, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_wndw_bg_ary[name][5].slice!(/rtype+\w+?(__)/)
-      $game_message.michael_wndw_bg_ary[name][5] << 'rtype_by_integer__'
-      $game_message.michael_wndw_bg_ary[name][12] = streched_width
-      $game_message.michael_wndw_bg_ary[name][13] = streched_height
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][5].slice!(/rtype+\w+?(__)/)
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][5] << 'rtype_by_integer__'
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][12] = streched_width
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][13] = streched_height
 
     end
 
-    def window_color(class_type, red, green, blue, alpha)
+    def window_color(class_type, red, green, blue, alpha, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_wndw_bg_ary[name][5].slice!(/ctype+\w+?(__)/)
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][5].slice!(/ctype+\w+?(__)/)
       #there's only 1 ctype for now. Maybe more will be added when I got some coloring ideas.
       #I'm open for suggestions & advices. :D
-      $game_message.michael_wndw_bg_ary[name][5] << 'ctype__'
-      $game_message.michael_wndw_bg_ary[name][14] = red
-      $game_message.michael_wndw_bg_ary[name][15] = green
-      $game_message.michael_wndw_bg_ary[name][16] = blue
-      $game_message.michael_wndw_bg_ary[name][17] = alpha
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][5] << 'ctype__'
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][14] = red
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][15] = green
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][16] = blue
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer][name][17] = alpha
 
     end
 
@@ -2274,16 +2310,16 @@ class Game_Interpreter
 
     end
 
-    def window_on(i, name, type_movement = '')
+    def window_on(i, name, type_movement = '', layer = 1)
 
       $game_switches[i + Wndw_Cgr::SSP] = true
-      $game_message.michael_wndw_bg_ary.each_value {
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer].each_value {
         |value| value[1] = name if value[0] == i
       }
 
       if type_movement == /(show_all|center)/
 
-        $game_message.michael_wndw_bg_ary.each_value { |value|
+        $game_message.michael_wndw_Supr_Hash['Sprite' + layer].each_value { |value|
 
           if value[0] == i
 
@@ -2297,112 +2333,112 @@ class Game_Interpreter
 
     end
 
-    def window_depth(i, depth)
+    def window_depth(i, depth, layer = 1)
 
-      $game_message.michael_wndw_bg_ary.each_value {
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer].each_value {
         |value| value[3] = depth if value[0] == i
       }
 
     end
 
-    def window_opacity(i, opacity)
+    def window_opacity(i, opacity, layer = 1)
 
-      $game_message.michael_wndw_bg_ary.each_value {
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer].each_value {
         |value| value[4] = opacity if value[0] == i
       }
 
     end
 
-    def window_default(i)
+    def window_default(i, layer = 1)
 
-      $game_message.michael_wndw_bg_ary.each_value {
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer].each_value {
         |value| value[3] = nil if value[0] == i
       }
 
-      $game_message.michael_wndw_bg_ary.each_value {
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer].each_value {
         |value| value[4] = nil if value[0] == i
       }
 
-      $game_message.michael_wndw_bg_ary.each_value {
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer].each_value {
         |value| value[5] = '' if value[0] == i
       }
 
     end
 
-    def window_show_all(i)
+    def window_show_all(i, layer = 1)
 
-      $game_message.michael_wndw_bg_ary.each_value {
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer].each_value {
         |value| value[5] << 'mtype_show_all__' if value[0] == i
       }
 
     end
 
-    def window_show_all_move(i, x, y)
+    def window_show_all_move(i, x, y, layer = 1)
 
-      $game_message.michael_wndw_bg_ary.each_value {
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer].each_value {
         |value| value[5] << 'mtype_move__' if value[0] == i
       }
 
-      $game_message.michael_wndw_bg_ary.each_value {
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer].each_value {
         |value| value[6] = x if value[0] == i
       }
 
-      $game_message.michael_wndw_bg_ary.each_value {
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer].each_value {
         |value| value[7] = y if value[0] == i
       }
 
     end
 
-    def window_move_origin(i,x,y)
+    def window_move_origin(i, x, y, layer = 1)
 
-      $game_message.michael_wndw_bg_ary.each_value {
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer].each_value {
         |value| value[5] << 'mtype_move_origin__' if value[0] == i
       }
 
-      $game_message.michael_wndw_bg_ary.each_value {
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer].each_value {
         |value| value[6] = x if value[0] == i
       }
 
-      $game_message.michael_wndw_bg_ary.each_value {
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer].each_value {
         |value| value[7] = y if value[0] == i
       }
 
     end
 
-    def window_center(i)
+    def window_center(i, layer = 1)
 
-      $game_message.michael_wndw_bg_ary.each_value {
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer].each_value {
         |value| value[5] << 'mtype_center__' if value[0] == i
       }
 
     end
 
-    def window_move_all(i, x, y, rect_x, rect_y, rect_width, rect_height)
+    def window_move_all(i, x, y, rect_x, rect_y, rect_width, rect_height, layer = 1)
 
-      $game_message.michael_wndw_bg_ary.each_value {
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer].each_value {
         |value| value[5] << 'mtype_move_all__'if value[0] == i
       }
 
-      $game_message.michael_wndw_bg_ary.each_value {
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer].each_value {
         |value| value[6] = x if value[0] == i
       }
 
-      $game_message.michael_wndw_bg_ary.each_value {
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer].each_value {
         |value| value[7] = y if value[0] == i
       }
 
-      $game_message.michael_wndw_bg_ary.each_value {
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer].each_value {
         |value| value[8] = rect_x if value[0] == i
       }
-      $game_message.michael_wndw_bg_ary.each_value {
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer].each_value {
         |value| value[9] = rect_y if value[0] == i
       }
 
-      $game_message.michael_wndw_bg_ary.each_value {
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer].each_value {
         |value| value[10] = rect_width if value[0] == i
       }
 
-      $game_message.michael_wndw_bg_ary.each_value {
+      $game_message.michael_wndw_Supr_Hash['Sprite' + layer].each_value {
         |value| value[11] = rect_height if value[0] == i
       }
 
