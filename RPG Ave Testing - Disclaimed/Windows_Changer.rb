@@ -1,7 +1,7 @@
 #==============================================================================
 #
 # Michael Windows Changer
-# Last Updated: 2014.01.22
+# Last Updated: 2014.01.27
 # Requirement: RPG Maker VX Ace
 #             -Knowledge of 'how to use scripts'
 #             -Knowledge of Window Designation (basically know which window is
@@ -37,6 +37,7 @@
 #==============================================================================
 # Script Biography lol
 #==============================================================================
+# 2014.01.27 --Implementing Super Hash custom update
 # 2014.01.22 --Creating Super Hash
 # 2014.01.21 --Increasing efficiency + Installing interpreter
 #            --Demo is added
@@ -416,6 +417,8 @@ module Wndw_Cgr #Window Changer
 
           #======================== add-ons... =======================#
 
+    Michael_Wndw_Bg_Ary[Window] << 1 #Layer #
+    Michael_Wndw_Cursor[Window] << 1 #Layer #
     Michael_Windows_Ary[Window] << nil #I forgot about the depth :(
 
         #===================== End Window Initializer ==================#
@@ -434,6 +437,7 @@ module Wndw_Cgr #Window Changer
       Michael_Wndw_Bg_Ary[derived_classes] << nil << nil << nil << nil << nil << nil
       Michael_Wndw_Bg_Ary[derived_classes] << nil << nil
       Michael_Wndw_Bg_Ary[derived_classes] << nil << nil << nil << nil
+      Michael_Wndw_Bg_Ary[derived_classes] << 1
 
       Michael_Wndw_Cursor[derived_classes] << i
       Michael_Wndw_Cursor[derived_classes] << "file_name"
@@ -445,6 +449,7 @@ module Wndw_Cgr #Window Changer
       Michael_Wndw_Cursor[derived_classes] << nil << nil << nil << nil << nil << nil
       Michael_Wndw_Cursor[derived_classes] << nil << nil
       Michael_Wndw_Cursor[derived_classes] << nil << nil << nil << nil
+      Michael_Wndw_Cursor[derived_classes] << 1
 
       Michael_Windows_Ary[derived_classes] << i
       Michael_Windows_Ary[derived_classes] << ''
@@ -459,9 +464,9 @@ module Wndw_Cgr #Window Changer
       #============================= Super Hash ==========================#
 
     Window_Super_Hash = Hash.new
-    Window_Super_Hash[Window] = Michael_Windows_Ary
-    Window_Super_Hash[Cursor] = Michael_Wndw_Cursor
-    Window_Super_Hash[Sprite] = Michael_Wndw_Bg_Ary
+    Window_Super_Hash['Window'] = Michael_Windows_Ary.clone
+    Window_Super_Hash['Cursor'] = Michael_Wndw_Cursor.clone
+    Window_Super_Hash['Sprite'] = Michael_Wndw_Bg_Ary.clone
 
       #============================= Psuedo List =========================#
 
@@ -1748,9 +1753,7 @@ end
 
 class Game_Message
 
-  attr_accessor :michael_windows_ary
-  attr_accessor :michael_wndw_bg_ary
-  attr_accessor :michael_wndw_cursor
+  attr_accessor :michael_wndw_Supr_Hash
   attr_accessor :michael_wndw_bg_psuedo
 
   alias michael_ini initialize
@@ -1758,9 +1761,7 @@ class Game_Message
   def initialize
 
     michael_ini
-    @michael_windows_ary = Wndw_Cgr::Michael_Windows_Ary
-    @michael_wndw_bg_ary = Wndw_Cgr::Michael_Wndw_Bg_Ary
-    @michael_wndw_cursor = Wndw_Cgr::Michael_Wndw_Cursor
+    @michael_wndw_Supr_Hash = Wndw_Cgr::Window_Super_Hash
     @michael_wndw_bg_psuedo = Wndw_Cgr::Wndw_Psuedo_Names
 
   end
@@ -1838,7 +1839,7 @@ class Game_Interpreter
 
     end
 
-    def window_on(class_type, file_name, type_movement = '')
+    def window_on(class_type, file_name, type_movement = '', layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
