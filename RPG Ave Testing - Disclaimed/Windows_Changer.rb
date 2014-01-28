@@ -718,6 +718,7 @@ end
 class Window
 
   attr_accessor :oh_I_got_changed
+  attr_accessor :michael_script
   attr_accessor :michael_bg_vp
   attr_accessor :michael_bg_sp_set
   attr_accessor :michael_crsor_set
@@ -738,45 +739,6 @@ class Window
   alias michael_Window_y_asgn y=
   alias michael_Window_w_asgn width=
   alias michael_Window_h_asgn height=
-
-  def initialize(w_x, w_y, w_w, w_h)
-
-    self.oh_I_got_changed = false
-
-    initialize_window_offset
-
-    update_michael_window_offset($game_message.michael_WSH[self.class][0],
-                                 w_x, w_y, w_w, w_h)
-
-    self.michael_ary_script_dup = $game_message.michael_WSH[self.class][0].dup
-
-    create_michael_sp_set(w_x + self.michael_x_offset,
-                          w_y + self.michael_y_offset,
-                          w_w + self.michael_w_offset,
-                          w_h + self.michael_h_offset)
-
-    michael_Window_initialize(w_x + self.michael_x_offset,
-                              w_y + self.michael_y_offset,
-                              w_w + self.michael_w_offset,
-                              w_h + self.michael_h_offset)
-
-    self.michael_self_pprty_dup = Array.new
-    self.michael_self_pprty_dup << self.x << self.y << self.width << self.height
-
-    update_michael_window_depth($game_message.michael_windows_ary[self.class])
-
-    create_michael_bg_vp
-
-    self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_WSH[name][2]["Layer#{layer}"][self.class])
-
-    customize_michael_cursor_rect(w_x + self.michael_x_offset,
-                                  w_y + self.michael_y_offset)
-
-    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_updt(self, $game_message.michael_wndw_cursor[self.class])
-
-    @do_usual_update_once = true
-
-  end
 
    #======================== Start Operator Overloading ========================#
 
@@ -865,6 +827,43 @@ class Window
   #========================= End Operator Overloading =========================#
 
   #============================ Start New Methods ============================#
+
+  def michael_initialize_script
+
+    initialize_window_offset
+
+    update_michael_window_offset($game_message.michael_WSH[self.class][0],
+                                 w_x, w_y, w_w, w_h)
+
+    self.michael_ary_script_dup = $game_message.michael_WSH[self.class][0].dup
+
+    create_michael_sp_set(w_x + self.michael_x_offset,
+                          w_y + self.michael_y_offset,
+                          w_w + self.michael_w_offset,
+                          w_h + self.michael_h_offset)
+
+    michael_Window_initialize(w_x + self.michael_x_offset,
+                              w_y + self.michael_y_offset,
+                              w_w + self.michael_w_offset,
+                              w_h + self.michael_h_offset)
+
+    self.michael_self_pprty_dup = Array.new
+    self.michael_self_pprty_dup << self.x << self.y << self.width << self.height
+
+    update_michael_window_depth($game_message.michael_windows_ary[self.class])
+
+    create_michael_bg_vp
+
+    self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_WSH[name][2]["Layer#{layer}"][self.class])
+
+    customize_michael_cursor_rect(w_x + self.michael_x_offset,
+                                  w_y + self.michael_y_offset)
+
+    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_updt(self, $game_message.michael_wndw_cursor[self.class])
+
+    @do_usual_update_once = true
+
+  end
 
   def initialize_window_offset
 
@@ -1136,6 +1135,43 @@ class Window
 
   end
 
+  def michael_wndw_cstm_updt
+
+    unless self.michael_script
+
+      michael_initialize_script
+
+    else
+
+      if self.michael_ary_dup != $game_message.michael_windows_ary[self.class]
+
+        self.michael_ary_dup = $game_message.michael_windows_ary[self.class]
+        reset_michael_offset
+        update_michael_window_offset(self.michael_ary_dup)
+        update_michael_window_depth($game_message.michael_windows_ary[self.class])
+        apply_michael_offset
+        
+      else
+
+        if @do_usual_update_once
+
+          @do_usual_update_once = false
+          reset_michael_offset
+          update_michael_window_offset(self.michael_ary_dup)
+          update_michael_window_depth($game_message.michael_windows_ary[self.class])
+          apply_michael_offset
+
+        end
+
+      end
+
+      self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_WSH[name][2]["Layer#{layer}"])
+      cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_updt(self, $game_message.michael_wndw_cursor[self.class])
+
+    end
+
+  end
+
   def did_I_get_changed?
 
     return self.oh_I_got_changed
@@ -1148,11 +1184,40 @@ class Window
 
   end
 
-  #============================= End New Methods =============================#
+  #============================ End New Methods ==============================#
 
-  def dispose                                  #Everything is disposed here
-                                               #Basically every window made,
-    self.michael_bg_sp.dispose                 #1 viewport and 1 sprite are also made
+  #======================== Overload Existing Method =========================#
+
+  def initialize(w_x, w_y, w_w, w_h)
+
+    self.oh_I_got_changed = false
+
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[Window][0][0]]
+
+      michael_initialize_script
+
+      michael_Window_initialize(w_x + self.michael_x_offset,
+                                w_y + self.michael_y_offset,
+                                w_w + self.michael_w_offset,
+                                w_h + self.michael_h_offset)
+
+    else
+
+      self.michael_script = false
+
+      michael_Window_initialize(w_x, w_y, w_w, w_h)
+
+    end
+
+  end
+
+#Everything is disposed here
+#Basically every window made,
+#1 viewport and 1 sprite are also made
+
+  def dispose
+
+    self.michael_bg_sp.dispose
     cursor_rect.michael_cursor_rect_bg_sp.dispose
     self.michael_bg_vp.dispose
     michael_Window_dispose
@@ -1162,23 +1227,9 @@ class Window
   def update
 
     michael_Window_update
-    if self.michael_ary_dup != $game_message.michael_windows_ary[self.class]
-      self.michael_ary_dup = $game_message.michael_windows_ary[self.class]
-      reset_michael_offset
-      update_michael_window_offset(self.michael_ary_dup)
-      update_michael_window_depth($game_message.michael_windows_ary[self.class])
-      apply_michael_offset
-    else
-      if @do_usual_update_once
-        @do_usual_update_once = false
-        reset_michael_offset
-        update_michael_window_offset(self.michael_ary_dup)
-        update_michael_window_depth($game_message.michael_windows_ary[self.class])
-        apply_michael_offset
-      end
-    end
-    self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_WSH[name][2]["Layer#{layer}"][self.class])
-    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_updt(self, $game_message.michael_wndw_cursor[self.class])
+
+    michael_wndw_cstm_updt if $game_switches[Wndw_Cgr::SSP + 
+      $game_message.michael_WSH[Window][0][0]]
 
   end
 
@@ -1707,8 +1758,6 @@ class Sprite
       michael_modify_self(window.cursor_rect, i) if i[5] != '' && self._I_do_have_bitmap
 
   end
-
-
 
   def michael_cursor_off(i)
 
