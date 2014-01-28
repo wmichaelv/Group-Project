@@ -1,5 +1,5 @@
 #==============================================================================
-# Script's Monkey Patch
+# Script's Monkey Patches
 #==============================================================================
 
 class Hash
@@ -11,7 +11,7 @@ end
 #==============================================================================
 #
 # Michael Windows Changer
-# Last Updated: 2014.01.27
+# Last Updated: 2014.01.28
 # Requirement: RPG Maker VX Ace
 #             -Knowledge of 'how to use scripts'
 #             -Knowledge of Window Designation (basically know which window is
@@ -47,7 +47,9 @@ end
 #==============================================================================
 # Script Biography lol
 #==============================================================================
+# 2014.01.28 --Rearranging Window custom methods
 # 2014.01.27 --Implementing Super Hash custom update
+#            --Rearranging the whole script starting from interpreter
 # 2014.01.22 --Creating Super Hash
 # 2014.01.21 --Increasing efficiency + Installing interpreter
 #            --Demo is added
@@ -1150,7 +1152,7 @@ class Window
         update_michael_window_offset(self.michael_ary_dup)
         update_michael_window_depth($game_message.michael_windows_ary[self.class])
         apply_michael_offset
-        
+
       else
 
         if @do_usual_update_once
