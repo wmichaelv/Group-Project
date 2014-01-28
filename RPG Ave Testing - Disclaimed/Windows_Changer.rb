@@ -384,6 +384,14 @@ module Wndw_Cgr #Window Changer
     
     #============================= Super Hash ==========================#
 
+    # Diagram
+    #
+    # Super_Hash[Array]  ---- Window_Array
+    #                     |
+    #                     |-- Cursor_Hash[Array]
+    #                     |
+    #                      -- Sprite_Hash[Array]
+
     Window_S_H = Hash.new {|h,k| h[k]=[]} #Window_Super_Hash
 
     Michael_W = Array.new                 #Window Array
@@ -718,7 +726,7 @@ class Window
   attr_accessor :michael_w_offset
   attr_accessor :michael_h_offset
   attr_accessor :michael_ary_script_dup
-  attr_accessor :michael_ary_self_property_dup
+  attr_accessor :michael_self_pprty_dup
 
 
   alias michael_Window_initialize initialize
@@ -740,27 +748,26 @@ class Window
     update_michael_window_offset($game_message.michael_WSH[self.class][0],
                                  w_x, w_y, w_w, w_h)
 
-    self.michael_ary_dup = $game_message.michael_WSH[self.class][0].dup
+    self.michael_ary_script_dup = $game_message.michael_WSH[self.class][0].dup
 
-    create_michael_bg_sp(w_x + self.michael_x_offset,
-                         w_y + self.michael_y_offset,
-                         w_w + self.michael_w_offset,
-                         w_h + self.michael_h_offset)
+    create_michael_sp_set(w_x + self.michael_x_offset,
+                          w_y + self.michael_y_offset,
+                          w_w + self.michael_w_offset,
+                          w_h + self.michael_h_offset)
 
     michael_Window_initialize(w_x + self.michael_x_offset,
                               w_y + self.michael_y_offset,
                               w_w + self.michael_w_offset,
                               w_h + self.michael_h_offset)
 
-    self.michael_ary_self_property_dup = Array.new
-    self.michael_ary_self_property_dup << self.x.clone << self.y.clone << 
-                                          self.width.clone << self.height.clone
+    self.michael_self_pprty_dup = Array.new
+    self.michael_self_pprty_dup << self.x << self.y << self.width << self.height
 
     update_michael_window_depth($game_message.michael_windows_ary[self.class])
 
     create_michael_bg_vp
 
-    self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_WSH[name][2]['Layer' + String(layer)][self.class])
+    self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_WSH[name][2]["Layer#{layer}"][self.class])
 
     customize_michael_cursor_rect(w_x + self.michael_x_offset,
                                   w_y + self.michael_y_offset)
@@ -778,7 +785,7 @@ class Window
     self.michael_sp_visible_asgn(arg)
     self.michael_bg_sp.visible = (self.open? && self.visible)
 
-    unless $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[name][2]['Layer' + String(layer)][self.class][0]]
+    unless $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[name][2]["Layer#{layer}"][self.class][0]]
 
       self.michael_bg_sp.visible = false
       cursor_rect.michael_cursor_rect_bg_sp.visible = false
@@ -792,7 +799,7 @@ class Window
     self.michael_sp_openness_asgn(arg)
     self.michael_bg_sp.visible = (self.open? && self.visible)
 
-    unless $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[name][2]['Layer' + String(layer)][self.class][0]]
+    unless $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[name][2]["Layer#{layer}"][self.class][0]]
 
       self.michael_bg_sp.visible = false
       cursor_rect.michael_cursor_rect_bg_sp.visible = false
@@ -803,7 +810,7 @@ class Window
 
   def x=(arg)
 
-    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[name][2]['Layer' + String(layer)][self.class][0]]
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[name][2]["Layer#{layer}"][self.class][0]]
 
       michael_update_x_offset(arg, $game_message.michael_windows_ary[self.class])
       self.michael_sp_x_asgn(arg + self.michael_x_offset)
@@ -818,7 +825,7 @@ class Window
 
   def y=(arg)
 
-    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[name][2]['Layer' + String(layer)][self.class][0]]
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[name][2]["Layer#{layer}"][self.class][0]]
 
       michael_update_y_offset(arg, $game_message.michael_windows_ary[self.class])
       self.michael_sp_y_asgn(arg + self.michael_y_offset)
@@ -833,7 +840,7 @@ class Window
 
   def width=(arg)
 
-    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[name][2]['Layer' + String(layer)][self.class][0]]
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[name][2]["Layer#{layer}"][self.class][0]]
 
       michael_update_w_offset(arg, $game_message.michael_windows_ary[self.class])
       self.michael_sp_width_asgn(arg + self.michael_w_offset)
@@ -845,7 +852,7 @@ class Window
 
   def height=(arg)
 
-    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[name][2]['Layer' + String(layer)][self.class][0]]
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[name][2]["Layer#{layer}"][self.class][0]]
 
       michael_update_h_offset(arg, $game_message.michael_windows_ary[self.class])
       self.michael_sp_height_asgn(arg + self.michael_h_offset)
@@ -1170,7 +1177,7 @@ class Window
         apply_michael_offset
       end
     end
-    self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_WSH[name][2]['Layer' + String(layer)][self.class])
+    self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_WSH[name][2]["Layer#{layer}"][self.class])
     cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_updt(self, $game_message.michael_wndw_cursor[self.class])
 
   end
@@ -1849,17 +1856,23 @@ class Game_Interpreter
       $game_message.michael_WSH[name][0][0]] = false
 
       $game_message.michael_WSH[name][2].each_key do |key| 
-        sprite_default(name, key.match(/\d/)[0].to_i)
+        sprite_default(name, key.match(/\d+/)[0].to_i)
       end
 
     end
 
     def window_on(class_type, file_name = '', type_movement = '', layer = 1)
 
+      $game_message.michael_WSH[name][2].each_key do |key| 
+
+        $game_message.michael_WSH[name][2].delete(key) unless key == "Layer1"
+
+      end
+
       for i in 2..layer
 
-        $game_message.michael_WSH[name][2]['Layer' + String(i)] = 
-        $game_message.michael_WSH[name][2]['Layer1'].clone
+        $game_message.michael_WSH[name][2]["Layer#{i}"] = 
+        $game_message.michael_WSH[name][2]['Layer1']
 
       end
 
@@ -1884,7 +1897,7 @@ class Game_Interpreter
 
           $game_message.michael_WSH[name][2].each_key do |key| 
 
-            sprite_default(name, key.match(/\d/)[0].to_i)
+            sprite_default(name, key.match(/\d+/)[0].to_i)
 
           end
 
@@ -1905,7 +1918,7 @@ class Game_Interpreter
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][3] = depth
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][3] = depth
 
     end
 
@@ -1914,7 +1927,7 @@ class Game_Interpreter
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][4] = opacity
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][4] = opacity
 
     end
 
@@ -1923,9 +1936,9 @@ class Game_Interpreter
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][3] = nil
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][4] = nil
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][5] = ''
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][3] = nil
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][4] = nil
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][5] = ''
 
     end
 
@@ -1934,8 +1947,8 @@ class Game_Interpreter
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][5].slice!(/mtype+\w+?(__)/)
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][5] << 'mtype_show_all__'
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][5].slice!(/mtype+\w+?(__)/)
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][5] << 'mtype_show_all__'
 
     end
 
@@ -1944,10 +1957,10 @@ class Game_Interpreter
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][5].slice!(/mtype+\w+?(__)/)
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][5] << 'mtype_move__'
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][6] = x
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][7] = y
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][5].slice!(/mtype+\w+?(__)/)
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][5] << 'mtype_move__'
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][6] = x
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][7] = y
 
     end
 
@@ -1956,10 +1969,10 @@ class Game_Interpreter
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][5].slice!(/mtype+\w+?(__)/)
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][5] << 'mtype_move_origin__'
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][6] = x
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][7] = y
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][5].slice!(/mtype+\w+?(__)/)
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][5] << 'mtype_move_origin__'
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][6] = x
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][7] = y
 
     end
 
@@ -1968,8 +1981,8 @@ class Game_Interpreter
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][5].slice!(/mtype+\w+?(__)/)
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][5] << 'mtype_center__'
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][5].slice!(/mtype+\w+?(__)/)
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][5] << 'mtype_center__'
 
     end
 
@@ -1978,14 +1991,14 @@ class Game_Interpreter
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][5].slice!(/mtype+\w+?(__)/)
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][5] << 'mtype_move_all__'
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][6] = x
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][7] = y
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][8] = rect_x
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][9] = rect_y
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][10] = rect_width
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][11] = rect_height
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][5].slice!(/mtype+\w+?(__)/)
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][5] << 'mtype_move_all__'
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][6] = x
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][7] = y
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][8] = rect_x
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][9] = rect_y
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][10] = rect_width
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][11] = rect_height
 
     end
 
@@ -2006,8 +2019,8 @@ class Game_Interpreter
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][5].slice!(/rtype+\w+?(__)/)
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][5] << 'rtype_window_width__'
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][5].slice!(/rtype+\w+?(__)/)
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][5] << 'rtype_window_width__'
 
     end
 
@@ -2016,8 +2029,8 @@ class Game_Interpreter
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][5].slice!(/rtype+\w+?(__)/)
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][5] << 'rtype_window_height__'
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][5].slice!(/rtype+\w+?(__)/)
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][5] << 'rtype_window_height__'
 
     end
 
@@ -2026,10 +2039,10 @@ class Game_Interpreter
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][5].slice!(/rtype+\w+?(__)/)
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][5] << 'rtype_actual_pixel__'
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][12] = _zoom_x
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][13] = _zoom_y
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][5].slice!(/rtype+\w+?(__)/)
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][5] << 'rtype_actual_pixel__'
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][12] = _zoom_x
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][13] = _zoom_y
 
     end
 
@@ -2038,10 +2051,10 @@ class Game_Interpreter
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][5].slice!(/rtype+\w+?(__)/)
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][5] << 'rtype_by_window__'
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][12] = _zoom_x
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][13] = _zoom_y
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][5].slice!(/rtype+\w+?(__)/)
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][5] << 'rtype_by_window__'
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][12] = _zoom_x
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][13] = _zoom_y
 
     end
 
@@ -2050,10 +2063,10 @@ class Game_Interpreter
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][5].slice!(/rtype+\w+?(__)/)
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][5] << 'rtype_by_integer__'
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][12] = streched_width
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][13] = streched_height
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][5].slice!(/rtype+\w+?(__)/)
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][5] << 'rtype_by_integer__'
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][12] = streched_width
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][13] = streched_height
 
     end
 
@@ -2062,14 +2075,14 @@ class Game_Interpreter
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][5].slice!(/ctype+\w+?(__)/)
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][5].slice!(/ctype+\w+?(__)/)
       #there's only 1 ctype for now. Maybe more will be added when I got some coloring ideas.
       #I'm open for suggestions & advices. :D
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][5] << 'ctype__'
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][14] = red
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][15] = green
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][16] = blue
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)][name][17] = alpha
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][5] << 'ctype__'
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][14] = red
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][15] = green
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][16] = blue
+      $game_message.michael_WSH[name][2]["Layer#{layer}"][name][17] = alpha
 
     end
 
@@ -2317,13 +2330,13 @@ class Game_Interpreter
     def window_on(i, name, type_movement = '', layer = 1)
 
       $game_switches[i + Wndw_Cgr::SSP] = true
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)].each_value {
+      $game_message.michael_WSH[name][2]["Layer#{layer}"].each_value {
         |value| value[1] = name if value[0] == i
       }
 
       if type_movement == /(show_all|center)/
 
-        $game_message.michael_WSH[name][2]['Layer' + String(layer)].each_value { |value|
+        $game_message.michael_WSH[name][2]["Layer#{layer}"].each_value { |value|
 
           if value[0] == i
 
@@ -2339,7 +2352,7 @@ class Game_Interpreter
 
     def window_depth(i, depth, layer = 1)
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)].each_value {
+      $game_message.michael_WSH[name][2]["Layer#{layer}"].each_value {
         |value| value[3] = depth if value[0] == i
       }
 
@@ -2347,7 +2360,7 @@ class Game_Interpreter
 
     def window_opacity(i, opacity, layer = 1)
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)].each_value {
+      $game_message.michael_WSH[name][2]["Layer#{layer}"].each_value {
         |value| value[4] = opacity if value[0] == i
       }
 
@@ -2355,15 +2368,15 @@ class Game_Interpreter
 
     def window_default(i, layer = 1)
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)].each_value {
+      $game_message.michael_WSH[name][2]["Layer#{layer}"].each_value {
         |value| value[3] = nil if value[0] == i
       }
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)].each_value {
+      $game_message.michael_WSH[name][2]["Layer#{layer}"].each_value {
         |value| value[4] = nil if value[0] == i
       }
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)].each_value {
+      $game_message.michael_WSH[name][2]["Layer#{layer}"].each_value {
         |value| value[5] = '' if value[0] == i
       }
 
@@ -2371,7 +2384,7 @@ class Game_Interpreter
 
     def window_show_all(i, layer = 1)
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)].each_value {
+      $game_message.michael_WSH[name][2]["Layer#{layer}"].each_value {
         |value| value[5] << 'mtype_show_all__' if value[0] == i
       }
 
@@ -2379,15 +2392,15 @@ class Game_Interpreter
 
     def window_show_all_move(i, x, y, layer = 1)
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)].each_value {
+      $game_message.michael_WSH[name][2]["Layer#{layer}"].each_value {
         |value| value[5] << 'mtype_move__' if value[0] == i
       }
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)].each_value {
+      $game_message.michael_WSH[name][2]["Layer#{layer}"].each_value {
         |value| value[6] = x if value[0] == i
       }
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)].each_value {
+      $game_message.michael_WSH[name][2]["Layer#{layer}"].each_value {
         |value| value[7] = y if value[0] == i
       }
 
@@ -2395,15 +2408,15 @@ class Game_Interpreter
 
     def window_move_origin(i, x, y, layer = 1)
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)].each_value {
+      $game_message.michael_WSH[name][2]["Layer#{layer}"].each_value {
         |value| value[5] << 'mtype_move_origin__' if value[0] == i
       }
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)].each_value {
+      $game_message.michael_WSH[name][2]["Layer#{layer}"].each_value {
         |value| value[6] = x if value[0] == i
       }
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)].each_value {
+      $game_message.michael_WSH[name][2]["Layer#{layer}"].each_value {
         |value| value[7] = y if value[0] == i
       }
 
@@ -2411,7 +2424,7 @@ class Game_Interpreter
 
     def window_center(i, layer = 1)
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)].each_value {
+      $game_message.michael_WSH[name][2]["Layer#{layer}"].each_value {
         |value| value[5] << 'mtype_center__' if value[0] == i
       }
 
@@ -2419,30 +2432,30 @@ class Game_Interpreter
 
     def window_move_all(i, x, y, rect_x, rect_y, rect_width, rect_height, layer = 1)
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)].each_value {
+      $game_message.michael_WSH[name][2]["Layer#{layer}"].each_value {
         |value| value[5] << 'mtype_move_all__'if value[0] == i
       }
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)].each_value {
+      $game_message.michael_WSH[name][2]["Layer#{layer}"].each_value {
         |value| value[6] = x if value[0] == i
       }
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)].each_value {
+      $game_message.michael_WSH[name][2]["Layer#{layer}"].each_value {
         |value| value[7] = y if value[0] == i
       }
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)].each_value {
+      $game_message.michael_WSH[name][2]["Layer#{layer}"].each_value {
         |value| value[8] = rect_x if value[0] == i
       }
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)].each_value {
+      $game_message.michael_WSH[name][2]["Layer#{layer}"].each_value {
         |value| value[9] = rect_y if value[0] == i
       }
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)].each_value {
+      $game_message.michael_WSH[name][2]["Layer#{layer}"].each_value {
         |value| value[10] = rect_width if value[0] == i
       }
 
-      $game_message.michael_WSH[name][2]['Layer' + String(layer)].each_value {
+      $game_message.michael_WSH[name][2]["Layer#{layer}"].each_value {
         |value| value[11] = rect_height if value[0] == i
       }
 
