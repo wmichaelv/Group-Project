@@ -746,10 +746,13 @@ class Window
 
   def visible=(arg)
 
-    self.michael_sp_visible_asgn(arg)
-    self.michael_bg_sp.visible = (self.open? && self.visible)
+    self.michael_sp_v_asgn(arg)
 
-    unless $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[name][2]["Layer#{layer}"][self.class][0]]
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[Window][0][0]] && self.michael_script
+
+      self.michael_bg_sp.visible = (self.open? && self.visible)
+
+    else
 
       self.michael_bg_sp.visible = false
       cursor_rect.michael_cursor_rect_bg_sp.visible = false
@@ -760,10 +763,13 @@ class Window
 
   def openness=(arg)
 
-    self.michael_sp_openness_asgn(arg)
-    self.michael_bg_sp.visible = (self.open? && self.visible)
+    self.michael_sp_o_asgn(arg)
 
-    unless $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[name][2]["Layer#{layer}"][self.class][0]]
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[Window][0][0]] && self.michael_script
+
+      self.michael_bg_sp.visible = (self.open? && self.visible)
+
+    else
 
       self.michael_bg_sp.visible = false
       cursor_rect.michael_cursor_rect_bg_sp.visible = false
@@ -774,7 +780,7 @@ class Window
 
   def x=(arg)
 
-    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[name][2]["Layer#{layer}"][self.class][0]]
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[Window][0][0]] && self.michael_script
 
       michael_update_x_offset(arg, $game_message.michael_windows_ary[self.class])
       self.michael_sp_x_asgn(arg + self.michael_x_offset)
@@ -783,13 +789,13 @@ class Window
       self.cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_x_offset +
       self.michael_x_offset
 
-    else; self.michael_sp_x_asgn(arg); end
+    else; self.michael_sp_x_asgn(arg) end
 
   end
 
   def y=(arg)
 
-    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[name][2]["Layer#{layer}"][self.class][0]]
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[Window][0][0]] && self.michael_script
 
       michael_update_y_offset(arg, $game_message.michael_windows_ary[self.class])
       self.michael_sp_y_asgn(arg + self.michael_y_offset)
@@ -798,31 +804,31 @@ class Window
       self.cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_y_offset +
       self.michael_y_offset
 
-    else; self.michael_sp_y_asgn(arg); end
+    else; self.michael_sp_y_asgn(arg) end
 
   end
 
   def width=(arg)
 
-    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[name][2]["Layer#{layer}"][self.class][0]]
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[Window][0][0]] && self.michael_script
 
       michael_update_w_offset(arg, $game_message.michael_windows_ary[self.class])
-      self.michael_sp_width_asgn(arg + self.michael_w_offset)
+      self.michael_sp_w_asgn(arg + self.michael_w_offset)
       self.michael_bg_sp.src_rect.width = arg + self.michael_w_offset
 
-    else; self.michael_sp_width_asgn(arg); end
+    else; self.michael_sp_w_asgn(arg) end
 
   end
 
   def height=(arg)
 
-    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[name][2]["Layer#{layer}"][self.class][0]]
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[Window][0][0]] && self.michael_script
 
       michael_update_h_offset(arg, $game_message.michael_windows_ary[self.class])
-      self.michael_sp_height_asgn(arg + self.michael_h_offset)
+      self.michael_sp_h_asgn(arg + self.michael_h_offset)
       self.michael_bg_sp.src_rect.height = arg + self.michael_h_offset
 
-    else; self.michael_sp_height_asgn(arg); end
+    else; self.michael_sp_h_asgn(arg) end
 
   end
 
@@ -985,13 +991,13 @@ class Window
 
     i[1].match('mtype') do
 
-      i[1].match('mtype_coordinate__') do; self.michael_x_offset = i[2] - a_v; end
+      i[1].match('mtype_coordinate__') do; self.michael_x_offset = i[2] - a_v end
 
-      i[1].match('mtype_everything__') do; self.michael_x_offset = i[2] - a_v; end
+      i[1].match('mtype_everything__') do; self.michael_x_offset = i[2] - a_v end
 
-      i[1].match('mtype_extend_original__') do; self.michael_x_offset = i[2]; end
+      i[1].match('mtype_extend_original__') do; self.michael_x_offset = i[2] end
 
-      i[1].match('mtype_center__') do; self.michael_x_offset = 272 - a_v - self.width / 2; end
+      i[1].match('mtype_center__') do; self.michael_x_offset = 272 - a_v - self.width / 2 end
 
     end
 
@@ -1001,13 +1007,13 @@ class Window
 
     i[1].match('mtype') do
 
-      i[1].match('mtype_coordinate__') do; self.michael_y_offset = i[3] - a_v; end
+      i[1].match('mtype_coordinate__') do; self.michael_y_offset = i[3] - a_v end
 
-      i[1].match('mtype_everything__') do; self.michael_y_offset = i[3] - a_v; end
+      i[1].match('mtype_everything__') do; self.michael_y_offset = i[3] - a_v end
 
-      i[1].match('mtype_extend_original__') do; self.michael_y_offset = i[3]; end
+      i[1].match('mtype_extend_original__') do; self.michael_y_offset = i[3] end
 
-      i[1].match('mtype_center__') do; self.michael_y_offset = 208 - a_v - self.width / 2; end
+      i[1].match('mtype_center__') do; self.michael_y_offset = 208 - a_v - self.width / 2 end
 
     end
 
@@ -1017,19 +1023,19 @@ class Window
 
     i[1].match('mtype') do
 
-      i[1].match('mtype_everything__') do; self.michael_w_offset = i[4] - a_v; end
+      i[1].match('mtype_everything__') do; self.michael_w_offset = i[4] - a_v end
 
-      i[1].match('mtype_extend_original__') do; self.michael_w_offset = i[4] unless i[4].nil?; end
+      i[1].match('mtype_extend_original__') do; self.michael_w_offset = i[4] unless i[4].nil? end
 
     end
 
     i[1].match('rtype') do
 
-      i[1].match('rtype_by_integer__') do; self.michael_w_offset = i[6] - a_v; end
+      i[1].match('rtype_by_integer__') do; self.michael_w_offset = i[6] - a_v end
 
-      i[1].match('rtype_by_original__') do; self.michael_w_offset = i[6]; end
+      i[1].match('rtype_by_original__') do; self.michael_w_offset = i[6] end
 
-      i[1].match('rtype_by_ratio__') do; self.michael_w_offset = a_v * (i[6] - 1); end
+      i[1].match('rtype_by_ratio__') do; self.michael_w_offset = a_v * (i[6] - 1) end
 
     end
 
@@ -1039,19 +1045,19 @@ class Window
 
     i[1].match('mtype') do
 
-      i[1].match('mtype_everything__') do; self.michael_h_offset = i[5] - a_v; end
+      i[1].match('mtype_everything__') do; self.michael_h_offset = i[5] - a_v end
 
-      i[1].match('mtype_extend_original__') do; self.michael_h_offset = i[5] unless i[5].nil?; end
+      i[1].match('mtype_extend_original__') do; self.michael_h_offset = i[5] unless i[5].nil? end
 
     end
 
     i[1].match('rtype') do
 
-      i[1].match('rtype_by_integer__') do; self.michael_h_offset = i[7] - a_v; end
+      i[1].match('rtype_by_integer__') do; self.michael_h_offset = i[7] - a_v end
 
-      i[1].match('rtype_by_original__') do; self.michael_h_offset = i[7]; end
+      i[1].match('rtype_by_original__') do; self.michael_h_offset = i[7] end
 
-      i[1].match('rtype_by_ratio__') do; self.michael_h_offset = a_v * (i[7] - 1); end
+      i[1].match('rtype_by_ratio__') do; self.michael_h_offset = a_v * (i[7] - 1) end
 
     end
 
@@ -1708,7 +1714,7 @@ class Sprite
 
     end
 
-    i[5].match('ctype__') do; self.color.set(i[14], i[15], i[16], i[17]); end;
+    i[5].match('ctype__') do; self.color.set(i[14], i[15], i[16], i[17]) end
 
   end
 
