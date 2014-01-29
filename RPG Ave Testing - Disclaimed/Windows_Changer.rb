@@ -880,8 +880,18 @@ class Window
     self.michael_ary_script_dup = $game_message.michael_WSH[self.class][0].dup
     self.michael_self_pprty_dup = Array.new
     self.michael_self_pprty_dup << self.x << self.y << self.width << self.height
-    self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_WSH[name][2]["Layer#{layer}"][self.class])
-    self.cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_updt(self, $game_message.michael_wndw_cursor[self.class])
+
+    update_sprite_layer
+
+    update_cursor_layer
+
+    $game_message.michael_WSH[name][2].each.with_index(0) do |layer, i|
+      self.michael_bg_sp_set[i].michael_sp_updt(self, layer)
+    end
+
+    $game_message.michael_WSH[name][1].each.with_index(0) do |layer, i|
+      self.cursor_rect.michael_cursor_rect_bg_sp_set[i].michael_cursor_updt(self, layer)
+    end
 
     self.michael_script = true
     @do_usual_update_once = true
@@ -1078,15 +1088,20 @@ class Window
 
   end
 
-  def create_michael_bg_sp(w_x = nil, w_y = nil, w_w = nil, w_h = nil)
+  def create_michael_sp_set(w_x = nil, w_y = nil, w_w = nil, w_h = nil)
 
     self.michael_bg_sp_set = Array.new
 
-    
-    self.michael_bg_sp.x = w_x unless w_x.nil?
-    self.michael_bg_sp.y = w_y unless w_y.nil?
-    self.michael_bg_sp.src_rect.width = w_w unless w_w.nil?
-    self.michael_bg_sp.src_rect.height = w_h unless w_h.nil?
+    for $game_message.michael_WSH[name][2].each
+
+      sprite = Sprite.new
+      sprite.x = w_x unless w_x.nil?
+      sprite.y = w_y unless w_y.nil?
+      sprite.src_rect.width = w_w unless w_w.nil?
+      sprite.src_rect.height = w_h unless w_h.nil?
+      self.michael_bg_sp_set.push(sprite)
+
+    end
 
   end
 
