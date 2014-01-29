@@ -735,6 +735,7 @@ class Window
   alias michael_Window_initialize initialize
   alias michael_Window_update update
   alias michael_Window_dispose dispose
+
   alias michael_Window_v_asgn visible=
   alias michael_Window_o_asgn openness=
   alias michael_Window_x_asgn x=
@@ -748,14 +749,14 @@ class Window
 
     self.michael_sp_v_asgn(arg)
 
-    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[Window][0][0]] && self.michael_script
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[self.class][0][0]] && self.michael_script
 
       self.michael_bg_sp.visible = (self.open? && self.visible)
 
     else
 
       self.michael_bg_sp.visible = false
-      cursor_rect.michael_cursor_rect_bg_sp.visible = false
+      self.cursor_rect.michael_cursor_rect_bg_sp.visible = false
 
     end
 
@@ -765,14 +766,14 @@ class Window
 
     self.michael_sp_o_asgn(arg)
 
-    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[Window][0][0]] && self.michael_script
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[self.class][0][0]] && self.michael_script
 
       self.michael_bg_sp.visible = (self.open? && self.visible)
 
     else
 
       self.michael_bg_sp.visible = false
-      cursor_rect.michael_cursor_rect_bg_sp.visible = false
+      self.cursor_rect.michael_cursor_rect_bg_sp.visible = false
 
     end
 
@@ -780,7 +781,7 @@ class Window
 
   def x=(arg)
 
-    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[Window][0][0]] && self.michael_script
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[self.class][0][0]] && self.michael_script
 
       michael_update_x_offset(arg, $game_message.michael_windows_ary[self.class])
       self.michael_sp_x_asgn(arg + self.michael_x_offset)
@@ -795,7 +796,7 @@ class Window
 
   def y=(arg)
 
-    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[Window][0][0]] && self.michael_script
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[self.class][0][0]] && self.michael_script
 
       michael_update_y_offset(arg, $game_message.michael_windows_ary[self.class])
       self.michael_sp_y_asgn(arg + self.michael_y_offset)
@@ -810,7 +811,7 @@ class Window
 
   def width=(arg)
 
-    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[Window][0][0]] && self.michael_script
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[self.class][0][0]] && self.michael_script
 
       michael_update_w_offset(arg, $game_message.michael_windows_ary[self.class])
       self.michael_sp_w_asgn(arg + self.michael_w_offset)
@@ -822,7 +823,7 @@ class Window
 
   def height=(arg)
 
-    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[Window][0][0]] && self.michael_script
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[self.class][0][0]] && self.michael_script
 
       michael_update_h_offset(arg, $game_message.michael_windows_ary[self.class])
       self.michael_sp_h_asgn(arg + self.michael_h_offset)
@@ -836,39 +837,53 @@ class Window
 
   #============================ Start New Methods ============================#
 
-  def michael_initialize_script
+  def michael_initialize_script(w_x = nil, w_y = nil, w_w = nil, w_h = nil)
 
     initialize_window_offset
 
-    update_michael_window_offset($game_message.michael_WSH[self.class][0],
-                                 w_x, w_y, w_w, w_h)
+    unless w_x.nil?
 
-    self.michael_ary_script_dup = $game_message.michael_WSH[self.class][0].dup
+      update_michael_window_offset($game_message.michael_WSH[self.class][0],
+                                   w_x, w_y, w_w, w_h)
+      update_michael_window_depth($game_message.michael_WSH[self.class][0])
 
-    create_michael_sp_set(w_x + self.michael_x_offset,
-                          w_y + self.michael_y_offset,
-                          w_w + self.michael_w_offset,
-                          w_h + self.michael_h_offset)
+      create_michael_sp_set(w_x + self.michael_x_offset,
+                            w_y + self.michael_y_offset,
+                            w_w + self.michael_w_offset,
+                            w_h + self.michael_h_offset)
 
-    michael_Window_initialize(w_x + self.michael_x_offset,
-                              w_y + self.michael_y_offset,
-                              w_w + self.michael_w_offset,
-                              w_h + self.michael_h_offset)
+      customize_michael_cursor_rect(w_x + self.michael_x_offset,
+                                    w_y + self.michael_y_offset)
 
-    self.michael_self_pprty_dup = Array.new
-    self.michael_self_pprty_dup << self.x << self.y << self.width << self.height
+      apply_michael_offset
+
+    else
+
+      update_michael_window_offset($game_message.michael_WSH[self.class][0])
+
+      update_michael_window_depth($game_message.michael_WSH[self.class][0])
+
+      create_michael_sp_set(self.x + self.michael_x_offset,
+                            self.y + self.michael_y_offset,
+                            self.width + self.michael_w_offset,
+                            self.height + self.michael_h_offset)
+
+      customize_michael_cursor_rect(self.x + self.michael_x_offset,
+                                    self.y + self.michael_y_offset)
+
+      apply_michael_offset
+
+    end
 
     update_michael_window_depth($game_message.michael_windows_ary[self.class])
-
     create_michael_bg_vp
-
+    self.michael_ary_script_dup = $game_message.michael_WSH[self.class][0].dup
+    self.michael_self_pprty_dup = Array.new
+    self.michael_self_pprty_dup << self.x << self.y << self.width << self.height
     self.michael_bg_sp.michael_sp_updt(self, $game_message.michael_WSH[name][2]["Layer#{layer}"][self.class])
+    self.cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_updt(self, $game_message.michael_wndw_cursor[self.class])
 
-    customize_michael_cursor_rect(w_x + self.michael_x_offset,
-                                  w_y + self.michael_y_offset)
-
-    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_updt(self, $game_message.michael_wndw_cursor[self.class])
-
+    self.michael_script = true
     @do_usual_update_once = true
 
   end
@@ -1065,7 +1080,9 @@ class Window
 
   def create_michael_bg_sp(w_x = nil, w_y = nil, w_w = nil, w_h = nil)
 
-    self.michael_bg_sp = Sprite.new
+    self.michael_bg_sp_set = Array.new
+
+    
     self.michael_bg_sp.x = w_x unless w_x.nil?
     self.michael_bg_sp.y = w_y unless w_y.nil?
     self.michael_bg_sp.src_rect.width = w_w unless w_w.nil?
@@ -1200,9 +1217,9 @@ class Window
 
     self.oh_I_got_changed = false
 
-    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[Window][0][0]]
+    if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[self.class][0][0]]
 
-      michael_initialize_script
+      michael_initialize_script(w_x, w_y, w_w, w_h)
 
       michael_Window_initialize(w_x + self.michael_x_offset,
                                 w_y + self.michael_y_offset,
@@ -1237,7 +1254,7 @@ class Window
     michael_Window_update
 
     michael_wndw_cstm_updt if $game_switches[Wndw_Cgr::SSP + 
-      $game_message.michael_WSH[Window][0][0]]
+      $game_message.michael_WSH[self.class][0][0]]
 
   end
 
