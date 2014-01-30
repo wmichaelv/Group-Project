@@ -1092,14 +1092,14 @@ class Window
 
     self.michael_bg_sp_set = Array.new
 
-    for $game_message.michael_WSH[name][2].each
+    $game_message.michael_WSH[name][2].each do
 
       sprite = Sprite.new
       sprite.x = w_x unless w_x.nil?
       sprite.y = w_y unless w_y.nil?
       sprite.src_rect.width = w_w unless w_w.nil?
       sprite.src_rect.height = w_h unless w_h.nil?
-      self.michael_bg_sp_set.push(sprite)
+      self.michael_bg_sp_set << sprite
 
     end
 
@@ -1130,30 +1130,43 @@ class Window
 
   def initialize_michael_cursor_bg_sp
 
-    cursor_rect.michael_cursor_rect_bg_sp = Sprite.new
-    cursor_rect.michael_cursor_rect_bg_sp.visible = false
+    cursor_rect.michael_bg_sp_set = Array.new
+
+    $game_message.michael_WSH[name][2].each do
+
+      sprite = Sprite.new
+      sprite.visible = false
+      cursor_rect.michael_bg_sp_set << sprite
+
+    end
 
   end
 
   def initialize_michael_cursor_bg_sp_offset
 
-    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_x_offset = 0
-    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_y_offset = 0
-    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_w_offset = 0
-    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_h_offset = 0
+    cursor_rect.michael_bg_sp_set.each do |sprite|
+
+      sprite.michael_cursor_sp_x_offset = 0
+      sprite.michael_cursor_sp_y_offset = 0
+      sprite.michael_cursor_sp_w_offset = 0
+      sprite.michael_cursor_sp_h_offset = 0
+
+    end
 
   end
 
   def initialize_michael_cursor_bg_ppt(w_x, w_y)
 
-    cursor_rect.michael_cursor_rect_bg_sp.viewport = michael_bg_vp
-    cursor_rect.michael_cursor_rect_bg_sp.src_rect.width = cursor_rect.width
-    cursor_rect.michael_cursor_rect_bg_sp.src_rect.height = cursor_rect.height
-    cursor_rect.michael_cursor_rect_bg_sp.x = w_x +
-    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_x_offset #I'll need a better naming convention here .-.
-    cursor_rect.michael_cursor_rect_bg_sp.y = w_y +
-    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_sp_y_offset
-    cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_updt(self, $game_message.michael_wndw_cursor[self.class])
+    cursor_rect.michael_bg_sp_set.each.with_index do |sprite, i|
+
+      sprite.viewport = michael_bg_vp
+      sprite.src_rect.width = cursor_rect.width
+      sprite.src_rect.height = cursor_rect.height
+      sprite.x = w_x + sprite.michael_cursor_sp_x_offset
+      sprite.y = w_y + sprite.michael_cursor_sp_y_offset
+      sprite.michael_cursor_updt(self, $game_message.michael_WSH[self.class][1]["Layer_#{i}"])
+
+    end
 
   end
 
@@ -1183,6 +1196,9 @@ class Window
 
     else
 
+      change_cursor_layer if cursor_rect.michael_bg_sp_set.size != $game_message.michael_WSH[self.class][1].size
+      change_window_layer if self.michael_bg_sp_set.size != $game_message.michael_WSH[self.class][2].size
+
       if self.michael_ary_dup != $game_message.michael_windows_ary[self.class]
 
         self.michael_ary_dup = $game_message.michael_windows_ary[self.class]
@@ -1209,6 +1225,43 @@ class Window
       cursor_rect.michael_cursor_rect_bg_sp.michael_cursor_updt(self, $game_message.michael_wndw_cursor[self.class])
 
     end
+
+  end
+
+  def change_cursor_layer
+
+    if cursor_rect.michael_bg_sp_set.size > $game_message.michael_WSH[self.class][1].size
+
+      ($game_message.michael_WSH[self.class][1].size..cursor_rect.michael_bg_sp_set.size).each do |i|
+        cursor_rect.michael_bg_sp_set.delete_at(i)
+      end
+    
+    else
+
+      (cursor_rect.michael_bg_sp_set.size..$game_message.michael_WSH[self.class][1].size - 1).each do |i|
+        cursor_rect.michael_bg_sp_set << cursor_rect.michael_bg_sp_set[0].dup
+      end
+
+    end
+
+  end
+
+  def change_window_layer
+
+    if self.michael_bg_sp_set.size > $game_message.michael_WSH[self.class][2].size
+
+      ($game_message.michael_WSH[self.class][1].size..self.michael_bg_sp_set.size).each do |i|
+        self.michael_bg_sp_set.delete_at(i)
+      end
+    
+    else
+      
+      (self.michael_bg_sp_set.size..$game_message.michael_WSH[self.class][2].size - 1).each do |i|
+        self.michael_bg_sp_set << self.michael_bg_sp_set[0].dup
+      end
+
+    end
+
 
   end
 
