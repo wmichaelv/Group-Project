@@ -1,7 +1,8 @@
 [
   {
     "ruleTrigger": {
-      "primary": "start"
+      "primary": "start",
+      "player": "turn player"
     },
     "action": {
       "primary": "send event message",
@@ -114,10 +115,7 @@
       }
     },
     "target": {
-      "primary": "card",
-      "criteria": {
-        "from": "board"
-      }
+      "primary": "owner"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -153,24 +151,6 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "post-replPassivve"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "from": "board"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "postRepl"
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
         "primary": "post-replPhase"
       }
     },
@@ -179,7 +159,8 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "postRepl"
   },
   {
     "action": {
@@ -295,10 +276,7 @@
       }
     },
     "target": {
-      "primary": "card",
-      "criteria": {
-        "from": "board"
-      }
+      "primary": "owner"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -2463,24 +2441,6 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "post-battlePassive"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "from": "board"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "endBattlePhase"
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
         "primary": "post-battlePhase"
       }
     },
@@ -2489,7 +2449,8 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "endBattlePhase"
   },
   {
     "action": {
@@ -2619,10 +2580,7 @@
       }
     },
     "target": {
-      "primary": "card",
-      "criteria": {
-        "from": "board"
-      }
+      "primary": "owner"
     },
     "effectComplete": {
       "primary": "trigger next effect"
