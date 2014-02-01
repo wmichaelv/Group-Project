@@ -1,11 +1,16 @@
 #==============================================================================
-# Script's Monkey Patches
+# Monkey Patches
 #==============================================================================
 
+class Array
+  
+  def _size; self.size - 1; end
+
 class Hash
-  def last_value
-    values.last
-  end
+  
+  def _size; self.size - 1; end
+  def last_value; values.last; end
+  
 end
 
 #==============================================================================
