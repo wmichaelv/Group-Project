@@ -417,12 +417,12 @@ module Wndw_Cgr #Window Changer
     Window_S_H[Window][1]['Layer1'] << "file_name"
     Window_S_H[Window][2]['Layer1'] << "file_name"
 
-    Window_S_H[Window][1]['Layer1'] 
-    << ((Folder_Name == '') ?
+    Window_S_H[Window][1]['Layer1'] <<
+    ((Folder_Name == '') ?
     "Graphics\\Windows" : Folder_Name)
 
-    Window_S_H[Window][2]['Layer1'] 
-    << ((Folder_Name == '') ?           #Windows folder should be
+    Window_S_H[Window][2]['Layer1'] <<
+    ((Folder_Name == '') ?              #Windows folder should be
     "Graphics\\Windows" : Folder_Name)  #created unless user only
                                         #want to put everything in folder.
 
@@ -459,6 +459,8 @@ module Wndw_Cgr #Window Changer
       #================ Start Window Descendants Initializer =============#
 
     Window.get_all_descendants.each.with_index(1) do |derived_classes,i|
+      
+      Window_S_H[derived_classes] << Michael_W << Michael_C << Michael_S
 
       Window_S_H[derived_classes][0] << i
       Window_S_H[derived_classes][0] << ''
@@ -748,7 +750,7 @@ class Window
 
   def visible=(arg)
 
-    self.michael_sp_v_asgn(arg)
+    self.michael_Window_v_asgn(arg)
 
     if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[self.class][0][0]] && self.michael_script
 
@@ -760,11 +762,11 @@ class Window
 
       self.michael_bg_sp_set.each do |sprite|
         sprite.visible = false
-      end
+      end unless self.michael_bg_sp_set.nil?
 
       self.cursor_rect.michael_bg_sp_set.each do |sprite|
         sprite.visible = false
-      end
+      end unless self.cursor_rect.michael_bg_sp_set.nil?
 
     end
 
@@ -772,7 +774,7 @@ class Window
 
   def openness=(arg)
 
-    self.michael_sp_o_asgn(arg)
+    self.michael_Window_o_asgn(arg)
 
     if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[self.class][0][0]] && self.michael_script
 
@@ -784,11 +786,11 @@ class Window
 
       self.michael_bg_sp_set.each do |sprite|
         sprite.visible = false
-      end
+      end unless self.michael_bg_sp_set.nil?
 
       self.cursor_rect.michael_bg_sp_set.each do |sprite|
         sprite.visible = false
-      end
+      end unless self.cursor_rect.michael_bg_sp_set.nil?
 
     end
 
@@ -799,7 +801,7 @@ class Window
     if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[self.class][0][0]] && self.michael_script
 
       michael_update_x_offset(arg, $game_message.michael_windows_ary[self.class])
-      self.michael_sp_x_asgn(arg + self.michael_x_offset)
+      self.michael_Window_x_asgn(arg + self.michael_x_offset)
 
       self.michael_bg_sp_set.each do |sprite|
         sprite.x = arg + self.michael_x_offset
@@ -809,7 +811,7 @@ class Window
         sprite.x = arg + sprite.michael_cursor_sp_x_offset + self.michael_x_offset
       end
 
-    else; self.michael_sp_x_asgn(arg) end
+    else; self.michael_Window_x_asgn(arg) end
 
   end
 
@@ -818,7 +820,7 @@ class Window
     if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[self.class][0][0]] && self.michael_script
 
       michael_update_y_offset(arg, $game_message.michael_windows_ary[self.class])
-      self.michael_sp_y_asgn(arg + self.michael_y_offset)
+      self.michael_Window_y_asgn(arg + self.michael_y_offset)
       
       self.michael_bg_sp_set.each do |sprite|
         sprite.y = arg + self.michael_y_offset
@@ -828,7 +830,7 @@ class Window
         sprite.y = arg + sprite.michael_cursor_sp_y_offset + self.michael_y_offset
       end
 
-    else; self.michael_sp_y_asgn(arg) end
+    else; self.michael_Window_y_asgn(arg) end
 
   end
 
@@ -837,13 +839,13 @@ class Window
     if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[self.class][0][0]] && self.michael_script
 
       michael_update_w_offset(arg, $game_message.michael_windows_ary[self.class])
-      self.michael_sp_w_asgn(arg + self.michael_w_offset)
+      self.michael_Window_w_asgn(arg + self.michael_w_offset)
       
       self.michael_bg_sp_set.each do |sprite|
         sprite.src_rect.width = arg + self.michael_w_offset
       end
 
-    else; self.michael_sp_w_asgn(arg) end
+    else; self.michael_Window_w_asgn(arg) end
 
   end
 
@@ -852,13 +854,13 @@ class Window
     if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[self.class][0][0]] && self.michael_script
 
       michael_update_h_offset(arg, $game_message.michael_windows_ary[self.class])
-      self.michael_sp_h_asgn(arg + self.michael_h_offset)
+      self.michael_Window_h_asgn(arg + self.michael_h_offset)
       
       self.michael_bg_sp_set.each do |sprite|
         sprite.src_rect.height = arg + self.michael_h_offset
       end
 
-    else; self.michael_sp_h_asgn(arg) end
+    else; self.michael_Window_h_asgn(arg) end
 
   end
 
@@ -1346,13 +1348,13 @@ class Window
 
   def dispose
 
-    self.michael_bg_sp_set.each do |sprite| sprite.dispose; end
+    self.michael_bg_sp_set.each do |sprite| sprite.dispose; end unless self.michael_bg_sp_set.nil?
     self.michael_bg_sp_set = nil
 
-    cursor_rect.michael_bg_sp_set.each do |sprite| sprite.dispose; end
+    cursor_rect.michael_bg_sp_set.each do |sprite| sprite.dispose; end unless cursor_rect.michael_bg_sp_set.nil?
     cursor_rect.michael_bg_sp_set = nil
 
-    self.michael_bg_vp.dispose
+    self.michael_bg_vp.dispose unless self.michael_bg_vp.nil?
     michael_Window_dispose
 
   end
