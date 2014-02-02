@@ -6,6 +6,8 @@ class Array
   
   def _size; self.size - 1; end
 
+end
+
 class Hash
   
   def _size; self.size - 1; end
@@ -16,7 +18,8 @@ end
 #==============================================================================
 #
 # Michael Windows Changer
-# Last Updated: 2014.01.30
+# Last Updated: 2014.02.02
+# V 0.8
 # Requirement: RPG Maker VX Ace
 #             -Knowledge of 'how to use scripts'
 #             -Knowledge of Window Designation (basically know which window is
@@ -52,6 +55,7 @@ end
 #==============================================================================
 # Script Biography lol
 #==============================================================================
+# 2014.02.02 --Fixing Minor Bugs
 # 2014.01.30 --Finishing Sprite_set implementation on cursor and window
 # 2014.01.28 --Rearranging Window custom methods
 # 2014.01.27 --Implementing Super Hash custom update
@@ -805,7 +809,7 @@ class Window
 
     if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[self.class][0][0]] && self.michael_script
 
-      michael_update_x_offset(arg, $game_message.michael_windows_ary[self.class])
+      michael_update_x_offset(arg, $game_message.michael_WSH[self.class][0])
       self.michael_Window_x_asgn(arg + self.michael_x_offset)
 
       self.michael_bg_sp_set.each do |sprite|
@@ -824,7 +828,7 @@ class Window
 
     if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[self.class][0][0]] && self.michael_script
 
-      michael_update_y_offset(arg, $game_message.michael_windows_ary[self.class])
+      michael_update_y_offset(arg, $game_message.michael_WSH[self.class][0])
       self.michael_Window_y_asgn(arg + self.michael_y_offset)
       
       self.michael_bg_sp_set.each do |sprite|
@@ -843,7 +847,7 @@ class Window
 
     if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[self.class][0][0]] && self.michael_script
 
-      michael_update_w_offset(arg, $game_message.michael_windows_ary[self.class])
+      michael_update_w_offset(arg, $game_message.michael_WSH[self.class][0])
       self.michael_Window_w_asgn(arg + self.michael_w_offset)
       
       self.michael_bg_sp_set.each do |sprite|
@@ -858,7 +862,7 @@ class Window
 
     if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[self.class][0][0]] && self.michael_script
 
-      michael_update_h_offset(arg, $game_message.michael_windows_ary[self.class])
+      michael_update_h_offset(arg, $game_message.michael_WSH[self.class][0])
       self.michael_Window_h_asgn(arg + self.michael_h_offset)
       
       self.michael_bg_sp_set.each do |sprite|
@@ -911,21 +915,21 @@ class Window
 
     end
 
-    update_michael_window_depth($game_message.michael_windows_ary[self.class])
+    update_michael_window_depth($game_message.michael_WSH[self.class][0])
     create_michael_bg_vp
     self.michael_ary_script_dup = $game_message.michael_WSH[self.class][0].dup
     self.michael_self_pprty_dup = Array.new
     self.michael_self_pprty_dup << self.x << self.y << self.width << self.height
 
-    update_sprite_layer
+    change_window_layer
 
-    update_cursor_layer
+    change_cursor_layer
 
-    $game_message.michael_WSH[name][2].each.with_index do |layer, i|
+    $game_message.michael_WSH[self.class][2].each_value.with_index do |layer, i|
       self.michael_bg_sp_set[i].michael_sp_updt(self, layer)
     end
 
-    $game_message.michael_WSH[name][1].each.with_index do |layer, i|
+    $game_message.michael_WSH[self.class][1].each_value.with_index do |layer, i|
       self.cursor_rect.michael_bg_sp_set[i].michael_cursor_updt(self, layer)
     end
 
@@ -1128,7 +1132,7 @@ class Window
 
     self.michael_bg_sp_set = Array.new
 
-    $game_message.michael_WSH[name][2].each do
+    $game_message.michael_WSH[self.class][2].each do
 
       sprite = Sprite.new
       sprite.x = w_x unless w_x.nil?
@@ -1168,7 +1172,7 @@ class Window
 
     cursor_rect.michael_bg_sp_set = Array.new
 
-    $game_message.michael_WSH[name][2].each do
+    $game_message.michael_WSH[self.class][1].each do
 
       sprite = Sprite.new
       sprite.visible = false
@@ -1193,14 +1197,14 @@ class Window
 
   def initialize_michael_cursor_bg_ppt(w_x, w_y)
 
-    cursor_rect.michael_bg_sp_set.each.with_index do |sprite, i|
+    cursor_rect.michael_bg_sp_set.each.with_index(1) do |sprite, i|
 
       sprite.viewport = michael_bg_vp
       sprite.src_rect.width = cursor_rect.width
       sprite.src_rect.height = cursor_rect.height
       sprite.x = w_x + sprite.michael_cursor_sp_x_offset
       sprite.y = w_y + sprite.michael_cursor_sp_y_offset
-      sprite.michael_cursor_updt(self, $game_message.michael_WSH[self.class][1]["Layer_#{i}"])
+      sprite.michael_cursor_updt(self, $game_message.michael_WSH[self.class][1]["Layer#{i}"])
 
     end
 
@@ -1249,7 +1253,7 @@ class Window
 
           @do_usual_update_once = false
           reset_michael_offset
-          update_michael_window_offset(self.michael_ary_dup)
+          update_michael_window_offset(self.michael_ary_script_dup)
           update_michael_window_depth($game_message.michael_WSH[self.class][0])
           apply_michael_offset
 
@@ -1257,11 +1261,11 @@ class Window
 
       end
 
-      $game_message.michael_WSH[name][2].each.with_index do |layer, i|
+      $game_message.michael_WSH[self.class][2].each_value.with_index do |layer, i|
         self.michael_bg_sp_set[i].michael_sp_updt(self, layer)
       end
 
-      $game_message.michael_WSH[name][1].each.with_index do |layer, i|
+      $game_message.michael_WSH[self.class][1].each_value.with_index do |layer, i|
         self.cursor_rect.michael_bg_sp_set[i].michael_cursor_updt(self, layer)
       end
 
@@ -2057,6 +2061,9 @@ class Game_Interpreter
 
     def window_on(class_type, file_name = '', type_movement = '', layer = 1)
 
+      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
+      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
+
       $game_message.michael_WSH[name][2].each_key do |key| 
 
         $game_message.michael_WSH[name][2].delete(key) unless key == "Layer1"
@@ -2066,12 +2073,9 @@ class Game_Interpreter
       for i in 2..layer
 
         $game_message.michael_WSH[name][2]["Layer#{i}"] = 
-        $game_message.michael_WSH[name][2]['Layer1'].dup
+        $game_message.michael_WSH[name][2]["Layer1"].dup
 
       end
-
-      name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
-      $game_message.michael_wndw_bg_psuedo[class_type] : class_type
 
       unless layer == 0
 
@@ -2136,7 +2140,7 @@ class Game_Interpreter
 
     end
 
-    def window_show_all(class_type, layer = 1)
+    def sprite_show_all(class_type, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
@@ -2146,7 +2150,7 @@ class Game_Interpreter
 
     end
 
-    def window_show_all_move(class_type, x, y, layer = 1)
+    def sprite_show_all_move(class_type, x, y, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
@@ -2158,7 +2162,7 @@ class Game_Interpreter
 
     end
 
-    def window_move_origin(class_type,x,y, layer = 1)
+    def sprite_move_origin(class_type,x,y, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
@@ -2170,7 +2174,7 @@ class Game_Interpreter
 
     end
 
-    def window_center(class_type, layer = 1)
+    def sprite_center(class_type, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
@@ -2180,7 +2184,7 @@ class Game_Interpreter
 
     end
 
-    def window_move_all(class_type, x, y, rect_x, rect_y, rect_width, rect_height, layer = 1)
+    def sprite_move_all(class_type, x, y, rect_x, rect_y, rect_width, rect_height, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
@@ -2208,7 +2212,7 @@ class Game_Interpreter
     #rtype = resize type
     #ctype = color type
 
-    def window_r_fit_w(class_type, layer = 1)
+    def sprite_r_fit_w(class_type, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
@@ -2218,7 +2222,7 @@ class Game_Interpreter
 
     end
 
-    def window_r_fit_h(class_type, layer = 1)
+    def sprite_r_fit_h(class_type, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
@@ -2228,7 +2232,7 @@ class Game_Interpreter
 
     end
 
-    def window_r_pixel(class_type, _zoom_x, _zoom_y, layer = 1)
+    def sprite_r_pixel(class_type, _zoom_x, _zoom_y, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
@@ -2240,7 +2244,7 @@ class Game_Interpreter
 
     end
 
-    def window_r(class_type, _zoom_x, zoom_y, layer = 1)
+    def sprite_r(class_type, _zoom_x, zoom_y, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
@@ -2252,7 +2256,7 @@ class Game_Interpreter
 
     end
 
-    def window_r_i(class_type, streched_width, streched_height, layer = 1)
+    def sprite_r_i(class_type, streched_width, streched_height, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
@@ -2264,7 +2268,7 @@ class Game_Interpreter
 
     end
 
-    def window_color(class_type, red, green, blue, alpha, layer = 1)
+    def sprite_color(class_type, red, green, blue, alpha, layer = 1)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
@@ -2419,7 +2423,7 @@ class Game_Interpreter
 
     #========================= Window Interpreter =========================#
 
-    def window_w_default(class_type)
+    def window_default(class_type)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
@@ -2429,7 +2433,7 @@ class Game_Interpreter
 
     end
 
-    def window_w_coordinate(class_type, x, y)
+    def window_coordinate(class_type, x, y)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
@@ -2441,7 +2445,7 @@ class Game_Interpreter
 
     end
 
-    def window_w_change_all(class_type, x, y, w, h)
+    def window_change_all(class_type, x, y, w, h)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
@@ -2455,7 +2459,7 @@ class Game_Interpreter
 
     end
 
-    def window_w_move_ori(class_type, x, y, w = nil, h = nil)
+    def window_move_ori(class_type, x, y, w = nil, h = nil)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
@@ -2469,7 +2473,7 @@ class Game_Interpreter
 
     end
 
-    def window_w_center(class_type)
+    def window_center(class_type)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
@@ -2479,7 +2483,7 @@ class Game_Interpreter
 
     end
 
-    def window_w_r_pixel(class_type, w, h)
+    def window_r_pixel(class_type, w, h)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
@@ -2491,7 +2495,7 @@ class Game_Interpreter
 
     end
 
-    def window_w_r_ratio(class_type, w, h)
+    def window_r_ratio(class_type, w, h)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
@@ -2503,7 +2507,7 @@ class Game_Interpreter
 
     end
 
-    def window_w_depth(class_type, z)
+    def window_depth(class_type, z)
 
       name = ($game_message.michael_wndw_bg_psuedo.has_key?(class_type)) ?
       $game_message.michael_wndw_bg_psuedo[class_type] : class_type
