@@ -20,6 +20,41 @@
   },
   {
     "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "specialIsActive",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "startEffect"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "class": "Battle Spell"
+      }
+    },
+    "effectName": "verifyIsBattleSpell"
+  },
+  {
+    "action": {
       "primary": "verify target"
     },
     "target": {
@@ -32,8 +67,7 @@
     },
     "effectComplete": {
       "primary": "nothing"
-    },
-    "effectName": "startEffect"
+    }
   },
   {
     "action": {
@@ -74,8 +108,8 @@
       "operation": "-",
       "magnitude": "1",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "event",
+        "event": "post-battlePassive"
       }
     },
     "target": {
@@ -95,8 +129,8 @@
       "operation": "-",
       "magnitude": "1",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "event",
+        "event": "post-battlePassive"
       }
     },
     "target": {
@@ -117,8 +151,8 @@
       "operation": "-",
       "magnitude": "1",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "event",
+        "event": "post-battlePassive"
       }
     },
     "target": {
@@ -183,13 +217,31 @@
   {
     "action": {
       "primary": "run effect",
-      "effectNumber": "startEffect"
+      "effectNumber": "startEffect",
+      "callback": "effect completion"
     },
     "target": {
       "primary": "card",
       "criteria": {
         "passing": "this card"
       }
-    }
+    },
+    "effectName": "runEffect"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "runEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "specialIsActive",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "reset"
   }
 ]

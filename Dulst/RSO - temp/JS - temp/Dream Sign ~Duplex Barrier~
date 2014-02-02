@@ -7,7 +7,10 @@
       }
     },
     "target": {
-      "primary": "game"
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
     },
     "effectName": "passive"
   },
@@ -48,8 +51,8 @@
       "operation": "+",
       "magnitude": "1",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "event",
+        "event": "post-battlePassive"
       }
     },
     "target": {
