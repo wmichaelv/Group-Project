@@ -30,22 +30,24 @@ module Custom_HUD
   def self.getMpBarE; @mp_bar_empt; end
 
   #This is how you can change the bar
-  #Call Script Call: setHpBarF("insert_name_here_do_not_forget_quotation_mark")
-  def self.setHpBarF(filename); @hp_bar_full = filename; end
-  def self.setHpBarE(filename); @hp_bar_empt = filename; end
-  def self.setMpBarF(filename); @mp_bar_full = filename; end
-  def self.setMpBarE(filename); @mp_bar_empt = filename; end
+  #Call Script Call: Custom_HUD.setHpBarF("insert_name_here_do_not_forget_quotation_mark")
+  def self.setHpBarF(filename); @hp_bar_full = filename; self.update; end
+  def self.setHpBarE(filename); @hp_bar_empt = filename; self.update; end
+  def self.setMpBarF(filename); @mp_bar_full = filename; self.update; end
+  def self.setMpBarE(filename); @mp_bar_empt = filename; self.update; end
 
   #Border offset
-  hp_border = 5 #This value represents the distance between the hp bar and the border
-  mp_border = 5
+  @hp_l_b = 10 #Left border
+  @hp_r_b = 10 #Right border
+  @mp_t_b = 10 #Top border
+  @mp_b_b = 10 #Bottom border
 
   #Corrdination of the bar
 
-  X_hp = 24
+  X_hp = 29
   Y_hp = 9
-  X_mp = 24
-  Y_mp = 34
+  X_mp = 4
+  Y_mp = 9
 
   #Actor ID
 
@@ -98,8 +100,8 @@ module Custom_HUD
     @hp_e_bg.y = Y_hp
     @mp_f_bg.x = X_mp
     @mp_f_bg.y = Y_mp
-    @mp_f_bg.x = X_mp
-    @mp_f_bg.y = Y_mp
+    @mp_e_bg.x = X_mp
+    @mp_e_bg.y = Y_mp
 
     @hp_f_bg.bitmap = Cache.custom_HUD(Folder, $game_message.custom_HUD.getHpBarF)
     @hp_e_bg.bitmap = Cache.custom_HUD(Folder, $game_message.custom_HUD.getHpBarE)
@@ -113,21 +115,35 @@ module Custom_HUD
     @mp_bar_full.dup <<
     @mp_bar_empt.dup
     
+    @actor = $game_actors[A_id]
+    
     @hp_f_bg.src_rect.width = @hp_f_bg.bitmap.width
     @hp_f_bg.src_rect.height = @hp_f_bg.bitmap.height
+    
+    @hp_f_bg.x += @hp_l_b
+    @hp_f_bg.src_rect.x = @hp_l_b
+    
     @hp_e_bg.src_rect.width = @hp_e_bg.bitmap.width
     @hp_e_bg.src_rect.height = @hp_e_bg.bitmap.height
+    
     @mp_f_bg.src_rect.width = @mp_f_bg.bitmap.width
     @mp_f_bg.src_rect.height = @mp_f_bg.bitmap.height
+    
+    @mp_f_bg.y += @mp_t_b
+    @mp_f_bg.src_rect.y = @mp_t_b
+    
     @mp_e_bg.src_rect.width = @mp_e_bg.bitmap.width
     @mp_e_bg.src_rect.height = @mp_e_bg.bitmap.height
-
-    @actor = $game_actors[A_id]
 
     @fhp = @actor.mhp
     @hp = @actor.hp
     @fmp = @actor.mmp
     @mp = @actor.mp
+    
+    @hp_f_bg.src_rect.width = (@hp.to_f / @fhp) * (@fhp - @hp_r_b - @hp_l_b)
+    @hp_e_bg.src_rect.width = @fhp
+    @mp_f_bg.src_rect.height = (@mp.to_f / @fmp) * (@fmp - @mp_b_b - @mp_t_b)
+    @mp_e_bg.src_rect.height = @fmp
 
   end
   
@@ -168,19 +184,15 @@ module Custom_HUD
     end
 
     @hp = @actor.hp
-    @hp_f_bg.src_rect.width = @hp / 2 - hp_border
-
     @fhp = @actor.mhp
-    @hp_e_bg.src_rect.width = @fhp / 2
-
-
-    @fmp = @actor.mmp
-    @mp_e_bg.src_rect.height = @fmp / 2
-
-
     @mp = @actor.mp
-    @mp_f_bg.src_rect.height = @mp / 2 - hp_border
-
+    @fmp = @actor.mmp
+    
+    @hp_f_bg.src_rect.width = (@hp.to_f / @fhp) * (@fhp - @hp_r_b - @hp_l_b)
+    @hp_e_bg.src_rect.width = @fhp
+    @mp_f_bg.src_rect.height = (@mp.to_f / @fmp) * (@fmp - @mp_b_b - @mp_t_b)
+    @mp_e_bg.src_rect.height = @fmp
+    
   end
   
   def self.terminate
