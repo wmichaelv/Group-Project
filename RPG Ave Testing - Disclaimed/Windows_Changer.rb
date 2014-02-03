@@ -877,49 +877,70 @@ class Window
 
   #============================ Start New Methods ============================#
 
-  def michael_initialize_script(w_x = nil, w_y = nil, w_w = nil, w_h = nil)
+  def michael_initialize_script
 
     initialize_window_offset
 
-    unless w_x.nil?
-
-      update_michael_window_offset($game_message.michael_WSH[self.class][0],
-                                   w_x, w_y, w_w, w_h)
-      update_michael_window_depth($game_message.michael_WSH[self.class][0])
-
-      create_michael_sp_set(w_x + self.michael_x_offset,
-                            w_y + self.michael_y_offset,
-                            w_w + self.michael_w_offset,
-                            w_h + self.michael_h_offset)
-
-      customize_michael_cursor_rect(w_x + self.michael_x_offset,
-                                    w_y + self.michael_y_offset)
-
-      apply_michael_offset
-
-    else
-
-      update_michael_window_offset($game_message.michael_WSH[self.class][0])
-
-      update_michael_window_depth($game_message.michael_WSH[self.class][0])
-
-      create_michael_sp_set(self.x + self.michael_x_offset,
-                            self.y + self.michael_y_offset,
-                            self.width + self.michael_w_offset,
-                            self.height + self.michael_h_offset)
-
-      customize_michael_cursor_rect(self.x + self.michael_x_offset,
-                                    self.y + self.michael_y_offset)
-
-      apply_michael_offset
-
-    end
+    update_michael_window_offset($game_message.michael_WSH[self.class][0])
 
     update_michael_window_depth($game_message.michael_WSH[self.class][0])
+
+    create_michael_sp_set(self.x + self.michael_x_offset,
+                          self.y + self.michael_y_offset,
+                          self.width + self.michael_w_offset,
+                          self.height + self.michael_h_offset)
+
+    customize_michael_cursor_rect(self.x + self.michael_x_offset,
+                                  self.y + self.michael_y_offset)
+
+    apply_michael_offset
+
     create_michael_bg_vp
     self.michael_ary_script_dup = $game_message.michael_WSH[self.class][0].dup
     self.michael_self_pprty_dup = Array.new
     self.michael_self_pprty_dup << self.x << self.y << self.width << self.height
+
+    change_window_layer
+
+    change_cursor_layer
+
+    $game_message.michael_WSH[self.class][2].each_value.with_index do |layer, i|
+      self.michael_bg_sp_set[i].michael_sp_updt(self, layer)
+    end
+
+    $game_message.michael_WSH[self.class][1].each_value.with_index do |layer, i|
+      self.cursor_rect.michael_bg_sp_set[i].michael_cursor_updt(self, layer)
+    end
+
+  self.michael_script = true
+  @do_usual_update_once = true
+
+  end
+
+  def michael_post_initialize_script(w_x, w_y, w_w, w_h)
+
+    initialize_window_offset
+
+    update_michael_window_offset($game_message.michael_WSH[self.class][0],
+                                 w_x, w_y, w_w, w_h)
+  end
+
+  def michael_pre_initialize_script(w_x, w_y, w_w, w_h)
+
+    update_michael_window_depth($game_message.michael_WSH[self.class][0])
+
+    create_michael_sp_set(w_x + self.michael_x_offset,
+                          w_y + self.michael_y_offset,
+                          w_w + self.michael_w_offset,
+                          w_h + self.michael_h_offset)
+    customize_michael_cursor_rect(w_x + self.michael_x_offset,
+                                  w_y + self.michael_y_offset)
+    apply_michael_offset
+
+    create_michael_bg_vp
+    self.michael_ary_script_dup = $game_message.michael_WSH[self.class][0].dup
+    self.michael_self_pprty_dup = Array.new
+    self.michael_self_pprty_dup << w_x << w_y << w_w << w_h
 
     change_window_layer
 
@@ -1341,6 +1362,8 @@ class Window
                                 w_w + self.michael_w_offset,
                                 w_h + self.michael_h_offset)
 
+      michael_pre_initialize_script(w_x, w_y, w_w, w_h)
+
     else
 
       self.michael_script = false
@@ -1358,10 +1381,8 @@ class Window
   def dispose
 
     self.michael_bg_sp_set.each do |sprite| sprite.dispose; end unless self.michael_bg_sp_set.nil?
-    self.michael_bg_sp_set = nil
 
     cursor_rect.michael_bg_sp_set.each do |sprite| sprite.dispose; end unless cursor_rect.michael_bg_sp_set.nil?
-    cursor_rect.michael_bg_sp_set = nil
 
     self.michael_bg_vp.dispose unless self.michael_bg_vp.nil?
     michael_Window_dispose
