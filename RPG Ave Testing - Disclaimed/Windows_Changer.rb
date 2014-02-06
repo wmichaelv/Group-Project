@@ -1355,7 +1355,7 @@ class Window
 
     if $game_switches[Wndw_Cgr::SSP + $game_message.michael_WSH[self.class][0][0]]
 
-      michael_initialize_script(w_x, w_y, w_w, w_h)
+      michael_post_initialize_script(w_x, w_y, w_w, w_h)
 
       michael_Window_initialize(w_x + self.michael_x_offset,
                                 w_y + self.michael_y_offset,
@@ -2028,7 +2028,7 @@ module DataManager
   def self.create_Wndw_Cgr_directory
 
     $game_message.michael_WSH.each_value {
-      |v| Dir.mkdir(v[1]['Layer1'][2]) if !File.exists?(v[1]['Layer1'][2])
+      |v| Dir.mkdir(v[1][0][2]) if !File.exists?(v[1][0][2])
     }
 
   end
