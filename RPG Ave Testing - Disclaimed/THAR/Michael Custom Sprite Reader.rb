@@ -109,12 +109,40 @@ class Sprite_Character < Sprite_Base
       
       if (@character.actor.name == 'Alice')
         
+        $m_speed = 0.33 if $m_speed.nil?
+        $m_act_nm = 'stand' if $m_act_nm.nil?
         $m_action = 'stand' if $m_action.nil?
         unless $m_counter.nil?
-          case $m_action
+          $m_counter += $m_speed
+          case $m_act_nm
           when 'stand'
-            $m_counter += 0.33
+            $m_action = 'stand'
             $m_counter = 0 if $m_counter > 15
+          when 'm_down'
+            $m_action = 'walkFront'
+            if $m_counter > 9.9
+              $m_act_nm = 'stand' if !Input.repeat?(:DOWN)
+              $m_counter = 0
+            end
+          when 'm_left'
+            self.mirror
+            $m_action = 'walkFront'
+            if $m_counter > 9.9
+              $m_act_nm = 'stand' if !Input.repeat?(:LEFT)
+              $m_counter = 0
+            end
+          when 'm_right'
+            $m_action = 'walkFront'
+            if $m_counter > 9.9
+              $m_act_nm = 'stand' if !Input.repeat?(:RIGHT)
+              $m_counter = 0
+            end
+          when 'm_up'
+            $m_action = 'walkFront'
+            if $m_counter > 9.9
+              $m_act_nm = 'stand' if !Input.repeat?(:UP)
+              $m_counter = 0
+            end
           end
         end
         $m_counter = 0 if $m_counter.nil?
@@ -155,18 +183,46 @@ class Sprite_Character < Sprite_Base
     if @character.class == Game_Player
       if (@character.actor.name == 'Alice')
         
+        $m_act_nm = 'stand' if $m_act_nm.nil?
         $m_action = 'stand' if $m_action.nil?
         unless $m_counter.nil?
-          case $m_action
+          $m_counter += $m_speed
+          case $m_act_nm
           when 'stand'
-            $m_counter += 0.33
+            $m_action = 'stand'
             $m_counter = 0 if $m_counter > 15
+          when 'm_down'
+            $m_action = 'walkFront'
+            if $m_counter > 9.9
+              $m_act_nm = 'stand' if !Input.press?(:DOWN)
+              $m_counter = 0
+            end
+          when 'm_left'
+            $m_action = 'walkFront'
+            if $m_counter > 9.9
+              $m_act_nm = 'stand' if !Input.press?(:LEFT)
+              $m_counter = 0
+            end
+          when 'm_right'
+            $m_action = 'walkFront'
+            if $m_counter > 9.9
+              $m_act_nm = 'stand' if !Input.press?(:RIGHT)
+              $m_counter = 0
+            end
+          when 'm_up'
+            $m_action = 'walkFront'
+            if $m_counter > 9.9
+              $m_act_nm = 'stand' if !Input.press?(:UP)
+              $m_counter = 0
+            end
           end
         end
         $m_counter = 0 if $m_counter.nil?
         self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][0], "#{$m_action}%03d" % $m_counter)
+        p "#{$m_action}%03d" % $m_counter
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 16
+        self.mirror = ($m_act_nm == "m_left")
         if self.x < 0
           self.src_rect.x = -self.x
           self.x = 0
@@ -195,28 +251,32 @@ class Sprite_Character < Sprite_Base
       if (@character.actor.name == "Alice")
         #$just_once ||= 1
         #p "Its PASSING!!" if $just_once == 1 && $just_once += 1
-        case $game_player.direction
-        when 2
+        #case $game_player.direction
+        #when 2
           #down
-          if Input.trigger?(:DOWN) || Input.repeat?(:DOWN)
-            #$m_y += ($game_map.scroll_type == 2 || $game_map.scroll_type == 3) ? 32 : 0
+          if Input.press?(:DOWN)# || Input.repeat?(:DOWN)
+            $m_counter = 0 if $m_act_nm != "m_down"
+            $m_act_nm = "m_down"
           end
-        when 4
+        #when 4
           #left
-          if Input.trigger?(:LEFT) || Input.repeat?(:LEFT)
-            #$m_x -= ($game_map.scroll_type == 1 || $game_map.scroll_type == 3) ? 32 : 0
+          if Input.press?(:LEFT)# || Input.repeat?(:LEFT)
+            $m_counter = 0 if $m_act_nm != "m_left"
+            $m_act_nm = "m_left"
           end
-        when 6 
+        #when 6 
           #right
-          if Input.trigger?(:RIGHT) || Input.repeat?(:RIGHT)
-            #$m_x += ($game_map.scroll_type == 1 || $game_map.scroll_type == 3) ? 32 : 0
+          if Input.press?(:RIGHT)# || Input.repeat?(:RIGHT)
+            $m_counter = 0 if $m_act_nm != "m_right"
+            $m_act_nm = "m_right"
           end
-        when 8
+        #when 8
           #up
-          if Input.trigger?(:UP) || Input.repeat?(:UP)
-            #$m_y -= ($game_map.scroll_type == 2 || $game_map.scroll_type == 3) ? 32 : 0
+          if Input.press?(:UP)# || Input.repeat?(:UP)
+            $m_counter = 0 if $m_act_nm != "m_up"
+            $m_act_nm = "m_up"
           end
-        end
+        #end
       end
  
     else
