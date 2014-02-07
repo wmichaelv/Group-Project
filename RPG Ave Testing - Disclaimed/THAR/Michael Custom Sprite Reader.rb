@@ -219,7 +219,6 @@ class Sprite_Character < Sprite_Base
         end
         $m_counter = 0 if $m_counter.nil?
         self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][0], "#{$m_action}%03d" % $m_counter)
-        p "#{$m_action}%03d" % $m_counter
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 16
         self.mirror = ($m_act_nm == "m_left")
@@ -251,32 +250,32 @@ class Sprite_Character < Sprite_Base
       if (@character.actor.name == "Alice")
         #$just_once ||= 1
         #p "Its PASSING!!" if $just_once == 1 && $just_once += 1
-        #case $game_player.direction
-        #when 2
+        case $game_player.direction
+        when 2
           #down
           if Input.press?(:DOWN)# || Input.repeat?(:DOWN)
             $m_counter = 0 if $m_act_nm != "m_down"
             $m_act_nm = "m_down"
           end
-        #when 4
+        when 4
           #left
           if Input.press?(:LEFT)# || Input.repeat?(:LEFT)
             $m_counter = 0 if $m_act_nm != "m_left"
             $m_act_nm = "m_left"
           end
-        #when 6 
+        when 6 
           #right
           if Input.press?(:RIGHT)# || Input.repeat?(:RIGHT)
             $m_counter = 0 if $m_act_nm != "m_right"
             $m_act_nm = "m_right"
           end
-        #when 8
+        when 8
           #up
           if Input.press?(:UP)# || Input.repeat?(:UP)
             $m_counter = 0 if $m_act_nm != "m_up"
             $m_act_nm = "m_up"
           end
-        #end
+        end
       end
  
     else
