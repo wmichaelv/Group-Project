@@ -499,24 +499,23 @@ class Window_NSS_SlotDetail < Window_Base
   def load_save_data(index)
     if (DataManager.check_if_that_save_file_exists?(index))
       File.open(DataManager.make_filename(index), "rb") do |file|
-        Marshal.load(file)
-        all_contents_for_all = Marshal.load(file)
 
-        header = DataManager.load_header(index)
+        header = Marshal.load(file)
+        contents = Marshal.load(file)
         @exist_list[index] = true
         @data[index] = {}
         @data[index]['char']          = header[:characters]
         @data[index]['total_sec']     = header[:playtime_s]
 
-        @data[index]['gamesys']       = all_contents_for_all[:system]
-        @data[index]['gamemes']       = all_contents_for_all[:message]
-        @data[index]['gameswi']       = all_contents_for_all[:switches]
-        @data[index]['gamevar']       = all_contents_for_all[:variables]
-        @data[index]['gameselfvar']   = all_contents_for_all[:self_switches]
-        @data[index]['gameactor']     = all_contents_for_all[:actors]
-        @data[index]['gamepar']       = all_contents_for_all[:party]
-        @data[index]['gametro']       = all_contents_for_all[:troop]
-        @data[index]['gamemap']       = all_contents_for_all[:map]
+        @data[index]['gamesys']       = contents[:system]
+        @data[index]['gamemes']       = contents[:message]
+        @data[index]['gameswi']       = contents[:switches]
+        @data[index]['gamevar']       = contents[:variables]
+        @data[index]['gameselfvar']   = contents[:self_switches]
+        @data[index]['gameactor']     = contents[:actors]
+        @data[index]['gamepar']       = contents[:party]
+        @data[index]['gametro']       = contents[:troop]
+        @data[index]['gamemap']       = contents[:map]
         @data[index]['map_name']      = get_mapname(@data[index]['gamemap'].map_id)
       end
     else
