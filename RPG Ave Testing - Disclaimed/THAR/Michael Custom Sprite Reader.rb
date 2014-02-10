@@ -2,6 +2,24 @@
 # Michael Let's Change The Sprite
 #==============================================================================
 
+#==============================================================================
+# What's done?
+#==============================================================================
+#
+# Game_Player + Game_Follower Done
+#
+# Movements: 4 directions
+#            Square by Square
+#
+# Characters:
+#
+# Alice -> Walk, Dash, Idle
+# Aya   -> Walk, Dash, Idle
+#
+#
+#
+#==============================================================================
+
 module Touhou
 
   FolderSources = Hash.new {|h,k| h[k]=[]}
@@ -10,7 +28,7 @@ module Touhou
 
   	"Graphics\\th123 image\\character\\alice",
   	"Graphics\\th123 image\\character\\aya",
-  	"Graphics\\th123 image\\character\\chirno",
+  	"Graphics\\th123 image\\character\\cirno",
   	"Graphics\\th123 image\\character\\hong",
   	"Graphics\\th123 image\\character\\iku",
   	"Graphics\\th123 image\\character\\komachi",
@@ -36,7 +54,7 @@ module Touhou
 
   	"Graphics\\th123 image\\character\\alice",
   	"Graphics\\th123 image\\character\\aya",
-  	"Graphics\\th123 image\\character\\chirno",
+  	"Graphics\\th123 image\\character\\cirno",
   	"Graphics\\th123 image\\character\\hong",
   	"Graphics\\th123 image\\character\\iku",
   	"Graphics\\th123 image\\character\\komachi",
@@ -61,7 +79,7 @@ module Touhou
 
   	"Graphics\\th123 image\\character\\alice",
   	"Graphics\\th123 image\\character\\aya",
-  	"Graphics\\th123 image\\character\\chirno",
+  	"Graphics\\th123 image\\character\\cirno",
   	"Graphics\\th123 image\\character\\hong",
   	"Graphics\\th123 image\\character\\iku",
   	"Graphics\\th123 image\\character\\komachi",
@@ -106,22 +124,21 @@ class Sprite_Character < Sprite_Base
 
 	def set_character_bitmap
     
-    if @character.class == Game_Player
+   if (@character.is_a?(Game_Player) || @character.is_a?(Game_Follower)) && @character.actor != nil
       
+
       case @character.actor.name
 
       when 'Alice'
-        
-        @m_speed = 0.33 if @m_speed.nil?
-        @m_act_nm = 'stand' if @m_act_nm.nil?
-        @m_action = 'stand' if @m_action.nil?
-        @m_counter = 0 if @m_counter.nil?
-        dash = Input.press?(:SHIFT)
-        walk = (!dash && @m_counter > 6)
-        @m_counter += @m_speed
-        
-        case @m_act_nm
 
+      	@m_speed = 0.33 if @m_speed.nil?
+	      @m_act_nm = 'stand' if @m_act_nm.nil?
+	      @m_action = 'stand' if @m_action.nil?
+	      @m_counter = 0 if @m_counter.nil?
+	      dash = Input.press?(:SHIFT)
+	      walk = (!dash && @m_counter > 6)
+	      @m_counter += @m_speed
+        case @m_act_nm
         when 'stand'
 
           @m_action = 'stand'
@@ -178,11 +195,1378 @@ class Sprite_Character < Sprite_Base
         end
 
         self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][0], "#{@m_action}%03d" % @m_counter)
-        @m_x = (Graphics.width - bitmap.width) / 2 if @m_x.nil?
-        @m_y = (Graphics.height - bitmap.height - bitmap.height / 2) / 2 if @m_y.nil?
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 16
-        self.mirror = (@m_act_nm == "m_left")
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Aya'
+        
+        @m_speed = 0.22 if @m_speed.nil?
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Cirno'
+        
+        @m_speed = 0.22 if @m_speed.nil?
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 7)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 5
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 7
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 7
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 7
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 7
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][2], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height - 25
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Hong'
+        
+        @m_speed = 0.22 if @m_speed.nil?
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 4)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 5
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 4
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 5)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 4
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 5)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 4
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 5)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 4
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 5)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][3], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Iku'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Komachi'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Marisa'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Patchouli'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Reimu'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Reisen'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Remilia'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Sakuya'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Suika'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Suwako'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Tenshi'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Utsuho'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Youmu'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Yukari'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Yuyuko'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -202,6 +1586,8 @@ class Sprite_Character < Sprite_Base
 
 				self.ox = @cw / 2
 				self.oy = @ch
+        
+      end
     
     else
     
@@ -218,17 +1604,17 @@ class Sprite_Character < Sprite_Base
       self.ox = @cw / 2
       self.oy = @ch
       
-    end
+    end unless @character.nil?
     
   end
   
   def update_src_rect
-    if @character.class == Game_Player
-      if (@character.actor.name == 'Alice')
-        
-        @m_act_nm = 'stand' if @m_act_nm.nil?
-        @m_action = 'stand' if @m_action.nil?
-        @m_counter = 0 if @m_counter.nil?
+    
+    if (@character.is_a?(Game_Player) || @character.is_a?(Game_Follower))  && @character.actor != nil
+      
+      case @character.actor.name
+
+      when 'Alice'
         
         dash = Input.press?(:SHIFT)
         walk = (!dash && @m_counter > 6)
@@ -290,13 +1676,1370 @@ class Sprite_Character < Sprite_Base
 
         end
         self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][0], "#{@m_action}%03d" % @m_counter)
-        p "#{@m_action}%03d" % @m_counter
+        #p "#{@m_action}%03d" % @m_counter
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 16
-        self.mirror = (@m_act_nm == "m_left")
+        self.mirror = (Input.press?(:LEFT))
 
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Aya'
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Cirno'
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 7)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 5
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 7
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 7
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 7
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 7
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][2], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height - 25
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Hong'
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 4)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 5
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 4
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 5)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 4
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 5)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 4
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 5)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 4
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 5)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][3], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Iku'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Komachi'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Marisa'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Patchouli'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Reimu'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Reisen'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Remilia'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Sakuya'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Suika'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Suwako'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Tenshi'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Utsuho'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Youmu'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Yukari'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
+      when 'Yuyuko'
+        
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
+        
+        case @m_act_nm
+
+        when 'stand'
+          @m_speed = 0.22
+          @m_action = 'stand'
+          @m_counter = 0 if @m_counter > 7
+
+        when 'm_down'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_left'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_right'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+          end
+
+        when 'm_up'
+          @m_action = 'dashFront' if Input.press?(:SHIFT)
+
+          if @m_action == 'dashFront'
+            @m_speed = (@m_counter > 3 && @m_counter < 4) ? ((!dash) ? 0.33 : 0) : 0.33
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
+          else
+            @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
+            (@m_action == 'dashFront') ? @m_counter = 0 :
+            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+          end
+
+        end
+
+        self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
+        self.x = @character.screen_x - bitmap.width / 2
+        self.y = @character.screen_y - bitmap.height + 1
+        
+        self.mirror = (Input.press?(:LEFT))
+        
+        (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
+        (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
+
 
       else
 
@@ -324,24 +3067,33 @@ class Sprite_Character < Sprite_Base
   end
   
   def update_position
-    if @character.class == Game_Player
-    	
-      if (@character.actor.name == "Alice")
+    
+    if (@character.is_a?(Game_Player) || @character.is_a?(Game_Follower)) && @character.actor != nil
+
+      if $data_actors[@character.actor.id].note.match(/<Touhou>/)
         #(p "it's passing"; @just_once = true) if (!@just_once)
         case $game_player.direction
         when 2
           #down
           (@m_counter = 0 if @m_act_nm != "m_down"; @m_act_nm = "m_down") if Input.press?(:DOWN)
-        when 4
-          #left
+        when 1, 4, 7
+          #up-left, left, down-left
           (@m_counter = 0 if @m_act_nm != "m_left"; @m_act_nm = "m_left") if Input.press?(:LEFT)
-        when 6 
+        when 3, 6, 9 
           #right
           (@m_counter = 0 if @m_act_nm != "m_right"; @m_act_nm = "m_right") if Input.press?(:RIGHT)
         when 8
           #up
           (@m_counter = 0 if @m_act_nm != "m_up"; @m_act_nm = "m_up") if Input.press?(:UP)
         end
+
+      else
+
+      	move_animation(@character.screen_x - x, @character.screen_y - y)
+	      self.x = @character.screen_x
+	      self.y = @character.screen_y
+	      self.z = @character.screen_z
+
       end
  
     else
