@@ -1793,7 +1793,7 @@ class Sprite_Character < Sprite_Base
           @m_counter += @m_speed
           @m_counter = 0 if @m_counter > 9
           self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][8], "#{@m_action}%03d" % @m_counter)
-          self.x = @character.screen_x - bitmap.width / 2
+          self.x = @character.screen_x - bitmap.width / 2 + 26
           self.y = @character.screen_y - bitmap.height + ((@m_action == 'stand') ? 16 : 10)
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -3524,7 +3524,7 @@ class Sprite_Character < Sprite_Base
         	@m_counter += @m_speed
           @m_counter = 0 if @m_counter > 9
           self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][8], "#{@m_action}%03d" % @m_counter)
-          self.x = @character.screen_x - bitmap.width / 2
+          self.x = @character.screen_x - bitmap.width / 2 + 26
           self.y = @character.screen_y - bitmap.height + ((@m_action == 'stand') ? 16 : 10)
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
