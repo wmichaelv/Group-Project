@@ -1,0 +1,6 @@
+ FOR %a in (walkFront0*.png) DO convert %a back.png ^
+( -clone 0 -channel a -separate +channel ) ^
+( -clone 0 -alpha off -fuzz 1% -transparent "rgb(248,0,248)" ) ^
+( -clone 1 -resize 139x139 ) ^
+( -clone 4 -clone 3 -compose over -composite ) ^
+-delete 0,1,3,4 +swap -alpha off -compose copy_opacity -crop 125x114+0+0 -composite %a
