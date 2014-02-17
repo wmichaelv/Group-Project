@@ -233,7 +233,7 @@ class Game_Alchemy
       @keys[k].each do |t| local_storage_reqr -= 1 if ($game_party.item_number(t) >= v[1]) end
       local_storage_size -= 1 if local_storage_reqr <= 0  
     }
-    item.cmake = (local_storage_size == 0)
+    item.cmake = (local_storage_size <= 0)
   end
 
 end
@@ -270,17 +270,20 @@ class Scene_Alchemy < Scene_MenuBase
   end
 
   def selectIngredient
-
-    @product_window.deactivate
-    @ingredient_window.activate
-    @ingredient_window.select_last
-
+    if $game_alchemy.product[@product_window.index_number].cmake
+      @store_reqr = $game_alchemy.product[@product_window.index_number].dup
+      @product_window.deactivate
+      @ingredient_window.activate
+    else
+      cannot_select
+      @product_window.activate
+    end
   end
   
   def create_ingredient_window
 
     @ingredient_window = Window_Ingredient.new(160,0)
-    @ingredient_window.set_handler(:ingredient,  method(:ingredientSelect))
+    @ingredient_window.set_handler(:ok,  method(:ingredientSelect))
     @ingredient_window.set_handler(:cancel,      method(:returnProduct))
     @product_window.help_window = @help_window
     @product_window.ingredient_window = @ingredient_window
@@ -290,18 +293,19 @@ class Scene_Alchemy < Scene_MenuBase
   
   def ingredientSelect
 
-    @ingredient_window.deactivate
-    @confirm_window.activate
-    @confirm_window.show
-    @confirm_window.open
+      @ingredient_window.deactivate
+      @confirm_window.activate
+      @confirm_window.show
+      @confirm_window.open
 
   end
+
+
   
   def returnProduct
 
     @ingredient_window.deactivate
     @product_window.activate
-    @product_window.select_last
 
   end
 
@@ -343,7 +347,7 @@ class Scene_Alchemy < Scene_MenuBase
 
     Sound.play_buzzer
     b = Bitmap.new(340,60)
-    b.draw_text(0, 20,340, 20, "You don't have enough ingredient.")
+    b.draw_text(0, 20,340, 40, "You don't have enough ingredient.")
     w = Window_Message.new
     w.contents = b
     w.width = 380
@@ -361,6 +365,10 @@ class Scene_Alchemy < Scene_MenuBase
 
   end
 
+  def update
+    super
+  end
+
 end
 
 #==============================================================================
@@ -370,9 +378,10 @@ end
 class Window_Product < Window_Command
 
   attr_accessor :ingredient_window
+  attr_accessor :index_number
 
   def make_command_list
-    $game_alchemy.product.each do |i| add_command(i.name, :productList) end
+    $game_alchemy.product.each do |i| add_command(i.name, :product) end
   end
 
   def window_width; 160 end
@@ -401,7 +410,9 @@ class Window_Product < Window_Command
 
   def update
     super
+    refresh
     @ingredient_window.category = $game_alchemy.product[index] if @ingredient_window
+    @index_number = index
   end
 
   def ingredient_window=(ingredient_window)
@@ -443,7 +454,12 @@ class Window_Ingredient < Window_Command
   end
  
   def enable?(item)
-    true #$game_party.item_number(item) > @list.ingr[item.keys]
+
+    (0...item.keys.size).each do |i|
+      if @category.ingr.has_key?(item.keys[i])
+        return $game_party.item_number(item) > @category.ingr[item.keys[i]][1]
+      end
+    end
   end
   
   def make_item_list
@@ -475,13 +491,13 @@ class Window_Ingredient < Window_Command
   end
   
   def draw_item_number(rect, item)
-    draw_text(140, rect.y, 100, line_height, "%2d" % $game_party.item_number(item))
+    draw_text(200, rect.y, 100, line_height, "%2d" % $game_party.item_number(item))
   end
   
   def draw_item_reqr(rect, item)
     (0...item.keys.size).each do |i|
       if @category.ingr.has_key?(item.keys[i])
-        draw_text(160, rect.y, 120, line_height, "(%2d)" % @category.ingr[item.keys[i]][1])
+        draw_text(220, rect.y, 120, line_height, "(%2d)" % @category.ingr[item.keys[i]][1])
       end
     end
   end
