@@ -26,77 +26,77 @@ module Touhou
   
   spriteBattler = [
 
-  	"Graphics\\th123 image\\character\\alice",
-  	"Graphics\\th123 image\\character\\aya",
-  	"Graphics\\th123 image\\character\\cirno",
-  	"Graphics\\th123 image\\character\\hong",
-  	"Graphics\\th123 image\\character\\iku",
-  	"Graphics\\th123 image\\character\\komachi",
-  	"Graphics\\th123 image\\character\\marisa",
-  	"Graphics\\th123 image\\character\\patchouli",
-  	"Graphics\\th123 image\\character\\reimu",
-  	"Graphics\\th123 image\\character\\reisen",
-  	"Graphics\\th123 image\\character\\remilia",
-  	"Graphics\\th123 image\\character\\sakuya",
-  	"Graphics\\th123 image\\character\\sanae",
-  	"Graphics\\th123 image\\character\\suika",
-  	"Graphics\\th123 image\\character\\suwako",
-  	"Graphics\\th123 image\\character\\tenshi",
-  	"Graphics\\th123 image\\character\\utsuho",
-  	"Graphics\\th123 image\\character\\youmu",
-  	"Graphics\\th123 image\\character\\yukari",
-  	"Graphics\\th123 image\\character\\yuyuko",
+    "Graphics\\th123 image\\character\\alice",
+    "Graphics\\th123 image\\character\\aya",
+    "Graphics\\th123 image\\character\\cirno",
+    "Graphics\\th123 image\\character\\hong",
+    "Graphics\\th123 image\\character\\iku",
+    "Graphics\\th123 image\\character\\komachi",
+    "Graphics\\th123 image\\character\\marisa",
+    "Graphics\\th123 image\\character\\patchouli",
+    "Graphics\\th123 image\\character\\reimu",
+    "Graphics\\th123 image\\character\\reisen",
+    "Graphics\\th123 image\\character\\remilia",
+    "Graphics\\th123 image\\character\\sakuya",
+    "Graphics\\th123 image\\character\\sanae",
+    "Graphics\\th123 image\\character\\suika",
+    "Graphics\\th123 image\\character\\suwako",
+    "Graphics\\th123 image\\character\\tenshi",
+    "Graphics\\th123 image\\character\\utsuho",
+    "Graphics\\th123 image\\character\\youmu",
+    "Graphics\\th123 image\\character\\yukari",
+    "Graphics\\th123 image\\character\\yuyuko",
 
   ]
 
 
   spriteAnimate = [
 
-  	"Graphics\\th123 image\\character\\alice",
-  	"Graphics\\th123 image\\character\\aya",
-  	"Graphics\\th123 image\\character\\cirno",
-  	"Graphics\\th123 image\\character\\hong",
-  	"Graphics\\th123 image\\character\\iku",
-  	"Graphics\\th123 image\\character\\komachi",
-  	"Graphics\\th123 image\\character\\marisa",
-  	"Graphics\\th123 image\\character\\patchouli",
-  	"Graphics\\th123 image\\character\\reimu",
-  	"Graphics\\th123 image\\character\\reisen",
-  	"Graphics\\th123 image\\character\\remilia",
-  	"Graphics\\th123 image\\character\\sakuya",
-  	"Graphics\\th123 image\\character\\sanae",
-  	"Graphics\\th123 image\\character\\suika",
-  	"Graphics\\th123 image\\character\\suwako",
-  	"Graphics\\th123 image\\character\\tenshi",
-  	"Graphics\\th123 image\\character\\utsuho",
-  	"Graphics\\th123 image\\character\\youmu",
-  	"Graphics\\th123 image\\character\\yukari",
-  	"Graphics\\th123 image\\character\\yuyuko",
+    "Graphics\\th123 image\\character\\alice",
+    "Graphics\\th123 image\\character\\aya",
+    "Graphics\\th123 image\\character\\cirno",
+    "Graphics\\th123 image\\character\\hong",
+    "Graphics\\th123 image\\character\\iku",
+    "Graphics\\th123 image\\character\\komachi",
+    "Graphics\\th123 image\\character\\marisa",
+    "Graphics\\th123 image\\character\\patchouli",
+    "Graphics\\th123 image\\character\\reimu",
+    "Graphics\\th123 image\\character\\reisen",
+    "Graphics\\th123 image\\character\\remilia",
+    "Graphics\\th123 image\\character\\sakuya",
+    "Graphics\\th123 image\\character\\sanae",
+    "Graphics\\th123 image\\character\\suika",
+    "Graphics\\th123 image\\character\\suwako",
+    "Graphics\\th123 image\\character\\tenshi",
+    "Graphics\\th123 image\\character\\utsuho",
+    "Graphics\\th123 image\\character\\youmu",
+    "Graphics\\th123 image\\character\\yukari",
+    "Graphics\\th123 image\\character\\yuyuko",
 
   ]
 
   audio = [
 
-  	"Graphics\\th123 image\\character\\alice",
-  	"Graphics\\th123 image\\character\\aya",
-  	"Graphics\\th123 image\\character\\cirno",
-  	"Graphics\\th123 image\\character\\hong",
-  	"Graphics\\th123 image\\character\\iku",
-  	"Graphics\\th123 image\\character\\komachi",
-  	"Graphics\\th123 image\\character\\marisa",
-  	"Graphics\\th123 image\\character\\patchouli",
-  	"Graphics\\th123 image\\character\\reimu",
-  	"Graphics\\th123 image\\character\\reisen",
-  	"Graphics\\th123 image\\character\\remilia",
-  	"Graphics\\th123 image\\character\\sakuya",
-  	"Graphics\\th123 image\\character\\sanae",
-  	"Graphics\\th123 image\\character\\suika",
-  	"Graphics\\th123 image\\character\\suwako",
-  	"Graphics\\th123 image\\character\\tenshi",
-  	"Graphics\\th123 image\\character\\utsuho",
-  	"Graphics\\th123 image\\character\\youmu",
-  	"Graphics\\th123 image\\character\\yukari",
-  	"Graphics\\th123 image\\character\\yuyuko",
+    "Graphics\\th123 image\\character\\alice",
+    "Graphics\\th123 image\\character\\aya",
+    "Graphics\\th123 image\\character\\cirno",
+    "Graphics\\th123 image\\character\\hong",
+    "Graphics\\th123 image\\character\\iku",
+    "Graphics\\th123 image\\character\\komachi",
+    "Graphics\\th123 image\\character\\marisa",
+    "Graphics\\th123 image\\character\\patchouli",
+    "Graphics\\th123 image\\character\\reimu",
+    "Graphics\\th123 image\\character\\reisen",
+    "Graphics\\th123 image\\character\\remilia",
+    "Graphics\\th123 image\\character\\sakuya",
+    "Graphics\\th123 image\\character\\sanae",
+    "Graphics\\th123 image\\character\\suika",
+    "Graphics\\th123 image\\character\\suwako",
+    "Graphics\\th123 image\\character\\tenshi",
+    "Graphics\\th123 image\\character\\utsuho",
+    "Graphics\\th123 image\\character\\youmu",
+    "Graphics\\th123 image\\character\\yukari",
+    "Graphics\\th123 image\\character\\yuyuko",
 
   ]
 
@@ -122,7 +122,7 @@ end
 #==============================================================================
 class Sprite_Character < Sprite_Base
 
-	def set_character_bitmap
+  def set_character_bitmap
     
     if (@character.is_a?(Game_Player) || @character.is_a?(Game_Follower)) && @character.actor != nil
       
@@ -131,13 +131,13 @@ class Sprite_Character < Sprite_Base
 
       when 'Alice'
 
-      	@m_speed = 0.33 if @m_speed.nil?
-	      @m_act_nm = 'stand' if @m_act_nm.nil?
-	      @m_action = 'stand' if @m_action.nil?
-	      @m_counter = 0 if @m_counter.nil?
-	      dash = Input.press?(:SHIFT)
-	      walk = (!dash && @m_counter > 6)
-	      @m_counter += @m_speed
+        @m_speed = 0.33 if @m_speed.nil?
+        @m_act_nm = 'stand' if @m_act_nm.nil?
+        @m_action = 'stand' if @m_action.nil?
+        @m_counter = 0 if @m_counter.nil?
+        dash = Input.press?(:SHIFT)
+        walk = (!dash && @m_counter > 6)
+        @m_counter += @m_speed
         case @m_act_nm
         when 'stand'
 
@@ -154,7 +154,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           (@m_speed = 0.66; (@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 9.9)
+           (@m_speed = 0.66; (@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 9.9)
           end
 
         when 'm_left'
@@ -166,7 +166,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            (@m_speed = 0.66; (@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 9.9)
+            (@m_speed = 0.66; (@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 9.9)
           end
 
         when 'm_right'
@@ -178,7 +178,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            (@m_speed = 0.66; (@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 9.9)
+            (@m_speed = 0.66; (@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 9.9)
           end
 
         when 'm_up'
@@ -190,7 +190,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            (@m_speed = 0.66; (@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 9.9)
+            (@m_speed = 0.66; (@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 9.9)
           end
 
         end
@@ -198,7 +198,7 @@ class Sprite_Character < Sprite_Base
         self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][0], "#{@m_action}%03d" % @m_counter)
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 16
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -229,7 +229,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_left'
@@ -241,7 +241,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_right'
@@ -253,7 +253,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_up'
@@ -265,7 +265,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 7)
           end
 
         end
@@ -273,7 +273,7 @@ class Sprite_Character < Sprite_Base
         self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -305,7 +305,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_left'
@@ -317,7 +317,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_right'
@@ -329,7 +329,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_up'
@@ -341,7 +341,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 7)
           end
 
         end
@@ -350,7 +350,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height - 25
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -382,7 +382,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 5)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 5)
           end
 
         when 'm_left'
@@ -394,7 +394,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 5)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 5)
           end
 
         when 'm_right'
@@ -406,7 +406,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 5)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 5)
           end
 
         when 'm_up'
@@ -418,7 +418,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 5)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 5)
           end
 
         end
@@ -427,7 +427,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -459,8 +459,8 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            (@m_speed = (@m_counter > 2 && @m_counter < 3 && Input.press?(:DOWN)) ? 0 : 0.33;
-            (@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 4)
+            (@m_speed = (@m_counter > 2 && @m_counter < 3 && User.moveDOWN) ? 0 : 0.33;
+            (@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 4)
           end
 
         when 'm_left'
@@ -472,8 +472,8 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            (@m_speed = (@m_counter > 2 && @m_counter < 3 && Input.press?(:LEFT)) ? 0 : 0.33;
-            (@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 4)
+            (@m_speed = (@m_counter > 2 && @m_counter < 3 && User.moveLEFT) ? 0 : 0.33;
+            (@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 4)
           end
 
         when 'm_right'
@@ -485,8 +485,8 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            (@m_speed = (@m_counter > 2 && @m_counter < 3 && Input.press?(:RIGHT)) ? 0 : 0.33;
-            (@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 4)
+            (@m_speed = (@m_counter > 2 && @m_counter < 3 && User.moveRIGHT) ? 0 : 0.33;
+            (@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 4)
           end
 
         when 'm_up'
@@ -498,8 +498,8 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            (@m_speed = (@m_counter > 2 && @m_counter < 3 && Input.press?(:UP)) ? 0 : 0.33;
-            (@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 4)
+            (@m_speed = (@m_counter > 2 && @m_counter < 3 && User.moveUP) ? 0 : 0.33;
+            (@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 4)
           end
 
         end
@@ -508,7 +508,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -541,7 +541,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            (@m_speed = 0.66; (@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 15)
+            (@m_speed = 0.66; (@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 15)
           end
 
         when 'm_left'
@@ -553,7 +553,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 15)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 15)
           end
 
         when 'm_right'
@@ -565,7 +565,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            (@m_speed = 0.66; (@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 15)
+            (@m_speed = 0.66; (@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 15)
           end
 
         when 'm_up'
@@ -577,7 +577,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            (@m_speed = 0.66; (@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 15)
+            (@m_speed = 0.66; (@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 15)
           end
 
         end
@@ -586,7 +586,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -618,7 +618,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_left'
@@ -630,7 +630,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_right'
@@ -642,7 +642,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_up'
@@ -654,7 +654,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 7)
           end
 
         end
@@ -663,7 +663,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + ((@m_action == 'stand') ? 7 : 23)
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -695,7 +695,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 9)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 9)
           end
 
         when 'm_left'
@@ -707,7 +707,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 9)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 9)
           end
 
         when 'm_right'
@@ -719,7 +719,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 9)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 9)
           end
 
         when 'm_up'
@@ -731,7 +731,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 9)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 9)
           end
 
         end
@@ -740,7 +740,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -771,7 +771,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_left'
@@ -783,7 +783,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_right'
@@ -795,7 +795,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_up'
@@ -807,18 +807,18 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 7)
           end
 
         end
 
         self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][8], "#{@m_action}%03d" % @m_counter)
-        (Input.press?(:LEFT)) ?        
+        (User.moveLEFT) ?        
         self.x = @character.screen_x - bitmap.width / 2 - 26 :
         self.x = @character.screen_x - bitmap.width / 2 + 26
         self.y = @character.screen_y - bitmap.height + ((@m_action == 'stand') ? 16 : 10)
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -850,7 +850,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_left'
@@ -862,7 +862,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_right'
@@ -874,7 +874,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_up'
@@ -886,7 +886,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 7)
           end
 
         end
@@ -895,7 +895,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -927,7 +927,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_left'
@@ -939,7 +939,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_right'
@@ -951,7 +951,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_up'
@@ -963,7 +963,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 7)
           end
 
         end
@@ -972,7 +972,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -1004,7 +1004,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 8)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 8)
           end
 
         when 'm_left'
@@ -1016,7 +1016,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 8)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 8)
           end
 
         when 'm_right'
@@ -1028,7 +1028,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 8)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 8)
           end
 
         when 'm_up'
@@ -1040,7 +1040,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 8)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 8)
           end
 
         end
@@ -1049,7 +1049,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -1081,7 +1081,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_left'
@@ -1093,7 +1093,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_right'
@@ -1105,7 +1105,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_up'
@@ -1117,7 +1117,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 7)
           end
 
         end
@@ -1126,7 +1126,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -1154,12 +1154,12 @@ class Sprite_Character < Sprite_Base
           @m_action = 'dashFront' if Input.press?(:SHIFT)
 
           if @m_action == 'dashFront'
-          	@m_speed = (@m_counter > 5 && @m_counter < 6) ? ((!dash) ? 0.22 : 0) : 0.22
+            @m_speed = (@m_counter > 5 && @m_counter < 6) ? ((!dash) ? 0.22 : 0) : 0.22
             (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 6
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_left'
@@ -1171,7 +1171,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_right'
@@ -1183,7 +1183,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_up'
@@ -1195,7 +1195,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 7)
           end
 
         end
@@ -1204,7 +1204,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -1236,7 +1236,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 11)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 11)
           end
 
         when 'm_left'
@@ -1248,7 +1248,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 11)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 11)
           end
 
         when 'm_right'
@@ -1260,7 +1260,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 11)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 11)
           end
 
         when 'm_up'
@@ -1272,7 +1272,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 11)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 11)
           end
 
         end
@@ -1281,7 +1281,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -1313,7 +1313,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_left'
@@ -1325,7 +1325,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_right'
@@ -1337,7 +1337,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_up'
@@ -1349,7 +1349,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 7)
           end
 
         end
@@ -1358,7 +1358,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -1388,7 +1388,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_left'
@@ -1399,7 +1399,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_right'
@@ -1410,7 +1410,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_up'
@@ -1421,7 +1421,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 7)
           end
 
         end
@@ -1430,7 +1430,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -1456,47 +1456,47 @@ class Sprite_Character < Sprite_Base
           if @m_action == 'dashFront'
             (@m_counter = 0; (@m_counter = 0; @m_action = 'dashStop') if !dash) if @m_counter > 6
           elsif @m_action == 'dashStop'
-          	(@m_counter = 0; @m_action = 'walkFront') if @m_counter > 5
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 5
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 9)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 9)
           end
 
         when 'm_left'
           @m_action = 'dashFront' if Input.press?(:SHIFT)
-					if @m_action == 'dashFront'
+          if @m_action == 'dashFront'
             (@m_counter = 0; (@m_counter = 0; @m_action = 'dashStop') if !dash) if @m_counter > 6
           elsif @m_action == 'dashStop'
-          	(@m_counter = 0; @m_action = 'walkFront') if @m_counter > 5
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 5
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 9)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 9)
           end
 
         when 'm_right'
           @m_action = 'dashFront' if Input.press?(:SHIFT)
-					if @m_action == 'dashFront'
+          if @m_action == 'dashFront'
             (@m_counter = 0; (@m_counter = 0; @m_action = 'dashStop') if !dash) if @m_counter > 6
           elsif @m_action == 'dashStop'
-          	(@m_counter = 0; @m_action = 'walkFront') if @m_counter > 5
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 5
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 9)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 9)
           end
 
         when 'm_up'
           @m_action = 'dashFront' if Input.press?(:SHIFT)
-					if @m_action == 'dashFront'
+          if @m_action == 'dashFront'
             (@m_counter = 0; (@m_counter = 0; @m_action = 'dashStop') if !dash) if @m_counter > 6
           elsif @m_action == 'dashStop'
-          	(@m_counter = 0; @m_action = 'walkFront') if @m_counter > 5
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 5
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 9)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 9)
           end
 
         end
@@ -1505,7 +1505,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -1532,11 +1532,11 @@ class Sprite_Character < Sprite_Base
           if @m_action == 'dashFront'
             (@m_counter = 5; (@m_counter = 0; @m_action = 'dashStop') if !dash) if @m_counter > 5
           elsif @m_action == 'dashStop'
-          	(@m_counter = 0; @m_action = 'walkFront') if @m_counter > 3
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 3
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_left'
@@ -1545,11 +1545,11 @@ class Sprite_Character < Sprite_Base
           if @m_action == 'dashFront'
             (@m_counter = 5; (@m_counter = 0; @m_action = 'dashStop') if !dash) if @m_counter > 5
           elsif @m_action == 'dashStop'
-          	(@m_counter = 0; @m_action = 'walkFront') if @m_counter > 3
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 3
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_right'
@@ -1558,11 +1558,11 @@ class Sprite_Character < Sprite_Base
           if @m_action == 'dashFront'
             (@m_counter = 5; (@m_counter = 0; @m_action = 'dashStop') if !dash) if @m_counter > 5
           elsif @m_action == 'dashStop'
-          	(@m_counter = 0; @m_action = 'walkFront') if @m_counter > 3
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 3
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_up'
@@ -1571,11 +1571,11 @@ class Sprite_Character < Sprite_Base
           if @m_action == 'dashFront'
             (@m_counter = 5; (@m_counter = 0; @m_action = 'dashStop') if !dash) if @m_counter > 5
           elsif @m_action == 'dashStop'
-          	(@m_counter = 0; @m_action = 'walkFront') if @m_counter > 3
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 3
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 7)
           end
 
         end
@@ -1584,7 +1584,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -1613,7 +1613,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 5)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 5)
           end
 
         when 'm_left'
@@ -1624,7 +1624,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 5)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 5)
           end
 
         when 'm_right'
@@ -1635,7 +1635,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 5)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 5)
           end
 
         when 'm_up'
@@ -1646,7 +1646,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 5)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 5)
           end
 
         end
@@ -1655,26 +1655,26 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
 
       else
 
-			self.bitmap = Cache.character(@character_name)
-			sign = @character_name[/^[\!\@]./]
+      self.bitmap = Cache.character(@character_name)
+      sign = @character_name[/^[\!\@]./]
 
-			if sign && sign.include?('@')
-				@cw = bitmap.width / 3
-				@ch = bitmap.height / 4
-			else
-				@cw = bitmap.width / 12
-				@ch = bitmap.height / 8
-			end
+      if sign && sign.include?('@')
+        @cw = bitmap.width / 3
+        @ch = bitmap.height / 4
+      else
+        @cw = bitmap.width / 12
+        @ch = bitmap.height / 8
+      end
 
-				self.ox = @cw / 2
-				self.oy = @ch
+        self.ox = @cw / 2
+        self.oy = @ch
         
       end
     
@@ -1697,7 +1697,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 1
-        	@m_speed = 0.22 if @m_speed.nil?
+          @m_speed = 0.22 if @m_speed.nil?
           @m_act_nm = 'stand' if @m_act_nm.nil?
           @m_action = 'stand' if @m_action.nil?
           @m_counter = 0 if @m_counter.nil?
@@ -1709,7 +1709,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 2
-        	@m_speed = 0.22 if @m_speed.nil?
+          @m_speed = 0.22 if @m_speed.nil?
           @m_act_nm = 'stand' if @m_act_nm.nil?
           @m_action = 'stand' if @m_action.nil?
           @m_counter = 0 if @m_counter.nil?
@@ -1721,7 +1721,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 3
-        	@m_speed = 0.22 if @m_speed.nil?
+          @m_speed = 0.22 if @m_speed.nil?
           @m_act_nm = 'stand' if @m_act_nm.nil?
           @m_action = 'stand' if @m_action.nil?
           @m_counter = 0 if @m_counter.nil?
@@ -1733,7 +1733,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 4
-        	@m_speed = 0.33 if @m_speed.nil?
+          @m_speed = 0.33 if @m_speed.nil?
           @m_act_nm = 'stand' if @m_act_nm.nil?
           @m_action = 'stand' if @m_action.nil?
           @m_counter = 0 if @m_counter.nil?
@@ -1745,7 +1745,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 5
-        	@m_speed = 0.33 if @m_speed.nil?
+          @m_speed = 0.33 if @m_speed.nil?
           @m_act_nm = 'stand' if @m_act_nm.nil?
           @m_action = 'stand' if @m_action.nil?
           @m_counter = 0 if @m_counter.nil?
@@ -1757,7 +1757,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 6
-        	@m_speed = 0.33 if @m_speed.nil?
+          @m_speed = 0.33 if @m_speed.nil?
           @m_act_nm = 'stand' if @m_act_nm.nil?
           @m_action = 'stand' if @m_action.nil?
           @m_counter = 0 if @m_counter.nil?
@@ -1769,7 +1769,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 7
-        	@m_speed = 0.22 if @m_speed.nil?
+          @m_speed = 0.22 if @m_speed.nil?
           @m_act_nm = 'stand' if @m_act_nm.nil?
           @m_action = 'stand' if @m_action.nil?
           @m_counter = 0 if @m_counter.nil?
@@ -1786,7 +1786,7 @@ class Sprite_Character < Sprite_Base
 
         case @character.character_index
         when 0
-        	@m_speed = 0.22 if @m_speed.nil?
+          @m_speed = 0.22 if @m_speed.nil?
           @m_act_nm = 'stand' if @m_act_nm.nil?
           @m_action = 'stand' if @m_action.nil?
           @m_counter = 0 if @m_counter.nil?
@@ -1798,7 +1798,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 1
-        	@m_speed = 0.22 if @m_speed.nil?
+          @m_speed = 0.22 if @m_speed.nil?
           @m_act_nm = 'stand' if @m_act_nm.nil?
           @m_action = 'stand' if @m_action.nil?
           @m_counter = 0 if @m_counter.nil?
@@ -1810,7 +1810,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 2
-        	@m_speed = 0.15 if @m_speed.nil?
+          @m_speed = 0.15 if @m_speed.nil?
           @m_act_nm = 'stand' if @m_act_nm.nil?
           @m_action = 'stand' if @m_action.nil?
           @m_counter = 0 if @m_counter.nil?
@@ -1822,7 +1822,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 3
-        	@m_speed = 0.15 if @m_speed.nil?
+          @m_speed = 0.15 if @m_speed.nil?
           @m_act_nm = 'stand' if @m_act_nm.nil?
           @m_action = 'stand' if @m_action.nil?
           @m_counter = 0 if @m_counter.nil?
@@ -1834,7 +1834,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 4
-        	@m_speed = 0.22 if @m_speed.nil?
+          @m_speed = 0.22 if @m_speed.nil?
           @m_act_nm = 'stand' if @m_act_nm.nil?
           @m_action = 'stand' if @m_action.nil?
           @m_counter = 0 if @m_counter.nil?
@@ -1846,7 +1846,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 5
-        	@m_speed = 0.22 if @m_speed.nil?
+          @m_speed = 0.22 if @m_speed.nil?
           @m_act_nm = 'stand' if @m_act_nm.nil?
           @m_action = 'stand' if @m_action.nil?
           @m_counter = 0 if @m_counter.nil?
@@ -1858,7 +1858,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 6
-        	@m_speed = 0.22 if @m_speed.nil?
+          @m_speed = 0.22 if @m_speed.nil?
           @m_act_nm = 'stand' if @m_act_nm.nil?
           @m_action = 'stand' if @m_action.nil?
           @m_counter = 0 if @m_counter.nil?
@@ -1870,7 +1870,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 7
-        	@m_speed = 0.22 if @m_speed.nil?
+          @m_speed = 0.22 if @m_speed.nil?
           @m_act_nm = 'stand' if @m_act_nm.nil?
           @m_action = 'stand' if @m_action.nil?
           @m_counter = 0 if @m_counter.nil?
@@ -1887,7 +1887,7 @@ class Sprite_Character < Sprite_Base
 
         case @character.character_index
         when 0
-        	@m_speed = 0.22 if @m_speed.nil?
+          @m_speed = 0.22 if @m_speed.nil?
           @m_act_nm = 'stand' if @m_act_nm.nil?
           @m_action = 'stand' if @m_action.nil?
           @m_counter = 0 if @m_counter.nil?
@@ -1899,7 +1899,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 1
-        	@m_speed = 0.22 if @m_speed.nil?
+          @m_speed = 0.22 if @m_speed.nil?
           @m_act_nm = 'stand' if @m_act_nm.nil?
           @m_action = 'stand' if @m_action.nil?
           @m_counter = 0 if @m_counter.nil?
@@ -1911,7 +1911,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 2
-        	@m_speed = 0.22 if @m_speed.nil?
+          @m_speed = 0.22 if @m_speed.nil?
           @m_act_nm = 'stand' if @m_act_nm.nil?
           @m_action = 'stand' if @m_action.nil?
           @m_counter = 0 if @m_counter.nil?
@@ -1923,7 +1923,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 3
-        	@m_speed = 0.22 if @m_speed.nil?
+          @m_speed = 0.22 if @m_speed.nil?
           @m_act_nm = 'stand' if @m_act_nm.nil?
           @m_action = 'stand' if @m_action.nil?
           @m_counter = 0 if @m_counter.nil?
@@ -2000,7 +2000,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           (@m_speed = 0.66; (@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 9.9)
+           (@m_speed = 0.66; (@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 9.9)
           end
 
         when 'm_left'
@@ -2012,7 +2012,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            (@m_speed = 0.66; (@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 9.9)
+            (@m_speed = 0.66; (@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 9.9)
           end
 
         when 'm_right'
@@ -2024,7 +2024,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            (@m_speed = 0.66; (@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 9.9)
+            (@m_speed = 0.66; (@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 9.9)
           end
 
         when 'm_up'
@@ -2036,7 +2036,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            (@m_speed = 0.66; (@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 9.9)
+            (@m_speed = 0.66; (@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 9.9)
           end
 
         end
@@ -2044,7 +2044,7 @@ class Sprite_Character < Sprite_Base
         #p "#{@m_action}%03d" % @m_counter
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 16
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
 
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -2071,7 +2071,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_left'
@@ -2083,7 +2083,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_right'
@@ -2095,7 +2095,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_up'
@@ -2107,7 +2107,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 7)
           end
 
         end
@@ -2116,7 +2116,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -2143,7 +2143,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_left'
@@ -2155,7 +2155,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_right'
@@ -2167,7 +2167,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_up'
@@ -2179,7 +2179,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 7)
           end
 
         end
@@ -2188,7 +2188,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height - 25
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -2215,7 +2215,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 5)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 5)
           end
 
         when 'm_left'
@@ -2227,7 +2227,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 5)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 5)
           end
 
         when 'm_right'
@@ -2239,7 +2239,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 5)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 5)
           end
 
         when 'm_up'
@@ -2251,7 +2251,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 5)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 5)
           end
 
         end
@@ -2260,7 +2260,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -2287,8 +2287,8 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            (@m_speed = (@m_counter > 2 && @m_counter < 3 && Input.press?(:DOWN)) ? 0 : 0.33;
-            (@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 4)
+            (@m_speed = (@m_counter > 2 && @m_counter < 3 && User.moveDOWN) ? 0 : 0.33;
+            (@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 4)
           end
 
         when 'm_left'
@@ -2300,8 +2300,8 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            (@m_speed = (@m_counter > 2 && @m_counter < 3 && Input.press?(:LEFT)) ? 0 : 0.33;
-            (@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 4)
+            (@m_speed = (@m_counter > 2 && @m_counter < 3 && User.moveLEFT) ? 0 : 0.33;
+            (@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 4)
           end
 
         when 'm_right'
@@ -2313,8 +2313,8 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            (@m_speed = (@m_counter > 2 && @m_counter < 3 && Input.press?(:RIGHT)) ? 0 : 0.33;
-            (@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 4)
+            (@m_speed = (@m_counter > 2 && @m_counter < 3 && User.moveRIGHT) ? 0 : 0.33;
+            (@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 4)
           end
 
         when 'm_up'
@@ -2326,8 +2326,8 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            (@m_speed = (@m_counter > 2 && @m_counter < 3 && Input.press?(:UP)) ? 0 : 0.33;
-            (@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 4)
+            (@m_speed = (@m_counter > 2 && @m_counter < 3 && User.moveUP) ? 0 : 0.33;
+            (@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 4)
           end
 
         end
@@ -2336,7 +2336,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -2364,7 +2364,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            (@m_speed = 0.66; (@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 15)
+            (@m_speed = 0.66; (@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 15)
           end
 
         when 'm_left'
@@ -2376,7 +2376,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            (@m_speed = 0.66; (@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 15)
+            (@m_speed = 0.66; (@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 15)
           end
 
         when 'm_right'
@@ -2388,7 +2388,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            (@m_speed = 0.66; (@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 15)
+            (@m_speed = 0.66; (@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 15)
           end
 
         when 'm_up'
@@ -2400,7 +2400,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            (@m_speed = 0.66; (@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 15)
+            (@m_speed = 0.66; (@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 15)
           end
 
         end
@@ -2409,7 +2409,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -2436,7 +2436,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_left'
@@ -2448,7 +2448,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_right'
@@ -2460,7 +2460,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_up'
@@ -2472,7 +2472,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 7)
           end
 
         end
@@ -2481,7 +2481,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + ((@m_action == 'stand') ? 7 : 23)
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -2512,7 +2512,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 9)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 9)
           end
 
         when 'm_left'
@@ -2524,7 +2524,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 9)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 9)
           end
 
         when 'm_right'
@@ -2536,7 +2536,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 9)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 9)
           end
 
         when 'm_up'
@@ -2548,7 +2548,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 9)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 9)
           end
 
         end
@@ -2557,7 +2557,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -2584,7 +2584,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_left'
@@ -2596,7 +2596,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_right'
@@ -2608,7 +2608,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_up'
@@ -2620,18 +2620,18 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 7)
           end
 
         end
 
         self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][8], "#{@m_action}%03d" % @m_counter)
-        (Input.press?(:LEFT)) ?        
+        (User.moveLEFT) ?        
         self.x = @character.screen_x - bitmap.width / 2 - 26 :
         self.x = @character.screen_x - bitmap.width / 2 + 26
         self.y = @character.screen_y - bitmap.height + ((@m_action == 'stand') ? 16 : 10)
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
 
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
@@ -2659,7 +2659,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_left'
@@ -2671,7 +2671,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_right'
@@ -2683,7 +2683,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_up'
@@ -2695,7 +2695,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 7)
           end
 
         end
@@ -2704,7 +2704,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -2731,7 +2731,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_left'
@@ -2743,7 +2743,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_right'
@@ -2755,7 +2755,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_up'
@@ -2767,7 +2767,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 7)
           end
 
         end
@@ -2776,7 +2776,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -2803,7 +2803,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 8)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 8)
           end
 
         when 'm_left'
@@ -2815,7 +2815,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 8)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 8)
           end
 
         when 'm_right'
@@ -2827,7 +2827,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 8)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 8)
           end
 
         when 'm_up'
@@ -2839,7 +2839,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 8)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 8)
           end
 
         end
@@ -2848,7 +2848,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -2875,7 +2875,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_left'
@@ -2887,7 +2887,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_right'
@@ -2899,7 +2899,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_up'
@@ -2911,7 +2911,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 7)
           end
 
         end
@@ -2920,7 +2920,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -2948,7 +2948,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_left'
@@ -2960,7 +2960,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_right'
@@ -2972,7 +2972,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_up'
@@ -2984,7 +2984,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 7)
           end
 
         end
@@ -2993,7 +2993,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -3020,7 +3020,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 11)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 11)
           end
 
         when 'm_left'
@@ -3032,7 +3032,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 11)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 11)
           end
 
         when 'm_right'
@@ -3044,7 +3044,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 11)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 11)
           end
 
         when 'm_up'
@@ -3056,7 +3056,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 11)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 11)
           end
 
         end
@@ -3065,7 +3065,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -3092,7 +3092,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_left'
@@ -3104,7 +3104,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_right'
@@ -3116,7 +3116,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_up'
@@ -3128,7 +3128,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 7)
           end
 
         end
@@ -3137,7 +3137,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -3163,7 +3163,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_left'
@@ -3174,7 +3174,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_right'
@@ -3185,7 +3185,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_up'
@@ -3196,7 +3196,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 7)
           end
 
         end
@@ -3205,7 +3205,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -3224,50 +3224,50 @@ class Sprite_Character < Sprite_Base
 
         when 'm_down'
           @m_action = 'dashFront' if Input.press?(:SHIFT)
-					if @m_action == 'dashFront'
+          if @m_action == 'dashFront'
             (@m_counter = 0; (@m_counter = 0; @m_action = 'dashStop') if !dash) if @m_counter > 6
           elsif @m_action == 'dashStop'
-          	(@m_counter = 0; @m_action = 'walkFront') if @m_counter > 5
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 5
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 9)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 9)
           end
 
         when 'm_left'
           @m_action = 'dashFront' if Input.press?(:SHIFT)
-					if @m_action == 'dashFront'
+          if @m_action == 'dashFront'
             (@m_counter = 0; (@m_counter = 0; @m_action = 'dashStop') if !dash) if @m_counter > 6
           elsif @m_action == 'dashStop'
-          	(@m_counter = 0; @m_action = 'walkFront') if @m_counter > 5
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 5
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 9)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 9)
           end
 
         when 'm_right'
           @m_action = 'dashFront' if Input.press?(:SHIFT)
-					if @m_action == 'dashFront'
+          if @m_action == 'dashFront'
             (@m_counter = 0; (@m_counter = 0; @m_action = 'dashStop') if !dash) if @m_counter > 6
           elsif @m_action == 'dashStop'
-          	(@m_counter = 0; @m_action = 'walkFront') if @m_counter > 5
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 5
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 9)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 9)
           end
 
         when 'm_up'
           @m_action = 'dashFront' if Input.press?(:SHIFT)
-					if @m_action == 'dashFront'
+          if @m_action == 'dashFront'
             (@m_counter = 0; (@m_counter = 0; @m_action = 'dashStop') if !dash) if @m_counter > 6
           elsif @m_action == 'dashStop'
-          	(@m_counter = 0; @m_action = 'walkFront') if @m_counter > 5
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 5
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 9)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 9)
           end
 
         end
@@ -3276,7 +3276,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -3303,11 +3303,11 @@ class Sprite_Character < Sprite_Base
           if @m_action == 'dashFront'
             (@m_counter = 5; (@m_counter = 0; @m_action = 'dashStop') if !dash) if @m_counter > 5
           elsif @m_action == 'dashStop'
-          	(@m_counter = 0; @m_action = 'walkFront') if @m_counter > 3
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 3
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 7)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_left'
@@ -3316,11 +3316,11 @@ class Sprite_Character < Sprite_Base
           if @m_action == 'dashFront'
             (@m_counter = 5; (@m_counter = 0; @m_action = 'dashStop') if !dash) if @m_counter > 5
           elsif @m_action == 'dashStop'
-          	(@m_counter = 0; @m_action = 'walkFront') if @m_counter > 3
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 3
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_right'
@@ -3329,11 +3329,11 @@ class Sprite_Character < Sprite_Base
           if @m_action == 'dashFront'
             (@m_counter = 5; (@m_counter = 0; @m_action = 'dashStop') if !dash) if @m_counter > 5
           elsif @m_action == 'dashStop'
-          	(@m_counter = 0; @m_action = 'walkFront') if @m_counter > 3
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 3
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 7)
           end
 
         when 'm_up'
@@ -3342,11 +3342,11 @@ class Sprite_Character < Sprite_Base
           if @m_action == 'dashFront'
             (@m_counter = 5; (@m_counter = 0; @m_action = 'dashStop') if !dash) if @m_counter > 5
           elsif @m_action == 'dashStop'
-          	(@m_counter = 0; @m_action = 'walkFront') if @m_counter > 3
+            (@m_counter = 0; @m_action = 'walkFront') if @m_counter > 3
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 7)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 7)
           end
 
         end
@@ -3355,7 +3355,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -3385,7 +3385,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-           ((@m_act_nm = 'stand' if !Input.repeat?(:DOWN); @m_counter = 0) if @m_counter > 5)
+           ((@m_act_nm = 'stand' if !User.moveDOWN; @m_counter = 0) if @m_counter > 5)
           end
 
         when 'm_left'
@@ -3396,7 +3396,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:LEFT); @m_counter = 0) if @m_counter > 5)
+            ((@m_act_nm = 'stand' if !User.moveLEFT; @m_counter = 0) if @m_counter > 5)
           end
 
         when 'm_right'
@@ -3407,7 +3407,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:RIGHT); @m_counter = 0) if @m_counter > 5)
+            ((@m_act_nm = 'stand' if !User.moveRIGHT; @m_counter = 0) if @m_counter > 5)
           end
 
         when 'm_up'
@@ -3418,7 +3418,7 @@ class Sprite_Character < Sprite_Base
           else
             @m_action = (Input.press?(:SHIFT) && !walk) ? 'dashFront' : 'walkFront'
             (@m_action == 'dashFront') ? @m_counter = 0 :
-            ((@m_act_nm = 'stand' if !Input.repeat?(:UP); @m_counter = 0) if @m_counter > 5)
+            ((@m_act_nm = 'stand' if !User.moveUP; @m_counter = 0) if @m_counter > 5)
           end
 
         end
@@ -3427,7 +3427,7 @@ class Sprite_Character < Sprite_Base
         self.x = @character.screen_x - bitmap.width / 2
         self.y = @character.screen_y - bitmap.height + 1
         
-        self.mirror = (Input.press?(:LEFT))
+        self.mirror = (User.moveLEFT)
         
         (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
         (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
@@ -3435,13 +3435,13 @@ class Sprite_Character < Sprite_Base
 
       else
 
-      	if @tile_id == 0
-	        index = @character.character_index
-	        pattern = @character.pattern < 3 ? @character.pattern : 1
-	        sx = (index % 4 * 3 + pattern) * @cw
-	        sy = (index / 4 * 4 + (@character.direction - 2) / 2) * @ch
-	        self.src_rect.set(sx, sy, @cw, @ch)
-	      end
+        if @tile_id == 0
+          index = @character.character_index
+          pattern = @character.pattern < 3 ? @character.pattern : 1
+          sx = (index % 4 * 3 + pattern) * @cw
+          sy = (index / 4 * 4 + (@character.direction - 2) / 2) * @ch
+          self.src_rect.set(sx, sy, @cw, @ch)
+        end
 
       end
     
@@ -3460,7 +3460,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 1
-        	@m_counter += @m_speed
+          @m_counter += @m_speed
           @m_counter = 0 if @m_counter > 7
           self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][1], "#{@m_action}%03d" % @m_counter)
           self.x = @character.screen_x - bitmap.width / 2
@@ -3468,7 +3468,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 2
-        	@m_counter += @m_speed
+          @m_counter += @m_speed
           @m_counter = 0 if @m_counter > 5
           self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][2], "#{@m_action}%03d" % @m_counter)
           self.x = @character.screen_x - bitmap.width / 2
@@ -3476,7 +3476,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 3
-        	@m_counter += @m_speed
+          @m_counter += @m_speed
           @m_counter = 0 if @m_counter > 5
           self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][3], "#{@m_action}%03d" % @m_counter)
           self.x = @character.screen_x - bitmap.width / 2
@@ -3484,7 +3484,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 4
-        	@m_counter += @m_speed
+          @m_counter += @m_speed
           @m_counter = 0 if @m_counter > 8
           self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][4], "#{@m_action}%03d" % @m_counter)
           self.x = @character.screen_x - bitmap.width / 2
@@ -3492,7 +3492,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 5
-        	@m_counter += @m_speed
+          @m_counter += @m_speed
           @m_counter = 0 if @m_counter > 7
           self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][5], "#{@m_action}%03d" % @m_counter)
           self.x = @character.screen_x - bitmap.width / 2
@@ -3500,7 +3500,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 6
-        	@m_counter += @m_speed
+          @m_counter += @m_speed
           @m_counter = 0 if @m_counter > 9
           self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][6], "#{@m_action}%03d" % @m_counter)
           self.x = @character.screen_x - bitmap.width / 2
@@ -3508,7 +3508,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 7
-        	@m_counter += @m_speed
+          @m_counter += @m_speed
           @m_counter = 0 if @m_counter > 17
           self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][7], "#{@m_action}%03d" % @m_counter)
           self.x = @character.screen_x - bitmap.width / 2
@@ -3521,7 +3521,7 @@ class Sprite_Character < Sprite_Base
 
         case @character.character_index
         when 0
-        	@m_counter += @m_speed
+          @m_counter += @m_speed
           @m_counter = 0 if @m_counter > 9
           self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][8], "#{@m_action}%03d" % @m_counter)
           self.x = @character.screen_x - bitmap.width / 2 + 26
@@ -3529,7 +3529,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 1
-        	@m_counter += @m_speed
+          @m_counter += @m_speed
           @m_counter = 0 if @m_counter > 8
           self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][9], "#{@m_action}%03d" % @m_counter)
           self.x = @character.screen_x - bitmap.width / 2
@@ -3537,7 +3537,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 2
-        	@m_counter += @m_speed
+          @m_counter += @m_speed
           @m_counter = 0 if @m_counter > 7
           self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][10], "#{@m_action}%03d" % @m_counter)
           self.x = @character.screen_x - bitmap.width / 2
@@ -3545,7 +3545,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 3
-        	@m_counter += @m_speed
+          @m_counter += @m_speed
           @m_counter = 0 if @m_counter > 5
           self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][11], "#{@m_action}%03d" % @m_counter)
           self.x = @character.screen_x - bitmap.width / 2
@@ -3553,7 +3553,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 4
-        	@m_counter += @m_speed
+          @m_counter += @m_speed
           @m_counter = 0 if @m_counter > 7
           self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][12], "#{@m_action}%03d" % @m_counter)
           self.x = @character.screen_x - bitmap.width / 2
@@ -3561,7 +3561,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 5
-        	@m_counter += @m_speed
+          @m_counter += @m_speed
           @m_counter = 0 if @m_counter > 17
           self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][13], "#{@m_action}%03d" % @m_counter)
           self.x = @character.screen_x - bitmap.width / 2
@@ -3569,7 +3569,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 6
-        	@m_counter += @m_speed
+          @m_counter += @m_speed
           @m_counter = 0 if @m_counter > 7
           self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][14], "#{@m_action}%03d" % @m_counter)
           self.x = @character.screen_x - bitmap.width / 2
@@ -3577,7 +3577,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 7
-        	@m_counter += @m_speed
+          @m_counter += @m_speed
           @m_counter = 0 if @m_counter > 7
           self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][15], "#{@m_action}%03d" % @m_counter)
           self.x = @character.screen_x - bitmap.width / 2
@@ -3590,7 +3590,7 @@ class Sprite_Character < Sprite_Base
 
         case @character.character_index
         when 0
-        	@m_counter += @m_speed
+          @m_counter += @m_speed
           @m_counter = 0 if @m_counter > 23
           self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][16], "#{@m_action}%03d" % @m_counter)
           self.x = @character.screen_x - bitmap.width / 2
@@ -3598,7 +3598,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 1
-        	@m_counter += @m_speed
+          @m_counter += @m_speed
           @m_counter = 0 if @m_counter > 7
           self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][17], "#{@m_action}%03d" % @m_counter)
           self.x = @character.screen_x - bitmap.width / 2
@@ -3606,7 +3606,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 2
-        	@m_counter += @m_speed
+          @m_counter += @m_speed
           @m_counter = 0 if @m_counter > 7
           self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][18], "#{@m_action}%03d" % @m_counter)
           self.x = @character.screen_x - bitmap.width / 2
@@ -3614,7 +3614,7 @@ class Sprite_Character < Sprite_Base
           (self.src_rect.x = -self.x; self.x = 0) if self.x < 0
           (self.src_rect.y = -self.y; self.y = 0) if self.y < 0
         when 3
-        	@m_counter += @m_speed
+          @m_counter += @m_speed
           @m_counter = 0 if @m_counter > 9
           self.bitmap = Cache.touhou(Touhou::FolderSources['Battler'][0][19], "#{@m_action}%03d" % @m_counter)
           self.x = @character.screen_x - bitmap.width / 2
@@ -3626,12 +3626,12 @@ class Sprite_Character < Sprite_Base
       else 
 
         if @tile_id == 0
-	        index = @character.character_index
-	        pattern = @character.pattern < 3 ? @character.pattern : 1
-	        sx = (index % 4 * 3 + pattern) * @cw
-	        sy = (index / 4 * 4 + (@character.direction - 2) / 2) * @ch
-	        self.src_rect.set(sx, sy, @cw, @ch)
-	      end
+          index = @character.character_index
+          pattern = @character.pattern < 3 ? @character.pattern : 1
+          sx = (index % 4 * 3 + pattern) * @cw
+          sy = (index / 4 * 4 + (@character.direction - 2) / 2) * @ch
+          self.src_rect.set(sx, sy, @cw, @ch)
+        end
 
       end
 
@@ -3658,24 +3658,24 @@ class Sprite_Character < Sprite_Base
         case $game_player.direction
         when 2
           #down
-          (@m_counter = 0 if @m_act_nm != "m_down"; @m_act_nm = "m_down") if Input.press?(:DOWN)
+          (@m_counter = 0 if @m_act_nm != "m_down"; @m_act_nm = "m_down") if User.moveDOWN
         when 1, 4, 7
           #up-left, left, down-left
-          (@m_counter = 0 if @m_act_nm != "m_left"; @m_act_nm = "m_left") if Input.press?(:LEFT)
+          (@m_counter = 0 if @m_act_nm != "m_left"; @m_act_nm = "m_left") if User.moveLEFT
         when 3, 6, 9 
           #right
-          (@m_counter = 0 if @m_act_nm != "m_right"; @m_act_nm = "m_right") if Input.press?(:RIGHT)
+          (@m_counter = 0 if @m_act_nm != "m_right"; @m_act_nm = "m_right") if User.moveRIGHT
         when 8
           #up
-          (@m_counter = 0 if @m_act_nm != "m_up"; @m_act_nm = "m_up") if Input.press?(:UP)
+          (@m_counter = 0 if @m_act_nm != "m_up"; @m_act_nm = "m_up") if User.moveUP
         end
 
       else
 
-      	move_animation(@character.screen_x - x, @character.screen_y - y)
-	      self.x = @character.screen_x
-	      self.y = @character.screen_y
-	      self.z = @character.screen_z
+        move_animation(@character.screen_x - x, @character.screen_y - y)
+        self.x = @character.screen_x
+        self.y = @character.screen_y
+        self.z = @character.screen_z
 
       end
 
