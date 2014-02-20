@@ -26,36 +26,24 @@ module User
     #RIGHT || 0x44 || D
     
     if State.call(0x57) & 0x80 != 0
-      if State.call(0x53) & 0x80 != 0
-        return 0
-    	if State.call(0x44) & 0x80 != 0
-        return 9
-      if State.call(0x41) & 0x80 != 0
-      	return 7
+      return 0 if State.call(0x53) & 0x80 != 0
+    	return 9 if State.call(0x44) & 0x80 != 0
+      return 7 if State.call(0x41) & 0x80 != 0
       return 8
     elsif State.call(0x44) & 0x80 != 0
-    	if State.call(0x41) & 0x80 != 0
-    		return 0
-    	if State.call(0x57) & 0x80 != 0
-    		return 9
-    	if State.call(0x53) & 0x80 != 0
-    		return 3
+    	return 0 if State.call(0x41) & 0x80 != 0
+    	return 9 if State.call(0x57) & 0x80 != 0
+    	return 3 if State.call(0x53) & 0x80 != 0
     	return 6
     elsif State.call(0x41) & 0x80 != 0
-    	if State.call(0x44) & 0x80 != 0
-    		return 0
-    	if State.call(0x57) & 0x80 != 0
-    		return 7
-    	if State.call(0x53) & 0x80 != 0
-    		return 1
+    	return 0 if State.call(0x44) & 0x80 != 0
+    	return 7 if State.call(0x57) & 0x80 != 0
+    	return 1 if State.call(0x53) & 0x80 != 0
     	return 4
     elsif State.call(0x53) & 0x80 != 0
-    	if State.call(0x57) & 0x80 != 0
-    		return 0
-    	if State.call(0x41) & 0x80 != 0
-    		return 1
-    	if State.call(0x44) & 0x80 != 0
-    		return 3
+    	return 0 if State.call(0x57) & 0x80 != 0
+    	return 1 if State.call(0x41) & 0x80 != 0
+    	return 3 if State.call(0x44) & 0x80 != 0
     	return 2
     else
     	return 0
