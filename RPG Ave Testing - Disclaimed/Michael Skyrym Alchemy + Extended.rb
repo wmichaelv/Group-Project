@@ -125,8 +125,10 @@ class RPG::BaseItem
     string[/(?<=[,]).*?(?=[)])/].to_i
   end
   def get_keys(string); @keys = Array.new if @keys.nil?; @keys << string; end
-  def finish(string); @ingr[string][0] == 0 end
+  def nf(string); @ingr[string][0] != 0 end
   def checkFinish
+    @ingr.each_key do |k|; return false if nf(k) end
+    return true
   end
 end
 
@@ -161,12 +163,12 @@ class Game_Alchemy
         when /<\/(?:key?)>/i; @get_keys = false
         else
           if @get_ingr
-            @product << $data_items[item.id] unless @product.include?($data_items[item.id]) 
             $data_items[item.id].get_ingr(notetag)
+            @product << $data_items[item.id].dup unless @product.include?($data_items[item.id]) 
           end
           if @get_keys
-            @keys[notetag] << $data_items[item.id] 
             $data_items[item.id].get_keys(notetag)
+            @keys[notetag] << $data_items[item.id].dup
           end
         end if $data_items[item.id].note.match(/<(?:ingr?)>/i) || $data_items[item.id].note.match(/<(?:key?)>/i)
       end unless item.nil? 
@@ -180,12 +182,12 @@ class Game_Alchemy
         when /<\/(?:key?)>/i; @get_keys = false
         else
           if @get_ingr
-            @product << $data_weapons[item.id] unless @product.include?($data_weapons[item.id]) 
             $data_weapons[item.id].get_ingr(notetag)
+            @product << $data_weapons[item.id].dup unless @product.include?($data_weapons[item.id]) 
           end
           if @get_keys
-            @keys[notetag] << $data_weapons[item.id] 
             $data_weapons[item.id].get_keys(notetag)
+            @keys[notetag] << $data_weapons[item.id].dup
           end
         end if $data_weapons[item.id].note.match(/<(?:ingr?)>/i) || $data_weapons[item.id].note.match(/<(?:key?)>/i)
       end unless item.nil? 
@@ -199,12 +201,12 @@ class Game_Alchemy
         when /<\/(?:key?)>/i; @get_keys = false
         else
           if @get_ingr
-            @product << $data_armors[item.id] unless @product.include?($data_armors[item.id]) 
             $data_armors[item.id].get_ingr(notetag)
+            @product << $data_armors[item.id].dup unless @product.include?($data_armors[item.id]) 
           end
           if @get_keys
-            @keys[notetag] << $data_armors[item.id] 
             $data_armors[item.id].get_keys(notetag)
+            @keys[notetag] << $data_armors[item.id].dup
           end
         end if $data_armors[item.id].note.match(/<(?:ingr?)>/i) || $data_armors[item.id].note.match(/<(?:key?)>/i)
       end unless item.nil? 
@@ -270,8 +272,11 @@ class Scene_Alchemy < Scene_MenuBase
   end
   def returnProduct
     $game_alchemy.resetUse(@product_window.index_number)
-    @ingredient_window.refresh; @product_window.pd = nil
-    @ingredient_window.deactivate; @product_window.activate; end
+    @product_window.pd = nil
+    @product_window.update
+    @ingredient_window.refresh;
+    @ingredient_window.deactivate; @product_window.activate
+    end
   def create_confirm_window
     @confirm_window = Window_Confirm.new(172, 208)
     @confirm_window.width = 200
@@ -283,6 +288,7 @@ class Scene_Alchemy < Scene_MenuBase
   end
   def confirm
     @ingredient_window.data[@usedIngr].used = true
+    @product_window.pd.ingr[@ingredient_window.ika[@usedIngr]][0] -= 1
     @ingredient_window.refresh; @ingredient_window.activate
     @ingredient_window.select_last; @confirm_window.deactivate
     @confirm_window.hide; @confirm_window.close
@@ -378,7 +384,7 @@ class Window_Ingredient < Window_Base
   end
   def contents_height; item_max * 24 end
   def active=(active); super; update_cursor; call_update_help end
-  def index=(index); @index = index; update_cursor; call_update_help end
+  def index=(index); @index = index; @index = 1 if @index == 0; update_cursor; call_update_help end
   def select(index); self.index = index if index end
   def unselect; self.index = -1 end
   def help_window=(help_window); @help_window = help_window; call_update_help end
@@ -455,8 +461,9 @@ class Window_Ingredient < Window_Base
     self.oy = index * 24
   end
   def ensure_cursor_visible
-    (self.top_row = self.index; self.index += 1) if self.index < self.top_row
-    self.top_row = self.index - 12 if self.index > self.top_row + 12
+    self.top_row = index if index < top_row
+    self.top_row = index - 12 if index > top_row + 12
+    self.top_row = 0 if index == 1
   end
   def call_update_help; update_help if active && @help_window end
   def ok_enabled?; true end
@@ -480,14 +487,14 @@ class Window_Ingredient < Window_Base
       if @data[i].is_a?(String)
         @ik = @data[i]; @ika << @ik
 
-        change_color(normal_color, true) 
+        change_color(text_color(0), @category.nf(@ik)) 
         draw_text(24, i * 24, 350, 24, 
           "#{(Keys_Nickname[@data[i]] ||= @data[i])}" + 
           ": Select " + "(%2d)" % @category.ingr[@data[i]][0]) 
       else; (draw_item(i, @ik); @ika << @ik) end }
   end
   def enable?(item, ik); $game_party.item_number(item) >= @category.ingr[ik][1] && 
-    !item.used && !@category.finish(ik) end
+    !item.used && @category.nf(ik) end
   def make_item_list
     return if @category.nil?
     @category.ingr.each_key { |k|
