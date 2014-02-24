@@ -1,0 +1,343 @@
+[
+  {
+    "ruleTrigger": {
+      "primary": "start",
+      "player": "each player"
+    },
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "pre-invoke"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "hand",
+        "player": "owner",
+        "class": "Scene",
+        "type": "Support",
+        "stat": "stat-disableEquip!=1"
+      }
+    },
+    "effectName": "theSupport"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "sp",
+      "criteria": {
+        "passing": "effect 0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "spCost"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "effect 0",
+        "name": "Moriya Shrine"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "continueVerify"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "2"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "leaderLevel"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "cannotUse",
+      "criteria": {
+        "passing": "effect 0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "cannotUse"
+    },
+    "effectName": "continueVerify"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "effect spCost"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "notEnoughSP"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "effect 0",
+        "class": "Extra Cost Equip"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterVerify"
+    }
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "extraCostEquipCheck",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "effect 0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "extraCostEquip"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "effect 0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedSelect",
+      "criteria": {
+        "passing": "effect 0",
+        "class": "Extra Cost Equip"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "notEnoughExtraCostPay"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "effect spCost"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "afterVerify"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "pre-useSpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "effect 0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "useScene"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "effect 0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "SecondRow",
+      "player": "target card owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "effect 0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "show card"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "effect 0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "passive",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "effect 0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "effect 0",
+        "class": "Extra Cost Equip"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "extraCostEquipPay",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "effect 0",
+        "class": "Extra Cost Equip"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "send event message",
+      "text": "Not Enough SP"
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectName": "notEnoughSP"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "extraCostEquipRevert"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "effect 0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "notEnoughExtraCostPay"
+  },
+  {
+    "action": {
+      "primary": "send event message",
+      "text": "Not enough resources to pay Extra Cost."
+    },
+    "target": {
+      "primary": "owner"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "cannotUse",
+      "criteria": {
+        "passing": "effect 0"
+      }
+    },
+    "effectName": "cannotUse"
+  }
+]
