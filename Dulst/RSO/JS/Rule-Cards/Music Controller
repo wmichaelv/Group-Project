@@ -1,0 +1,54 @@
+[
+  {
+    "action": {
+      "primary": "give choice",
+      "choiceType": "multiple choice",
+      "choiceQuestion": "Would you like to turn on BGM?",
+      "choices": "effect oppDecides Yes\neffect nothing No"
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectName": "ownDecides"
+  },
+  {
+    "action": {
+      "primary": "give choice",
+      "choiceType": "multiple choice",
+      "choiceQuestion": "Would you like to turn on BGM?",
+      "choices": "effect proceed Yes\neffect nothing No"
+    },
+    "target": {
+      "primary": "opponent"
+    },
+    "effectName": "oppDecides"
+  },
+  {
+    "action": {
+      "primary": "chance",
+      "odds": ".5"
+    },
+    "target": {},
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "runOpp"
+    },
+    "effectName": "proceed"
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "cardName": "Music Controller Own"
+    },
+    "target": {},
+    "effectName": "runOwn"
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "cardName": "Music Controller Opp"
+    },
+    "target": {},
+    "effectName": "runOpp"
+  }
+]
