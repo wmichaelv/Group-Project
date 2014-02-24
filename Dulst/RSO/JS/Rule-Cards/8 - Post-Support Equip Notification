@@ -1,0 +1,403 @@
+[
+  {
+    "ruleTrigger": {
+      "primary": "start",
+      "player": "turn player"
+    },
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "useSupport"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "type": "Support"
+      }
+    },
+    "effectName": "card"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "playerNumber",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "player"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "effect-equipTarget",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "ciid"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "notif",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "notif",
+      "criteria": {
+        "stat": "stat-ciid=effect ciid"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1",
+      "verifyTrue": "verifyNotFromOpp"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "fromOpp",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyFromOpp"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "effect player",
+      "verifyTrue": "notifOpp"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "playerNumber",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "notifOwn"
+    },
+    "effectName": "verifyNotFromOpp"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "effect player",
+      "verifyTrue": "notifOwn"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "playerNumber",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "notifOpp"
+    },
+    "effectName": "verifyFromOpp"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card"
+      },
+      "exclude": {
+        "class": "Scene"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "notifOppScene"
+    },
+    "effectName": "notifOpp"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "opponent",
+        "instructions": "Your opponent has equipped this Support to this card. Click Finish Select to continue."
+      },
+      "count": "1",
+      "criteria": {
+        "stat": "stat-notif=1"
+      },
+      "mandatory": "mandatory or random"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterNotif"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "opponent",
+        "instructions": "Your opponent will play this Scene. Click Finish Select to continue."
+      },
+      "count": "1",
+      "criteria": {
+        "passing": "card",
+        "stat": "stat-notif=1"
+      },
+      "mandatory": "mandatory or random"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterNotif"
+    },
+    "effectName": "notifOppScene"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card"
+      },
+      "exclude": {
+        "class": "Scene"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "notifOwnScene"
+    },
+    "effectName": "notifOwn"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "owner",
+        "instructions": "Your opponent has equipped this Support to this card. Click Finish Select to continue."
+      },
+      "count": "1",
+      "criteria": {
+        "stat": "stat-notif=1"
+      },
+      "mandatory": "mandatory or random"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterNotif"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "owner",
+        "instructions": "Your opponent will play this Scene. Click Finish Select to continue."
+      },
+      "count": "1",
+      "criteria": {
+        "passing": "card",
+        "stat": "stat-notif=1"
+      },
+      "mandatory": "mandatory or random"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterNotif"
+    },
+    "effectName": "notifOwnScene"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "notif",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "afterNotif"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "notif",
+      "criteria": {
+        "stat": "stat-ciid=effect ciid"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card"
+      },
+      "exclude": {
+        "class": "Scene"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "title",
+      "criteria": {
+        "stat": "stat-ciid=effect ciid"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "name"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect name",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Equipped To",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "title",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "nameB"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect nameB",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Equipped With",
+      "criteria": {
+        "type": "Spell",
+        "stat": "stat-ciid=effect ciid"
+      }
+    }
+  }
+]
