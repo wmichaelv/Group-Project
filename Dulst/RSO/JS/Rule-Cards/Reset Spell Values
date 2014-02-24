@@ -1,0 +1,625 @@
+[
+  {
+    "ruleTrigger": {
+      "primary": "start",
+      "player": "turn player"
+    },
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "pre-pre-replPhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    }
+  },
+  {
+    "action": {
+      "primary": "each"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "class": "Leader",
+        "type": "Character",
+        "stat": "stat-ev!=stat-baseEV"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "card"
+    },
+    "effectName": "leader"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "baseEV",
+      "criteria": {
+        "passing": "leader"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "baseEV"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect baseEV",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "ev",
+      "criteria": {
+        "passing": "leader"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "each"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "type": "Spell",
+        "stat": "stat-av!=stat-oAV"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "cardB"
+    },
+    "effectName": "card"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "oAV",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "oAV"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect oAV",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "av",
+      "criteria": {
+        "passing": "card"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "each"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "type": "Spell",
+        "stat": "stat-iv!=stat-oIV"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "cardC"
+    },
+    "effectName": "cardB"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "oIV",
+      "criteria": {
+        "passing": "cardB"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "oIV"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect oIV",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "iv",
+      "criteria": {
+        "passing": "cardB"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "each"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "type": "Spell",
+        "stat": "stat-hv!=stat-oHV"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "cardD"
+    },
+    "effectName": "cardC"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "oHV",
+      "criteria": {
+        "passing": "cardC"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "oHV"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect oHV",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "hv",
+      "criteria": {
+        "passing": "cardC"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "each"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "type": "Spell",
+        "stat": "stat-sp!=stat-oSP"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "cardE"
+    },
+    "effectName": "cardD"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "oSP",
+      "criteria": {
+        "passing": "cardD"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "oSP"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect oSP",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "sp",
+      "criteria": {
+        "passing": "cardD"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "each"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "type": "Spell",
+        "stat": "stat-lvl!=stat-oLVL"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "cardF"
+    },
+    "effectName": "cardE"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "oLVL",
+      "criteria": {
+        "passing": "cardE"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "oLVL"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect oLVL",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "lvl",
+      "criteria": {
+        "passing": "cardE"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "each"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "type": "Spell",
+        "stat": "stat-oUFM!=stat-Unfocused Movement"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "cardG"
+    },
+    "effectName": "cardF"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "oUFM",
+      "criteria": {
+        "passing": "cardF"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "oUFM"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect oUFM",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Unfocused Movement",
+      "criteria": {
+        "passing": "cardF"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "each"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "type": "Spell",
+        "stat": "stat-oFM!=stat-Focused Movement"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "cardH"
+    },
+    "effectName": "cardG"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "oFM",
+      "criteria": {
+        "passing": "cardG"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "oFM"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect oFM",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Focused Movement",
+      "criteria": {
+        "passing": "cardG"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "each"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "type": "Spell",
+        "stat": "stat-Protection!=stat-oPro"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "cardI"
+    },
+    "effectName": "cardH"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "oPro",
+      "criteria": {
+        "passing": "cardH"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "oPro"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect oPro",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Protection",
+      "criteria": {
+        "passing": "cardH"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "each"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "type": "Spell",
+        "stat": "stat-Faith!=stat-oFaith"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "cardJ"
+    },
+    "effectName": "cardI"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "oFaith",
+      "criteria": {
+        "passing": "cardI"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "oFaith"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect oFaith",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Faith",
+      "criteria": {
+        "passing": "cardI"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "each"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "type": "Spell",
+        "stat": "stat-Penetration!=stat-oPen"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "cardK"
+    },
+    "effectName": "cardJ"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "oPen",
+      "criteria": {
+        "passing": "cardJ"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "oPen"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect oPen",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Penetration",
+      "criteria": {
+        "passing": "cardJ"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "each"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "type": "Spell",
+        "stat": "stat-oGB!=stat-Guided Bullets"
+      }
+    },
+    "effectName": "cardK"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "oGB",
+      "criteria": {
+        "passing": "cardK"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "oGB"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect oGB",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Guided Bullets",
+      "criteria": {
+        "passing": "cardK"
+      }
+    }
+  }
+]
