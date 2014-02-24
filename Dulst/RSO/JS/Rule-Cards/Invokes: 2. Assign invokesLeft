@@ -1,0 +1,34 @@
+[
+  {
+    "ruleTrigger": {
+      "primary": "unique",
+      "player": "turn player"
+    },
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "invokesPerTurn"
+    },
+    "multiple": {
+      "primary": "every other turn",
+      "mustTrigger": "auto trigger",
+      "numberofTurns": "1"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect 0"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "invokesLeft"
+    }
+  }
+]
