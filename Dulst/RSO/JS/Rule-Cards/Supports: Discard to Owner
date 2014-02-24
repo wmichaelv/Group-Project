@@ -1,0 +1,353 @@
+[
+  {
+    "ruleTrigger": {
+      "primary": "start",
+      "player": "turn player"
+    },
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-moveCard",
+        "to": "afterlife"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "type": [
+          "Spell",
+          "Support",
+          "Event"
+        ],
+        "stat": "stat-fromOpp=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "oppCardsDeck,oppCardsHand,spellSupports,spell"
+    },
+    "effectName": "oppCards"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "MOVE"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "fromOpp",
+      "criteria": {
+        "passing": "oppCards"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "afterlife",
+      "player": "target card opponent"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "oppCards"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-moveCard",
+        "to": "deck"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "type": [
+          "Spell",
+          "Support",
+          "Event"
+        ],
+        "stat": "stat-fromOpp=1"
+      }
+    },
+    "effectName": "oppCardsDeck"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "MOVE"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "fromOpp",
+      "criteria": {
+        "passing": "oppCardsDeck"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "deck",
+      "player": "target card opponent",
+      "stackLocation": "bottom"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "oppCardsDeck"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-moveCard",
+        "to": "hand"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "type": [
+          "Spell",
+          "Support",
+          "Event"
+        ],
+        "stat": "stat-fromOpp=1"
+      }
+    },
+    "effectName": "oppCardsHand"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "MOVE"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "fromOpp",
+      "criteria": {
+        "passing": "oppCardsHand"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "hand",
+      "player": "target card opponent"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "oppCardsHand"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-moveCard",
+        "to": [
+          "deck",
+          "afterlife",
+          "hand"
+        ]
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "class": "Spell",
+        "type": "Support"
+      }
+    },
+    "effectName": "spellSupports"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "effect-equipTarget",
+      "criteria": {
+        "passing": "spellSupports"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "equipTarget"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "isEquippedWithSupport",
+      "criteria": {
+        "type": "Spell",
+        "stat": "stat-ciid=effect equipTarget"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "isEquippedWithSupport",
+      "criteria": {
+        "type": "Spell",
+        "stat": "stat-ciid=effect equipTarget"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "stringValue": "",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Equipped With",
+      "criteria": {
+        "type": "Spell",
+        "stat": "stat-ciid=effect equipTarget"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-moveCard",
+        "to": [
+          "deck",
+          "afterlife",
+          "hand"
+        ]
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "type": "Spell"
+      }
+    },
+    "effectName": "spell"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "class": "Spell",
+        "type": "Support",
+        "stat": "stat-effect-equipTarget=effect spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "support"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "afterlife",
+      "player": "target card owner",
+      "stackLocation": "top"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "effect support"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "sendToAL"
+  }
+]
