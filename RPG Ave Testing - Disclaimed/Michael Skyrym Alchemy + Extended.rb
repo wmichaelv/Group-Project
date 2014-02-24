@@ -1,8 +1,8 @@
 #==============================================================================
 #
 # Michael Skyrym Alchemy + Extended
-# Last Updated: 2014.02.23
-# V 1.0
+# Last Updated: 2014.02.24
+# V 1.01
 # Requirement: RPG Maker VX Ace
 #             -Knowledge of 'how to use script and notetag'
 #
