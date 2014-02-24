@@ -1,0 +1,283 @@
+[
+  {
+    "ruleTrigger": {
+      "primary": "start",
+      "player": "each player"
+    },
+    "action": {
+      "primary": "give effect",
+      "effectFrom": "effect start: Move to Active",
+      "replaceEffect": "source"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "SecondRow",
+        "player": "owner",
+        "type": "Spell",
+        "stat": "stat-disableActivate!=1"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "activatedFlag",
+      "criteria": {
+        "passing": "give effect target"
+      }
+    },
+    "effectName": "start"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "pre-pre-replPhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "activatedFlag",
+      "criteria": {
+        "passing": "give effect target"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "sp",
+      "criteria": {
+        "passing": "give effect target"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "givenEffect"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableActivate",
+      "criteria": {
+        "passing": "give effect target"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "notifyCannotActivate"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "give effect target",
+        "class": "Extra Cost Activate"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "checkSP"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "extraCostActivate"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "give effect target",
+        "class": "Extra Cost Activate"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "failExtraCost"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "notEnoughExtraCostPay"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "effect givenEffect"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "notEnoughSP"
+    },
+    "effectName": "checkSP"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "effect givenEffect"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "activate"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "FirstRow",
+      "player": "target card owner",
+      "silent": "silent"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "give effect target"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "set to attack position"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "give effect target"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "activate"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "give effect target"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "extraCostActivateRevert"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "give effect target",
+        "class": "Extra Cost Activate"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "notEnoughSP"
+  },
+  {
+    "action": {
+      "primary": "send event message",
+      "text": "Not enough SP"
+    },
+    "target": {
+      "primary": "owner"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "extraCostActivateRevert"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "give effect target",
+        "class": "Extra Cost Activate"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "notEnoughExtraCostPay"
+  },
+  {
+    "action": {
+      "primary": "send event message",
+      "text": "Not enough resources to pay Extra Cost."
+    },
+    "target": {
+      "primary": "owner"
+    }
+  },
+  {
+    "action": {
+      "primary": "send event message",
+      "text": "This card cannot be activated."
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectName": "notifyCannotActivate"
+  }
+]
