@@ -90,21 +90,112 @@ Keys_Nickname = {
 #
 #==============================================================================
 
+class Game_Interpreter
+  attr_accessor :map_id, :event_id, :list, :index, :fiber
+end
+
+#==============================================================================
+# SCENARIO 1
+#==============================================================================
+
+#WHEN SUCCEES, CALL Suc_EVENT_ID (common event)
+#WHEN FAIL, CALL Fail_EVENT_ID (common event)
+
+Variables_ID = nil #Change variable ID if u're using variable
+                   #Change nil to 1 if you're using variable ID 1
+                   #Change nil to 500 if you're using variable ID 500
+Suc_EVENT_ID = 1 #Change to Event ID for Success
+                   #Use Common Event ID or something weird will happen
+Fai_EVENT_ID = nil #Change to Event ID for Failure
+                   #Use Common Event ID or something weird will happen
+
 class Scene_Alchemy < Scene_MenuBase
 
   def success_rate
-    @give100rate = 100
-    @success = nil #Result variable to grab for event(s)
 
-    if @give100rate == 100
-      @success = true
+    if rand(100) <= ((Variables_ID) ? $game_variables[Variables_ID] : 100)
+      ce = $data_common_events[Suc_EVENT_ID] unless Suc_EVENT_ID.nil?
+      if ce
+        c = Game_Interpreter.new
+        c.clear
+        c.map_id = $game_map.map_id
+        c.event_id = 0
+        c.list = ce.list
+        c.create_fiber
+        c.wait_for_message
+        while c.list[c.index] do
+          c.execute_command
+          c.index += 1
+        end
+        c.fiber = nil
+      end
       return true
     else
-      @success = false
+      ce = $data_common_events[Fai_EVENT_ID] unless Fai_EVENT_ID.nil?
+      if ce
+        c = Game_Interpreter.new
+        c.clear
+        c.map_id = $game_map.map_id
+        c.event_id = 0
+        c.list = ce.list
+        c.create_fiber
+        c.wait_for_message
+        while c.list[c.index] do
+          c.execute_command
+          c.index += 1
+        end
+        c.fiber = nil
+      end
       return false
     end
   end
 end
+
+#==============================================================================
+# SCENARIO 2
+#==============================================================================
+
+#Remove "=begin" and "=end" to use
+
+=begin #remove this line to use scenario 2, don't forget the "=end" also
+
+#WHEN SUCCEES, turn SWITCD_ID on, CALL EVENT_ID (common event)
+#WHEN FAIL, turn SWITCD_ID off, CALL EVENT_ID (common event)
+
+Variables_ID = nil #Change variable ID if u're using variable
+                   #Change nil to 1 if you're using variable ID 1
+                   #Change nil to 500 if you're using variable ID 500
+SWITCH_ID = 999    #Change to SWITCH ID
+EVENT_ID = nil     #Change to Event ID
+                   #Use Common Event ID or something weird will happen
+
+
+class Scene_Alchemy < Scene_MenuBase
+
+  def success_rate
+
+    $game_switches[SWITCH_ID] = 
+    rand(100) <= ((Variables_ID) ? $game_variables[Variables_ID] : 100)
+    ce = $data_common_events[EVENT_ID] unless EVENT_ID.nil?
+    if ce
+        c = Game_Interpreter.new
+        c.clear
+        c.map_id = $game_map.map_id
+        c.event_id = 0
+        c.list = ce.list
+        c.create_fiber
+        c.wait_for_message
+        while c.list[c.index] do
+          c.execute_command
+          c.index += 1
+        end
+        c.fiber = nil
+      end
+    $game_switches[SWITCH_ID]
+  end
+end
+
+=end #remove this line to use scenario 2
 
 #==============================================================================
 #
@@ -122,6 +213,7 @@ end
 # Bio
 #==============================================================================
 #
+# 2014.02.24 - V 1.01  Minor event call fix and script trimmed down
 # 2014.02.23 - V 1.00  Script is released and up for bug testing
 # 2014.02.23 - V 0.14  Implementing Alchemy Algoritm
 # 2014.02.22 - V 0.13  GUI is finished
@@ -182,59 +274,25 @@ class Game_Alchemy
   def initialize
     @pr = Array.new
     @keys = Hash.new {|h,k| h[k]=[]}
-    $data_items.each do |item| 
-      item.note.split(/[\r\n]+/).each do |nt|
-        case nt
-        when /<(?:ingr?)>/i; @gi = true
-        when /<\/(?:ingr?)>/i; @gi = false
-        when /<(?:key?)>/i; @gk = true
-        when /<\/(?:key?)>/i; @gk = false
-        else
-          if @gi
-            @pr << $data_items[item.id] unless @pr.include?($data_items[item.id]) 
-            $data_items[item.id].get_ingr(nt)
-          end
-          if @gk
-            @keys[nt] << $data_items[item.id]; $data_items[item.id].get_keys(nt)
-          end
-        end if $data_items[item.id].note.match(/<(?:ingr?)>/i) || $data_items[item.id].note.match(/<(?:key?)>/i)
-      end unless item.nil? 
-    end
-    $data_weapons.each do |item| 
-      item.note.split(/[\r\n]+/).each do |nt|
-        case nt
-        when /<(?:ingr?)>/i; @gi = true
-        when /<\/(?:ingr?)>/i; @gi = false
-        when /<(?:key?)>/i; @gk = true
-        when /<\/(?:key?)>/i; @gk = false
-        else
-          if @gi
-            @pr << $data_weapons[item.id] unless @pr.include?($data_weapons[item.id]) 
-            $data_weapons[item.id].get_ingr(nt)
-          end
-          if @gk
-            @keys[nt] << $data_weapons[item.id]; $data_weapons[item.id].get_keys(nt)
-          end
-        end if $data_weapons[item.id].note.match(/<(?:ingr?)>/i) || $data_weapons[item.id].note.match(/<(?:key?)>/i)
-      end unless item.nil? 
-    end
-    $data_armors.each do |item| 
-      item.note.split(/[\r\n]+/).each do |nt|
-        case nt
-        when /<(?:ingr?)>/i; @gi = true
-        when /<\/(?:ingr?)>/i; @gi = false
-        when /<(?:key?)>/i; @gk = true
-        when /<\/(?:key?)>/i; @gk = false
-        else
-          if @gi
-            @pr << $data_armors[item.id] unless @pr.include?($data_armors[item.id]) 
-            $data_armors[item.id].get_ingr(nt)
-          end
-          if @gk
-            @keys[nt] << $data_armors[item.id]; $data_armors[item.id].get_keys(nt)
-          end
-        end if $data_armors[item.id].note.match(/<(?:ingr?)>/i) || $data_armors[item.id].note.match(/<(?:key?)>/i)
-      end unless item.nil? 
+    [$data_items, $data_weapons, $data_armors].each do |array|
+      array.each do |i|
+        i.note.split(/[\r\n]+/).each do |nt|
+          case nt
+          when /<(?:ingr?)>/i; @gi = true
+          when /<\/(?:ingr?)>/i; @gi = false
+          when /<(?:key?)>/i; @gk = true
+          when /<\/(?:key?)>/i; @gk = false
+          else
+            if @gi
+              @pr << i unless @pr.include?(i) 
+              i.get_ingr(nt)
+            end
+            if @gk
+              @keys[nt] << i; i.get_keys(nt)
+            end
+          end if i.note.match(/<(?:ingr?)>/i) || i.note.match(/<(?:key?)>/i)
+        end unless i.nil?
+      end
     end
     @pr.each { |item| checkCanMake?(item) }
   end
@@ -242,17 +300,18 @@ class Game_Alchemy
     getPair(item)
     lss = item.ingr.size
     sp = Hash.new
+    spp = Hash.new {|h,k| h[k]=[]}
     item.ingr.each_pair { |k, v|
       lsr = v[0]
       @keys[k].each { |t| 
-        (@p.include?(t)) ? (sp[t] = 0 if sp[t].nil?; sp[t] += v[1]) : lsr -= 1 if $game_party.item_number(t) >= v[1]
-        lsr -= 1 if $game_party.item_number(t) >= sp[t] if sp[t] && lsr > 0
+        ((@p.include?(t)) ? sp[t] ||= 0 : lsr -= 1) if $game_party.item_number(t) >= v[1]
+        (sp[t] += v[1]; lsr -= 1 if $game_party.item_number(t) >= sp[t]) if sp[t] && lsr > 0
       }; lss -= 1 if lsr <= 0 }
     item.cmake = (lss <= 0); @p = nil
   end
   def getPair(item)
     b = Array.new; @p = Array.new
-    item.ingr.each_key { |k| @keys[k].each { |i| (b.include?(i)) ? b << i : @p << i} }
+    item.ingr.each_key { |k| @keys[k].each { |i| (b.include?(i)) ? @p << i : b << i} }
   end
 
   def rU(i); @pr[i].ingr.each_key { |k| @keys[k].each { |item| item.used[k] = false } } end
@@ -295,8 +354,7 @@ class Scene_Alchemy < Scene_MenuBase
     @iw.deactivate
   end
   def ingredientSelect(i)
-    @usedIngr = i
-    @sui << i
+    @usedIngr = i; @sui << i
     @iw.deactivate; @cw.activate
     @cw.show; @cw.open
   end
@@ -320,9 +378,9 @@ class Scene_Alchemy < Scene_MenuBase
     if $ga.pr[@pw.in].cF
       confirm_alchemy
       $ga.rU(@pw.in); $ga.rR(@pw.in)
-      @iw.refresh; @pw.activate
+      @iw.refresh; @pw.activate; @iw.sl
     else
-      @iw.refresh; @iw.activate; @iw.sl;
+      @iw.refresh; @iw.activate; @iw.sl
     end
   end
   def confirm_alchemy
