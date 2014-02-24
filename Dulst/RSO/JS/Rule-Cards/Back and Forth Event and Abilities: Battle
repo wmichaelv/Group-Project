@@ -1,0 +1,1051 @@
+[
+  {
+    "ruleTrigger": {
+      "primary": "card",
+      "player": "card owner"
+    },
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "eventDrawCheck,opponentSP"
+    },
+    "effectName": "playerSP"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "opponent",
+      "playerProperty": "sp"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "opponentSP"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "passPlayer",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "passOpp",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "canActivate",
+      "criteria": {
+        "from": [
+          "board",
+          "hand"
+        ],
+        "class": "Battle Phase"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "canActivate",
+      "criteria": {
+        "from": "deadpool",
+        "class": "Battle Phase",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "leader"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "canActivate",
+      "criteria": {
+        "from": "hand",
+        "player": "owner",
+        "class": "Battle Phase",
+        "type": "Event",
+        "stat": "stat-sp<=effect playerSP"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "ownEvent"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "canActivate",
+      "criteria": {
+        "from": "hand",
+        "player": "opponent",
+        "class": "Battle Phase",
+        "type": "Event",
+        "stat": "stat-sp<=effect opponentSP"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "opponentEvent"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "canActivate",
+      "criteria": {
+        "from": "board",
+        "class": "Battle Phase",
+        "type": "Support"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "support"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "canActivate",
+      "criteria": {
+        "from": "board",
+        "player": "owner",
+        "class": "Battle Phase",
+        "type": "Spell",
+        "stat": "stat-isBattleSpell>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "ownBattle"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "canActivate",
+      "criteria": {
+        "from": "board",
+        "player": "opponent",
+        "class": "Battle Phase",
+        "type": "Spell",
+        "stat": "stat-isBattleSpell>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "oppBattle"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "count": "1",
+      "criteria": {
+        "from": [
+          "board",
+          "hand",
+          "deadpool"
+        ],
+        "player": "owner",
+        "class": "Battle Phase",
+        "stat": "stat-usable=1&&stat-canActivate=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "failPlayer"
+    },
+    "effectName": "verifyPlayerQS"
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "verify",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": [
+          "board",
+          "hand",
+          "deadpool"
+        ],
+        "player": "owner",
+        "class": "Battle Phase",
+        "stat": "stat-usable=1&&stat-canActivate=1"
+      },
+      "mandatory": "effect playerCard"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "playerSpCheck"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "owner",
+        "instructions": "Play an Event or a Special"
+      },
+      "count": "1",
+      "criteria": {
+        "from": [
+          "board",
+          "hand",
+          "deadpool"
+        ],
+        "player": "owner",
+        "class": "Battle Phase",
+        "stat": "stat-qualifiedSelect>=1&&stat-usable=1&&stat-canActivate=1"
+      },
+      "exclude": {
+        "stat": "stat-disableUse>=1"
+      },
+      "mandatory": "failPlayer"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "playerCard"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "playerCard",
+        "class": "Extra Cost Use"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "runPlayerCard"
+    },
+    "effectName": "verifyPlayerExtraCost"
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "extraCostUse",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "playerCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "extraCostUse"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "playerCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1",
+      "verifyTrue": "effect runPlayerCard"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "failExtraCost"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "extraCostUseRevert"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "playerCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "playerRevert"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "failExtraCost"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "send event message",
+      "text": "Not enough resources to pay Extra Cost."
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "playerCard"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "playerCard",
+        "class": "Extra Cost Use",
+        "type": [
+          "Character",
+          "Spell",
+          "Support",
+          "Event"
+        ]
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "runPlayer"
+    },
+    "effectName": "runPlayerCard"
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "verify",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "playerCard",
+        "class": "Extra Cost Use",
+        "type": [
+          "Character",
+          "Spell",
+          "Support",
+          "Event"
+        ]
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedSelect",
+      "criteria": {
+        "passing": "playerCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "playerRevert"
+    }
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "active",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "playerCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "runPlayer"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "passPlayer",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1",
+      "verifyTrue": "verifyOppQS"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "failExtraCost"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "failExtraCost"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyPlayerQS"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "count": "1",
+      "criteria": {
+        "from": [
+          "board",
+          "hand",
+          "deadpool"
+        ],
+        "player": "opponent",
+        "class": "Battle Phase",
+        "stat": "stat-usable=1&&stat-canActivate=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "failOpp"
+    },
+    "effectName": "verifyOppQS"
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "verify",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": [
+          "board",
+          "hand",
+          "deadpool"
+        ],
+        "player": "opponent",
+        "class": "Battle Phase",
+        "stat": "stat-usable=1&&stat-canActivate=1"
+      },
+      "mandatory": "effect opponentCard"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "oppSpCheck"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "opponent",
+        "instructions": "Play an Event or a Special"
+      },
+      "count": "1",
+      "criteria": {
+        "from": [
+          "board",
+          "hand",
+          "deadpool"
+        ],
+        "player": "opponent",
+        "class": "Battle Phase",
+        "stat": "stat-qualifiedSelect>=1&&stat-usable=1&&stat-canActivate=1"
+      },
+      "exclude": {
+        "stat": "stat-disableUse>=1"
+      },
+      "mandatory": "failOpp"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "opponentCard"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "opponentCard",
+        "class": "Extra Cost Use"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "runOpponentCard"
+    },
+    "effectName": "verifyOpponentExtraCost"
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "extraCostUse",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "opponentCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "extraCostUse"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "opponentCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1",
+      "verifyTrue": "effect runOpponentCard"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "failExtraCost"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "extraCostUseRevert"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "opponentCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "oppRevert"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "failExtraCost"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "send event message",
+      "text": "Not enough resources to pay Extra Cost."
+    },
+    "target": {
+      "primary": "opponent"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "opponentCard"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "opponentCard",
+        "class": "Extra Cost Use",
+        "type": [
+          "Character",
+          "Spell",
+          "Support",
+          "Event"
+        ]
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "runOpp"
+    },
+    "effectName": "runOpponentCard"
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "verify",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "opponentCard",
+        "class": "Extra Cost Use",
+        "type": [
+          "Character",
+          "Spell",
+          "Support",
+          "Event"
+        ]
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedSelect",
+      "criteria": {
+        "passing": "opponentCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "oppRevert"
+    }
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "active",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "opponentCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "runOpp"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "passOpp",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1",
+      "verifyTrue": "verifyPlayerQS"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "failExtraCost"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "failExtraCost"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyOppQS"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "passPlayer",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "failPlayer"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1",
+      "verifyTrue": "verifyOppQS"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "passOpp",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "over"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "passOpp",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "failOpp"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1",
+      "verifyTrue": "verifyPlayerQS"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "passPlayer",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "over"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "backandforthends"
+      }
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectName": "over"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-moveCard",
+        "to": "hand"
+      },
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "type": "Event"
+      }
+    },
+    "effectName": "eventDrawCheck"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "canActivate",
+      "criteria": {
+        "from": "hand",
+        "player": "opponent",
+        "class": "Battle Phase",
+        "type": "Event",
+        "stat": "stat-sp<=effect opponentSP"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "canActivate",
+      "criteria": {
+        "from": "hand",
+        "player": "owner",
+        "class": "Battle Phase",
+        "type": "Event",
+        "stat": "stat-sp<=effect playerSP"
+      }
+    }
+  }
+]

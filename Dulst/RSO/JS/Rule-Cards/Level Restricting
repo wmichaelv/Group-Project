@@ -1,0 +1,822 @@
+[
+  {
+    "ruleTrigger": {
+      "primary": "start",
+      "player": "each player"
+    },
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": [
+          "post-statIncrease",
+          "post-statDecrease"
+        ]
+      }
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "leaderLevel"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "passiveb"
+    },
+    "effectName": "passive"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "leaderLevel"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "level"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "C1",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "leaderName"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect leaderName"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "charName"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "requestLevel"
+      }
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "charLevel"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "levelOwnEvent"
+  },
+  {
+    "action": {
+      "primary": "each"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": [
+          "afterlife",
+          "hand",
+          "deck"
+        ],
+        "player": "owner",
+        "class": "effect leaderName",
+        "type": "Event"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "eachSupport"
+    },
+    "effectName": "eachEvent"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "eachEvent",
+        "class": "Team"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "checkSolo"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "effect leaderName"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "C1",
+      "criteria": {
+        "passing": "eachEvent"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "checkTeam2"
+    },
+    "effectName": "checkTeam1"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "effect levelOwnEvent",
+      "verifyTrue": "disable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Count1",
+      "criteria": {
+        "passing": "eachEvent"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "enable"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "effect leaderName"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "C2",
+      "criteria": {
+        "passing": "eachEvent"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "checkTeam3"
+    },
+    "effectName": "checkTeam2"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "effect levelOwnEvent",
+      "verifyTrue": "disable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Count2",
+      "criteria": {
+        "passing": "eachEvent"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "enable"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "effect leaderName"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "C3",
+      "criteria": {
+        "passing": "eachEvent"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "checkTeam4"
+    },
+    "effectName": "checkTeam3"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "effect levelOwnEvent",
+      "verifyTrue": "disable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Count3",
+      "criteria": {
+        "passing": "eachEvent"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "enable"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "effect leaderName"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "C4",
+      "criteria": {
+        "passing": "eachEvent"
+      }
+    },
+    "effectName": "checkTeam4"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "effect levelOwnEvent",
+      "verifyTrue": "disable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Count4",
+      "criteria": {
+        "passing": "eachEvent"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "enable"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "effect levelOwnEvent"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "lvl",
+      "criteria": {
+        "passing": "eachEvent"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "enable"
+    },
+    "effectName": "checkSolo"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "usable",
+      "criteria": {
+        "passing": "eachEvent"
+      }
+    },
+    "effectName": "disable"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "usable",
+      "criteria": {
+        "passing": "eachEvent"
+      }
+    },
+    "effectName": "enable"
+  },
+  {
+    "action": {
+      "primary": "each"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": [
+          "afterlife",
+          "board",
+          "hand",
+          "deck"
+        ],
+        "player": "owner",
+        "class": "effect leaderName",
+        "type": "Support"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "eachSpell"
+    },
+    "effectName": "eachSupport"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "eachSupport",
+        "class": "Team"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "checkSoloB"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "effect leaderName"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "C1",
+      "criteria": {
+        "passing": "eachSupport"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "checkTeam2B"
+    },
+    "effectName": "checkTeam1B"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "effect levelOwnEvent",
+      "verifyTrue": "disableB"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Count1",
+      "criteria": {
+        "passing": "eachSupport"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "enableB"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "effect leaderName"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "C2",
+      "criteria": {
+        "passing": "eachSupport"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "checkTeam3B"
+    },
+    "effectName": "checkTeam2B"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "effect levelOwnEvent",
+      "verifyTrue": "disableB"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Count2",
+      "criteria": {
+        "passing": "eachSupport"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "enableB"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "effect leaderName"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "C3",
+      "criteria": {
+        "passing": "eachSupport"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "checkTeam4B"
+    },
+    "effectName": "checkTeam3B"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "effect levelOwnEvent",
+      "verifyTrue": "disableB"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Count3",
+      "criteria": {
+        "passing": "eachSupport"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "enableB"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "effect leaderName"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "C4",
+      "criteria": {
+        "passing": "eachSupport"
+      }
+    },
+    "effectName": "checkTeam4B"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "effect levelOwnEvent",
+      "verifyTrue": "disableB"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Count4",
+      "criteria": {
+        "passing": "eachSupport"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "enableB"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "effect levelOwnEvent"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "lvl",
+      "criteria": {
+        "passing": "eachSupport"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "enableB"
+    },
+    "effectName": "checkSoloB"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableEquip",
+      "criteria": {
+        "passing": "eachSupport"
+      }
+    },
+    "effectName": "disableB"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableEquip",
+      "criteria": {
+        "passing": "eachSupport"
+      }
+    },
+    "effectName": "enableB"
+  },
+  {
+    "action": {
+      "primary": "each"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": [
+          "afterlife",
+          "board",
+          "hand",
+          "deck"
+        ],
+        "player": "owner",
+        "class": "effect leaderName",
+        "type": "Spell"
+      }
+    },
+    "effectName": "eachSpell"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "eachSpell",
+        "class": "Team"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "checkSoloC"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "effect leaderName"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "C1",
+      "criteria": {
+        "passing": "eachSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "checkTeam2C"
+    },
+    "effectName": "checkTeam1C"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "effect levelOwnEvent",
+      "verifyTrue": "disableC"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Count1",
+      "criteria": {
+        "passing": "eachSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "enableC"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "effect leaderName"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "C2",
+      "criteria": {
+        "passing": "eachSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "checkTeam3C"
+    },
+    "effectName": "checkTeam2C"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "effect levelOwnEvent",
+      "verifyTrue": "disableC"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Count2",
+      "criteria": {
+        "passing": "eachSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "enableC"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "effect leaderName"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "C3",
+      "criteria": {
+        "passing": "eachSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "checkTeam4C"
+    },
+    "effectName": "checkTeam3C"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "effect levelOwnEvent",
+      "verifyTrue": "disableC"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Count3",
+      "criteria": {
+        "passing": "eachSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "enableC"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "effect leaderName"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "C4",
+      "criteria": {
+        "passing": "eachSpell"
+      }
+    },
+    "effectName": "checkTeam4C"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "effect levelOwnEvent",
+      "verifyTrue": "disableC"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Count4",
+      "criteria": {
+        "passing": "eachSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "enableC"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "effect levelOwnEvent"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "lvl",
+      "criteria": {
+        "passing": "eachSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "enableC"
+    },
+    "effectName": "checkSoloC"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableActivate",
+      "criteria": {
+        "passing": "eachSpell"
+      }
+    },
+    "effectName": "disableC"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableActivate",
+      "criteria": {
+        "passing": "eachSpell"
+      }
+    },
+    "effectName": "enableC"
+  }
+]

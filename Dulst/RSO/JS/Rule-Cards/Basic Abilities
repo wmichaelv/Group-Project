@@ -1,0 +1,1002 @@
+[
+  {
+    "ruleTrigger": {
+      "primary": "card",
+      "player": "turn player"
+    },
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "turnPlayer"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "turnPlayer"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect turnPlayer"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "playerNumber",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "Set owner as turnPlayer"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "effect-attackerSpell",
+      "criteria": {
+        "name": "Phases: Game Loop"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "attackerSpell"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "effect-interceptSpell",
+      "criteria": {
+        "name": "Phases: Game Loop"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "interceptSpell"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "attackerPenetration"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "effect interceptSpell"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "interceptPenetration"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Penetration",
+      "criteria": {
+        "passing": "attackerSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "ifinterceptProtection"
+    },
+    "effectName": "attackerPenetration"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Protection",
+      "criteria": {
+        "passing": "interceptSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "interceptPenetration"
+    },
+    "effectName": "ifinterceptProtection"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Protection",
+      "criteria": {
+        "passing": "interceptSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "interceptProtection"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "effect interceptProtection",
+      "undo": {
+        "primary": "game event",
+        "event": "post-BACalculation"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "av",
+      "criteria": {
+        "passing": "attackerSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "attackerGuidedBullets"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Penetration",
+      "criteria": {
+        "passing": "interceptSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "ifattackerProtection"
+    },
+    "effectName": "interceptPenetration"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Protection",
+      "criteria": {
+        "passing": "attackerSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "attackerGuidedBullets"
+    },
+    "effectName": "ifattackerProtection"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Protection",
+      "criteria": {
+        "passing": "attackerSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "attackerProtection"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "effect attackerProtection",
+      "undo": {
+        "primary": "game event",
+        "event": "post-BACalculation"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "iv",
+      "criteria": {
+        "passing": "interceptSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "attackerGuidedBullets"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "interceptGuidedBullets"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Guided Bullets",
+      "criteria": {
+        "passing": "attackerSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "attackerGuidedBullets"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Focused Movement",
+      "criteria": {
+        "passing": "interceptSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "ifinterceptUnfocusedMovement"
+    },
+    "effectName": "ifinterceptFocusedMovement"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Focused Movement",
+      "criteria": {
+        "passing": "interceptSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "interceptFocusedMovement"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "attackerSpell",
+        "class": "Spread"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "ifinterceptUnfocusedMovement"
+    },
+    "effectName": "check if Spread"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "effect interceptFocusedMovement",
+      "undo": {
+        "primary": "game event",
+        "event": "post-BACalculation"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "ev",
+      "criteria": {
+        "from": "deadpool",
+        "player": "opponent",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Unfocused Movement",
+      "criteria": {
+        "passing": "interceptSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "interceptGuidedBullets"
+    },
+    "effectName": "ifinterceptUnfocusedMovement"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "attackerSpell",
+        "class": "Concentration"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "interceptGuidedBullets"
+    },
+    "effectName": "check if Concentration"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Unfocused Movement",
+      "criteria": {
+        "passing": "interceptSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "interceptUnfocusedMovement"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "effect interceptUnfocusedMovement",
+      "undo": {
+        "primary": "game event",
+        "event": "post-BACalculation"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "ev",
+      "criteria": {
+        "from": "deadpool",
+        "player": "opponent",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "interceptGuidedBullets"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "attackerFaith"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Guided Bullets",
+      "criteria": {
+        "passing": "interceptSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "interceptGuidedBullets"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Focused Movement",
+      "criteria": {
+        "passing": "attackerSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "ifAttackerUnfocusedMovement"
+    },
+    "effectName": "ifattackerFocusedMovement"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "interceptSpell",
+        "class": "Spread"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "ifAttackerUnfocusedMovement"
+    },
+    "effectName": "check if spread"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Focused Movement",
+      "criteria": {
+        "passing": "attackerSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "attackerFocusedMovement"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "effect attackerFocusedMovement",
+      "undo": {
+        "primary": "game event",
+        "event": "post-BACalculation"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "ev",
+      "criteria": {
+        "from": "deadpool",
+        "player": "owner",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Unfocused Movement",
+      "criteria": {
+        "passing": "attackerSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "attackerFaith"
+    },
+    "effectName": "ifAttackerUnfocusedMovement"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Unfocused Movement",
+      "criteria": {
+        "passing": "attackerSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "attackerUnfocusedMovement"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "interceptSpell",
+        "class": "Concentration"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "attackerFaith"
+    },
+    "effectName": "check if Concentration"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "effect attackerUnfocusedMovement",
+      "undo": {
+        "primary": "game event",
+        "event": "post-BACalculation"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "ev",
+      "criteria": {
+        "from": "deadpool",
+        "player": "owner",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "attackerFaith"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Faith",
+      "criteria": {
+        "passing": "attackerSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "attackerFaith"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Faith",
+      "criteria": {
+        "passing": "interceptSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "interceptFaith"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "game event",
+        "event": "post-BACalculation"
+      }
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "faithPool"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "setFaithPoolToZero"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "value",
+      "value": "effect attackerFaith"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyInterceptFaith"
+    },
+    "effectName": "verifyAttackerFaith"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "faithPool"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "faithA"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect faithA + effect attackerFaith",
+      "undo": {
+        "primary": "game event",
+        "event": "post-BACalculation"
+      }
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "faithPool"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "addAttackerFaithToPool"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "value",
+      "value": "effect interceptFaith"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "faith"
+    },
+    "effectName": "verifyInterceptFaith"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "faithPool"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "faithB"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect faithB - effect interceptFaith",
+      "undo": {
+        "primary": "game event",
+        "event": "post-BACalculation"
+      }
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "faithPool"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "subInterceptFaithToPool"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "faithPool"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "faith"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "<",
+      "value": "0",
+      "verifyTrue": "setFaithPoolToPositive"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "faithPool"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "verifyFaithPool"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "shield",
+      "criteria": {
+        "passing": "attackerSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "compareDefenderIV"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "shield",
+      "criteria": {
+        "passing": "attackerSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "atkShield"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "<=",
+      "value": "effect faith + effect atkShield",
+      "verifyTrue": "compareIV"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "iv",
+      "criteria": {
+        "passing": "interceptSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "nothing"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "<=",
+      "value": "effect faith"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "iv",
+      "criteria": {
+        "passing": "interceptSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "nothing"
+    },
+    "effectName": "compareDefenderIV"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "iv",
+      "criteria": {
+        "passing": "interceptSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "nothing"
+    },
+    "effectName": "compareIV"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "iv",
+      "criteria": {
+        "passing": "interceptSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "nothing"
+    },
+    "effectName": "reduceDefenderIV"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "effect faith",
+      "undo": {
+        "primary": "game event",
+        "event": "post-BACalculation"
+      }
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "faithPool"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "setFaithPoolToPositive"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "faithPool"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "faith2"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "shield",
+      "criteria": {
+        "passing": "interceptSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "compareAttackerAV"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "shield",
+      "criteria": {
+        "passing": "interceptSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "defShield"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "<=",
+      "value": "effect faith2 + effect defShield",
+      "verifyTrue": "compareAV"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "av",
+      "criteria": {
+        "passing": "attackerSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "nothing"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "<=",
+      "value": "effect faith2"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "av",
+      "criteria": {
+        "passing": "attackerSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "nothing"
+    },
+    "effectName": "compareAttackerAV"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "av",
+      "criteria": {
+        "passing": "attackerSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "nothing"
+    },
+    "effectName": "compareAV"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "av",
+      "criteria": {
+        "passing": "attackerSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "nothing"
+    },
+    "effectName": "reduceAttackerAV"
+  }
+]

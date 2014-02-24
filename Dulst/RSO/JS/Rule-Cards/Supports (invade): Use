@@ -1,0 +1,80 @@
+[
+  {
+    "ruleTrigger": {
+      "primary": "start",
+      "player": "turn player"
+    },
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "preUseSupport"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "type": "Support",
+        "stat": "stat-invade>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "passiveb"
+    },
+    "effectName": "passive"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "game event",
+        "event": "useSupport"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "isEquippedWithSupport",
+      "criteria": {
+        "from": "board",
+        "type": "Spell",
+        "stat": "stat-isEquippedWithSupport>=1"
+      }
+    },
+    "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "preUseSupport"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "type": "Support",
+        "stat": "stat-invade!=1"
+      }
+    },
+    "effectName": "passiveb"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "isEquippedWithSupport",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    }
+  }
+]

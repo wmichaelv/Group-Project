@@ -1,0 +1,147 @@
+[
+  {
+    "ruleTrigger": {
+      "primary": "card",
+      "player": "turn player"
+    },
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "bossFight"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "bgmStart",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "opponent",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "bossTrigger,sceneTrigger"
+    },
+    "effectName": "bgmStart"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statDecrease"
+      }
+    },
+    "target": {
+      "primary": "opponent",
+      "playerProperty": "hp"
+    },
+    "effectName": "bossTrigger"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "<=",
+      "value": "10"
+    },
+    "target": {
+      "primary": "opponent",
+      "playerProperty": "hp"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "0",
+      "verifyTrue": "bgmBoss"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "bossFight"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-moveCard"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "player": "opponent",
+        "class": "Scene",
+        "type": "Support"
+      }
+    },
+    "effectName": "sceneTrigger"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "0",
+      "verifyTrue": "bgmBoss"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "bossFight"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "bossFight"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "bgmBoss"
+  },
+  {
+    "action": {
+      "primary": "media",
+      "command": "clear channel",
+      "channel": "bgm1"
+    },
+    "target": {},
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "bgmBoss",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "opponent",
+        "class": "Leader",
+        "type": "Character"
+      }
+    }
+  }
+]

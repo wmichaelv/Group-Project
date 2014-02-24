@@ -1,0 +1,169 @@
+[
+  {
+    "ruleTrigger": {
+      "primary": "start",
+      "player": "turn player"
+    },
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": [
+          "gainedBasicAbility",
+          "reserve",
+          "activate",
+          "lostBasicAbility"
+        ]
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "type": "Spell"
+      }
+    },
+    "effectName": "card"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card",
+        "stat": "stat-Unfocused Movement<=0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "hasBA"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card",
+        "stat": "stat-Focused Movement<=0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "hasBA"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card",
+        "stat": "stat-Protection<=0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "hasBA"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card",
+        "stat": "stat-Faith<=0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "hasBA"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card",
+        "stat": "stat-Penetration<=0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "hasBA"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card",
+        "stat": "stat-Guided Bullets<=0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "hasBA"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card",
+        "stat": "stat-oUFM<=0 && stat-oFM<=0 && stat-oPro<=0 && stat-oFaith<=0 && stat-oPen<=0 && stat-oGB<=0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "hasBA"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "basicAbility",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectName": "hasNoBA"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "basicAbility",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectName": "hasBA"
+  }
+]

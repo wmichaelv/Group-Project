@@ -1,0 +1,48 @@
+[
+  {
+    "ruleTrigger": {
+      "primary": "start",
+      "player": "each player"
+    },
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "hp",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect 0"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "hp"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    }
+  }
+]

@@ -1,0 +1,163 @@
+[
+  {
+    "ruleTrigger": {
+      "primary": "start",
+      "player": "turn player"
+    },
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statDecrease"
+      }
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "hp"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "oppTrigger"
+    },
+    "effectName": "ownTrigger"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "<=",
+      "value": "0"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "hp"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "<=",
+      "value": "0"
+    },
+    "target": {
+      "primary": "opponent",
+      "playerProperty": "hp"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "youLose"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "playerNumber"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "effect playerNumber",
+      "verifyTrue": "youWin"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "turnPlayer"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "youLose"
+    }
+  },
+  {
+    "action": {
+      "primary": "show card"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "hand"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "youWin"
+  },
+  {
+    "action": {
+      "primary": "win match"
+    },
+    "target": {
+      "primary": "owner"
+    }
+  },
+  {
+    "action": {
+      "primary": "show card"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "hand"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "youLose"
+  },
+  {
+    "action": {
+      "primary": "win match"
+    },
+    "target": {
+      "primary": "opponent"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statDecrease"
+      }
+    },
+    "target": {
+      "primary": "opponent",
+      "playerProperty": "hp"
+    },
+    "effectName": "oppTrigger"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "<=",
+      "value": "0"
+    },
+    "target": {
+      "primary": "opponent",
+      "playerProperty": "hp"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "<=",
+      "value": "0",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "hp"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "youWin"
+    }
+  }
+]
