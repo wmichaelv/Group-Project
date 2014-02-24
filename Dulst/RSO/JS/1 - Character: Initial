@@ -1,0 +1,374 @@
+[
+  {
+    "ruleTrigger": {
+      "primary": "start",
+      "player": "turn player"
+    },
+    "action": {
+      "primary": "send card to",
+      "location": "sidearea",
+      "player": "target card owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "4"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "player": "owner",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "youLose"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "4"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "player": "opponent",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "youWin"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "owner",
+        "instructions": "Select a Character to be assigned as Leader. Your Leader will determine your HP, as well as the Leader abilities available to you."
+      },
+      "count": "1",
+      "criteria": {
+        "player": "owner",
+        "type": "Character",
+        "stat": "stat-disallowLeader!=1"
+      },
+      "mandatory": "ownerLeader"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "ownerLeader"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "opponent",
+        "instructions": "Select a Character to be assigned as Leader. Your Leader will determine your HP, as well as the Leader abilities available to you."
+      },
+      "count": "1",
+      "criteria": {
+        "player": "opponent",
+        "type": "Character",
+        "stat": "stat-disallowLeader!=1"
+      },
+      "mandatory": "opponentLeader"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "opponentLeader"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Leader",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "count": "1",
+      "criteria": {
+        "passing": "ownerLeader"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "deadpool",
+      "player": "target card owner",
+      "silent": "silent"
+    },
+    "target": {
+      "primary": "card",
+      "count": "1",
+      "criteria": {
+        "passing": "ownerLeader"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Leader",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "count": "1",
+      "criteria": {
+        "passing": "opponentLeader"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "deadpool",
+      "player": "target card owner",
+      "silent": "silent"
+    },
+    "target": {
+      "primary": "card",
+      "count": "1",
+      "criteria": {
+        "passing": "opponentLeader"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "C1",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "ownerLeaderName"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "C1",
+      "criteria": {
+        "player": "opponent",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "opponentLeaderName"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "player": "owner",
+        "class": "effect ownerLeaderName",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "ownerLeaderLevel"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "player": "opponent",
+        "class": "effect opponentLeaderName",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "opponentLeaderLevel"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect ownerLeaderLevel",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "leaderLevel"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect ownerLeaderLevel",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "oLeaderLevel"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect opponentLeaderLevel",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "opponent",
+      "playerProperty": "leaderLevel"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect opponentLeaderLevel",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "opponent",
+      "playerProperty": "oLeaderLevel"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "passive"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "deadpool"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "give choice",
+      "choiceType": "multiple choice",
+      "choiceQuestion": "Your deck does not contain exactly 4 Leaders. You will now forfeit the game.",
+      "choices": "effect lose OK"
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectName": "youLose"
+  },
+  {
+    "action": {
+      "primary": "give choice",
+      "choiceType": "multiple choice",
+      "choiceQuestion": "Your deck does not contain exactly 4 Leaders. You will now forfeit the game.",
+      "choices": "effect win OK"
+    },
+    "target": {
+      "primary": "opponent"
+    },
+    "effectName": "youWin"
+  },
+  {
+    "action": {
+      "primary": "win match"
+    },
+    "target": {
+      "primary": "opponent"
+    },
+    "effectName": "lose"
+  },
+  {
+    "action": {
+      "primary": "win match"
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectName": "win"
+  }
+]
