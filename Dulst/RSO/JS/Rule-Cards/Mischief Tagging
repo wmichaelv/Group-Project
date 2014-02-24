@@ -1,0 +1,73 @@
+[
+  {
+    "ruleTrigger": {
+      "primary": "start",
+      "player": "turn player"
+    },
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "name": "Mischief",
+        "type": "Event"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "pre-replPhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": [
+          "useSupport",
+          "activate",
+          "useScene"
+        ]
+      },
+      "undo": {
+        "primary": "game event",
+        "event": "post-replPhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "type": [
+          "Spell",
+          "Support"
+        ]
+      }
+    },
+    "effectName": "card"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-replPhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "mischiefTag",
+      "criteria": {
+        "passing": "effect card"
+      }
+    }
+  }
+]
