@@ -1,0 +1,150 @@
+[
+  {
+    "ruleTrigger": {
+      "primary": "start",
+      "player": "turn player"
+    },
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statDecrease"
+      }
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "damageAmount"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "passiveHeal,passivePSP,passiveOSP"
+    },
+    "effectName": "passiveDamage"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "<",
+      "value": "0"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "damageAmount"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "damageAmount"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statDecrease"
+      }
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "healAmount"
+    },
+    "effectName": "passiveHeal"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "<",
+      "value": "0"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "healAmount"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "healAmount"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statDecrease"
+      }
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
+    "effectName": "passivePSP"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "<",
+      "value": "0"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statDecrease"
+      }
+    },
+    "target": {
+      "primary": "opponent",
+      "playerProperty": "sp"
+    },
+    "effectName": "passiveOSP"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "<",
+      "value": "0"
+    },
+    "target": {
+      "primary": "opponent",
+      "playerProperty": "sp"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "opponent",
+      "playerProperty": "sp"
+    }
+  }
+]
