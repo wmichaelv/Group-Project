@@ -104,7 +104,7 @@ end
 Variables_ID = nil #Change variable ID if u're using variable
                    #Change nil to 1 if you're using variable ID 1
                    #Change nil to 500 if you're using variable ID 500
-Suc_EVENT_ID = 1 #Change to Event ID for Success
+Suc_EVENT_ID = nil #Change to Event ID for Success
                    #Use Common Event ID or something weird will happen
 Fai_EVENT_ID = nil #Change to Event ID for Failure
                    #Use Common Event ID or something weird will happen
