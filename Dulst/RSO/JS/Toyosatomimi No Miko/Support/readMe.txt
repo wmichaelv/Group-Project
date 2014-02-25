@@ -1,1 +1,1 @@
-Support: 6
+Support: 4
