@@ -58,6 +58,14 @@ Event: 5
 Spell: 10
 Support: 4
 
+==========
+
+Youmu
+Character: 1
+Event: 4
+Spell: 10
+Support: 7
+
 Yukari
 Character: 1
 Event: 6
