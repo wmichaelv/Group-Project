@@ -1,6 +1,6 @@
 Miko
 Character: 1
-Event: 
+Event: 3
 Spell: 9
 Support: 4
 
