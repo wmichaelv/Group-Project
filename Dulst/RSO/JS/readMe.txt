@@ -15,3 +15,9 @@ Character: 1
 Event: 5
 Spell: 10
 Support: 4
+
+Byakuren
+Character: 1
+Event: 7
+Spell: 9
+Support: 2
