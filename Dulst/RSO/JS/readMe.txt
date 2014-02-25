@@ -58,6 +58,12 @@ Event: 5
 Spell: 10
 Support: 4
 
+Yukari
+Character: 1
+Event: 6
+Spell: 11
+Support: 4
+
 Yuyuko
 Character: 1
 Event: 5
