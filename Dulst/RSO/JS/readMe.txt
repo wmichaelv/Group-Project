@@ -27,3 +27,9 @@ Character: 1
 Event: 4
 Spell: 10
 Support: 5
+
+Cirno
+Character: 1
+Event: 3
+Spell: 9
+Support: 4
