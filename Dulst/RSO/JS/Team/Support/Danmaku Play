@@ -1,0 +1,266 @@
+[
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "pre-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "passiveb,passivec"
+    },
+    "effectName": "passive"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "player": "owner",
+        "type": "Spell",
+        "stat": "stat-targetableByOwnSpecials>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "av",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "modifyCard"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "hv",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "gainedStat"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "passiveb"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "yourTurn"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyIntcpt"
+    },
+    "effectName": "verifyAtk"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startDamage"
+    },
+    "effectName": "verifyOwn"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "verifyOwn"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "opponent",
+        "class": "Battle Spell"
+      }
+    },
+    "effectName": "verifyIntcpt"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOwnSpecials",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectName": "startDamage"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "damageableByOwnSpecials"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "damageAmount"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": [
+          "preLostHP",
+          "preDamagedByEvent"
+        ]
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "damageAmount"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "damageAmount"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "effect damageAmount",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "hp"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": [
+          "lostHP",
+          "damagedByEvent"
+        ]
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    }
+  }
+]
