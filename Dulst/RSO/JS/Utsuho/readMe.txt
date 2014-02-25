@@ -1,8 +1,8 @@
-NAME
-Character: 
+Utsuho
+Character: 1
 Event: 
-Spell: 
+Spell: 10
 Support: 
 
-XX:XX PM 02/25/2014 (+08:00 GMT)
+12:56 PM 02/25/2014 (+08:00 GMT)
   - Created.
