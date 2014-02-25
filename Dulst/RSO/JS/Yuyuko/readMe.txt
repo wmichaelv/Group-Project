@@ -1,6 +1,6 @@
 Yuyuko
 Character:
-Event:
+Event: 5
 Spell: 10
 Support: 6
 
