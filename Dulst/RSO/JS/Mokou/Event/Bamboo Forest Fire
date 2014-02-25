@@ -1,0 +1,667 @@
+[
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "2"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyFail"
+    },
+    "effectName": "verify"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "special1",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "special2",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "special1Proceed"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "player": "owner",
+        "type": "Support",
+        "stat": "stat-targetableByOwnEvents>=1 && stat-lvl<=0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "verifySpecial1"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "special1Proceed"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "player": "opponent",
+        "type": "Support",
+        "stat": "stat-targetableByOppEvents>=1 && stat-lvl<=0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOwnEvents",
+      "criteria": {
+        "from": "board",
+        "player": "owner",
+        "class": "Mokou",
+        "type": "Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "checkSpecial1"
+    },
+    "effectName": "verifySpecial2"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "deckTargetableByOwnEvents",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "checkSpecial1"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "special2Proceed"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "from": "deck",
+        "player": "owner",
+        "type": "Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "checkSpecial1"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "proceed"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "special1",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyFail"
+    },
+    "effectName": "checkSpecial1"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "special1",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifySpecial2"
+    },
+    "effectName": "special1Proceed"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "special2",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "special2Proceed"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedSelect",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "proceed"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "pre-useEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "active"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "bothActivate"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "special1",
+      "criteria": {
+        "passing": "this card",
+        "stat": "stat-special2>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "sp1Activate"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "special1",
+      "criteria": {
+        "passing": "this card",
+        "stat": "stat-special2=0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "sp2Activate"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "special2",
+      "criteria": {
+        "passing": "this card",
+        "stat": "stat-special1=0"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "give choice",
+      "choiceType": "multiple choice",
+      "choiceQuestion": "Choose an effect to activate:",
+      "choices": "effect sp1Activate Discard one level 0 Support.\neffect sp2Activate Discard one Mokou Spell to put a Spell from deck to reserve."
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectName": "bothActivate"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "newEffect"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qs",
+      "criteria": {
+        "from": "board",
+        "player": "owner",
+        "type": "Support",
+        "stat": "stat-targetableByOwnEvents>=1 && stat-lvl<=0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "sp1Activate"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "newEffect"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qs",
+      "criteria": {
+        "from": "board",
+        "player": "opponent",
+        "type": "Support",
+        "stat": "stat-targetableByOppEvents>=1 && stat-lvl<=0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "owner",
+        "instructions": "Select one level 0 Support to discard."
+      },
+      "count": "1",
+      "criteria": {
+        "from": "board",
+        "type": "Support",
+        "stat": "stat-qs>=1"
+      },
+      "mandatory": "selectedCard"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "afterlife",
+      "player": "target card owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "set to attack position"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "spUse"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "owner",
+        "instructions": "Select one Mokou Spell from your side to discard."
+      },
+      "count": "1",
+      "criteria": {
+        "from": "board",
+        "player": "owner",
+        "class": "Mokou",
+        "type": "Spell",
+        "stat": "stat-targetableByOwnEvents>=1"
+      },
+      "mandatory": "sp2Activate"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "sp2Activate"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "sp2Activate"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "afterlife",
+      "player": "target card owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "sp2Activate"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "set to attack position"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "sp2Activate"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "owner",
+        "instructions": "Select a Spell card to place on your field as Reserve. Your deck is then shuffled."
+      },
+      "count": "1",
+      "criteria": {
+        "from": "deck",
+        "player": "owner",
+        "type": "Spell"
+      },
+      "mandatory": "card"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "card"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "SecondRow",
+      "player": "owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "show card"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "set to defense position"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "passive",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "shuffle deck",
+      "player": "owner"
+    },
+    "target": {},
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "deckTargetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "spUse"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "2",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "spUse"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "afterlife",
+      "player": "owner",
+      "stackLocation": "top"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedSelect",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "verifyFail"
+  }
+]
