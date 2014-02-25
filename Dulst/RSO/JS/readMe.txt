@@ -33,3 +33,9 @@ Character: 1
 Event: 3
 Spell: 9
 Support: 4
+
+Eirin
+Character: 1
+Event: 3
+Spell: 10
+Support: 7
