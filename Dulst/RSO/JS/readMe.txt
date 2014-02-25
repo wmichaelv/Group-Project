@@ -45,3 +45,9 @@ Character: 1
 Event: 8
 Spell: 10
 Support: 2
+
+Meiling
+Character: 1
+Event: 4
+Spell: 10
+Support: 6
