@@ -60,6 +60,12 @@ Support: 4
 
 ==========
 
+Utsuho
+Character: 1
+Event: 5
+Spell: 10
+Support: 3
+
 Youmu
 Character: 1
 Event: 4
