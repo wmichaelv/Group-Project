@@ -1,4 +1,4 @@
-Miko
+Toyosatomimi No Miko
 Character: 1
 Event: 3
 Spell: 9
