@@ -39,3 +39,9 @@ Character: 1
 Event: 3
 Spell: 10
 Support: 7
+
+Flandre
+Character: 1
+Event: 8
+Spell: 10
+Support: 2
