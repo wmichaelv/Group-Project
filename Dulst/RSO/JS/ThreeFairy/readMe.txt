@@ -1,8 +1,8 @@
-NAME
-Character: 
+ThreeFairy
+Character: 3
 Event: 
-Spell: 
+Spell: 9
 Support: 
 
-XX:XX PM 02/25/2014 (+08:00 GMT)
+02:34 PM 02/25/2014 (+08:00 GMT)
   - Created.

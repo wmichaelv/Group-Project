@@ -1,1 +1,1 @@
-Character: 1
+Character: 3
