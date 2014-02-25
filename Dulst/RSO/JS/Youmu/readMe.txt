@@ -1,6 +1,6 @@
 Youmu
 Character: 1
-Event: 
+Event: 4
 Spell: 10
 Support: 7
 
