@@ -60,6 +60,12 @@ Support: 4
 
 ==========
 
+Tenshi
+Character: 1
+Event: 4
+Spell: 10
+Support: 4
+
 Toyosatomimi No Miko
 Character: 1
 Event: 3
