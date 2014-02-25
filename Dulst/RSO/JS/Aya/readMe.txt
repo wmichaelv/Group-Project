@@ -4,5 +4,5 @@ Event: 5
 Spell: 10
 Support: 4
 
-02/25/2014
+10:00 AM 02/25/2014 (+08:00 GMT)
   - Created.
