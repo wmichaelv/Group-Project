@@ -78,6 +78,12 @@ Event: 4
 Spell: 10
 Support: 4
 
+ThreeFairy
+Character: 3
+Event: 4
+Spell: 9
+Support: 3
+
 Utsuho
 Character: 1
 Event: 5
