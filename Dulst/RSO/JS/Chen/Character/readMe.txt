@@ -1,1 +1,1 @@
-Character Card
+Character: 1

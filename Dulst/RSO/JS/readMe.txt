@@ -21,3 +21,9 @@ Character: 1
 Event: 7
 Spell: 9
 Support: 2
+
+Chen
+Character: 1
+Event: 4
+Spell: 10
+Support: 5

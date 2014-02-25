@@ -1,1 +1,1 @@
-Spell Card
+Spell: 10
