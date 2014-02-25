@@ -52,6 +52,12 @@ Event: 4
 Spell: 10
 Support: 6
 
+Miko
+Character: 1
+Event: 3
+Spell: 9
+Support: 4
+
 Mokou
 Character: 1
 Event: 5
@@ -60,16 +66,16 @@ Support: 4
 
 ==========
 
+Suwako
+Character: 1
+Event: 6
+Spell: 10
+Support: 4
+
 Tenshi
 Character: 1
 Event: 4
 Spell: 10
-Support: 4
-
-Toyosatomimi No Miko
-Character: 1
-Event: 3
-Spell: 9
 Support: 4
 
 Utsuho
