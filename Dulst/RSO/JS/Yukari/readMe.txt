@@ -1,6 +1,6 @@
 Yukari
 Character: 1
-Event: 
+Event: 6
 Spell: 11
 Support: 4
 
