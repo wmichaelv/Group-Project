@@ -1,0 +1,1664 @@
+[
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "6"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyFail"
+    },
+    "effectName": "verify"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "special1",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "special2",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "special3",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "special4",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "special1Used",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifySpecial2"
+    },
+    "effectName": "verifySpecial1"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "special1Proceed"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOwnEvents",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "special2Used",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifySpecial3"
+    },
+    "effectName": "verifySpecial2"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "deckTargetableByOwnEvents",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifySpecial3"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "4",
+      "verifyTrue": "special2Proceed"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "from": "deck",
+        "player": "owner"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "special3Used",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifySpecial4"
+    },
+    "effectName": "verifySpecial3"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "special3Proceed"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOwnEvents",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "special4Used",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "checkSpecial1"
+    },
+    "effectName": "verifySpecial4"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "special4Proceed"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOwnEvents",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "checkSpecial1"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "proceed"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "special1",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "checkSpecial1"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "proceed"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "special2",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "checkSpecial2"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "proceed"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "special3",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "checkSpecial3"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "proceed"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "special4",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyFail"
+    },
+    "effectName": "checkSpecial4"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "special1",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifySpecial2"
+    },
+    "effectName": "special1Proceed"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "special2",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifySpecial3"
+    },
+    "effectName": "special2Proceed"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "special3",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifySpecial4"
+    },
+    "effectName": "special3Proceed"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "special4",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "special4Proceed"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedSelect",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "proceed"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "pre-useEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "active"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "useCount",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "useFail"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "stat": "stat-special1!=1&&stat-special2!=1&&stat-special3!=1&&stat-special4>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "startVerify"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "useFail"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "stat": "stat-special1!=1&&stat-special2!=1&&stat-special3>=1&&stat-special4!=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "activate0011"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "stat": "stat-special1!=1&&stat-special2!=1&&stat-special3>=1&&stat-special4>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "useFail"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "stat": "stat-special1!=1&&stat-special2>=1&&stat-special3!=1&&stat-special4!=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "activate0101"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "stat": "stat-special1!=1&&stat-special2>=1&&stat-special3!=1&&stat-special4>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "activate0110"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "stat": "stat-special1!=1&&stat-special2>=1&&stat-special3>=1&&stat-special4!=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "activate0111"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "stat": "stat-special1!=1&&stat-special2>=1&&stat-special3>=1&&stat-special4>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "useFail"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "stat": "stat-special1>=1&&stat-special2!=1&&stat-special3!=1&&stat-special4!=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "activate1001"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "stat": "stat-special1>=1&&stat-special2!=1&&stat-special3!=1&&stat-special4>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "activate1010"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "stat": "stat-special1>=1&&stat-special2!=1&&stat-special3>=1&&stat-special4!=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "activate1011"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "stat": "stat-special1>=1&&stat-special2!=1&&stat-special3>=1&&stat-special4>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "activate1100"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "stat": "stat-special1>=1&&stat-special2>=1&&stat-special3!=1&&stat-special4!=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "activate1101"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "stat": "stat-special1>=1&&stat-special2>=1&&stat-special3!=1&&stat-special4>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "activate1110"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "stat": "stat-special1>=1&&stat-special2>=1&&stat-special3>=1&&stat-special4!=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "activate1111"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "stat": "stat-special1>=1&&stat-special2>=1&&stat-special3>=1&&stat-special4>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "useFail"
+    }
+  },
+  {
+    "action": {
+      "primary": "give choice",
+      "choiceType": "multiple choice",
+      "choiceQuestion": "Choose an effect to activate (resize this window to see more choices):",
+      "choices": "effect sp6Activate Eff 3+4."
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectName": "activate0011"
+  },
+  {
+    "action": {
+      "primary": "give choice",
+      "choiceType": "multiple choice",
+      "choiceQuestion": "Choose an effect to activate (resize this window to see more choices):",
+      "choices": "effect sp5Activate Eff 2+4."
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectName": "activate0101"
+  },
+  {
+    "action": {
+      "primary": "give choice",
+      "choiceType": "multiple choice",
+      "choiceQuestion": "Choose an effect to activate (resize this window to see more choices):",
+      "choices": "effect sp4Activate Eff 2+3."
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectName": "activate0110"
+  },
+  {
+    "action": {
+      "primary": "give choice",
+      "choiceType": "multiple choice",
+      "choiceQuestion": "Choose an effect to activate (resize this window to see more choices):",
+      "choices": "effect sp4Activate Eff 2+3.\neffect sp5Activate Eff 2+4.\neffect sp6Activate Eff 3+4."
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectName": "activate0111"
+  },
+  {
+    "action": {
+      "primary": "give choice",
+      "choiceType": "multiple choice",
+      "choiceQuestion": "Choose an effect to activate (resize this window to see more choices):",
+      "choices": "effect sp3Activate Eff 1+4."
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectName": "activate1001"
+  },
+  {
+    "action": {
+      "primary": "give choice",
+      "choiceType": "multiple choice",
+      "choiceQuestion": "Choose an effect to activate (resize this window to see more choices):",
+      "choices": "effect sp2Activate Eff 1+3."
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectName": "activate1010"
+  },
+  {
+    "action": {
+      "primary": "give choice",
+      "choiceType": "multiple choice",
+      "choiceQuestion": "Choose an effect to activate (resize this window to see more choices):",
+      "choices": "effect sp2Activate Eff 1+3.\neffect sp3Activate Eff 1+4.\neffect sp6Activate Eff 3+4."
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectName": "activate1011"
+  },
+  {
+    "action": {
+      "primary": "give choice",
+      "choiceType": "multiple choice",
+      "choiceQuestion": "Choose an effect to activate (resize this window to see more choices):",
+      "choices": "effect sp1Activate Eff 1+2."
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectName": "activate1100"
+  },
+  {
+    "action": {
+      "primary": "give choice",
+      "choiceType": "multiple choice",
+      "choiceQuestion": "Choose an effect to activate (resize this window to see more choices):",
+      "choices": "effect sp1Activate Eff 1+2.\neffect sp3Activate Eff 1+4.\neffect sp5Activate Eff 2+4."
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectName": "activate1101"
+  },
+  {
+    "action": {
+      "primary": "give choice",
+      "choiceType": "multiple choice",
+      "choiceQuestion": "Choose an effect to activate (resize this window to see more choices):",
+      "choices": "effect sp1Activate Eff 1+2.\neffect sp2Activate Eff 1+3.\neffect sp4Activate Eff 2+3."
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectName": "activate1110"
+  },
+  {
+    "action": {
+      "primary": "give choice",
+      "choiceType": "multiple choice",
+      "choiceQuestion": "Choose an effect to activate (resize this window to see more choices):",
+      "choices": "effect sp1Activate Eff 1+2.\neffect sp2Activate Eff 1+3.\neffect sp3Activate Eff 1+4.\neffect sp4Activate Eff 2+3.\neffect sp5Activate Eff 2+4.\neffect sp6Activate Eff 3+4."
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectName": "activate1111"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "sp1Activate"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "5",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "ev",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "gainedStat"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "deckTargetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "draw card",
+      "count": "4"
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "spUse"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "sp2Activate"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "5",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "ev",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "gainedStat"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "4",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "av",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "4",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "iv",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "gainedStat"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "spUse"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "sp3Activate"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "5",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "ev",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "gainedStat"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "4",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Faith",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "4",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "hv",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": [
+          "gainedStat",
+          "gainedBasicAbility"
+        ]
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "spUse"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "deckTargetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "sp4Activate"
+  },
+  {
+    "action": {
+      "primary": "draw card",
+      "count": "4"
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "4",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "av",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "4",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "iv",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "gainedStat"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "spUse"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "deckTargetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "sp5Activate"
+  },
+  {
+    "action": {
+      "primary": "draw card",
+      "count": "4"
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "4",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Faith",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "4",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "hv",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": [
+          "gainedStat",
+          "gainedBasicAbility"
+        ]
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "spUse"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "sp6Activate"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "4",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "av",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "4",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "iv",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "4",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Faith",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "4",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "hv",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": [
+          "gainedStat",
+          "gainedBasicAbility"
+        ]
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "spUse"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "6",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "spUse"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "afterlife",
+      "player": "owner",
+      "stackLocation": "top"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedSelect",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "verifyFail"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "hand",
+      "player": "owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "useFail"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "failExtraCost"
+    }
+  }
+]
