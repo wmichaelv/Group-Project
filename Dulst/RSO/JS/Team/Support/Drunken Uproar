@@ -1,0 +1,247 @@
+[
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "startPassive",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "passive"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Preparation"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "turnPlayer"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "yourTurn"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "pre-preparationPhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "startPassive"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "turnPlayer"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "turnPlayer"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "pre-pre-replPhase"
+      },
+      "undo": {
+        "primary": "game event",
+        "event": "pre-replPhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "from": "board"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "effect turnPlayer",
+      "verifyTrue": "playerIsAffected"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "playerNumber",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "oppIsAffected"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "SecondRow",
+        "player": "owner",
+        "type": "Spell"
+      }
+    },
+    "effectName": "playerIsAffected"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "FirstRow",
+      "player": "target card owner"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "owner",
+        "instructions": "Activate one of your reserve Spells."
+      },
+      "count": "1",
+      "criteria": {
+        "from": "SecondRow",
+        "player": "owner",
+        "type": "Spell"
+      },
+      "mandatory": "card"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "card"
+  },
+  {
+    "action": {
+      "primary": "set to attack position"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "activate"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "SecondRow",
+        "player": "opponent",
+        "type": "Spell"
+      }
+    },
+    "effectName": "oppIsAffected"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "FirstRow",
+      "player": "target card owner"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "opponent",
+        "instructions": "Activate one of your reserve Spells."
+      },
+      "count": "1",
+      "criteria": {
+        "from": "SecondRow",
+        "player": "opponent",
+        "type": "Spell"
+      },
+      "mandatory": "cardB"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "cardB"
+  },
+  {
+    "action": {
+      "primary": "set to attack position"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "cardB"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "activate"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "cardB"
+      }
+    }
+  }
+]
