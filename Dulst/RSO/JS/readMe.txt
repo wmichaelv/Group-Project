@@ -57,3 +57,9 @@ Character: 1
 Event: 5
 Spell: 10
 Support: 4
+
+Yuyuko
+Character: 1
+Event: 5
+Spell: 10
+Support: 6
