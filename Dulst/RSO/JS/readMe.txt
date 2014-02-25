@@ -51,3 +51,9 @@ Character: 1
 Event: 4
 Spell: 10
 Support: 6
+
+Mokou
+Character: 1
+Event: 5
+Spell: 10
+Support: 4
