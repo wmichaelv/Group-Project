@@ -1,6 +1,6 @@
 ThreeFairy
 Character: 3
-Event: 
+Event: 4
 Spell: 9
 Support: 3
 
