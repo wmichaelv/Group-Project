@@ -1,0 +1,364 @@
+[
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "5"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyFail"
+    },
+    "effectName": "verify"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "yourTurn"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyFail"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "count": "1",
+      "criteria": {
+        "from": "FirstRow",
+        "player": "opponent",
+        "type": "Spell",
+        "stat": "stat-targetableByOppEvents>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyFail"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedSelect",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "verifySuccess"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "pre-useEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "active"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "newEffect"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qs",
+      "criteria": {
+        "from": "board",
+        "player": "opponent",
+        "type": "Spell",
+        "stat": "stat-targetableByOppEvents>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "owner",
+        "instructions": "Select an opponent active Spell card to reserve all of its copies from your opponent's side."
+      },
+      "count": "1",
+      "criteria": {
+        "from": "FirstRow",
+        "player": "opponent",
+        "type": "Spell",
+        "stat": "stat-qs>=1"
+      },
+      "mandatory": "selectedCard"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "title",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "name"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qs",
+      "criteria": {
+        "from": "board",
+        "player": "owner",
+        "name": "effect name",
+        "type": "Spell",
+        "stat": "stat-targetableByOwnEvents>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qs",
+      "criteria": {
+        "from": "board",
+        "player": "opponent",
+        "name": "effect name",
+        "type": "Spell",
+        "stat": "stat-targetableByOppEvents>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "name": "effect name",
+        "type": "Spell",
+        "stat": "stat-qs>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "card"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qs",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "modifyCard"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "SecondRow",
+      "player": "target card owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "set to defense position"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "reserve"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "pre-pre-replPhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableActivate",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "afterlife",
+      "player": "owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "5"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
+    "effectName": "spUse"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedSelect",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "verifyFail"
+  }
+]
