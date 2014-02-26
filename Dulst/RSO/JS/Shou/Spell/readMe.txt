@@ -1,1 +1,1 @@
-Spell: 10
+Spell: 9
