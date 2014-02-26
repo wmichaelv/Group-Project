@@ -1,8 +1,8 @@
-NAME
-Character: 
+Shou
+Character: 1
 Event: 
-Spell: 
+Spell: 9
 Support: 
 
-XX:XX PM 02/25/2014 (+08:00 GMT)
+01:36 PM 02/26/2014 (+08:00 GMT)
   - Created.
