@@ -1,0 +1,604 @@
+[
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "2"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyFail"
+    },
+    "effectName": "verify"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "count": "1",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell",
+        "stat": "stat-targetableByOwnEvents>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyFail"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedSelect",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "verifySuccess"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "pre-useEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "active"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "give choice",
+      "choiceType": "multiple choice",
+      "choiceQuestion": "Choose an effect to activate:",
+      "choices": "effect sp1Activate 1 + 2\neffect sp2Activate 1 + 3\neffect sp3Activate 1 + 4\neffect sp4Activate 2 + 3\neffect sp5Activate 2 + 4\neffect sp6Activate 3 + 4"
+    },
+    "target": {
+      "primary": "owner"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "av",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "sp1Activate"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Penetration",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": [
+          "gainedStat",
+          "gainedBasicAbility"
+        ]
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterEffect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "av",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "sp2Activate"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Protection",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": [
+          "gainedStat",
+          "gainedBasicAbility"
+        ]
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterEffect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "av",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "sp3Activate"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "hv",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Faith",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": [
+          "gainedStat",
+          "gainedBasicAbility"
+        ]
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterEffect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Penetration",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "sp4Activate"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Protection",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "gainedBasicAbility"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterEffect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Penetration",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "sp5Activate"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Faith",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "hv",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": [
+          "gainedStat",
+          "gainedBasicAbility"
+        ]
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterEffect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Protection",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "sp6Activate"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Faith",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "hv",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": [
+          "gainedStat",
+          "gainedBasicAbility"
+        ]
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterEffect"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "afterlife",
+      "player": "owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "afterEffect"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "2",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
+    "effectName": "spUse"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedSelect",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "verifyFail"
+  }
+]
