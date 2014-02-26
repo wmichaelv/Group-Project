@@ -1,8 +1,8 @@
 Sakuya
 Character: 1
-Event: 
+Event: 7
 Spell: 10
 Support: 4
 
-02:15 PM 02/26/2014 (+08:00 GMT)
+03:15 PM 02/26/2014 (+08:00 GMT)
   - Created.
