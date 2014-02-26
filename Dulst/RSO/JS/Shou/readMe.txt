@@ -1,6 +1,6 @@
 Shou
 Character: 1
-Event: 
+Event: 5
 Spell: 9
 Support: 5
 
