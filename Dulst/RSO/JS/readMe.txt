@@ -66,6 +66,12 @@ Support: 4
 
 ==========
 
+Satori Komeiji
+Character: 1
+Event: 6
+Spell: 9
+Support: 3
+
 Shou
 Character: 1
 Event: 5

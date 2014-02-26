@@ -1,8 +1,8 @@
-NAME
-Character: 
-Event: 
-Spell: 
-Support: 
+Satori Komeiji
+Character: 1
+Event: 6
+Spell: 9
+Support: 3
 
-XX:XX PM 02/25/2014 (+08:00 GMT)
+01:50 PM 02/26/2014 (+08:00 GMT)
   - Created.
