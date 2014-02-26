@@ -1,0 +1,24 @@
+[
+  {
+    "action": {
+      "primary": "media",
+      "command": "play",
+      "file": "1",
+      "channel": "bgm1",
+      "loop": "loop"
+    },
+    "target": {},
+    "effectName": "bgmStart"
+  },
+  {
+    "action": {
+      "primary": "media",
+      "command": "play",
+      "file": "2",
+      "channel": "bgm1",
+      "loop": "loop"
+    },
+    "target": {},
+    "effectName": "bgmBoss"
+  }
+]
