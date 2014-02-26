@@ -1,6 +1,6 @@
 Sanae
 Character: 1
-Event: 
+Event: 6
 Spell: 10
 Support: 3
 
