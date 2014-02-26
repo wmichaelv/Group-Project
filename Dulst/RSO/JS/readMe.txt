@@ -66,6 +66,12 @@ Support: 4
 
 ==========
 
+Sanae
+Character: 1
+Event: 6
+Spell: 10
+Support: 3
+
 Satori Komeiji
 Character: 1
 Event: 6
