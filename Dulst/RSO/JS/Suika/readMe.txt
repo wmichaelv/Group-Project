@@ -1,8 +1,8 @@
-NAME
-Character: 
+Suika
+Character: 1
 Event: 
-Spell: 
+Spell: 10
 Support: 
 
-XX:XX PM 02/25/2014 (+08:00 GMT)
+01:28 PM 02/26/2014 (+08:00 GMT)
   - Created.
