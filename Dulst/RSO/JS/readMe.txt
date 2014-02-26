@@ -46,6 +46,60 @@ Event: 8
 Spell: 10
 Support: 2
 
+Iku
+Character: 1
+Event: 4
+Spell: 10
+Support: 4
+
+Kaguya
+Character: 1
+Event: 5
+Spell: 10
+Support: 5
+
+Kanako
+Character: 1
+Event: 5
+Spell: 10
+Support: 4
+
+Keine
+Character: 2
+Event: 5
+Spell: 10
+Support: 4
+
+Kogasa
+Character: 1
+Event: 4
+Spell: 9
+Support: 5
+
+Koishi
+Character: 1
+Event: 6
+Spell: 9
+Support: 4
+
+Komachi
+Character: 1
+Event: 4
+Spell: 10
+Support: 5
+
+Mamizou
+Character: 1
+Event: 4
+Spell: 9
+Support: 3
+
+Marisa
+Character: 1
+Event: 6
+Spell: 10
+Support: 5
+
 Meiling
 Character: 1
 Event: 4
@@ -58,11 +112,35 @@ Event: 3
 Spell: 9
 Support: 4
 
+Minamitsu
+Character: 1
+Event: 4
+Spell: 9
+Support: 5
+
 Mokou
 Character: 1
 Event: 5
 Spell: 10
 Support: 4
+
+Nazrin
+Character: 1
+Event: 5
+Spell: 9
+Support: 4
+
+Nitori
+Character: 1
+Event: 3
+Spell: 10
+Support: 6
+
+Nue
+Character: 1
+Event: 4
+Spell: 9
+Support: 5
 
 Orin
 Character: 1
@@ -70,7 +148,23 @@ Event: 5
 Spell: 10
 Support: 3
 
-==========
+Patchouli
+Character: 1
+Event: 3
+Spell: 10
+Support: 7
+
+Prismriver
+Character: 3
+Event: 4
+Spell: 10
+Support: 7
+
+Ran
+Character: 1
+Event: 3
+Spell: 10
+Support: 6
 
 Reimu
 Character: 1

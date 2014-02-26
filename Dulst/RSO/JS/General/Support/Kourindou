@@ -1,0 +1,66 @@
+[
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "pre-replPhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "passive"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "turnPlayer"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "turnPlayer"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "effect turnPlayer",
+      "verifyTrue": "playerIsAffected"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "playerNumber",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "oppIsAffected"
+    }
+  },
+  {
+    "action": {
+      "primary": "draw card",
+      "count": "1"
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectName": "playerIsAffected"
+  },
+  {
+    "action": {
+      "primary": "draw card",
+      "count": "1"
+    },
+    "target": {
+      "primary": "opponent"
+    },
+    "effectName": "oppIsAffected"
+  }
+]
