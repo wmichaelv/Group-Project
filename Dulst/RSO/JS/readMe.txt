@@ -66,6 +66,12 @@ Support: 4
 
 ==========
 
+Shou
+Character: 1
+Event: 5
+Spell: 9
+Support: 5
+
 Suika
 Character: 1
 Event: 7
