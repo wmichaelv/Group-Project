@@ -1,8 +1,8 @@
 #==============================================================================
 #
 # Michael Skyrym Alchemy + Extended
-# Last Updated: 2014.02.24
-# V 1.01
+# Last Updated: 2014.02.25
+# V 1.02
 # Requirement: RPG Maker VX Ace
 #             -Knowledge of 'how to use script and notetag'
 #
@@ -14,7 +14,7 @@
 #==============================================================================
 # Compatibility
 #==============================================================================
-# - RPG::BaseItem DataManager are the only overloaded class, so compatibility
+# - DataManager is the only overloaded class, so compatibility
 #   is pretty high.
 #
 #==============================================================================
@@ -213,6 +213,8 @@ end
 # Bio
 #==============================================================================
 #
+# 2014.02.25 - V 1.02  Cut Down Perfomance Cost
+#                      Fixed Custom SaveScript Compatibility
 # 2014.02.24 - V 1.01  Minor event call fix and script trimmed down
 # 2014.02.23 - V 1.00  Script is released and up for bug testing
 # 2014.02.23 - V 0.14  Implementing Alchemy Algoritm
@@ -223,17 +225,30 @@ end
 #
 #==============================================================================
 
-
-#==============================================================================
-# RPG::BaseItem
-#==============================================================================
-
-class RPG::BaseItem
-
+class SkyAlc
+  attr_accessor :id, :name, :icon_index, :description
   attr_accessor :cmake, :ingr, :keys, :used
+  attr_accessor :itype
 
-  alias RPG_BaseItem_Initialize initialize
-  def initialize; RPG_BaseItem_Initialize; @cmake = false end
+  def initialize(item)
+    @id = item.id
+    @name = item.name
+    @icon_index = item.icon_index
+    @description = item.description
+    @itype = 0 if item.is_a?(RPG::Item)
+    @itype = 1 if item.is_a?(RPG::Weapon)
+    @itype = 2 if item.is_a?(RPG::Armor)
+    @cmake = false
+  end
+
+  def cb
+    case @itype
+    when 0; return $data_items[@id]
+    when 1; return $data_weapons[@id]
+    when 2; return $data_armors[@id]
+    end
+  end
+
   def get_ingr(string)
     @ingr = Hash.new {|h,k| h[k]=[]} if @ingr.nil?
     @refrigerator = Hash.new {|h,k| h[k]=[]} if @refrigerator.nil?
@@ -244,14 +259,15 @@ class RPG::BaseItem
     string[/(?<=[(]).*?(?=[,])/].to_i << 
     string[/(?<=[,]).*?(?=[)])/].to_i
   end
+
   def get_keys(string)
-    @keys = Array.new if @keys.nil?
     @used = Hash.new if @used.nil?
     @used[string] = false
-    @keys << string; end
+  end
   def nf(string); @ingr[string][0] != 0 end
   def cF; @ingr.each_key do |k|; return false if nf(k) end; return true end
   def reset_ingr(key); @ingr[key] = @refrigerator[key].dup end
+
 end
 
 #==============================================================================
@@ -274,9 +290,10 @@ class Game_Alchemy
   def initialize
     @pr = Array.new
     @keys = Hash.new {|h,k| h[k]=[]}
-    [$data_items, $data_weapons, $data_armors].each do |array|
-      array.each do |i|
-        i.note.split(/[\r\n]+/).each do |nt|
+    [$data_items, $data_weapons, $data_armors].each { |array|
+      array.each { |i|
+        @just_once = true
+        i.note.split(/[\r\n]+/).each { |nt|
           case nt
           when /<(?:ingr?)>/i; @gi = true
           when /<\/(?:ingr?)>/i; @gi = false
@@ -284,34 +301,34 @@ class Game_Alchemy
           when /<\/(?:key?)>/i; @gk = false
           else
             if @gi
-              @pr << i unless @pr.include?(i) 
-              i.get_ingr(nt)
+              (@just_once = false; @pr << SkyAlc.new(i)) if @just_once; @pr.last.get_ingr(nt)
             end
             if @gk
-              @keys[nt] << i; i.get_keys(nt)
+              @keys[nt] << SkyAlc.new(i); @keys[nt].last.get_keys(nt)
             end
           end if i.note.match(/<(?:ingr?)>/i) || i.note.match(/<(?:key?)>/i)
-        end unless i.nil?
-      end
-    end
+        } unless i.nil?
+      }
+    }
     @pr.each { |item| checkCanMake?(item) }
   end
   def checkCanMake?(item)
     getPair(item)
     lss = item.ingr.size
     sp = Hash.new
-    spp = Hash.new {|h,k| h[k]=[]}
     item.ingr.each_pair { |k, v|
       lsr = v[0]
       @keys[k].each { |t| 
-        ((@p.include?(t)) ? sp[t] ||= 0 : lsr -= 1) if $game_party.item_number(t) >= v[1]
-        (sp[t] += v[1]; lsr -= 1 if $game_party.item_number(t) >= sp[t]) if sp[t] && lsr > 0
-      }; lss -= 1 if lsr <= 0 }
-    item.cmake = (lss <= 0); @p = nil
+        ((@p.include?(t.name)) ? sp[t.name] ||= 0 : lsr -= 1) if $game_party.item_number(t.cb) >= v[1]
+        (sp[t.name] += v[1]; lsr -= 1 if $game_party.item_number(t.cb) >= sp[t.name]) if sp[t.name] && lsr > 0
+      }
+      lss -= 1 if lsr <= 0 
+    }
+    item.cmake = (lss <= 0); @p = nil; sp = nil
   end
   def getPair(item)
     b = Array.new; @p = Array.new
-    item.ingr.each_key { |k| @keys[k].each { |i| (b.include?(i)) ? @p << i : b << i} }
+    item.ingr.each_key { |k| @keys[k].each { |i| (b.include?(i.name)) ? @p << i.name : b << i.name} }
   end
 
   def rU(i); @pr[i].ingr.each_key { |k| @keys[k].each { |item| item.used[k] = false } } end
@@ -385,9 +402,9 @@ class Scene_Alchemy < Scene_MenuBase
   end
   def confirm_alchemy
     @sui.each do |i|
-      $game_party.gain_item(@iw.data[i], -$ga.pr[@pw.in].ingr[@iw.ika[i]][1])
+      $game_party.gain_item(@iw.data[i].cb, -$ga.pr[@pw.in].ingr[@iw.ika[i]][1])
     end
-    $game_party.gain_item($ga.pr[@pw.in],1) if success_rate
+    $game_party.gain_item($ga.pr[@pw.in].cb,1) if success_rate
   end
   def cancel
     @iw.activate; @iw.sl; @cw.deactivate; @cw.hide; @cw.close
@@ -415,7 +432,7 @@ class Window_Product < Window_Command
   def window_width; 160 end
   def window_height; 344 end
   def item; $ga.pr && index >= 0 ? $ga.pr[index] : nil end
-  def select_last; select($ga.pr.index($game_party.last_item.object) || 0) end
+  def select_last; select(0) end
   def draw_item(index)
     rect = item_rect(index)
     rect.x += 4; rect.width -= 8
@@ -431,11 +448,18 @@ class Window_Product < Window_Command
     self.contents.font.color.alpha = $ga.pr[index].cmake ? 255 : 128
     self.contents.draw_text(rect, $ga.pr[index].name)
   end
-  def update; super; refresh; @iw.c = $ga.pr[index] if @iw; @in = index end
+  def update; super; @iw.c = $ga.pr[index] if @iw; @in = index; refresh end
   def iw=(iw); @iw = iw; update end
   def update_help; @help_window.set_item(item) end
-  def refresh; super; checkEnable end
-  def checkEnable; $ga.pr.each do |i| $ga.checkCanMake?(i) end end
+  def refresh
+    super
+    #(caller[0][/`.*'/][1..-2] == 'update') ? checkEnable(@in) : checkEnable 
+    checkEnable
+  end
+  def checkEnable(k = nil)
+    #($ga.checkCanMake?($ga.pr[k]); return) unless k.nil?
+
+    $ga.pr.each do |i| $ga.checkCanMake?(i) end end
 end
 
 #==============================================================================
@@ -555,7 +579,7 @@ class Window_Ingredient < Window_Base
           ": Select " + "(%2d)" % @c.ingr[@data[i]][0]) 
       else; (draw_item(i, @ik); @ika << @ik) end }
   end
-  def he(item, ik); $game_party.item_number(item) >= @c.ingr[ik][1] end
+  def he(item, ik); $game_party.item_number(item.cb) >= @c.ingr[ik][1] end
   def enable?(item, ik); he(item, ik) && !item.used[ik] && @c.nf(ik) end
   def mil
     return if @c.nil?
@@ -573,7 +597,7 @@ class Window_Ingredient < Window_Base
     end
   end
   def din(rect, item)
-    draw_text(270, rect.y, 100, 24, "%2d" % $game_party.item_number(item)) end
+    draw_text(270, rect.y, 100, 24, "%2d" % $game_party.item_number(item.cb)) end
   def dir(rect, item, ik)
     draw_text(290, rect.y, 120, 24, "(%2d)" % @c.ingr[ik][1]) end
   def uh; @hw.set_item(item) end
