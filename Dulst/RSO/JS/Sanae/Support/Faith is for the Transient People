@@ -1,0 +1,632 @@
+[
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "pre-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "passiveb,passivec"
+    },
+    "effectName": "passive"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      },
+      "exclude": {
+        "class": "Human,God"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "player": "owner",
+        "type": "Spell",
+        "stat": "stat-oFaith<=0&&stat-Faith<=0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "av",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "iv",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "hv",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "FTPFlag",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "lostStat"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "triggerOwn"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "pre-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "passiveb"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "opponent",
+        "class": "Leader",
+        "type": "Character"
+      },
+      "exclude": {
+        "class": "Human,God"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "player": "opponent",
+        "type": "Spell",
+        "stat": "stat-oFaith<=0&&stat-Faith<=0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "card"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "av",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "iv",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "hv",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "FTPFlag",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "lostStat"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "triggerOpp"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "gainedBasicAbility"
+      },
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "player": "owner",
+        "type": "Spell",
+        "stat": "stat-Faith>=1&&stat-FTPFlag>=1"
+      }
+    },
+    "effectName": "triggerOwn"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "av",
+      "criteria": {
+        "passing": "triggerOwn"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "iv",
+      "criteria": {
+        "passing": "triggerOwn"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "hv",
+      "criteria": {
+        "passing": "triggerOwn"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "FTPFlag",
+      "criteria": {
+        "passing": "triggerOwn"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "gainedStat"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "triggerOwn"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "gainedBasicAbility"
+      },
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "player": "opponent",
+        "type": "Spell",
+        "stat": "stat-Faith>=1&&stat-FTPFlag>=1"
+      }
+    },
+    "effectName": "triggerOpp"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "av",
+      "criteria": {
+        "passing": "triggerOpp"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "iv",
+      "criteria": {
+        "passing": "triggerOpp"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "hv",
+      "criteria": {
+        "passing": "triggerOpp"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "FTPFlag",
+      "criteria": {
+        "passing": "triggerOpp"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "gainedStat"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "triggerOpp"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "passivec"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "type": "Spell",
+        "stat": "stat-FTPFlag>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "cardB"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "av",
+      "criteria": {
+        "passing": "cardB"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "iv",
+      "criteria": {
+        "passing": "cardB"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "hv",
+      "criteria": {
+        "passing": "cardB"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "FTPFlag",
+      "criteria": {
+        "passing": "cardB"
+      }
+    }
+  }
+]
