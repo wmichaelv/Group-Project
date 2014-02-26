@@ -72,6 +72,12 @@ Support: 3
 
 ==========
 
+Reimu
+Character: 1
+Event: 4
+Spell: 10
+Support: 8
+
 Reisen
 Character: 1
 Event: 4
