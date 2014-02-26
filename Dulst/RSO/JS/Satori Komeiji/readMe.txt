@@ -1,6 +1,6 @@
 Satori Komeiji
 Character: 1
-Event: 
+Event: 6
 Spell: 9
 Support: 3
 
