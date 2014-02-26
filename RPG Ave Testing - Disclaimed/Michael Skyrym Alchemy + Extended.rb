@@ -226,7 +226,7 @@ end
 #==============================================================================
 
 class SkyAlc
-  attr_accessor :id, :name, :icon_index, :description
+  attr_accessor :id, :name, :icon_index, :description, :note
   attr_accessor :cmake, :ingr, :keys, :used
   attr_accessor :itype
 
@@ -235,6 +235,7 @@ class SkyAlc
     @name = item.name
     @icon_index = item.icon_index
     @description = item.description
+    @note = item.note
     @itype = 0 if item.is_a?(RPG::Item)
     @itype = 1 if item.is_a?(RPG::Weapon)
     @itype = 2 if item.is_a?(RPG::Armor)
