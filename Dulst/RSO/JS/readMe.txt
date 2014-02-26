@@ -66,6 +66,12 @@ Support: 4
 
 ==========
 
+Suika
+Character: 1
+Event: 7
+Spell: 10
+Support: 2
+
 Suwako
 Character: 1
 Event: 6
