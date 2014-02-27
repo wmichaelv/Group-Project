@@ -58,7 +58,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "5",
+      "magnitude": "6",
       "undo": {
         "primary": "permanent"
       }
