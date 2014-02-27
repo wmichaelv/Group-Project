@@ -17,6 +17,24 @@
   {
     "action": {
       "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "activated",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "turnOn"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
       "comparisonOperators": "!=",
       "value": "true"
     },
@@ -100,5 +118,23 @@
       "primary": "opponent"
     },
     "effectName": "youLose"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "activated",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "turnOn"
   }
 ]
