@@ -5,22 +5,6 @@
       "player": "turn player"
     },
     "action": {
-      "primary": "send card to",
-      "location": "sidearea",
-      "player": "target card owner"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "type": "Character"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
       "primary": "verify target",
       "comparisonOperators": "==",
       "value": "4"
@@ -102,6 +86,22 @@
       "primary": "trigger next effect"
     },
     "effectName": "opponentLeader"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "sidearea",
+      "player": "target card owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
