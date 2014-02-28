@@ -1,8 +1,8 @@
 #==============================================================================
 #
 # Michael Skyrym Alchemy + Extended
-# Last Updated: 2014.02.25
-# V 1.02
+# Last Updated: 2014.02.27
+# V 1.03
 # Requirement: RPG Maker VX Ace
 #             -Knowledge of 'how to use script and notetag'
 #
@@ -222,7 +222,10 @@ Cannot_Make = "Not Enough Ingredient"
 # Bio
 #==============================================================================
 #
-# 2014.02.25 - V 1.02  Cut Down Perfomance Cost
+# 2014.02.27 - V 1.03  GUI Update
+#                      Custom Message Upon Success / Fail / N/A is initialized
+#                      Cut Down Performance Cost
+# 2014.02.25 - V 1.02  Cut Down Performance Cost
 #                      Fixed Custom SaveScript Compatibility
 # 2014.02.24 - V 1.01  Minor event call fix and script trimmed down
 # 2014.02.23 - V 1.00  Script is released and up for bug testing
