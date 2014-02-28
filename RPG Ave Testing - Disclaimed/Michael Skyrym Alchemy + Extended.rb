@@ -90,9 +90,9 @@ Keys_Nickname = {
 #
 #==============================================================================
 
-class Game_Interpreter
-  attr_accessor :map_id, :event_id, :list, :index, :fiber
-end
+class Game_Interpreter                                      #Ignore
+  attr_accessor :map_id, :event_id, :list, :index, :fiber   #Ignore
+end                                                         #Ignore
 
 #==============================================================================
 # SCENARIO 1
@@ -196,6 +196,15 @@ class Scene_Alchemy < Scene_MenuBase
 end
 
 =end #remove this line to use scenario 2
+
+#==============================================================================
+# More Customization~
+#  - Edit As You See Fit
+#==============================================================================
+
+Success_Message = "Gratz, Ya Dawg"
+Fail_Message = "Nigga stole Yo Item"
+Cannot_Make = "Not Enough Ingredient"
 
 #==============================================================================
 #
@@ -354,17 +363,18 @@ class Scene_Alchemy < Scene_MenuBase
     @pw.set_handler(:cancel,   method(:return_scene))
     @pw.help_window = @help_window
     @pw.activate
+    @pw.refresh
   end
   def selectIngredient
     if $ga.pr[@pw.in].cmake
       @pw.deactivate; @iw.activate
       @iw.sl; @sui = Array.new
     else
-      cannot_select; @pw.activate
+      cs; @pw.activate
     end
   end
   def create_ingredient_window
-    @iw = Window_Ingredient.new(160,0)
+    @iw = Window_Ingredient.new(48,0)
     @iw.sh(:ok,     method(:ingredientSelect))
     @iw.sh(:cancel, method(:returnProduct))
     @iw.hw = @help_window
@@ -378,7 +388,7 @@ class Scene_Alchemy < Scene_MenuBase
   end
   def returnProduct
     $ga.rU(@pw.in); $ga.rR(@pw.in)
-    @pw.update; @iw.refresh; @iw.sl
+    @pw.update; @iw.refresh; @iw.sl;
     @iw.deactivate; @pw.activate; end
   def create_confirm_window
     @cw = Window_Confirm.new(172, 208)
@@ -396,7 +406,13 @@ class Scene_Alchemy < Scene_MenuBase
     if $ga.pr[@pw.in].cF
       confirm_alchemy
       $ga.rU(@pw.in); $ga.rR(@pw.in)
-      @iw.refresh; @pw.activate; @iw.sl
+      @iw.refresh;
+      @pw.update;
+      if $ga.pr[@pw.in].cmake
+        @iw.activate; @iw.sl
+      else
+        @pw.activate 
+      end
     else
       @iw.refresh; @iw.activate; @iw.sl
     end
@@ -405,18 +421,31 @@ class Scene_Alchemy < Scene_MenuBase
     @sui.each do |i|
       $game_party.gain_item(@iw.data[i].cb, -$ga.pr[@pw.in].ingr[@iw.ika[i]][1])
     end
-    $game_party.gain_item($ga.pr[@pw.in].cb,1) if success_rate
+    (success_rate) ? ($game_party.gain_item($ga.pr[@pw.in].cb,1); sm) : fm
   end
   def cancel
     @iw.activate; @iw.sl; @cw.deactivate; @cw.hide; @cw.close
   end
-  def cannot_select
-    Sound.play_buzzer; b = Bitmap.new(340,60)
-    b.draw_text(0, 20,340, 40, "You don't have enough ingredient.")
-    w = Window_Message.new; w.contents = b
-    w.width = 380; w.height = 100; w.visible = true; w.openness = 255
+  def cs
+    w = Window_Message.new; Sound.play_buzzer; b = Bitmap.new(w.text_size(Cannot_Make).width + 2,60)
+    b.draw_text(0, 20,w.text_size(Cannot_Make).width + 2, 40, Cannot_Make); w.contents = b
+    w.width = w.text_size(Cannot_Make).width + 32; w.height = 100; w.visible = true; w.openness = 255
     w.x = 100; w.y = 180; w.back_opacity = 255; w.opacity = 255
-    w.update; Graphics.wait(90); b.dispose; w.dispose
+    w.update; Graphics.wait(70); b.dispose; w.dispose
+  end
+  def sm
+    w = Window_Message.new; Sound.play_buzzer; b = Bitmap.new(w.text_size(Success_Message).width + 2,60)
+    b.draw_text(0, 20,w.text_size(Success_Message).width + 2, 40, Success_Message); w.contents = b
+    w.width = w.text_size(Success_Message).width + 32; w.height = 100; w.visible = true; w.openness = 255
+    w.x = 100; w.y = 180; w.back_opacity = 255; w.opacity = 255
+    w.update; Graphics.wait(70); b.dispose; w.dispose
+  end
+  def fm
+    w = Window_Message.new; Sound.play_buzzer; b = Bitmap.new(w.text_size(Fail_Message).width + 2,60)
+    b.draw_text(0, 20,w.text_size(Fail_Message).width + 2, 40, Fail_Message); w.contents = b
+    w.width = w.text_size(Fail_Message).width + 32; w.height = 100; w.visible = true; w.openness = 255
+    w.x = 100; w.y = 180; w.back_opacity = 255; w.opacity = 255
+    w.update; Graphics.wait(70); b.dispose; w.dispose
   end
 end
 
@@ -430,10 +459,26 @@ class Window_Product < Window_Command
   attr_accessor :in #Index Number
 
   def make_command_list; $ga.pr.each do |i| add_command(i.name, :product) end end
-  def window_width; 160 end
+  def window_width; 48 end
   def window_height; 344 end
   def item; $ga.pr && index >= 0 ? $ga.pr[index] : nil end
   def select_last; select(0) end
+  def update; super; @iw.c = $ga.pr[index] if @iw; @in = index; refresh end
+  def iw=(iw); @iw = iw; update end
+  def update_help; @help_window.set_item(item) end
+  def refresh; super; checkEnable end
+  def checkEnable(k = nil)
+    $ga.pr.each do |i| $ga.checkCanMake?(i) end end
+
+  def draw_icon(i, x, y, enabled = true)
+    bitmap = Cache.system("Iconset")
+    rect = Rect.new(i % 16 * 24, i / 16 * 24, 24, 24)
+    contents.blt(x, y, bitmap, rect, enabled ? 255 : 100)
+  end
+  def item_rect(i)
+    rect = Rect.new; rect.width = rect.height = 24
+    rect.x = 0; rect.y = i * 24; rect
+  end
   def draw_item(index)
     rect = item_rect(index)
     rect.x += 4; rect.width -= 8
@@ -445,22 +490,7 @@ class Window_Product < Window_Command
       rect.x += 26; rect.width -= 20
     end
     self.contents.clear_rect(rect)
-    self.contents.font.color = normal_color
-    self.contents.font.color.alpha = $ga.pr[index].cmake ? 255 : 128
-    self.contents.draw_text(rect, $ga.pr[index].name)
   end
-  def update; super; @iw.c = $ga.pr[index] if @iw; @in = index; refresh end
-  def iw=(iw); @iw = iw; update end
-  def update_help; @help_window.set_item(item) end
-  def refresh
-    super
-    #(caller[0][/`.*'/][1..-2] == 'update') ? checkEnable(@in) : checkEnable 
-    checkEnable
-  end
-  def checkEnable(k = nil)
-    #($ga.checkCanMake?($ga.pr[k]); return) unless k.nil?
-
-    $ga.pr.each do |i| $ga.checkCanMake?(i) end end
 end
 
 #==============================================================================
@@ -479,13 +509,13 @@ class Window_Ingredient < Window_Base
 
   attr_reader   :index, :hw, :data, :ika
   
-  def initialize(x, y, width = 384, height = 344)
+  def initialize(x, y, width = 496, height = 344)
     super
     @index = -1; @h = {}; self.padding_bottom = 20; deactivate; 
     refresh; select(1); activate; @c = nil; @data = []
   end
   def in; @data.index($game_party.last_item.object) end #index number
-  def contents_height; item_max * 24 end
+  def contents_height; (item_max + 2) * 24 end
   def active=(active); super; uc; cuh end
   def index=(index); @index = index; @index = 1 if @index == 0; uc; cuh end
   def select(index); self.index = index if index end
@@ -505,19 +535,19 @@ class Window_Ingredient < Window_Base
     select((index - 1 + item_max) % item_max)) if (index >= 2 || (wrap) || top_row > 0)
   end
   def cpd
-    if top_row + 13 < item_max
-      self.top_row += 13
-      (@index + 13 > item_max - 1) ? select(item_max - 1) : 
-      ((@data[@index + 13].class.is_a?(String)) ?
-      (self.top_row += 1; select(@index + 14)) : select(@index + 13))
+    if top_row + 11 < item_max
+      self.top_row += 11
+      (@index + 11 > item_max - 1) ? select(item_max - 1) : 
+      ((@data[@index + 11].class.is_a?(String)) ?
+      (self.top_row += 1; select(@index + 12)) : select(@index + 11))
     end
   end
   def cpu
     if top_row > 0
-      self.top_row -= 13
-      (@index - 13 < 0) ? select(@data[1]) :
-      ((@data[@index - 13].is_a?(String)) ? select(@index - 12) : 
-      select(@index - 13))
+      self.top_row -= 11
+      (@index - 11 < 0) ? select(@data[1]) :
+      ((@data[@index - 11].is_a?(String)) ? select(@index - 10) : 
+      select(@index - 11))
     end
   end
   def update; super; pcm; ph end
@@ -555,7 +585,7 @@ class Window_Ingredient < Window_Base
   end
   def ecv
     self.top_row = index if index < top_row
-    self.top_row = index - 12 if index > top_row + 12
+    self.top_row = index - 10 if index > top_row + 10
     self.top_row = 0 if index == 1
   end
   def cuh; uh if active && @hw end
@@ -566,19 +596,24 @@ class Window_Ingredient < Window_Base
   def item; @data && index >= 0 ? @data[index] : nil end
   def cie(ik); enable?(@data[index], ik) end
   def item_rect(i)
-    rect = Rect.new; rect.width = 372; rect.height = 24
-    rect.x = 0; rect.y = i * 24; rect
+    rect = Rect.new; rect.width = 472; rect.height = 24
+    rect.x = 0; rect.y = (i + 2) * 24; rect
   end
   def di
     return if @c.nil?
+    draw_title
     @data.size.times { |i| 
       if @data[i].is_a?(String)
+        draw_text(24, 0, 350, 48, 
+          "#{@c.name}")
         @ik = @data[i]; @ika << @ik
         change_color(text_color(0), @c.nf(@ik)) 
-        draw_text(24, i * 24, 350, 24, 
+        draw_text(24, (i + 2) * 24, 350, 24, 
           "#{(Keys_Nickname[@data[i]] ||= @data[i])}" + 
           ": Select " + "(%2d)" % @c.ingr[@data[i]][0]) 
       else; (draw_item(i, @ik); @ika << @ik) end }
+  end
+  def draw_title
   end
   def he(item, ik); $game_party.item_number(item.cb) >= @c.ingr[ik][1] end
   def enable?(item, ik); he(item, ik) && !item.used[ik] && @c.nf(ik) end
