@@ -54,11 +54,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "endPhase"
-      }
+      "magnitude": "1"
     },
     "target": {
       "primary": "card",
@@ -108,10 +104,8 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "from": "board",
-        "class": "Spell",
-        "type": "Support",
-        "stat": "stat-effect-equipTarget=effect ciid"
+        "passing": "this card",
+        "from": "FirstRow"
       }
     },
     "effectComplete": {
@@ -126,8 +120,14 @@
       "value": "1"
     },
     "target": {
-      "primary": "opponent",
-      "playerProperty": "damageableByOppSpecials"
+      "primary": "card",
+      "cardProperty": "targetableByOwnSpecials",
+      "criteria": {
+        "from": "board",
+        "class": "Spell",
+        "type": "Support",
+        "stat": "stat-effect-equipTarget=effect ciid"
+      }
     },
     "effectComplete": {
       "primary": "trigger effect",
@@ -174,6 +174,27 @@
   },
   {
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": [
+          "targetedBySpecial",
+          "pre-useSpecial"
+        ]
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "activeBattle"
+  },
+  {
+    "action": {
       "primary": "modify stats",
       "operation": "+",
       "magnitude": "1",
@@ -191,31 +212,13 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "activeBattle"
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "pre-useSpecial"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   },
   {
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,gainedBasicAbility"
+        "primary": "gainedBasicAbility"
       }
     },
     "target": {
@@ -279,17 +282,15 @@
   },
   {
     "action": {
-      "primary": "send card to",
-      "location": "afterlife",
-      "player": "target card owner",
-      "stackLocation": "top"
+      "primary": "trigger event",
+      "event": {
+        "primary": "pre-useSpecial"
+      }
     },
     "target": {
       "primary": "card",
       "criteria": {
-        "class": "Spell",
-        "type": "Support",
-        "stat": "stat-effect-equipTarget=effect ciid"
+        "passing": "this card"
       }
     },
     "effectComplete": {
@@ -301,13 +302,33 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "pre-useSpecial"
+        "primary": "targetedBySpecial"
       }
     },
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "this card"
+        "class": "Spell",
+        "type": "Support",
+        "stat": "stat-effect-equipTarget=effect ciid"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "afterlife",
+      "player": "target card owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "class": "Spell",
+        "type": "Support",
+        "stat": "stat-effect-equipTarget=effect ciid"
       }
     },
     "effectComplete": {
@@ -333,20 +354,6 @@
   {
     "action": {
       "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "1"
-    },
-    "target": {
-      "primary": "opponent",
-      "playerProperty": "hp"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
       "operation": "=",
       "magnitude": "0"
     },
@@ -363,18 +370,28 @@
   },
   {
     "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "targetedBySpecial"
-      }
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
     },
     "target": {
-      "primary": "card",
-      "criteria": {
-        "class": "Spell",
-        "type": "Support",
-        "stat": "stat-effect-equipTarget=effect ciid"
-      }
+      "primary": "opponent",
+      "playerProperty": "damageableByOppSpecials"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "spUse"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "damageAmount"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -384,15 +401,91 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "lostHP"
+        "primary": [
+          "preLostHP",
+          "preDamagedBySpecial"
+        ]
       }
     },
     "target": {
-      "primary": "opponent"
+      "primary": "card",
+      "criteria": {
+        "player": "opponent",
+        "class": "Leader",
+        "type": "Character"
+      }
     },
     "effectComplete": {
       "primary": "trigger next effect"
     }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "damageAmount"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "damageAmount"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "effect damageAmount",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "opponent",
+      "playerProperty": "hp"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": [
+          "targetedBySpecial",
+          "lostHP",
+          "damagedBySpecial"
+        ]
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "opponent",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "spUse"
   },
   {
     "action": {
