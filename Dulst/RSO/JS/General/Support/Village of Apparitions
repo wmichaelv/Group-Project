@@ -99,6 +99,35 @@
   },
   {
     "action": {
+      "primary": "run effect",
+      "effectNumber": "startPlayer",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "passivec"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Replenishing",
+      "verifyTrue": "verifyPlayer"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    }
+  },
+  {
+    "action": {
       "primary": "trigger on event",
       "event": {
         "primary": [
@@ -110,7 +139,7 @@
     "target": {
       "primary": "game"
     },
-    "effectName": "passivec"
+    "effectName": "startPlayer"
   },
   {
     "action": {
@@ -188,15 +217,47 @@
   },
   {
     "action": {
+      "primary": "run effect",
+      "effectNumber": "startOpp",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "passived"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Replenishing",
+      "verifyTrue": "verifyOpp"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    }
+  },
+  {
+    "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-battlePhase"
+        "primary": [
+          "pre-pre-replPhase",
+          "pre-pre-battlePhase"
+        ]
       }
     },
     "target": {
       "primary": "game"
     },
-    "effectName": "passived"
+    "effectName": "startOpp"
   },
   {
     "action": {
