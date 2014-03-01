@@ -227,12 +227,7 @@
       "primary": "shuffle deck",
       "player": "owner"
     },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
+    "target": {},
     "effectComplete": {
       "primary": "trigger next effect"
     }
