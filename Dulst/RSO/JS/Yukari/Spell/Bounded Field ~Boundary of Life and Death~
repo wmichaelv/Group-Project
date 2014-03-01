@@ -127,7 +127,10 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,gainedBasicAbility,gainedStat"
+        "primary": [
+          "gainedStat",
+          "gainedBasicAbility"
+        ]
       }
     },
     "target": {
@@ -252,6 +255,26 @@
       "criteria": {
         "passing": "this card"
       }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": [
+          "gainedStat",
+          "gainedBasicAbility"
+        ]
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
     }
   },
   {
@@ -266,14 +289,16 @@
       }
     },
     "target": {
-      "primary": "owner"
+      "primary": "owner",
+      "playerProperty": "hp"
     },
     "effectName": "triggerOnDamage"
   },
   {
     "action": {
       "primary": "run effect",
-      "effectNumber": "startPassiveA,startPassiveB"
+      "effectNumber": "startPassiveA,startPassiveB",
+      "callback": "effect completion"
     },
     "target": {
       "primary": "card",
