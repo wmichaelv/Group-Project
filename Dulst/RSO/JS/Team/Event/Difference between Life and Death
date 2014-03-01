@@ -22,7 +22,6 @@
     },
     "target": {
       "primary": "card",
-      "count": "1",
       "criteria": {
         "from": "board",
         "player": "owner",
@@ -40,7 +39,6 @@
     },
     "target": {
       "primary": "card",
-      "count": "1",
       "criteria": {
         "from": "board",
         "player": "opponent",
@@ -142,7 +140,7 @@
       "primary": "card",
       "selector": {
         "primary": "owner",
-        "instructions": "Select a Spell card to return to its owner's hand from the field."
+        "instructions": "Select a Spell card from the field to return to its owner's hand."
       },
       "count": "1",
       "criteria": {
@@ -150,45 +148,12 @@
         "type": "Spell",
         "stat": "stat-qs>=1"
       },
-      "mandatory": "effect selectedCard"
+      "mandatory": "selectedCard"
     },
     "effectComplete": {
       "primary": "trigger next effect"
     },
     "effectName": "selectedCard"
-  },
-  {
-    "action": {
-      "primary": "send card to",
-      "location": "hand",
-      "player": "target card owner",
-      "stackLocation": "top"
-    },
-    "target": {
-      "primary": "card",
-      "count": "1",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "set to attack position"
-    },
-    "target": {
-      "primary": "card",
-      "count": "1",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
   },
   {
     "action": {
@@ -210,9 +175,38 @@
   {
     "action": {
       "primary": "send card to",
+      "location": "hand",
+      "player": "target card owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "set to attack position"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
