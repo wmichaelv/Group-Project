@@ -56,7 +56,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,gainedShikigami"
+        "primary": "gainedShikigami"
       }
     },
     "target": {
