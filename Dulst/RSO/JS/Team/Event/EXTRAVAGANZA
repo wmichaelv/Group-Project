@@ -136,7 +136,7 @@
       "primary": "card",
       "selector": {
         "primary": "owner",
-        "instructions": "Select 1 Spell to give Protection (1) and +1 IV to."
+        "instructions": "Select 1 Spell to give Penetration, Guided Bullets, +5 AV, +5 IV, and +5 HV to."
       },
       "count": "1",
       "criteria": {
