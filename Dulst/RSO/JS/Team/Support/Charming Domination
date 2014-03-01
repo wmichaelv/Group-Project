@@ -154,24 +154,12 @@
       "primary": "card",
       "criteria": {
         "from": "board",
-        "player": "owner"
+        "player": "owner",
+        "type": "Spell",
+        "stat": "stat-targetableByOwnSpecials>=1 && stat-shikigami!=1"
       }
     },
     "effectName": "cardB"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "charmingDominationFlag",
-      "criteria": {
-        "passing": "cardB"
-      }
-    }
   },
   {
     "action": {
@@ -285,23 +273,8 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "Replenishing",
-      "verifyTrue": "proceed"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "phase"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "Battle"
+      "comparisonOperators": "!=",
+      "value": "Preparation"
     },
     "target": {
       "primary": "game",
