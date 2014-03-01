@@ -31,7 +31,7 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": "==",
+      "comparisonOperators": ">=",
       "value": "1"
     },
     "target": {
@@ -93,7 +93,10 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,gainedBasicAbility,gainedStat"
+        "primary": [
+          "gainedStat",
+          "gainedBasicAbility"
+        ]
       }
     },
     "target": {
@@ -238,7 +241,10 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,gainedBasicAbility,gainedStat"
+        "primary": [
+          "gainedStat",
+          "gainedBasicAbility"
+        ]
       }
     },
     "target": {
@@ -382,7 +388,10 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,gainedBasicAbility,gainedStat"
+        "primary": [
+          "gainedStat",
+          "gainedBasicAbility"
+        ]
       }
     },
     "target": {
@@ -390,9 +399,6 @@
       "criteria": {
         "passing": "this card"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   }
 ]
