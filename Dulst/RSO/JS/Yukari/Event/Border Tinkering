@@ -545,7 +545,21 @@
         "passing": "this card"
       }
     },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
     "effectName": "useFail"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "failExtraCost"
+    }
   },
   {
     "action": {
