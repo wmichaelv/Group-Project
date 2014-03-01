@@ -200,7 +200,7 @@ class MA_SoundEmitter
   # * Recalculate Volume? 
   # * Reset Position Vars
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-madsee_pos_methods = << POS_END
+madsee_pos_methods = <<POS_END
 
   def recalc_vol?
     event = $game_map.events[event_id]
