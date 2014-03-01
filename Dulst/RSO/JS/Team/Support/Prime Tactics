@@ -180,7 +180,7 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": ">=",
+      "comparisonOperators": ">",
       "value": "1"
     },
     "target": {
@@ -194,39 +194,17 @@
   },
   {
     "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "deckTargetedByEvent"
-      }
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
     },
     "target": {
-      "primary": "owner"
+      "primary": "game",
+      "gameProperty": "MOVE"
     },
     "effectComplete": {
       "primary": "trigger next effect"
     }
-  },
-  {
-    "action": {
-      "primary": "send card to",
-      "location": "hand",
-      "player": "owner",
-      "stackLocation": "top",
-      "silent": "silent"
-    },
-    "target": {
-      "primary": "card",
-      "count": "1",
-      "criteria": {
-        "from": "deck",
-        "player": "owner",
-        "first": "1"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "card"
   },
   {
     "action": {
@@ -240,44 +218,28 @@
       },
       "count": "1",
       "criteria": {
-        "passing": "card"
+        "from": "deck",
+        "player": "owner",
+        "first": "1"
       },
       "mandatory": "mandatory or random"
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "card"
   },
   {
     "action": {
       "primary": "give choice",
       "choiceType": "multiple choice",
       "choiceQuestion": "Choose where the put the revealed card to:",
-      "choices": "effect sendToTop Top of deck\neffect sendToBottom Bottom of deck "
+      "choices": "effect doNothing Top of deck\neffect sendToBottom Bottom of deck"
     },
     "target": {
       "primary": "owner"
     },
     "effectName": "chooseSend"
-  },
-  {
-    "action": {
-      "primary": "send card to",
-      "location": "deck",
-      "player": "owner",
-      "stackLocation": "top"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "afterEffect"
-    },
-    "effectName": "sendToTop"
   },
   {
     "action": {
@@ -293,28 +255,6 @@
         "passing": "card"
       }
     },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "afterEffect"
-    },
     "effectName": "sendToBottom"
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "selector": {
-        "primary": "owner",
-        "instructions": "Click \"Finish Select\" to proceed."
-      },
-      "count": "1",
-      "criteria": {
-        "passing": "this card"
-      },
-      "mandatory": "mandatory or random"
-    },
-    "effectName": "afterEffect"
   }
 ]
