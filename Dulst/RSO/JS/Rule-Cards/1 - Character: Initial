@@ -89,6 +89,44 @@
   },
   {
     "action": {
+      "primary": "add class",
+      "class": "Leader",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "count": "1",
+      "criteria": {
+        "passing": "ownerLeader"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Leader",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "count": "1",
+      "criteria": {
+        "passing": "opponentLeader"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "send card to",
       "location": "sidearea",
       "player": "target card owner"
@@ -97,25 +135,9 @@
       "primary": "card",
       "criteria": {
         "type": "Character"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "add class",
-      "class": "Leader",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "count": "1",
-      "criteria": {
-        "passing": "ownerLeader"
+      },
+      "exclude": {
+        "class": "Leader"
       }
     },
     "effectComplete": {
@@ -131,46 +153,9 @@
     },
     "target": {
       "primary": "card",
-      "count": "1",
       "criteria": {
-        "passing": "ownerLeader"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "add class",
-      "class": "Leader",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "count": "1",
-      "criteria": {
-        "passing": "opponentLeader"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "send card to",
-      "location": "deadpool",
-      "player": "target card owner",
-      "silent": "silent"
-    },
-    "target": {
-      "primary": "card",
-      "count": "1",
-      "criteria": {
-        "passing": "opponentLeader"
+        "class": "Leader",
+        "type": "Character"
       }
     },
     "effectComplete": {
