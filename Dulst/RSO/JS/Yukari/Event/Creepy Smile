@@ -68,23 +68,6 @@
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "opponent",
-      "playerProperty": "canBV"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
       "primary": "trigger event",
       "event": {
         "primary": "targetedByEvent"
@@ -97,6 +80,23 @@
         "class": "Leader",
         "type": "Character"
       }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "opponent",
+      "playerProperty": "canBV"
     },
     "effectComplete": {
       "primary": "trigger next effect"
