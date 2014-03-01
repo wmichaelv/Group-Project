@@ -134,19 +134,6 @@ $imported[:MA_DynamicSoundEmittingEvents] = true
 #==============================================================================
 
 class MA_SoundEmitter
-  #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-  #  EDITABLE REGION
-  #||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-  #  SMOOTH_TRANSITION - When this value is set to true, changes in volume will
-  # sound slightly smoother as the player or event moves. If set to false, then
-  # the increments by which the volume jumps is quite a bit greater, but this
-  # should only be very noticeable at small radiuses. For the best effect, I
-  # recommend you set this value to true, but if you are worried about lag
-  # then you should set it to false.
-  SMOOTH_TRANSITION = true
-  #||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-  # End EDITABLE REGION
-  #////////////////////////////////////////////////////////////////////////////
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # * Public Instance Variables
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -175,13 +162,11 @@ class MA_SoundEmitter
     RPG.const_get(@sound_type).stop if audiofile && @sound_type == :BGM || @sound_type == :BGS
     @sound_type = :SE
     @radius = 15
-    @source_radius = 0
+    @size_x = @size_y = @source_radius = 0
     @max_volume = 80
     @pitch = 100
     @time = 600..900
-    @player_x, @player_y = -1, -1 
-    @event_x, @event_y = -1, -1
-    @size_x, @size_y = 0, 0
+    @player_x = @player_y = @event_x = @event_y = -1
     load_audiofile("")
     reset_timer
   end
@@ -192,7 +177,10 @@ class MA_SoundEmitter
     return unless audiofile && $game_map.events[event_id]
     case @sound_type
     when :SE, :ME
-      return unless update_se_me?
+      unless @timer <= 0
+        @timer -= 1
+        return
+      end
       audiofile.volume = calc_volume if recalc_vol?
       audiofile.pitch = calc_pitch
       reset_timer
@@ -209,32 +197,21 @@ class MA_SoundEmitter
     audiofile.play
   end
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  # * Update SE/ME?
-  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  def update_se_me?
-    if @timer > 0 # If timer not counted down
-      @timer -= 1 # Reduce timer
-      return false
-    end
-    return true
-  end
-  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # * Recalculate Volume? 
   # * Reset Position Vars
-  #``````````````````````````````````````````````````````````````````````````
-  #  Done this way to account for the value of SMOOTH_TRANSITION
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-pos_val = SMOOTH_TRANSITION ? "real_" : ""
-madsee_pos_methods = <<POS_END
+madsee_pos_methods = << POS_END
+
   def recalc_vol?
     event = $game_map.events[event_id]
-    !(@player_x == $game_player.#{pos_val}x && @event_x == event.#{pos_val}x && 
-      @player_y == $game_player.#{pos_val}y && @event_y == event.#{pos_val}y)
+    !(@player_x == $game_player.x && @event_x == event.x && 
+      @player_y == $game_player.y && @event_y == event.y)
   end
+
   def reset_position_vars
     event = $game_map.events[event_id]
-    @player_x, @player_y = $game_player.#{pos_val}x, $game_player.#{pos_val}y
-    @event_x, @event_y = event.#{pos_val}x, event.#{pos_val}y
+    @player_x, @player_y = $game_player.x, $game_player.y
+    @event_x, @event_y = event.x, event.y
   end
 POS_END
   eval(madsee_pos_methods)
@@ -280,6 +257,7 @@ POS_END
   # * Load AudioFile
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   def load_audiofile(filename = @filename)
+    return if @filename == filename
     @filename = filename
     @audiofile = RPG.const_get(@sound_type).new(@filename)
     @audiofile.pitch = calc_pitch
