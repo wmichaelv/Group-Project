@@ -118,7 +118,7 @@
       "primary": "card",
       "cardProperty": "title",
       "criteria": {
-        "passing": "effect eachLeaderSupport"
+        "passing": "eachLeaderSupport"
       }
     },
     "effectComplete": {
@@ -147,7 +147,7 @@
       "primary": "card",
       "cardProperty": "ciid",
       "criteria": {
-        "passing": "effect eachLeader",
+        "passing": "eachLeader",
         "class": "Leader",
         "type": "Character"
       }
@@ -186,7 +186,7 @@
       "primary": "card",
       "cardProperty": "qualifiedTarget",
       "criteria": {
-        "passing": "effect eachLeader"
+        "passing": "eachLeader"
       }
     },
     "effectComplete": {
@@ -200,7 +200,7 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "effect eachLeader",
+        "passing": "eachLeader",
         "class": "Alice"
       }
     },
@@ -217,7 +217,7 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "effect eachLeaderSupport",
+        "passing": "eachLeaderSupport",
         "class": "Leader&&Doll"
       }
     }
@@ -232,7 +232,7 @@
       "primary": "card",
       "cardProperty": "qualifiedTarget",
       "criteria": {
-        "passing": "effect eachLeader",
+        "passing": "eachLeader",
         "stat": "stat-ciid=effect ciid"
       }
     },
@@ -245,7 +245,7 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "effect eachLeader",
+        "passing": "eachLeader",
         "class": "Shou"
       }
     },
@@ -258,7 +258,7 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "effect eachLeaderSupport",
+        "passing": "eachLeaderSupport",
         "class": "Leader&&Shou"
       }
     }
@@ -273,7 +273,7 @@
       "primary": "card",
       "cardProperty": "qualifiedTarget",
       "criteria": {
-        "passing": "effect eachLeader",
+        "passing": "eachLeader",
         "stat": "stat-ciid=effect ciid"
       }
     }
@@ -385,7 +385,7 @@
         "type": "Support",
         "stat": "stat-disableEquip!=1"
       },
-      "mandatory": "effect active"
+      "mandatory": "active"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -399,7 +399,7 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "effect active",
+        "passing": "active",
         "class": "Spell,Leader"
       }
     },
@@ -416,7 +416,7 @@
       "primary": "card",
       "cardProperty": "title",
       "criteria": {
-        "passing": "effect active"
+        "passing": "active"
       }
     },
     "effectComplete": {
@@ -432,7 +432,7 @@
       "primary": "card",
       "cardProperty": "sp",
       "criteria": {
-        "passing": "effect active"
+        "passing": "active"
       }
     },
     "effectComplete": {
@@ -448,7 +448,7 @@
       "primary": "card",
       "cardProperty": "playerNumber",
       "criteria": {
-        "passing": "effect active"
+        "passing": "active"
       }
     },
     "effectComplete": {
@@ -599,7 +599,7 @@
       "primary": "card",
       "cardProperty": "ciid",
       "criteria": {
-        "passing": "effect eachLeader",
+        "passing": "eachLeader",
         "class": "Leader",
         "type": "Character"
       }
@@ -634,7 +634,7 @@
       "primary": "card",
       "cardProperty": "qualifiedTarget",
       "criteria": {
-        "passing": "effect eachLeader"
+        "passing": "eachLeader"
       }
     },
     "effectComplete": {
@@ -648,7 +648,7 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "effect eachLeader",
+        "passing": "eachLeader",
         "class": "Alice",
         "stat": "stat-ciid=effect ciid"
       }
@@ -681,7 +681,7 @@
       "primary": "card",
       "cardProperty": "qualifiedTarget",
       "criteria": {
-        "passing": "effect eachLeader"
+        "passing": "eachLeader"
       }
     }
   },
@@ -692,7 +692,7 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "effect eachLeader",
+        "passing": "eachLeader",
         "class": "Shou"
       }
     },
@@ -720,7 +720,7 @@
       "primary": "card",
       "cardProperty": "qualifiedTarget",
       "criteria": {
-        "passing": "effect eachLeader",
+        "passing": "eachLeader",
         "stat": "stat-ciid=effect ciid"
       }
     }
@@ -791,7 +791,7 @@
         "type": "Character",
         "stat": "stat-qualifiedTarget>=1"
       },
-      "mandatory": "doNothing"
+      "mandatory": "useFail"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -857,7 +857,7 @@
       "primary": "card",
       "cardProperty": "ciid",
       "criteria": {
-        "passing": "effect eachLeader",
+        "passing": "eachLeader",
         "class": "Leader",
         "type": "Character"
       }
@@ -1058,7 +1058,7 @@
         "type": "Spell",
         "stat": "stat-isEquippedWithSupport=0&&stat-qualifiedTarget>=1"
       },
-      "mandatory": "doNothing"
+      "mandatory": "useFail"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -1587,6 +1587,18 @@
         "class": "Extra Cost Equip"
       }
     }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "failExtraCost"
+    },
+    "effectName": "useFail"
   },
   {
     "action": {
