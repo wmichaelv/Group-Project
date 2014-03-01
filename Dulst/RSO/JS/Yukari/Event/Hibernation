@@ -52,29 +52,13 @@
   },
   {
     "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "playerNumber",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "playerNumber"
-  },
-  {
-    "action": {
       "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "effect playerNumber"
+      "comparisonOperators": ">=",
+      "value": "1"
     },
     "target": {
-      "primary": "game",
-      "gameProperty": "turnPlayer"
+      "primary": "owner",
+      "playerProperty": "yourTurn"
     },
     "effectComplete": {
       "primary": "trigger effect",
@@ -117,7 +101,11 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "5"
+      "magnitude": "5",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
     },
     "target": {
       "primary": "game",
@@ -131,7 +119,10 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "preGainedHP,preHealedByEvent"
+        "primary": [
+          "preGainedHP",
+          "preHealedByEvent"
+        ]
       }
     },
     "target": {
@@ -163,10 +154,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "+",
-      "magnitude": "effect healAmount",
-      "undo": {
-        "primary": "permanent"
-      }
+      "magnitude": "effect healAmount"
     },
     "target": {
       "primary": "owner",
@@ -180,7 +168,11 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedByEvent,gainedHP"
+        "primary": [
+          "targetedByEvent",
+          "gainedHP",
+          "healedByEvent"
+        ]
       }
     },
     "target": {
@@ -213,8 +205,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
