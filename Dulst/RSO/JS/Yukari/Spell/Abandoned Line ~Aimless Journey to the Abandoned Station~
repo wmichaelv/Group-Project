@@ -23,6 +23,10 @@
       "primary": "trigger on event",
       "event": {
         "primary": "post-battlePhase"
+      },
+      "undo": {
+        "primary": "game event",
+        "event": "pre-preparationPhase"
       }
     },
     "target": {
@@ -50,8 +54,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
@@ -66,23 +69,6 @@
   {
     "action": {
       "primary": "set to attack position"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "targetedBySpecial"
-      }
     },
     "target": {
       "primary": "card",
@@ -105,29 +91,13 @@
   },
   {
     "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "playerNumber",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "thisCardPlayer"
-  },
-  {
-    "action": {
       "primary": "verify target",
       "comparisonOperators": "!=",
-      "value": "effect thisCardPlayer"
+      "value": "1"
     },
     "target": {
-      "primary": "game",
-      "gameProperty": "turnPlayer"
+      "primary": "owner",
+      "playerProperty": "yourTurn"
     },
     "effectComplete": {
       "primary": "nothing"
@@ -170,10 +140,48 @@
   },
   {
     "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "targetedBySpecial"
+      "primary": "set to defense position"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
       }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-battlePhase"
+      },
+      "undo": {
+        "primary": "game event",
+        "event": "pre-preparationPhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "from": "FirstRow"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "set to attack position"
     },
     "target": {
       "primary": "card",
