@@ -109,10 +109,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "+",
-      "magnitude": "effect healAmountA",
-      "undo": {
-        "primary": "permanent"
-      }
+      "magnitude": "effect healAmountA"
     },
     "target": {
       "primary": "owner",
@@ -126,7 +123,10 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "gainedHP"
+        "primary": [
+          "gainedHP",
+          "healedBySpecial"
+        ]
       }
     },
     "target": {
@@ -202,10 +202,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "+",
-      "magnitude": "effect healAmountB",
-      "undo": {
-        "primary": "permanent"
-      }
+      "magnitude": "effect healAmountB"
     },
     "target": {
       "primary": "opponent",
@@ -219,7 +216,10 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "gainedHP"
+        "primary": [
+          "gainedHP",
+          "healedBySpecial"
+        ]
       }
     },
     "target": {
@@ -417,7 +417,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,gainedStat"
+        "primary": "gainedStat"
       }
     },
     "target": {
@@ -669,7 +669,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,gainedStat"
+        "primary": "gainedStat"
       }
     },
     "target": {
