@@ -71,7 +71,8 @@
       "criteria": {
         "from": "board",
         "player": "owner",
-        "class": "Doll&&Leader&&Goliath Doll",
+        "class": "Doll&&Leader",
+        "name": "Goliath Doll",
         "type": "Support"
       }
     },
@@ -83,15 +84,15 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
       "criteria": {
         "from": "board",
         "player": "owner",
-        "class": "Doll&&Leader&&Goliath Doll",
+        "class": "Doll&&Leader",
+        "name": "Goliath Doll",
         "type": "Support"
       }
     },
