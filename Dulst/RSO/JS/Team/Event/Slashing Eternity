@@ -22,7 +22,6 @@
     },
     "target": {
       "primary": "card",
-      "count": "1",
       "criteria": {
         "from": "board",
         "player": "owner",
@@ -43,7 +42,6 @@
     },
     "target": {
       "primary": "card",
-      "count": "1",
       "criteria": {
         "from": "board",
         "player": "opponent",
