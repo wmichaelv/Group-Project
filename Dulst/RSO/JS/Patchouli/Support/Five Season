@@ -128,8 +128,7 @@
     "action": {
       "primary": "send card to",
       "location": "FirstRow",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
@@ -159,10 +158,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": [
-          "targetedBySpecial",
-          "activate"
-        ]
+        "primary": "activate"
       }
     },
     "target": {

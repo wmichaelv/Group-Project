@@ -68,17 +68,16 @@
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "2",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+      "primary": "trigger event",
+      "event": {
+        "primary": [
+          "pre-useSpecial",
+          "targetedBySpecial"
+        ]
       }
     },
     "target": {
       "primary": "card",
-      "cardProperty": "av",
       "criteria": {
         "passing": "this card"
       }
@@ -90,13 +89,17 @@
   },
   {
     "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "pre-useSpecial"
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "2",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
       }
     },
     "target": {
       "primary": "card",
+      "cardProperty": "av",
       "criteria": {
         "passing": "this card"
       }
@@ -130,7 +133,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,gainedStat"
+        "primary": "gainedStat"
       }
     },
     "target": {
@@ -164,8 +167,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",

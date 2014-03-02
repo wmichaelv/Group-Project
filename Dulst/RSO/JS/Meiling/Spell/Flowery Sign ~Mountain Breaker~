@@ -116,28 +116,13 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
       "criteria": {
         "passing": "discard"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "sp"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -232,7 +217,7 @@
       "primary": "card",
       "selector": {
         "primary": "owner",
-        "instructions": "Select 1 Support Leader card from your opponent to discard."
+        "instructions": "Select 1 Support Leader card from your opponent's side to return to the opponent's hand."
       },
       "count": "1",
       "criteria": {
@@ -270,8 +255,7 @@
     "action": {
       "primary": "send card to",
       "location": "hand",
-      "player": "target card owner",
-      "stackLocation": "top"
+      "player": "target card owner"
     },
     "target": {
       "primary": "card",

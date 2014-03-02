@@ -1,8 +1,13 @@
 [
   {
     "action": {
-      "primary": "run effect",
-      "effectNumber": "passiveb,passivec,passived,passivee"
+      "primary": "trigger on event",
+      "event": {
+        "primary": [
+          "setAttacker",
+          "setIntercept"
+        ]
+      }
     },
     "target": {
       "primary": "card",
@@ -11,41 +16,10 @@
       }
     },
     "effectComplete": {
-      "primary": "trigger next effect"
+      "primary": "trigger effect",
+      "effectNumber": "passiveb,passivec,passived,passivee"
     },
     "effectName": "passive"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "pre-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "game"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": [
-          "setAttacker",
-          "setIntercept"
-        ]
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    }
   },
   {
     "action": {
@@ -309,7 +283,8 @@
   {
     "action": {
       "primary": "run effect",
-      "effectNumber": "ownHP"
+      "effectNumber": "ownHP",
+      "callback": "effect completion"
     },
     "target": {
       "primary": "card",
@@ -364,7 +339,8 @@
   {
     "action": {
       "primary": "run effect",
-      "effectNumber": "ownHP"
+      "effectNumber": "ownHP",
+      "callback": "effect completion"
     },
     "target": {
       "primary": "card",
@@ -449,10 +425,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": [
-          "targetedBySpecial",
-          "reserve"
-        ]
+        "primary": "reserve"
       }
     },
     "target": {

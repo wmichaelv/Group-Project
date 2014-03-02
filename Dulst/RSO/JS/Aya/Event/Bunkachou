@@ -102,7 +102,21 @@
   },
   {
     "action": {
-      "primary": "show card"
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "MOVE"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
     },
     "target": {
       "primary": "card",
@@ -110,6 +124,80 @@
         "from": "hand",
         "player": "opponent"
       }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "card"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "Board facedown",
+      "player": "target card owner",
+      "silent": "silent"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "owner",
+        "instructions": "Select 1 card from the opponent's hand to return to the top of their deck. At the end of the turn, your opponent draws 1 card"
+      },
+      "count": "1",
+      "criteria": {
+        "passing": "card"
+      },
+      "mandatory": "selectedCard"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "hand",
+      "player": "target card owner",
+      "silent": "silent"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card"
+      },
+      "exclude": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "afterEffect"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "MOVE"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -124,21 +212,13 @@
     },
     "target": {
       "primary": "card",
-      "selector": {
-        "primary": "owner",
-        "instructions": "Select 1 card from the opponent's hand to return to the top of their deck. At the end of the turn, your opponent draws 1 card"
-      },
-      "count": "1",
       "criteria": {
-        "from": "hand",
-        "player": "opponent"
-      },
-      "mandatory": "selectedCard"
+        "passing": "selectedCard"
+      }
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "selectedCard"
+    }
   },
   {
     "action": {

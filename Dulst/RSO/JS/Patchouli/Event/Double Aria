@@ -74,7 +74,7 @@
       "primary": "card",
       "cardProperty": "effect-equipTarget",
       "criteria": {
-        "passing": "effect 3"
+        "passing": "eachKoakuma"
       }
     },
     "effectComplete": {
@@ -104,15 +104,19 @@
     "action": {
       "primary": "verify target",
       "comparisonOperators": ">=",
-      "value": "1"
+      "value": "1",
+      "verifyTrue": "doNothing"
     },
     "target": {
       "primary": "card",
       "cardProperty": "targetableByOwnEvents",
       "criteria": {
-        "passing": "effect 5",
+        "passing": "koakumaSpell",
         "from": "SecondRow"
       }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
     }
   },
   {
@@ -122,12 +126,12 @@
       "magnitude": "1",
       "undo": {
         "primary": "game event",
-        "event": "post-replPhase"
+        "event": "newEffect"
       }
     },
     "target": {
       "primary": "card",
-      "cardProperty": "proceedFlag",
+      "cardProperty": "failFlag",
       "criteria": {
         "passing": "this card"
       }
@@ -136,12 +140,12 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": "==",
+      "comparisonOperators": "!=",
       "value": "1"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "proceedFlag",
+      "cardProperty": "failFlag",
       "criteria": {
         "passing": "this card"
       }
@@ -219,7 +223,7 @@
       "primary": "trigger effect",
       "effectNumber": "proceedToEffectB"
     },
-    "effectName": "eachKoakuma"
+    "effectName": "eachKoakumaB"
   },
   {
     "action": {
@@ -229,7 +233,7 @@
       "primary": "card",
       "cardProperty": "effect-equipTarget",
       "criteria": {
-        "passing": "eachKoakuma"
+        "passing": "eachKoakumaB"
       }
     },
     "effectComplete": {
@@ -253,7 +257,24 @@
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "koakumaSpell"
+    "effectName": "koakumaSpellB"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "koakumaSpellB"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
@@ -265,7 +286,7 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "koakumaSpell"
+        "passing": "koakumaSpellB"
       }
     },
     "effectComplete": {
@@ -279,7 +300,7 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "koakumaSpell"
+        "passing": "koakumaSpellB"
       }
     },
     "effectComplete": {
@@ -290,16 +311,13 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": [
-          "targetedByEvent",
-          "activate"
-        ]
+        "primary": "activate"
       }
     },
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "koakumaSpell"
+        "passing": "koakumaSpellB"
       }
     }
   },
@@ -330,7 +348,7 @@
   },
   {
     "action": {
-      "primary": "each"
+      "primary": "assign variable"
     },
     "target": {
       "primary": "card",
@@ -346,10 +364,99 @@
       }
     },
     "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "card"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "card"
+    },
+    "effectName": "count"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "owner",
+        "instructions": "Viewing the selected cards. Click \"Finish Select\" to continue, or click on any of the cards to re-select targets."
+      },
+      "count": "1",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "confirm"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "<=",
+      "value": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "passing": "confirm"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "card"
+    }
+  },
+  {
+    "action": {
+      "primary": "each"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
       "primary": "trigger effect",
       "effectNumber": "afterEffect"
     },
     "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
@@ -386,10 +493,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": [
-          "targetedByEvent",
-          "activate"
-        ]
+        "primary": "activate"
       }
     },
     "target": {
@@ -403,8 +507,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",

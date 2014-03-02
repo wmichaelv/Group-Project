@@ -121,7 +121,10 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "preLostHP,preDamagedByEvent"
+        "primary": [
+          "preDamagedByEvent",
+          "preLostHP"
+        ]
       }
     },
     "target": {
@@ -170,7 +173,11 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedByEvent,lostHP"
+        "primary": [
+          "targetedByEvent",
+          "lostHP",
+          "damagedByEvent"
+        ]
       }
     },
     "target": {
@@ -219,7 +226,10 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "preGainedHP,preHealedByEvent"
+        "primary": [
+          "preHealedByEvent",
+          "preGainedHP"
+        ]
       }
     },
     "target": {
@@ -268,7 +278,11 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedByEvent,gainedHP"
+        "primary": [
+          "gainedHP",
+          "healedBySpecial",
+          "targetedByEvent"
+        ]
       }
     },
     "target": {
@@ -292,8 +306,8 @@
       "count": "1",
       "criteria": {
         "from": "board",
-        "player": "opponent",
-        "type": "Spell"
+        "class": "Spell,Leader",
+        "type": "Support"
       }
     },
     "effectComplete": {
@@ -356,24 +370,6 @@
   },
   {
     "action": {
-      "primary": "verify target"
-    },
-    "target": {
-      "primary": "card",
-      "count": "1",
-      "criteria": {
-        "from": "board",
-        "class": "Spell,Leader",
-        "type": "Support"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "spUse"
-    }
-  },
-  {
-    "action": {
       "primary": "assign variable"
     },
     "target": {
@@ -399,8 +395,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "target card owner",
-      "stackLocation": "top"
+      "player": "target card owner"
     },
     "target": {
       "primary": "card",
@@ -448,8 +443,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",

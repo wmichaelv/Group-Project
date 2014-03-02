@@ -219,7 +219,8 @@
   {
     "action": {
       "primary": "run effect",
-      "effectNumber": "effect supportCount"
+      "effectNumber": "effect supportCount",
+      "callback": "effect completion"
     },
     "target": {
       "primary": "card",

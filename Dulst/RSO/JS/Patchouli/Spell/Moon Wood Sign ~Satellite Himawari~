@@ -107,7 +107,10 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,gainedBasicAbility,gainedStat"
+        "primary": [
+          "gainedStat",
+          "gainedBasicAbility"
+        ]
       }
     },
     "target": {

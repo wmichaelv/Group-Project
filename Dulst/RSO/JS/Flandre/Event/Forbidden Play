@@ -17,11 +17,13 @@
   },
   {
     "action": {
-      "primary": "verify target"
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "1"
     },
     "target": {
       "primary": "card",
-      "count": "1",
+      "cardProperty": "count",
       "criteria": {
         "from": "deck",
         "player": "owner"
@@ -34,11 +36,13 @@
   },
   {
     "action": {
-      "primary": "verify target"
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "1"
     },
     "target": {
       "primary": "card",
-      "count": "1",
+      "cardProperty": "count",
       "criteria": {
         "from": "deck",
         "player": "opponent"
@@ -152,7 +156,11 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "1"
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "newEffect"
+      }
     },
     "target": {
       "primary": "card",
@@ -171,7 +179,8 @@
       "operation": "=",
       "magnitude": "1",
       "undo": {
-        "primary": "permanent"
+        "primary": "game event",
+        "event": "newEffect"
       }
     },
     "target": {
@@ -417,7 +426,8 @@
       "event": {
         "primary": [
           "targetedByEvent",
-          "lostHP"
+          "lostHP",
+          "damagedByEvent"
         ]
       }
     },
@@ -522,7 +532,8 @@
       "event": {
         "primary": [
           "targetedByEvent",
-          "lostHP"
+          "lostHP",
+          "damagedByEvent"
         ]
       }
     },
@@ -627,7 +638,8 @@
       "event": {
         "primary": [
           "targetedByEvent",
-          "lostHP"
+          "lostHP",
+          "damagedByEvent"
         ]
       }
     },
@@ -725,8 +737,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",

@@ -198,7 +198,7 @@
       "event": {
         "primary": [
           "preLostHP",
-          "preDamagedByEvent"
+          "preDamagedBySpecial"
         ]
       }
     },
@@ -250,7 +250,7 @@
       "event": {
         "primary": [
           "lostHP",
-          "damagedByEvent"
+          "damagedBySpecial"
         ]
       }
     },

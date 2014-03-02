@@ -25,7 +25,7 @@
       "primary": "card",
       "cardProperty": "handTargetableByOppEvents",
       "criteria": {
-        "player": "owner",
+        "player": "opponent",
         "class": "Leader",
         "type": "Character"
       }
@@ -41,7 +41,6 @@
     },
     "target": {
       "primary": "card",
-      "count": "1",
       "criteria": {
         "from": "hand",
         "player": "opponent"
@@ -123,7 +122,7 @@
       "primary": "card",
       "selector": {
         "primary": "owner",
-        "instructions": "Viewing the randomly selected card from opponent's hand. It will either be put into the opponent's Reserve side (if a Spell), or be discarded (if not)."
+        "instructions": "Viewing the randomly selected card. If it is a Spell, it is reserved to your opponent's side. Otherwise, it is discarded."
       },
       "count": "1",
       "criteria": {
@@ -153,26 +152,9 @@
   },
   {
     "action": {
-      "primary": "verify target"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "selectedCard",
-        "type": "Spell"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "discard"
-    }
-  },
-  {
-    "action": {
       "primary": "send card to",
       "location": "SecondRow",
-      "player": "target card owner",
-      "stackLocation": "top"
+      "player": "target card owner"
     },
     "target": {
       "primary": "card",
@@ -250,8 +232,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "target card owner",
-      "stackLocation": "top"
+      "player": "target card owner"
     },
     "target": {
       "primary": "card",
@@ -287,8 +268,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",

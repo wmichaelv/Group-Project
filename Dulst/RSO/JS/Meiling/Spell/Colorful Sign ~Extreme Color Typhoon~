@@ -37,11 +37,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "endPhase"
-      }
+      "magnitude": "1"
     },
     "target": {
       "primary": "card",
@@ -157,34 +153,13 @@
   },
   {
     "action": {
-      "primary": "assign variable"
+      "primary": "verify target"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "ciid",
       "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "ciid"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "effect ciid"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "effect-equipTarget",
-      "criteria": {
-        "from": "board",
-        "player": "owner",
-        "class": "Spell",
-        "type": "Support"
+        "passing": "this card",
+        "stat": "stat-isEquippedWithSupport>=1"
       }
     },
     "effectComplete": {

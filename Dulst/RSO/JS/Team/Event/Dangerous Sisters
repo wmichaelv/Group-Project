@@ -200,7 +200,8 @@
     "action": {
       "primary": "send card to",
       "location": "deck",
-      "player": "target card owner"
+      "player": "target card owner",
+      "stackLocation": "bottom"
     },
     "target": {
       "primary": "card",
@@ -244,7 +245,8 @@
     "action": {
       "primary": "send card to",
       "location": "deck",
-      "player": "target card owner"
+      "player": "target card owner",
+      "stackLocation": "bottom"
     },
     "target": {
       "primary": "card",

@@ -97,7 +97,7 @@
       "magnitude": "1",
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": "newEffect"
       }
     },
     "target": {
@@ -120,7 +120,7 @@
       "magnitude": "1",
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": "newEffect"
       }
     },
     "target": {
@@ -576,10 +576,6 @@
         "passing": "this card"
       }
     },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "afterEffect"
-    },
     "effectName": "verifyBottomCount"
   },
   {
@@ -625,23 +621,5 @@
       "primary": "trigger effect",
       "effectNumber": "effect verifyBottomCount"
     }
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "selector": {
-        "primary": "owner",
-        "instructions": "Click \"Finish Select\" to proceed."
-      },
-      "count": "1",
-      "criteria": {
-        "passing": "this card"
-      },
-      "mandatory": "mandatory or random"
-    },
-    "effectName": "afterEffect"
   }
 ]

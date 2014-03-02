@@ -48,24 +48,7 @@
         "passing": "card"
       }
     },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
     "effectName": "modifyCard"
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "targetedBySpecial"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "card"
-      }
-    }
   },
   {
     "action": {

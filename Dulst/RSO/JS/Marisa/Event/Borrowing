@@ -102,13 +102,45 @@
   },
   {
     "action": {
-      "primary": "show card"
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "MOVE"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
     },
     "target": {
       "primary": "card",
       "criteria": {
         "from": "hand",
         "player": "opponent"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "card"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "Board facedown",
+      "player": "target card owner",
+      "silent": "silent"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card"
       }
     },
     "effectComplete": {
@@ -124,8 +156,7 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "from": "hand",
-        "player": "opponent",
+        "passing": "card",
         "type": [
           "Support",
           "Event"
@@ -139,9 +170,7 @@
   },
   {
     "action": {
-      "primary": "send card to",
-      "location": "afterlife",
-      "player": "target card owner"
+      "primary": "assign variable"
     },
     "target": {
       "primary": "card",
@@ -151,8 +180,7 @@
       },
       "count": "1",
       "criteria": {
-        "from": "hand",
-        "player": "opponent",
+        "passing": "card",
         "type": [
           "Support",
           "Event"
@@ -162,7 +190,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "spUse"
+      "effectNumber": "afterEffect"
     },
     "effectName": "selectedCard"
   },
@@ -174,12 +202,11 @@
       "primary": "card",
       "selector": {
         "primary": "owner",
-        "instructions": "No non-spell card on opponent's hand! Viewing opponent's hand instead."
+        "instructions": "No non-Spell card on opponent's hand! Viewing opponent's hand instead. Click \"Finish Select\" to continue."
       },
       "count": "1",
       "criteria": {
-        "from": "hand",
-        "player": "opponent"
+        "passing": "card"
       },
       "mandatory": "mandatory or random"
     },
@@ -187,6 +214,57 @@
       "primary": "trigger next effect"
     },
     "effectName": "viewHand"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "hand",
+      "player": "target card owner",
+      "silent": "silent"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card"
+      },
+      "exclude": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "afterEffect"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "MOVE"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "afterlife",
+      "player": "target card owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {

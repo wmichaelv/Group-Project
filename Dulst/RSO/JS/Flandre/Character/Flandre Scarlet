@@ -42,9 +42,8 @@
       "primary": "card",
       "cardProperty": "targetableByOwnSpecials",
       "criteria": {
-        "from": "board",
         "player": "owner",
-        "type": "Spell",
+        "class": "Battle Spell",
         "stat": "stat-basicAbility=0"
       }
     },
@@ -111,8 +110,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
@@ -130,18 +128,11 @@
     },
     "target": {
       "primary": "card",
-      "selector": {
-        "primary": "owner",
-        "instructions": "Select one of your Spell cards without Basic Abilities to give +1 AV to."
-      },
       "count": "1",
       "criteria": {
-        "from": "board",
         "player": "owner",
-        "type": "Spell",
-        "stat": "stat-targetableByOwnSpecials>=1 && stat-basicAbility=0"
-      },
-      "mandatory": "selectedCard"
+        "class": "Battle Spell"
+      }
     },
     "effectComplete": {
       "primary": "trigger next effect"

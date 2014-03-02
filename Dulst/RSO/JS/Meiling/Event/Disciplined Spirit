@@ -117,7 +117,7 @@
         "class": "Meiling",
         "type": "Support"
       },
-      "mandatory": "effect selectedCard"
+      "mandatory": "selectedCard"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -132,7 +132,7 @@
       "primary": "card",
       "selector": {
         "primary": "opponent",
-        "instructions": "Viewing the selected card."
+        "instructions": "Viewing the selected card. Click \"Finish Select\" to continue."
       },
       "count": "1",
       "criteria": {

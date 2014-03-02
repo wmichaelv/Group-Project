@@ -142,7 +142,7 @@
       "primary": "card",
       "selector": {
         "primary": "owner",
-        "instructions": "Select a Spell card to return to its owner's hand from the field."
+        "instructions": "Select a Spell card with a Support from the field to return to its owner's hand."
       },
       "count": "1",
       "criteria": {
@@ -150,7 +150,7 @@
         "type": "Spell",
         "stat": "stat-qs>=1"
       },
-      "mandatory": "effect selectedCard"
+      "mandatory": "selectedCard"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -178,8 +178,7 @@
     "action": {
       "primary": "send card to",
       "location": "hand",
-      "player": "target card owner",
-      "stackLocation": "top"
+      "player": "target card owner"
     },
     "target": {
       "primary": "card",
@@ -211,8 +210,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",

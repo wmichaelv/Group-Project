@@ -129,8 +129,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
@@ -146,10 +145,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": [
-          "targetedBySpecial",
-          "gainedStat"
-        ]
+        "primary": "targetedBySpecial"
       }
     },
     "target": {
@@ -189,6 +185,25 @@
   },
   {
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "gainedStat"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "verify target",
       "comparisonOperators": "<=",
       "value": "5"
@@ -199,7 +214,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "spUse"
+      "effectNumber": "afterEffect"
     }
   },
   {
@@ -219,7 +234,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "+",
-      "magnitude": "6-effect hp",
+      "magnitude": "6 - effect hp",
       "undo": {
         "primary": "game event",
         "event": "post-battlePhase"
@@ -241,21 +256,6 @@
   {
     "action": {
       "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "sp"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "spUse"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
       "operation": "=",
       "magnitude": "0"
     },
@@ -268,7 +268,8 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "afterEffect"
   },
   {
     "action": {

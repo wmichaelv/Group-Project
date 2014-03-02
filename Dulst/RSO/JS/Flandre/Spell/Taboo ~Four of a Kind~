@@ -66,11 +66,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "effect leaderLevel",
-      "undo": {
-        "primary": "game event",
-        "event": "endPhase"
-      }
+      "magnitude": "effect leaderLevel"
     },
     "target": {
       "primary": "card",
@@ -240,16 +236,16 @@
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
+      "primary": "trigger event",
+      "event": {
+        "primary": [
+          "pre-useSpecial",
+          "targetedBySpecial"
+        ]
       }
     },
     "target": {
       "primary": "card",
-      "cardProperty": "av",
       "criteria": {
         "passing": "this card"
       }
@@ -261,13 +257,16 @@
   },
   {
     "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "pre-useSpecial"
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
       }
     },
     "target": {
       "primary": "card",
+      "cardProperty": "av",
       "criteria": {
         "passing": "this card"
       }
@@ -300,7 +299,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,gainedStat"
+        "primary": "gainedStat"
       }
     },
     "target": {

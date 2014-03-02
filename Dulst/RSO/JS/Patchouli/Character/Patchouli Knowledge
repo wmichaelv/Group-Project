@@ -69,10 +69,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": [
-          "targetedBySpecial",
-          "lostStat"
-        ]
+        "primary": "lostStat"
       }
     },
     "target": {

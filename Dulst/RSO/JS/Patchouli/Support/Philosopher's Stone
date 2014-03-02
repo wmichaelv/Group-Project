@@ -137,23 +137,8 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "Replenishing",
-      "verifyTrue": "selectedCard"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "phase"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "Preparation"
+      "comparisonOperators": "!=",
+      "value": "Battle"
     },
     "target": {
       "primary": "game",
@@ -168,7 +153,7 @@
       "primary": "card",
       "selector": {
         "primary": "owner",
-        "instructions": "Select a Patchouli Spell card to add to your Reserve. If that spell is Level 1, you will gain 3 SP."
+        "instructions": "Select a card to reserve. If that card is Level 1, you will gain 3 SP."
       },
       "count": "1",
       "criteria": {
@@ -188,8 +173,7 @@
     "action": {
       "primary": "send card to",
       "location": "SecondRow",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
@@ -257,20 +241,6 @@
       "criteria": {
         "passing": "selectedCard"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "deckTargetedBySpecial"
-      }
-    },
-    "target": {
-      "primary": "owner"
     },
     "effectComplete": {
       "primary": "trigger next effect"

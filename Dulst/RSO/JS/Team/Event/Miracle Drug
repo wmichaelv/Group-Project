@@ -277,6 +277,29 @@
   },
   {
     "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "2",
+      "undo": {
+        "primary": "game event",
+        "event": "pre-replPhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "shield",
+      "criteria": {
+        "player": "owner",
+        "type": "Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "sp1Activate"
+  },
+  {
+    "action": {
       "primary": "trigger on event",
       "event": {
         "primary": "preLostHP"
@@ -297,8 +320,7 @@
     "effectComplete": {
       "primary": "trigger effect",
       "effectNumber": "spUse"
-    },
-    "effectName": "sp1Activate"
+    }
   },
   {
     "action": {

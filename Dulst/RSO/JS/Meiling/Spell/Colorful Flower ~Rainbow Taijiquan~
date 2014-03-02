@@ -25,44 +25,8 @@
       "primary": "card",
       "cardProperty": "targetableByOwnSpecials",
       "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "verifyFail"
-    }
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "ciid",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "ciid"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "effect ciid"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "effect-equipTarget",
-      "criteria": {
-        "from": "board",
-        "player": "owner",
-        "class": "Spell",
-        "type": "Support"
+        "passing": "this card",
+        "stat": "stat-isEquippedWithSupport>=1"
       }
     },
     "effectComplete": {
@@ -200,26 +164,10 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "game"
-    },
-    "effectName": "passive"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
         "primary": [
           "hitDefender",
           "hitAttacker"
         ]
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
       }
     },
     "target": {
@@ -227,7 +175,8 @@
       "criteria": {
         "passing": "this card"
       }
-    }
+    },
+    "effectName": "passive"
   },
   {
     "action": {
@@ -337,7 +286,10 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "gainedHP"
+        "primary": [
+          "gainedHP",
+          "healedBySpecial"
+        ]
       }
     },
     "target": {
