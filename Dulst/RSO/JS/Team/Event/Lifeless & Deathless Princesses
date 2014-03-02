@@ -41,7 +41,6 @@
     },
     "target": {
       "primary": "card",
-      "count": "1",
       "criteria": {
         "from": "afterlife",
         "player": "owner",
@@ -151,8 +150,7 @@
     "action": {
       "primary": "send card to",
       "location": "SecondRow",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
@@ -184,8 +182,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
