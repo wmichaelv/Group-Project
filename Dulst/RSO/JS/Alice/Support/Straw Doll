@@ -23,7 +23,7 @@
       "criteria": {
         "from": "board",
         "player": "owner",
-        "class": "Straw Doll"
+        "name": "Straw Doll"
       }
     },
     "effectComplete": {
@@ -67,8 +67,8 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "0"
+      "comparisonOperators": "!=",
+      "value": "1"
     },
     "target": {
       "primary": "owner",
