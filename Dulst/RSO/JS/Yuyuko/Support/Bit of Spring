@@ -87,7 +87,10 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "1"
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
     },
     "target": {
       "primary": "game",
@@ -136,10 +139,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "+",
-      "magnitude": "effect healAmount",
-      "undo": {
-        "primary": "permanent"
-      }
+      "magnitude": "effect healAmount"
     },
     "target": {
       "primary": "owner",
@@ -151,10 +151,31 @@
   },
   {
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": [
+          "gainedHP",
+          "healedBySpecial"
+        ]
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
@@ -168,21 +189,19 @@
   },
   {
     "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": [
-          "targetedBySpecial",
-          "gainedHP"
-        ]
-      }
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
     },
     "target": {
       "primary": "card",
+      "cardProperty": "canActivate",
       "criteria": {
-        "player": "owner",
-        "class": "Leader",
-        "type": "Character"
+        "passing": "this card"
       }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
     }
   },
   {
