@@ -27,7 +27,7 @@
       "criteria": {
         "from": "board",
         "player": "owner",
-        "class": "French Doll"
+        "name": "French Doll"
       }
     },
     "effectComplete": {
@@ -101,7 +101,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,gainedStat"
+        "primary": "gainedStat"
       }
     },
     "target": {
@@ -136,10 +136,10 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "Guided Bullets",
       "criteria": {
         "player": "owner",
-        "class": "Doll&&Leader&&French Doll",
+        "class": "Doll&&Leader",
+        "name": "French Doll",
         "type": "Support"
       }
     }
@@ -203,7 +203,8 @@
   {
     "action": {
       "primary": "run effect",
-      "effectNumber": "effect dollCount"
+      "effectNumber": "effect dollCount",
+      "callback": "effect completion"
     },
     "target": {
       "primary": "card",
