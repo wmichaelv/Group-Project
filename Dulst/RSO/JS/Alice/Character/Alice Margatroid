@@ -21,29 +21,12 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "ciid",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "ciid"
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
       "cardProperty": "count",
       "criteria": {
         "from": "board",
         "player": "owner",
         "class": "Doll",
-        "type": "Support",
-        "stat": "stat-effect-equipTarget=effect ciid"
+        "type": "Support"
       }
     },
     "effectComplete": {
@@ -56,128 +39,29 @@
       "primary": "assign variable"
     },
     "target": {
+      "primary": "value",
+      "value": "effect dollCount / 2"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "halfAmount"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "floor"
+    },
+    "target": {
       "primary": "card",
-      "cardProperty": "counter",
+      "cardProperty": "effect-halfAmount",
       "criteria": {
         "passing": "this card"
       }
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "counter"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">",
-      "value": "effect counter"
-    },
-    "target": {
-      "primary": "value",
-      "value": "effect dollCount/2"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "halfCheck"
-    },
-    "effectName": "counterCheck"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "counter",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "counterCheck"
     }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "effect counter",
-      "verifyTrue": "halfDollCountFix"
-    },
-    "target": {
-      "primary": "value",
-      "value": "effect dollCount/2"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "halfDollCount"
-    },
-    "effectName": "halfCheck"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "effect dollCount / 2 - 0.5",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "dollCount",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "halfDoll"
-    },
-    "effectName": "halfDollCountFix"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "effect dollCount / 2",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "dollCount",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "halfDollCount"
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "dollCount",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "halfDoll"
   },
   {
     "action": {
@@ -201,7 +85,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "+",
-      "magnitude": "effect halfDoll",
+      "magnitude": "effect halfAmount",
       "undo": {
         "primary": "permanent"
       }
@@ -221,7 +105,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "+",
-      "magnitude": "effect halfDoll",
+      "magnitude": "effect halfAmount",
       "undo": {
         "primary": "permanent"
       }
@@ -241,7 +125,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "effect halfDoll",
+      "magnitude": "effect halfAmount",
       "undo": {
         "primary": "permanent"
       }
@@ -321,7 +205,8 @@
       "criteria": {
         "passing": "this card"
       }
-    }
+    },
+    "effectName": "turnOff"
   },
   {
     "action": {
@@ -412,7 +297,7 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "post-moveCard"
+        "primary": "removeFromBoard"
       },
       "undo": {
         "primary": "game event",
@@ -423,95 +308,21 @@
       "primary": "card",
       "criteria": {
         "player": "owner",
-        "class": "Leader&&Doll",
+        "class": "Doll",
         "type": "Support"
       }
     }
   },
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "1"
+      "primary": "run effect",
+      "effectNumber": "effect turnOff",
+      "callback": "effect completion"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "isOnFlag",
       "criteria": {
         "passing": "this card"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "isOnFlag",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "aliceBuff",
-      "criteria": {
-        "passing": "eachSpell"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "aliceBuff"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "effect aliceBuff",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "av",
-      "criteria": {
-        "passing": "eachSpell"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "effect aliceBuff",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "iv",
-      "criteria": {
-        "passing": "eachSpell"
       }
     },
     "effectComplete": {
@@ -521,7 +332,8 @@
   {
     "action": {
       "primary": "run effect",
-      "effectNumber": "effect dollCount"
+      "effectNumber": "effect dollCount",
+      "callback": "effect completion"
     },
     "target": {
       "primary": "card",
