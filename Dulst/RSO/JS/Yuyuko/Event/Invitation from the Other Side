@@ -181,7 +181,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "proceed"
+      "effectNumber": "damage"
     },
     "effectName": "verifyNotHuman"
   },
@@ -205,26 +205,6 @@
   },
   {
     "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "preLostHP,preDamagedByEvent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "player": "opponent",
-        "class": "Leader",
-        "type": "Character"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "proceed"
-  },
-  {
-    "action": {
       "primary": "assign variable"
     },
     "target": {
@@ -241,22 +221,9 @@
   },
   {
     "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "damageAmount"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "damageAmount"
-  },
-  {
-    "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "effect damageAmount + effect damage"
+      "magnitude": "effect damage"
     },
     "target": {
       "primary": "game",
@@ -299,13 +266,13 @@
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "damageAmountFinal"
+    "effectName": "damageAmount"
   },
   {
     "action": {
       "primary": "modify stats",
       "operation": "-",
-      "magnitude": "effect damageAmountFinal",
+      "magnitude": "effect damageAmount",
       "undo": {
         "primary": "permanent"
       }
@@ -323,6 +290,7 @@
       "primary": "trigger event",
       "event": {
         "primary": [
+          "targetedByEvent",
           "lostHP",
           "damagedByEvent"
         ]
@@ -344,8 +312,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
