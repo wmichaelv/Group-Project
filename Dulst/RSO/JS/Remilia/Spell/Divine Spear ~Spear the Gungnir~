@@ -79,7 +79,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,reserve"
+        "primary": "reserve"
       }
     },
     "target": {
@@ -112,6 +112,10 @@
       "primary": "trigger on event",
       "event": {
         "primary": "post-battlePhase"
+      },
+      "undo": {
+        "primary": "game event",
+        "event": "pre-preparationPhase"
       }
     },
     "target": {
@@ -122,8 +126,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
@@ -144,9 +147,6 @@
       "criteria": {
         "passing": "this card"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   }
 ]
