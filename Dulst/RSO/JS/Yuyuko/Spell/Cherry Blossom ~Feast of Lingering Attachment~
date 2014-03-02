@@ -57,6 +57,25 @@
   {
     "action": {
       "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "from": "deck",
+        "player": "owner"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyFail"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
       "comparisonOperators": ">=",
       "value": "1"
     },
@@ -90,9 +109,13 @@
   },
   {
     "action": {
-      "primary": "send card to",
-      "location": "SecondRow",
-      "player": "owner"
+      "primary": "trigger event",
+      "event": {
+        "primary": [
+          "pre-useSpecial",
+          "targetedBySpecial"
+        ]
+      }
     },
     "target": {
       "primary": "card",
@@ -107,10 +130,9 @@
   },
   {
     "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "pre-useSpecial"
-      }
+      "primary": "send card to",
+      "location": "SecondRow",
+      "player": "owner"
     },
     "target": {
       "primary": "card",
@@ -140,7 +162,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,reserve"
+        "primary": "reserve"
       }
     },
     "target": {
@@ -155,13 +177,32 @@
   },
   {
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "deckTargetedBySpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "assign variable"
     },
     "target": {
       "primary": "card",
       "selector": {
         "primary": "owner",
-        "instructions": "Select 1 \"Bit of Spring\" from your deck to add to your hand."
+        "instructions": "Select a card to add to your hand."
       },
       "count": "1",
       "criteria": {
@@ -194,13 +235,19 @@
   },
   {
     "action": {
-      "primary": "show card"
+      "primary": "assign variable"
     },
     "target": {
       "primary": "card",
+      "selector": {
+        "primary": "opponent",
+        "instructions": "Viewing the selected card. Click \"Finish Select\" to proceed."
+      },
+      "count": "1",
       "criteria": {
         "passing": "selectedCard"
-      }
+      },
+      "mandatory": "mandatory or random"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -212,25 +259,6 @@
       "player": "owner"
     },
     "target": {},
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "deckTargetedBySpecial"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "player": "owner",
-        "class": "Leader",
-        "type": "Character"
-      }
-    },
     "effectComplete": {
       "primary": "trigger next effect"
     }
