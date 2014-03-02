@@ -150,12 +150,29 @@
         "type": "Spell",
         "stat": "stat-qs>=1"
       },
-      "mandatory": "effect selectedCard"
+      "mandatory": "selectedCard"
     },
     "effectComplete": {
       "primary": "trigger next effect"
     },
     "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
@@ -191,27 +208,9 @@
   },
   {
     "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "targetedByEvent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
@@ -245,11 +244,11 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-replPhase"
+        "primary": "pre-pre-replPhase"
       },
       "undo": {
-        "primary": "in # turns",
-        "turnCount": "2"
+        "primary": "game event",
+        "event": "pre-replPhase"
       }
     },
     "target": {
