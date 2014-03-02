@@ -27,7 +27,8 @@
       "criteria": {
         "from": "board",
         "player": "owner",
-        "class": "Doll&&Leader&&Shanghai Doll",
+        "class": "Doll&&Leader",
+        "name": "Shanghai Doll",
         "type": "Support"
       }
     },
