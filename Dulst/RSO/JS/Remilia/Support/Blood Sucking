@@ -100,7 +100,10 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "1"
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
     },
     "target": {
       "primary": "game",
@@ -114,7 +117,10 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "preGainedHP,preHealedBySpecial"
+        "primary": [
+          "preGainedHP",
+          "preHealedBySpecial"
+        ]
       }
     },
     "target": {
@@ -146,10 +152,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "+",
-      "magnitude": "effect healAmount",
-      "undo": {
-        "primary": "permanent"
-      }
+      "magnitude": "effect healAmount"
     },
     "target": {
       "primary": "owner",
@@ -163,7 +166,10 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,gainedHP"
+        "primary": [
+          "gainedHP",
+          "healedBySpecial"
+        ]
       }
     },
     "target": {
@@ -173,6 +179,38 @@
         "class": "Leader",
         "type": "Character"
       }
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Replenishing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "passiveb"
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "card",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
     }
   },
   {
@@ -188,7 +226,7 @@
     "target": {
       "primary": "game"
     },
-    "effectName": "passiveb"
+    "effectName": "startEffect"
   },
   {
     "action": {
@@ -211,6 +249,40 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Replenishing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "battle"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "game event",
+        "event": "post-replPhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOppEvents",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectName": "repl"
+  },
+  {
+    "action": {
       "primary": "modify stats",
       "operation": "=",
       "magnitude": "0",
@@ -226,25 +298,6 @@
         "passing": "card"
       }
     },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "targetedBySpecial"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
+    "effectName": "battle"
   }
 ]
