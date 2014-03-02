@@ -122,7 +122,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,gainedStat"
+        "primary": "gainedStat"
       }
     },
     "target": {
@@ -154,7 +154,7 @@
         "from": "board",
         "player": "owner",
         "type": "Spell",
-        "stat": "stat-targetableByOwnSpecials>=1 && stat-lvl>1"
+        "stat": "stat-targetableByOwnSpecials>=1 && stat-lvl!=1"
       }
     },
     "effectComplete": {
@@ -209,7 +209,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,lostStat"
+        "primary": "lostStat"
       }
     },
     "target": {
@@ -241,7 +241,7 @@
         "from": "board",
         "player": "opponent",
         "type": "Spell",
-        "stat": "stat-targetableByOppSpecials>=1 && stat-lvl>1"
+        "stat": "stat-targetableByOppSpecials>=1 && stat-lvl!=1"
       }
     },
     "effectComplete": {
@@ -296,7 +296,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,lostStat"
+        "primary": "lostStat"
       }
     },
     "target": {
