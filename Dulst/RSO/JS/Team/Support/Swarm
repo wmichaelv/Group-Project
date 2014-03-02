@@ -280,20 +280,18 @@
   },
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
+      "primary": "verify target"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "qs",
       "criteria": {
         "from": [
           "afterlife",
           "deck"
         ],
         "player": "owner",
-        "name": "Swarm"
+        "name": "Swarm",
+        "stat": "stat-qs>=1"
       }
     },
     "effectName": "verifySwarm"
