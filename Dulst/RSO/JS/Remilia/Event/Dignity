@@ -204,8 +204,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
@@ -393,9 +392,6 @@
       "criteria": {
         "passing": "selectedCard"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   }
 ]
