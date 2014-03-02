@@ -133,15 +133,14 @@
   {
     "action": {
       "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
+      "operation": "floor",
       "undo": {
         "primary": "permanent"
       }
     },
     "target": {
       "primary": "card",
-      "cardProperty": "counter",
+      "cardProperty": "damage",
       "criteria": {
         "passing": "this card"
       }
@@ -157,101 +156,6 @@
     "target": {
       "primary": "card",
       "cardProperty": "damage",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "damageBeta"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "<",
-      "value": "effect damageBeta"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "counter",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "afterLoop"
-    },
-    "effectName": "loop"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "counter",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "loop"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "effect oppHP / 2"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "counter",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "damage"
-    },
-    "effectName": "afterLoop"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "counter",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "counter",
       "criteria": {
         "passing": "this card"
       }
@@ -523,6 +427,56 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "fromActive",
+      "criteria": {
+        "passing": "discard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "restoreReserve"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "FirstRow",
+      "player": "owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "discard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "restoreActive"
+  },
+  {
+    "action": {
+      "primary": "set to attack position"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "discard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterRestore"
+    }
+  },
+  {
+    "action": {
       "primary": "send card to",
       "location": "SecondRow",
       "player": "owner"
@@ -536,7 +490,7 @@
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "restoreDiscard"
+    "effectName": "restoreReserve"
   },
   {
     "action": {
@@ -549,7 +503,8 @@
       }
     },
     "effectComplete": {
-      "primary": "trigger next effect"
+      "primary": "trigger effect",
+      "effectNumber": "afterRestore"
     }
   },
   {
@@ -567,7 +522,8 @@
     "effectComplete": {
       "primary": "trigger effect",
       "effectNumber": "failExtraCost"
-    }
+    },
+    "effectName": "afterRestore"
   },
   {
     "action": {
@@ -589,9 +545,7 @@
   },
   {
     "action": {
-      "primary": "send card to",
-      "location": "afterlife",
-      "player": "owner"
+      "primary": "assign variable"
     },
     "target": {
       "primary": "card",
@@ -611,6 +565,59 @@
       "primary": "trigger next effect"
     },
     "effectName": "discard"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "discard",
+        "from": "FirstRow"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "send"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "fromActive",
+      "criteria": {
+        "passing": "discard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "afterlife",
+      "player": "owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "discard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "send"
   },
   {
     "action": {
@@ -714,7 +721,7 @@
   {
     "action": {
       "primary": "run effect",
-      "effectNumber": "restoreDiscard",
+      "effectNumber": "useFail",
       "callback": "effect completion"
     },
     "target": {
