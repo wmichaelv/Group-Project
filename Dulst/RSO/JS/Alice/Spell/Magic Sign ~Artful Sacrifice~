@@ -70,22 +70,6 @@
   },
   {
     "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "game"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "spUse"
-    },
-    "effectName": "active"
-  },
-  {
-    "action": {
       "primary": "trigger event",
       "event": {
         "primary": "pre-useSpecial"
@@ -99,17 +83,29 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
+    },
+    "effectName": "active"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "spUse"
     }
   },
   {
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "2",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
+      "magnitude": "2"
     },
     "target": {
       "primary": "game",
@@ -123,7 +119,10 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "preLostHP,preDamagedBySpecial"
+        "primary": [
+          "preLostHP",
+          "preDamagedBySpecial"
+        ]
       }
     },
     "target": {
@@ -155,7 +154,10 @@
     "action": {
       "primary": "modify stats",
       "operation": "-",
-      "magnitude": "effect damageAmount"
+      "magnitude": "effect damageAmount",
+      "undo": {
+        "primary": "permanent"
+      }
     },
     "target": {
       "primary": "opponent",
@@ -169,7 +171,11 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,lostHP"
+        "primary": [
+          "targetedBySpecial",
+          "lostHP",
+          "damagedBySpecial"
+        ]
       }
     },
     "target": {
@@ -188,8 +194,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "target card owner",
-      "stackLocation": "top"
+      "player": "target card owner"
     },
     "target": {
       "primary": "card",
