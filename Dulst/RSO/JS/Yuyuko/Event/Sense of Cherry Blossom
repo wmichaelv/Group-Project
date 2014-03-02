@@ -61,7 +61,6 @@
     },
     "target": {
       "primary": "card",
-      "count": "1",
       "criteria": {
         "from": "deck",
         "player": "owner",
@@ -73,6 +72,25 @@
       "effectNumber": "verifySpecial2"
     },
     "effectName": "verifySpecial1"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "from": "deck",
+        "player": "owner"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifySpecial2"
+    }
   },
   {
     "action": {
@@ -100,7 +118,6 @@
     },
     "target": {
       "primary": "card",
-      "count": "1",
       "criteria": {
         "from": "afterlife",
         "player": "owner",
@@ -304,7 +321,7 @@
       "primary": "card",
       "selector": {
         "primary": "owner",
-        "instructions": "Select 1 \"Saigyou Ayakashi\" to play."
+        "instructions": "Select a card to play."
       },
       "count": "1",
       "criteria": {
@@ -318,6 +335,20 @@
       "primary": "trigger next effect"
     },
     "effectName": "sp1Activate"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "deckTargetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
@@ -340,8 +371,7 @@
     "action": {
       "primary": "send card to",
       "location": "SecondRow",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
@@ -390,20 +420,6 @@
     },
     "target": {},
     "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "deckTargetedByEvent"
-      }
-    },
-    "target": {
-      "primary": "owner"
-    },
-    "effectComplete": {
       "primary": "trigger effect",
       "effectNumber": "spUse"
     }
@@ -416,7 +432,7 @@
       "primary": "card",
       "selector": {
         "primary": "owner",
-        "instructions": "Select as many \"Bit of Spring\" cards as you want to add to your hand."
+        "instructions": "Select any number of cards to add to your hand."
       },
       "criteria": {
         "from": "afterlife",
@@ -431,19 +447,59 @@
   },
   {
     "action": {
-      "primary": "send card to",
-      "location": "hand",
-      "player": "owner",
-      "stackLocation": "top"
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
     },
     "target": {
       "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "passing": "sp2Activate"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "sp2Activate"
+    },
+    "effectName": "count"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "owner",
+        "instructions": "Viewing the selected cards. Click \"Finish Select\" to continue, or click on any of the cards to re-select targets."
+      },
+      "count": "1",
       "criteria": {
         "passing": "sp2Activate"
       }
     },
     "effectComplete": {
       "primary": "trigger next effect"
+    },
+    "effectName": "confirm"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "<=",
+      "value": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "passing": "confirm"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "sp2Activate"
     }
   },
   {
@@ -455,6 +511,22 @@
     },
     "target": {
       "primary": "owner"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "hand",
+      "player": "owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "sp2Activate"
+      }
     },
     "effectComplete": {
       "primary": "trigger effect",
@@ -483,8 +555,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
