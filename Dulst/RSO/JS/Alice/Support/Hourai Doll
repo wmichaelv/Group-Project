@@ -27,7 +27,7 @@
       "criteria": {
         "from": "board",
         "player": "owner",
-        "class": "Hourai Doll"
+        "name": "Hourai Doll"
       }
     },
     "effectComplete": {
@@ -122,7 +122,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,gainedStat"
+        "primary": "gainedStat"
       }
     },
     "target": {
@@ -159,7 +159,8 @@
       "primary": "card",
       "criteria": {
         "player": "owner",
-        "class": "Doll&&Leader&&Hourai Doll",
+        "class": "Doll&&Leader",
+        "name": "Hourai Doll",
         "type": "Support"
       }
     }
@@ -244,16 +245,14 @@
   {
     "action": {
       "primary": "run effect",
-      "effectNumber": "effect dollCount"
+      "effectNumber": "effect dollCount",
+      "callback": "effect completion"
     },
     "target": {
       "primary": "card",
       "criteria": {
         "passing": "this card"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   }
 ]
