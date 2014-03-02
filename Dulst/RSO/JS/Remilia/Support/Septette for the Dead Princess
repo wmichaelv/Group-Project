@@ -17,6 +17,20 @@
   },
   {
     "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader&&Vampire",
+        "type": "Character"
+      }
+    },
+    "effectName": "verifyPlayer"
+  },
+  {
+    "action": {
       "primary": "assign variable"
     },
     "target": {
@@ -31,7 +45,7 @@
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "leaderName"
+    "effectName": "leaderNameA"
   },
   {
     "action": {
@@ -42,15 +56,14 @@
       "criteria": {
         "from": "board",
         "player": "owner",
-        "class": "effect leaderName",
-        "type": "Spell",
-        "stat": "stat-targetableByOwnSpecials>=1"
+        "class": "effect leaderNameA",
+        "type": "Spell"
       }
     },
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "card"
+    "effectName": "selectedCardsA"
   },
   {
     "action": {
@@ -64,9 +77,9 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "hv",
+      "cardProperty": "av",
       "criteria": {
-        "passing": "card"
+        "passing": "selectedCardsA"
       }
     },
     "effectComplete": {
@@ -76,15 +89,57 @@
   },
   {
     "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "iv",
+      "criteria": {
+        "passing": "selectedCardsA"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "2",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "hv",
+      "criteria": {
+        "passing": "selectedCardsA"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,gainedStat"
+        "primary": "gainedStat"
       }
     },
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "card"
+        "passing": "selectedCardsA"
       }
     }
   },
@@ -102,13 +157,27 @@
   },
   {
     "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "opponent",
+        "class": "Leader&&Vampire",
+        "type": "Character"
+      }
+    },
+    "effectName": "verifyOpp"
+  },
+  {
+    "action": {
       "primary": "assign variable"
     },
     "target": {
       "primary": "card",
       "cardProperty": "C1",
       "criteria": {
-        "player": "owner",
+        "player": "opponent",
         "class": "Leader",
         "type": "Character"
       }
@@ -116,7 +185,7 @@
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "leaderName"
+    "effectName": "leaderNameB"
   },
   {
     "action": {
@@ -126,18 +195,15 @@
       "primary": "card",
       "criteria": {
         "from": "board",
-        "player": "owner",
-        "type": "Spell",
-        "stat": "stat-targetableByOwnSpecials>=1"
-      },
-      "exclude": {
-        "class": "effect leaderName"
+        "player": "opponent",
+        "class": "effect leaderNameB",
+        "type": "Spell"
       }
     },
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "cardb"
+    "effectName": "selectedCardsB"
   },
   {
     "action": {
@@ -153,7 +219,7 @@
       "primary": "card",
       "cardProperty": "av",
       "criteria": {
-        "passing": "cardb"
+        "passing": "selectedCardsB"
       }
     },
     "effectComplete": {
@@ -163,15 +229,57 @@
   },
   {
     "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "iv",
+      "criteria": {
+        "passing": "selectedCardsB"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "2",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "hv",
+      "criteria": {
+        "passing": "selectedCardsB"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,gainedStat"
+        "primary": "gainedStat"
       }
     },
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "card"
+        "passing": "selectedCardsB"
       }
     }
   }
