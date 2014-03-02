@@ -147,10 +147,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": [
-          "targetedBySpecial",
-          "gainedStat"
-        ]
+        "primary": "gainedStat"
       }
     },
     "target": {
@@ -159,9 +156,6 @@
         "from": "board",
         "stat": "stat-ciid=effect ciid"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   }
 ]
