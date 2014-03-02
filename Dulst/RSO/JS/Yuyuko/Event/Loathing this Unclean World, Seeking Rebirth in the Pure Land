@@ -113,7 +113,7 @@
       "primary": "card",
       "cardProperty": "title",
       "criteria": {
-        "passing": "effect eachDiscard"
+        "passing": "eachDiscard"
       }
     },
     "effectComplete": {
@@ -139,13 +139,17 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "1"
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "newEffect"
+      }
     },
     "target": {
       "primary": "card",
       "cardProperty": "qs",
       "criteria": {
-        "passing": "effect eachDiscard"
+        "passing": "eachDiscard"
       }
     },
     "effectName": "allowDiscard"
@@ -156,7 +160,6 @@
     },
     "target": {
       "primary": "card",
-      "count": "1",
       "criteria": {
         "from": "afterlife",
         "player": "owner",
@@ -177,14 +180,14 @@
       "primary": "card",
       "selector": {
         "primary": "owner",
-        "instructions": "Select one of your discarded cards to summon a copy of from the deck."
+        "instructions": "Select one card to summon a copy of from the deck."
       },
       "count": "1",
       "criteria": {
         "from": "afterlife",
         "player": "owner"
       },
-      "mandatory": "effect selectedCard"
+      "mandatory": "selectedCard"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -313,13 +316,19 @@
   },
   {
     "action": {
-      "primary": "show card"
+      "primary": "assign variable"
     },
     "target": {
       "primary": "card",
+      "selector": {
+        "primary": "opponent",
+        "instructions": "Viewing the selected card. Click \"Finish Select\" to proceed."
+      },
+      "count": "1",
       "criteria": {
         "passing": "summonedCard"
-      }
+      },
+      "mandatory": "mandatory or random"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -356,8 +365,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
@@ -457,6 +465,10 @@
     "target": {
       "primary": "game",
       "gameProperty": "DRAW"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "failExtraCost"
     }
   },
   {
