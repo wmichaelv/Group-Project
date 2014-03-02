@@ -45,6 +45,25 @@
       "primary": "card",
       "cardProperty": "count",
       "criteria": {
+        "from": "deck",
+        "player": "owner"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyFail"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
         "from": "afterlife",
         "player": "owner"
       }
@@ -190,7 +209,7 @@
       "primary": "card",
       "selector": {
         "primary": "owner",
-        "instructions": "Select one of your discarded cards to summon a copy of from the deck."
+        "instructions": "Select one card to summon a copy of from the deck."
       },
       "count": "1",
       "criteria": {
@@ -198,7 +217,7 @@
         "player": "owner",
         "stat": "stat-qs>=1"
       },
-      "mandatory": "effect selectedCard"
+      "mandatory": "selectedCard"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -277,13 +296,19 @@
   },
   {
     "action": {
-      "primary": "show card"
+      "primary": "assign variable"
     },
     "target": {
       "primary": "card",
+      "selector": {
+        "primary": "opponent",
+        "instructions": "Viewing the selected card. Click \"Finish Select\" to proceed."
+      },
+      "count": "1",
       "criteria": {
         "passing": "summonedCard"
-      }
+      },
+      "mandatory": "mandatory or random"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -303,8 +328,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
