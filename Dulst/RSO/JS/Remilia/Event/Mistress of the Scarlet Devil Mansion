@@ -37,6 +37,42 @@
   },
   {
     "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "deck",
+        "player": "owner",
+        "type": "Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyFail"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "from": "deck",
+        "player": "owner"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyFail"
+    }
+  },
+  {
+    "action": {
       "primary": "modify stats",
       "operation": "=",
       "magnitude": "1"
@@ -69,6 +105,20 @@
   },
   {
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "deckTargetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "assign variable"
     },
     "target": {
@@ -83,7 +133,7 @@
         "player": "owner",
         "type": "Spell"
       },
-      "mandatory": "effect selectedCard"
+      "mandatory": "selectedCard"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -94,8 +144,7 @@
     "action": {
       "primary": "send card to",
       "location": "hand",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
@@ -109,13 +158,19 @@
   },
   {
     "action": {
-      "primary": "show card"
+      "primary": "assign variable"
     },
     "target": {
       "primary": "card",
+      "selector": {
+        "primary": "opponent",
+        "instructions": "Viewing the selected card. Click \"Finish Select\" to proceed."
+      },
+      "count": "1",
       "criteria": {
         "passing": "selectedCard"
-      }
+      },
+      "mandatory": "mandatory or random"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -133,24 +188,9 @@
   },
   {
     "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "deckTargetedByEvent"
-      }
-    },
-    "target": {
-      "primary": "owner"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
