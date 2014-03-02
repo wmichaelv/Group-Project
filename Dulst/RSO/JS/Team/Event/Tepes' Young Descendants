@@ -67,8 +67,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "target card owner",
-      "stackLocation": "top"
+      "player": "target card owner"
     },
     "target": {
       "primary": "card",
@@ -102,8 +101,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
