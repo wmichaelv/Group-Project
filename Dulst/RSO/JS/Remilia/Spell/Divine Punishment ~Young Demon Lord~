@@ -18,12 +18,15 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": ">",
+      "comparisonOperators": ">=",
       "value": "1"
     },
     "target": {
-      "primary": "owner",
-      "playerProperty": "hp"
+      "primary": "card",
+      "cardProperty": "targetableByOwnSpecials",
+      "criteria": {
+        "passing": "this card"
+      }
     },
     "effectComplete": {
       "primary": "trigger effect",
@@ -34,11 +37,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "endPhase"
-      }
+      "magnitude": "1"
     },
     "target": {
       "primary": "card",
@@ -47,6 +46,27 @@
         "passing": "this card"
       }
     }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": [
+          "pre-useSpecial",
+          "targetedBySpecial"
+        ]
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "active"
   },
   {
     "action": {
@@ -67,31 +87,13 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "active"
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "pre-useSpecial"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   },
   {
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,gainedBasicAbility"
+        "primary": "gainedBasicAbility"
       }
     },
     "target": {
@@ -171,7 +173,7 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": ">=",
+      "comparisonOperators": ">",
       "value": "1"
     },
     "target": {
