@@ -28,7 +28,7 @@
         "type": "Support"
       },
       "exclude": {
-        "class": "Phantom the Grand Guignol"
+        "name": "Phantom the Grand Guignol"
       }
     },
     "effectComplete": {
@@ -53,6 +53,24 @@
   },
   {
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "pre-useSpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "active"
+  },
+  {
+    "action": {
       "primary": "assign variable"
     },
     "target": {
@@ -69,31 +87,14 @@
         "type": "Support"
       },
       "exclude": {
-        "class": "Phantom the Grand Guignol"
+        "name": "Phantom the Grand Guignol"
       },
-      "mandatory": "effect active"
+      "mandatory": "selectedCard"
     },
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "active"
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "pre-useSpecial"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
+    "effectName": "selectedCard"
   },
   {
     "action": {
@@ -103,7 +104,7 @@
       "primary": "card",
       "cardProperty": "title",
       "criteria": {
-        "passing": "effect active"
+        "passing": "selectedCard"
       }
     },
     "effectComplete": {
@@ -134,25 +135,6 @@
   },
   {
     "action": {
-      "primary": "add class",
-      "class": "effect dollName",
-      "undo": {
-        "primary": "game event",
-        "event": "pre-replPhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
       "primary": "verify target",
       "comparisonOperators": ">=",
       "value": "3"
@@ -163,8 +145,11 @@
       "criteria": {
         "from": "board",
         "player": "owner",
-        "class": "Doll&&Leader&&Phantom the Grand Guignol",
+        "class": "Doll&&Leader",
         "type": "Support"
+      },
+      "exclude": {
+        "stat": "stat-dollPhantom>=1"
       }
     },
     "effectComplete": {
