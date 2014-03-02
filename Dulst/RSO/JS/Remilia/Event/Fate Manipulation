@@ -519,7 +519,7 @@
   {
     "action": {
       "primary": "run effect",
-      "effectNumber": "restoreDiscard",
+      "effectNumber": "useFail",
       "callback": "effect completion"
     },
     "target": {
