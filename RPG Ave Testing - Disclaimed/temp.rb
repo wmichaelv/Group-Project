@@ -298,18 +298,6 @@ end
 # 
 #-------------------------------------------------------------------------------
 class Game_Map
-  
-  #-----------------------------------------------------------------------------
-  # Overwrite. Need to check custom conditions
-  #-----------------------------------------------------------------------------
-  def setup_autorun_common_event
-    event = $data_common_events.find do |event|
-      event && event.autorun? && $game_switches[event.switch_id] && !event.custom_conditions.any? {|cond| !TH::Custom_Page_Conditions.custom_condition_met?(cond) }
-    end
-    @interpreter.setup(event.list) if event
-    event
-  end
-end
 
 #-------------------------------------------------------------------------------
 # When timer is active, refresh events everytime the time changes.
