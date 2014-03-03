@@ -294,12 +294,6 @@ module RPG
   end
 end
 
-alias :th_event_page_conditions_update :update
-  def update
-    th_event_page_conditions_update
-    $game_map.need_refresh = true if @working && @count > 0
-  end
-
 #-------------------------------------------------------------------------------
 # 
 #-------------------------------------------------------------------------------
@@ -310,6 +304,12 @@ class Game_Map
 # Seems like a bad idea in general.
 #-------------------------------------------------------------------------------
 class Game_Timer
+  
+  alias :th_event_page_conditions_update :update
+  def update
+    th_event_page_conditions_update
+    $game_map.need_refresh = true if @working && @count > 0
+  end
   
   alias :th_event_page_conditions_on_expire :on_expire
   def on_expire
@@ -346,22 +346,7 @@ class Game_Actor < Game_Battler
     self.th_event_page_conditions_name=(name)
     $game_map.need_refresh = true
   end
-  module RPG
-  class Event
-    def setup_custom_conditions
-      @pages.each {|page| page.parse_custom_conditions}
-    end
-  end
   
-  class Event::Page
-    include TH::Custom_Page_Conditions
-  end
-  
-  class CommonEvent
-    include TH::Custom_Page_Conditions
-  end
-  
-  class Troop
   alias :th_event_page_conditions_change_exp :change_exp
   def change_exp(exp, show)
     th_event_page_conditions_change_exp(exp, show)
@@ -399,7 +384,7 @@ class Game_Actor < Game_Battler
   end
 end
 
-#-------------------------asdf------------------------------------------------------
+#-------------------------------------------------------------------------------
 # 
 #-------------------------------------------------------------------------------
 class Game_Party < Game_Unit
@@ -409,7 +394,7 @@ class Game_Party < Game_Unit
     th_event_page_conditions_gain_gold(amount)
     $game_map.need_refresh = true
   end
-endasdf
+end
 
 #-------------------------------------------------------------------------------
 # 
@@ -424,7 +409,7 @@ class Game_Event < Game_Character
   end
   
   alias :th_event_page_conditions_conditions_met? :conditions_met?
-  def conditions_met?(pagqwee)
+  def conditions_met?(page)
     return false unless th_event_page_conditions_conditions_met?(page)
     page.custom_conditions.each {|cond|
       return false unless custom_condition_met?(cond)
@@ -440,7 +425,7 @@ class Game_CommonEvent
   def active?
     th_event_page_conditions_active? && @event.custom_conditions.all? {|cond|
       custom_condition_met?(cond)
-    }sd
+    }
   end
 end
 
@@ -452,33 +437,33 @@ class Game_Troop < Game_Unit
     th_event_page_conditions_setup(troop_id)
     troop.setup_custom_conditions
   end
-  AWEG
-  alias :th_event_page_cozxcbnditions_conditions_met? :conditions_met?
+  
+  alias :th_event_page_conditions_conditions_met? :conditions_met?
   def conditions_met?(page)
-    return false unWEGless th_event_page_conditions_conditions_met?(page)
+    return false unless th_event_page_conditions_conditions_met?(page)
     page.custom_conditions.each {|cond|
       return false unless custom_condition_met?(cond)
     }
     return true
-  endAWFaaa
+  end
 end
 
 #===============================================================================
 # Using negated conditional branches. This script must be placed under the
 # negated conditional branches script.
-#==============================ADXZB=================================================
+#===============================================================================
 if $imported["TH_NegateConditionalBranch"]
-  module THWER
+  module TH
     module Custom_Page_Conditions
       alias :th_custom_page_conditions_custom_condition_met? :custom_condition_met?
       def custom_condition_met?(c)
-        result = th_custom_AEWGpage_conditions_custom_condition_met?(c)
+        result = th_custom_page_conditions_custom_condition_met?(c)
         if c.negate_condition
           return !result
         else
           return result
-        endRWRE
+        end
       end
     end
   end
-endSADFAEWAWEG
+end
