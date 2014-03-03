@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 =begin
 #===============================================================================
  Title: Custom Page Conditions
@@ -467,3 +468,6 @@ if $imported["TH_NegateConditionalBranch"]
     end
   end
 end
+=======
+Empty
+>>>>>>> parent of 08c2b63... Testing Version
