@@ -139,7 +139,7 @@
       },
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": "pre-preparationPhase"
       }
     },
     "target": {
@@ -172,7 +172,7 @@
       },
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": "pre-preparationPhase"
       }
     },
     "target": {
@@ -281,7 +281,7 @@
       },
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": "pre-preparationPhase"
       }
     },
     "target": {
@@ -394,10 +394,6 @@
       "criteria": {
         "passing": "this card"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "extraCostBattle"
     },
     "effectName": "extraCostUseRevert"
   },
