@@ -61,11 +61,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "endPhase"
-      }
+      "magnitude": "1"
     },
     "target": {
       "primary": "card",
@@ -405,9 +401,6 @@
       "criteria": {
         "passing": "this card"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   }
 ]
