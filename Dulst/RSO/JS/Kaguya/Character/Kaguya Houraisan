@@ -37,11 +37,13 @@
   },
   {
     "action": {
-      "primary": "verify target"
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "2"
     },
     "target": {
       "primary": "card",
-      "count": "2",
+      "cardProperty": "count",
       "criteria": {
         "from": "deck",
         "player": "owner"
