@@ -53,7 +53,13 @@
   },
   {
     "action": {
-      "primary": "trigger event"
+      "primary": "trigger event",
+      "event": {
+        "primary": [
+          "pre-useSpecial",
+          "targetedBySpecial"
+        ]
+      }
     },
     "target": {
       "primary": "card",
