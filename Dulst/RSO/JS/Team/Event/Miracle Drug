@@ -306,7 +306,7 @@
       },
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": "pre-replPhase"
       }
     },
     "target": {
