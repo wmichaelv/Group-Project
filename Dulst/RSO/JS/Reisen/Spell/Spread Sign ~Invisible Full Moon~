@@ -748,9 +748,6 @@
         "player": "opponent",
         "class": "Battle Spell"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   }
 ]
