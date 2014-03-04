@@ -188,6 +188,38 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Replenishing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startPassive"
+    },
+    "effectName": "passiveb"
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "startEffect",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "trigger on event",
       "event": {
         "primary": [
@@ -199,7 +231,7 @@
     "target": {
       "primary": "game"
     },
-    "effectName": "passiveb"
+    "effectName": "startPassive"
   },
   {
     "action": {
@@ -208,7 +240,10 @@
       "magnitude": "0",
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": [
+          "post-battlePhase",
+          "post-replPhase"
+        ]
       }
     },
     "target": {
@@ -220,7 +255,8 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "startEffect"
   },
   {
     "action": {
@@ -229,7 +265,10 @@
       "magnitude": "0",
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": [
+          "post-battlePhase",
+          "post-replPhase"
+        ]
       }
     },
     "target": {
