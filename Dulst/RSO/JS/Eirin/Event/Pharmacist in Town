@@ -210,23 +210,6 @@
   },
   {
     "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "pre-useEvent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
       "primary": "verify target",
       "comparisonOperators": ">=",
       "value": "1",
@@ -279,7 +262,7 @@
       "magnitude": "1",
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": "pre-replPhase"
       }
     },
     "target": {
@@ -304,7 +287,7 @@
       },
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": "pre-replPhase"
       }
     },
     "target": {
@@ -422,7 +405,7 @@
       },
       "undo": {
         "primary": "game event",
-        "event": "pre-preparationPhase"
+        "event": "pre-replPhase"
       }
     },
     "target": {
@@ -519,8 +502,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
