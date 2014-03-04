@@ -159,7 +159,7 @@
       },
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": "pre-preparationPhase"
       }
     },
     "target": {
@@ -171,20 +171,6 @@
       }
     },
     "effectName": "activeStart"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "isOnFlag",
-      "criteria": {
-        "passing": "this card"
-      }
-    }
   },
   {
     "action": {
@@ -220,30 +206,6 @@
     "target": {
       "primary": "game",
       "gameProperty": "damageAmount"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "isOnFlag",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "nothing"
     }
   },
   {
