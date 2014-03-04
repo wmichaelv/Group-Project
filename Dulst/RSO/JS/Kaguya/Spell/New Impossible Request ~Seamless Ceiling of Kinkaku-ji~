@@ -160,10 +160,6 @@
       "criteria": {
         "passing": "this card"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "triggerOnDamage"
     }
   },
   {
@@ -185,7 +181,8 @@
   {
     "action": {
       "primary": "run effect",
-      "effectNumber": "startPassiveA,startPassiveB"
+      "effectNumber": "startPassiveA",
+      "callback": "effect completion"
     },
     "target": {
       "primary": "card",
