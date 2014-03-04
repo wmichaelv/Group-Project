@@ -55,7 +55,10 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "pre-useSpecial"
+        "primary": [
+          "pre-useSpecial",
+          "targetedBySpecial"
+        ]
       }
     },
     "target": {
@@ -68,23 +71,6 @@
       "primary": "trigger next effect"
     },
     "effectName": "active"
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "targetedBySpecial"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
   },
   {
     "action": {
