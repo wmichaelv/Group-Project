@@ -99,7 +99,7 @@
       "primary": "card",
       "selector": {
         "primary": "owner",
-        "instructions": "Select one opponent Spell card to give \"Extra Cost (Battle): X SP\" to, X being equal to that Spell's Level Requirement."
+        "instructions": "Select an opponent Spell card to give \"Extra Cost (Battle): X SP\" to, X being equal to that Spell's Level."
       },
       "count": "1",
       "criteria": {
@@ -107,7 +107,7 @@
         "type": "Spell",
         "stat": "stat-qs>=1"
       },
-      "mandatory": "effect selectedCard"
+      "mandatory": "selectedCard"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -135,8 +135,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
@@ -172,7 +171,7 @@
       "class": "Extra Cost Battle",
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": "pre-pre-replPhase"
       }
     },
     "target": {
@@ -209,7 +208,7 @@
       },
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": "pre-pre-replPhase"
       }
     },
     "target": {
@@ -308,7 +307,7 @@
       },
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": "pre-pre-replPhase"
       }
     },
     "target": {
@@ -370,6 +369,23 @@
     "target": {
       "primary": "game",
       "gameProperty": "extraCostRevert"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "paidExtraCostPureCage",
+      "criteria": {
+        "passing": "selectedCard"
+      }
     },
     "effectComplete": {
       "primary": "trigger effect",
