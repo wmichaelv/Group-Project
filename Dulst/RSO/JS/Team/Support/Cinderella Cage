@@ -1,18 +1,50 @@
 [
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Replenishing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startPassive"
+    },
+    "effectName": "passive"
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "ciid",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "trigger on event",
       "event": {
         "primary": [
-          "pre-battlePhase",
-          "pre-replPhase"
+          "pre-pre-replPhase",
+          "pre-pre-battlePhase"
         ]
       }
     },
     "target": {
       "primary": "game"
     },
-    "effectName": "passive"
+    "effectName": "startPassive"
   },
   {
     "action": {
@@ -176,7 +208,7 @@
       },
       "undo": {
         "primary": "game event",
-        "event": "pre-preparationPhase"
+        "event": "pre-pre-replPhase"
       }
     },
     "target": {
@@ -248,9 +280,6 @@
     "target": {
       "primary": "owner",
       "playerProperty": "healable"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   }
 ]
