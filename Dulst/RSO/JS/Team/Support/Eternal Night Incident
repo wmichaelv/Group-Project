@@ -497,6 +497,23 @@
       "gameProperty": "extraCostRevert"
     },
     "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "paidExtraCostEternalNightIncident",
+      "criteria": {
+        "passing": "passiveb"
+      }
+    },
+    "effectComplete": {
       "primary": "trigger effect",
       "effectNumber": "failExtraCost"
     }
