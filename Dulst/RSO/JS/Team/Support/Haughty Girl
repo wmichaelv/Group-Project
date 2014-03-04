@@ -1,6 +1,38 @@
 [
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Replenishing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startPassive"
+    },
+    "effectName": "passive"
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "startEffectA,startEffectB",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "trigger on event",
       "event": {
         "primary": "useScene"
@@ -13,7 +45,7 @@
       "primary": "trigger effect",
       "effectNumber": "passiveb"
     },
-    "effectName": "passive"
+    "effectName": "startPassive"
   },
   {
     "action": {
@@ -30,7 +62,8 @@
     "effectComplete": {
       "primary": "trigger effect",
       "effectNumber": "proceed"
-    }
+    },
+    "effectName": "startEffectA"
   },
   {
     "action": {
@@ -129,12 +162,28 @@
   },
   {
     "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "from": "board"
+      }
+    },
+    "effectName": "startEffectB"
+  },
+  {
+    "action": {
       "primary": "modify stats",
       "operation": "=",
       "magnitude": "0",
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": [
+          "post-battlePhase",
+          "post-replPhase"
+        ]
       }
     },
     "target": {
@@ -158,7 +207,10 @@
       "magnitude": "0",
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": [
+          "post-battlePhase",
+          "post-replPhase"
+        ]
       }
     },
     "target": {
@@ -182,7 +234,10 @@
       "magnitude": "0",
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": [
+          "post-battlePhase",
+          "post-replPhase"
+        ]
       }
     },
     "target": {
@@ -206,7 +261,10 @@
       "magnitude": "0",
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": [
+          "post-battlePhase",
+          "post-replPhase"
+        ]
       }
     },
     "target": {
