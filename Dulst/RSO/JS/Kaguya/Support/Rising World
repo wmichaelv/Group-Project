@@ -33,6 +33,21 @@
   },
   {
     "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-replPhase"
+      },
+      "undo": {
+        "primary": "game event",
+        "event": "pre-replPhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    }
+  },
+  {
+    "action": {
       "primary": "verify target"
     },
     "target": {
@@ -63,21 +78,6 @@
     "target": {
       "primary": "owner",
       "playerProperty": "canLoseSP"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "post-replPhase"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "pre-replPhase"
-      }
-    },
-    "target": {
-      "primary": "game"
     }
   },
   {
@@ -245,7 +245,8 @@
   {
     "action": {
       "primary": "run effect",
-      "effectNumber": "startPassiveC"
+      "effectNumber": "startPassiveC",
+      "callback": "effect completion"
     },
     "target": {
       "primary": "card",
@@ -469,6 +470,23 @@
       "gameProperty": "extraCostRevert"
     },
     "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "paidExtraCostBattleRisingWorld",
+      "criteria": {
+        "passing": "passived"
+      }
+    },
+    "effectComplete": {
       "primary": "trigger effect",
       "effectNumber": "failExtraCost"
     }
@@ -540,6 +558,23 @@
     "target": {
       "primary": "game",
       "gameProperty": "extraCostRevert"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "paidExtraCostActivateRisingWorld",
+      "criteria": {
+        "passing": "passivee"
+      }
     },
     "effectComplete": {
       "primary": "trigger effect",
