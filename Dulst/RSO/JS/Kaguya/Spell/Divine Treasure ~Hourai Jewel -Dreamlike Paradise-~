@@ -43,19 +43,6 @@
   },
   {
     "action": {
-      "primary": "verify target"
-    },
-    "target": {
-      "primary": "card",
-      "count": "1",
-      "criteria": {
-        "from": "deck",
-        "player": "owner"
-      }
-    }
-  },
-  {
-    "action": {
       "primary": "draw card",
       "count": "1"
     },
