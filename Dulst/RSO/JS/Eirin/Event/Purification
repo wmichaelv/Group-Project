@@ -132,7 +132,7 @@
       "criteria": {
         "stat": "stat-qs>=1"
       },
-      "mandatory": "effect selectedCard"
+      "mandatory": "selectedCard"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -145,37 +145,6 @@
       "event": {
         "primary": "targetedByEvent"
       }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "send card to",
-      "location": "afterlife",
-      "player": "target card owner",
-      "stackLocation": "top"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "set to attack position"
     },
     "target": {
       "primary": "card",
@@ -206,11 +175,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "2",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
+      "magnitude": "2"
     },
     "target": {
       "primary": "game",
@@ -296,6 +261,37 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
+      "player": "target card owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "afterEffect"
+  },
+  {
+    "action": {
+      "primary": "set to attack position"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "afterlife",
       "player": "owner",
       "stackLocation": "top"
     },
@@ -307,8 +303,7 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "afterEffect"
+    }
   },
   {
     "action": {
