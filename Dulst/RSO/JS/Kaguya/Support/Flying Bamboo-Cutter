@@ -4,8 +4,8 @@
       "primary": "trigger on event",
       "event": {
         "primary": [
-          "pre-pre-battlePhase",
-          "pre-pre-replPhase"
+          "pre-pre-replPhase",
+          "pre-pre-battlePhase"
         ]
       }
     },
@@ -30,49 +30,7 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "targetableByOwnSpecials",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
       "cardProperty": "targetableByOwnEvents",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "targetableByOppSpecials",
       "criteria": {
         "passing": "this card"
       }
@@ -422,6 +380,23 @@
       "gameProperty": "extraCostRevert"
     },
     "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "paidExtraCostFlyingBambooCutter",
+      "criteria": {
+        "passing": "pCard"
+      }
+    },
+    "effectComplete": {
       "primary": "trigger effect",
       "effectNumber": "failExtraCost"
     }
@@ -479,6 +454,23 @@
     "target": {
       "primary": "game",
       "gameProperty": "extraCostRevert"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "paidExtraCostFlyingBambooCutter",
+      "criteria": {
+        "passing": "oCard"
+      }
     },
     "effectComplete": {
       "primary": "trigger effect",
