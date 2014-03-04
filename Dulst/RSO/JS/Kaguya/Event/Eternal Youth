@@ -84,25 +84,6 @@
   },
   {
     "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "targetedByEvent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "player": "owner",
-        "class": "Leader",
-        "type": "Character"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
       "primary": "modify stats",
       "operation": "=",
       "magnitude": "3"
@@ -169,10 +150,32 @@
   },
   {
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": [
+          "targetedByEvent",
+          "gainedHP",
+          "healedByEvent"
+        ]
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
