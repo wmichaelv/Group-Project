@@ -29,6 +29,9 @@
         "from": "board",
         "player": "opponent",
         "type": "Support"
+      },
+      "exclude": {
+        "class": "Scene"
       }
     },
     "effectComplete": {
@@ -40,11 +43,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "endPhase"
-      }
+      "magnitude": "1"
     },
     "target": {
       "primary": "card",
@@ -181,7 +180,7 @@
       "primary": "card",
       "selector": {
         "primary": "owner",
-        "instructions": "Select 1 non-Scene Support card from your opponent to discard."
+        "instructions": "Select 1 non-Scene Support card from your opponent's side to discard."
       },
       "count": "1",
       "criteria": {
@@ -221,8 +220,7 @@
     "action": {
       "primary": "send card to",
       "location": "hand",
-      "player": "target card owner",
-      "stackLocation": "top"
+      "player": "target card owner"
     },
     "target": {
       "primary": "card",
