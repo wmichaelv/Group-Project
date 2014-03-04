@@ -72,11 +72,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
+      "magnitude": "1"
     },
     "target": {
       "primary": "game",
