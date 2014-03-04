@@ -95,7 +95,7 @@
       "magnitude": "1",
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": "newEffect"
       }
     },
     "target": {
@@ -120,7 +120,7 @@
       "magnitude": "1",
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": "newEffect"
       }
     },
     "target": {
@@ -298,8 +298,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
+      "player": "owner"
     },
     "target": {
       "primary": "card",
