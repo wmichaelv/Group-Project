@@ -241,9 +241,6 @@
         "class": "Leader",
         "type": "Character"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   }
 ]
