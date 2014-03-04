@@ -52,11 +52,13 @@
   },
   {
     "action": {
-      "primary": "verify target"
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "1"
     },
     "target": {
       "primary": "card",
-      "count": "1",
+      "cardProperty": "count",
       "criteria": {
         "from": "deck",
         "player": "owner"
@@ -199,23 +201,8 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "Replenishing",
-      "verifyTrue": "proceed"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "phase"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "Preparation"
+      "comparisonOperators": "!=",
+      "value": "Battle"
     },
     "target": {
       "primary": "game",
@@ -241,27 +228,11 @@
   },
   {
     "action": {
-      "primary": "verify target"
-    },
-    "target": {
-      "primary": "card",
-      "count": "1",
-      "criteria": {
-        "from": "deck",
-        "player": "owner"
-      }
-    }
-  },
-  {
-    "action": {
       "primary": "draw card",
       "count": "1"
     },
     "target": {
       "primary": "owner"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   }
 ]
