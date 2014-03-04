@@ -1164,5 +1164,17 @@
       "primary": "trigger effect",
       "effectNumber": "useSupport"
     }
+  },
+  {
+    "action": {
+      "primary": "give choice",
+      "choiceType": "multiple choice",
+      "choiceQuestion": "Are you sure you don't want to equip a Support?",
+      "choices": "effect doNothing Yes.\neffect verifyScene No."
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectName": "useFail"
   }
 ]
