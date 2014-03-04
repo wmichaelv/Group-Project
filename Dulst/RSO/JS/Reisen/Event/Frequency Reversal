@@ -136,7 +136,7 @@
       "primary": "card",
       "selector": {
         "primary": "owner",
-        "instructions": "Select 1 Spell to give -X HV to, twice, X being the difference of its current and original  HV."
+        "instructions": "Select 1 Spell to give -X HV to, twice, X being the difference of its current and original HV."
       },
       "count": "1",
       "criteria": {
