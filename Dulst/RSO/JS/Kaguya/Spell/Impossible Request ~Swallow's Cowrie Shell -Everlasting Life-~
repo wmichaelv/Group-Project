@@ -34,9 +34,6 @@
     "target": {
       "primary": "opponent",
       "playerProperty": "sp"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   }
 ]
