@@ -96,6 +96,7 @@
     "target": {
       "primary": "card",
       "criteria": {
+        "player": "owner",
         "class": "Leader",
         "type": "Character"
       }
@@ -304,6 +305,7 @@
       "primary": "card",
       "criteria": {
         "from": "board",
+        "player": "owner",
         "type": "Spell",
         "stat": "stat-isEquippedWithSupport=0"
       }
@@ -595,6 +597,7 @@
       "primary": "card",
       "cardProperty": "qualifiedTarget",
       "criteria": {
+        "player": "owner",
         "class": "Leader",
         "type": "Character"
       }
@@ -610,6 +613,7 @@
     "target": {
       "primary": "card",
       "criteria": {
+        "player": "owner",
         "class": "Leader",
         "type": "Character"
       }
@@ -811,12 +815,10 @@
     },
     "target": {
       "primary": "card",
-      "selector": {
-        "primary": "owner"
-      },
       "count": "1",
       "criteria": {
-        "from": "deadpool",
+        "player": "owner",
+        "class": "Leader",
         "type": "Character",
         "stat": "stat-qualifiedTarget>=1"
       },
@@ -996,6 +998,7 @@
       "cardProperty": "qualifiedTarget",
       "criteria": {
         "from": "board",
+        "player": "owner",
         "type": "Spell"
       }
     },
@@ -1067,6 +1070,7 @@
       "count": "1",
       "criteria": {
         "from": "board",
+        "player": "owner",
         "type": "Spell",
         "stat": "stat-isEquippedWithSupport=0&&stat-qualifiedTarget>=1"
       },
