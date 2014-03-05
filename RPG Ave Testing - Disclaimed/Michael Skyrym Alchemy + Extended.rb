@@ -980,32 +980,32 @@ class Window_Product < Window_Command
 
   def initialize(x, y, i)
     super(x, y)
-    ptype = i
+    @ptype = i
   end
 
   def make_command_list
-    case ptype
-    when 0:; $ga.pr.each do |i| add_command(i.name, :product) end
-    when 1:; $gb.pr.each do |i| add_command(i.name, :product) end
-    when 2:; $gc.pr.each do |i| add_command(i.name, :product) end 
+    case @ptype
+    when 0; $ga.pr.each do |i| add_command(i.name, :product) end
+    when 1; $gb.pr.each do |i| add_command(i.name, :product) end
+    when 2; $gc.pr.each do |i| add_command(i.name, :product) end 
     end
   end
   def window_width; 48 end
   def window_height; 344 end
   def item; 
-    case ptype
-    when 0:; $ga.pr && index >= 0 ? $ga.pr[index] : nil 
-    when 1:; $gb.pr && index >= 0 ? $gb.pr[index] : nil 
-    when 2:; $gc.pr && index >= 0 ? $gc.pr[index] : nil 
+    case @ptype
+    when 0; $ga.pr && index >= 0 ? $ga.pr[index] : nil 
+    when 1; $gb.pr && index >= 0 ? $gb.pr[index] : nil 
+    when 2; $gc.pr && index >= 0 ? $gc.pr[index] : nil 
     end
   end
   def select_last; select(0) end
   def update
     super
-    case pytpe
-    when 0:; @iw.c = $ga.pr[index] if @iw
-    when 1:; @iw.c = $gb.pr[index] if @iw
-    when 2:; @iw.c = $gc.pr[index] if @iw
+    case @pytpe
+    when 0; @iw.c = $ga.pr[index] if @iw
+    when 1; @iw.c = $gb.pr[index] if @iw
+    when 2; @iw.c = $gc.pr[index] if @iw
     end
     @in = index
     refresh 
@@ -1014,10 +1014,10 @@ class Window_Product < Window_Command
   def update_help; @help_window.set_item(item) end
   def refresh; super; checkEnable end
   def checkEnable(k = nil)
-    case ptype
-    when 0:; $ga.pr.each do |i| $ga.checkCanMake?(i) end
-    when 1:; $gb.pr.each do |i| $gb.checkCanMake?(i) end
-    when 2:; $gc.pr.each do |i| $gc.checkCanMake?(i) end
+    case @ptype
+    when 0; $ga.pr.each do |i| $ga.checkCanMake?(i) end
+    when 1; $gb.pr.each do |i| $gb.checkCanMake?(i) end
+    when 2; $gc.pr.each do |i| $gc.checkCanMake?(i) end
     end
   end
   def draw_icon(i, x, y, enabled = true)
@@ -1032,18 +1032,18 @@ class Window_Product < Window_Command
   def draw_item(index)
     rect = item_rect(index)
     rect.x += 4; rect.width -= 8
-    case ptype
-    when 0:; icon_index = $ga.pr[index].icon_index
-    when 1:; icon_index = $gb.pr[index].icon_index
-    when 2:; icon_index = $gc.pr[index].icon_index
+    case @ptype
+    when 0; icon_index = $ga.pr[index].icon_index
+    when 1; icon_index = $gb.pr[index].icon_index
+    when 2; icon_index = $gc.pr[index].icon_index
     end
     self.contents.clear_rect(rect)
     if !icon_index.nil?
       rect.x -= 4
-      case ptype
-      when 0:; draw_icon(icon_index, rect.x, rect.y, $ga.pr[index].cmake)
-      when 1:; draw_icon(icon_index, rect.x, rect.y, $gb.pr[index].cmake)
-      when 2:; draw_icon(icon_index, rect.x, rect.y, $gc.pr[index].cmake)
+      case @ptype
+      when 0; draw_icon(icon_index, rect.x, rect.y, $ga.pr[index].cmake)
+      when 1; draw_icon(icon_index, rect.x, rect.y, $gb.pr[index].cmake)
+      when 2; draw_icon(icon_index, rect.x, rect.y, $gc.pr[index].cmake)
       end
       rect.x += 26; rect.width -= 20
     end
