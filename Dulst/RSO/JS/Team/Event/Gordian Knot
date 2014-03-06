@@ -87,7 +87,7 @@
       "primary": "give choice",
       "choiceType": "multiple choice",
       "choiceQuestion": "Choose the effect to activate (you can resize the window):",
-      "choices": "effect One Opp gains -3 HV.\neffect Two You gain +1 HV, opp gains -2 HV.\neffect Three You gain +2 HV, opp gains -1 HV.\neffect Four You gain +3 HV."
+      "choices": "effect Four You gain +3 HV.\neffect Three You gain +2 HV, opp gains -1 HV.\neffect Two You gain +1 HV, opp gains -2 HV.\neffect One Opp gains -3 HV."
     },
     "target": {
       "primary": "owner"
