@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Alice_Movement: MonoBehaviour {
+public class Alice_Movement : MonoBehaviour {
 
 	private Animator animator;
 	private bool getSR; //getStateReversed
 
 	// Use this for initialization
 	void Start() { 
-		animator = this.GetComponent<Animator>(); 
+		animator = this.GetComponent<Animator>();
 		getSR = false;
 	}
 
@@ -73,7 +73,7 @@ public class Alice_Movement: MonoBehaviour {
 				return y > 0;
 			case 9: //Top-Right
 				return (x > 0 && y > 0) ? true : ((x > 0) ?
-					(x / y > -1) : (y / x > -1));
+					(x / y < -1) : (y / x < -1));
 			default:
 				return true;
 		}
@@ -138,7 +138,7 @@ public class Alice_Movement: MonoBehaviour {
 				animator.Play("AliceStand");
 			}
 		} else {
-			return; //For animation :x
+			return; //action animation pending here :x
 		}
 	}
 
