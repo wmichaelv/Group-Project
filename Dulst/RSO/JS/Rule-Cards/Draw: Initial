@@ -132,7 +132,7 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": "<=",
+      "comparisonOperators": "==",
       "value": "1"
     },
     "target": {
@@ -145,7 +145,26 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "afterShufflin"
+      "effectNumber": "verifyZero"
+    },
+    "effectName": "verifyOne"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "passing": "oneSpellFlag"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyZero"
     }
   },
   {
@@ -156,17 +175,17 @@
       "primary": "card",
       "selector": {
         "primary": "owner",
-        "instructions": "You have 1 or less Spells in your first draw. You will now mulligan. Click on Finish Select to proceed."
+        "instructions": "You have only 1 Spell in your first draw. Click on any card to mulligan (you can only do this once for a 1-Spell hand), or click Finish Select to keep your hand."
       },
       "count": "1",
       "criteria": {
         "passing": "mulliganCheck"
-      },
-      "mandatory": "mandatory or random"
+      }
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "oneSpellFlag"
   },
   {
     "action": {
@@ -176,7 +195,7 @@
       "primary": "card",
       "selector": {
         "primary": "opponent",
-        "instructions": "Your opponent has 1 or less Spells in your first draw. Your opponent will now mulligan. Click on Finish Select to proceed."
+        "instructions": "Your opponent has only 1 Spell in their first draw. Click on Finish Select to proceed."
       },
       "count": "1",
       "criteria": {
@@ -199,6 +218,67 @@
       "effectNumber": "mulliganCheck"
     },
     "effectName": "everydayImShufflin"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "passing": "mulliganCheck",
+        "type": "Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterShufflin"
+    },
+    "effectName": "verifyZero"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "owner",
+        "instructions": "You have no Spells in your first draw. Click on any card to mulligan, or click Finish Select to keep your hand."
+      },
+      "count": "1",
+      "criteria": {
+        "passing": "mulliganCheck"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "zeroSpellFlag"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "opponent",
+        "instructions": "Your opponent has no Spell in their first draw. Click on Finish Select to proceed."
+      },
+      "count": "1",
+      "criteria": {
+        "passing": "mulliganCheck"
+      },
+      "mandatory": "mandatory or random"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "everydayImShufflin"
+    }
   },
   {
     "action": {
