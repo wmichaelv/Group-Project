@@ -228,6 +228,26 @@
   },
   {
     "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "owner",
+        "instructions": "You will now draw a card due to this card's effect. Click \"Finish Select\" to continue."
+      },
+      "count": "1",
+      "criteria": {
+        "passing": "this card"
+      },
+      "mandatory": "mandatory or random"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "draw card",
       "count": "1"
     },
