@@ -394,6 +394,22 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "mindReadingFlag"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "playerRevertExtraCost"
+    },
+    "effectName": "playerRevert"
+  },
+  {
+    "action": {
       "primary": "trigger event",
       "event": {
         "primary": "extraCostUseRevert"
@@ -407,8 +423,7 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "playerRevert"
+    }
   },
   {
     "action": {
@@ -422,7 +437,8 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "playerRevertExtraCost"
   },
   {
     "action": {
@@ -715,6 +731,22 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "mindReadingFlag"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "oppRevertExtraCost"
+    },
+    "effectName": "oppRevert"
+  },
+  {
+    "action": {
       "primary": "trigger event",
       "event": {
         "primary": "extraCostUseRevert"
@@ -728,8 +760,7 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "oppRevert"
+    }
   },
   {
     "action": {
@@ -743,7 +774,8 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "oppRevertExtraCost"
   },
   {
     "action": {
