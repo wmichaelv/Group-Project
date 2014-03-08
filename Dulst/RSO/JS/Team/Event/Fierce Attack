@@ -561,6 +561,21 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "mindReadingFlag"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "count"
+    }
+  },
+  {
+    "action": {
       "primary": "modify stats",
       "operation": "=",
       "magnitude": "1",
@@ -576,23 +591,8 @@
       }
     },
     "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "1",
-      "verifyTrue": "extraCostUseRevert"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "mindReadingFlag"
-    },
-    "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "count"
+      "effectNumber": "extraCostUseRevert"
     }
   },
   {
