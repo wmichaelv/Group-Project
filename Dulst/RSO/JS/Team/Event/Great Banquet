@@ -133,18 +133,16 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": "is undefined",
-      "verifyTrue": "confirm"
+      "comparisonOperators": "!=",
+      "value": "1"
     },
     "target": {
-      "primary": "card",
-      "cardProperty": "cardCount",
-      "criteria": {
-        "passing": "this card"
-      }
+      "primary": "game",
+      "gameProperty": "mindReadingFlag"
     },
     "effectComplete": {
-      "primary": "trigger next effect"
+      "primary": "trigger effect",
+      "effectNumber": "confirm"
     }
   },
   {
