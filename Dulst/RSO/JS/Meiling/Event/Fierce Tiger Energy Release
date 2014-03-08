@@ -161,48 +161,16 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": "is undefined"
+      "comparisonOperators": "!=",
+      "value": "1"
     },
     "target": {
-      "primary": "card",
-      "cardProperty": "effect-useCount",
-      "criteria": {
-        "passing": "this card"
-      }
+      "primary": "game",
+      "gameProperty": "mindReadingFlag"
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "topCards"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "undefinedFlag",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "run effect",
-      "effectNumber": "choose",
-      "callback": "effect completion"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
+      "effectNumber": "choose"
     }
   },
   {
@@ -1784,19 +1752,16 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "1",
-      "verifyTrue": "topCards"
+      "comparisonOperators": "!=",
+      "value": "1"
     },
     "target": {
-      "primary": "card",
-      "cardProperty": "undefinedFlag",
-      "criteria": {
-        "passing": "this card"
-      }
+      "primary": "game",
+      "gameProperty": "mindReadingFlag"
     },
     "effectComplete": {
-      "primary": "trigger next effect"
+      "primary": "trigger effect",
+      "effectNumber": "topCards"
     }
   },
   {
