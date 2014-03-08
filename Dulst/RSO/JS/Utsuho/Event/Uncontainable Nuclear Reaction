@@ -125,48 +125,16 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": "is undefined"
+      "comparisonOperators": "!=",
+      "value": "1"
     },
     "target": {
-      "primary": "card",
-      "cardProperty": "effect-chosenSP",
-      "criteria": {
-        "passing": "this card"
-      }
+      "primary": "game",
+      "gameProperty": "mindReadingFlag"
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "startEffect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "undefinedFlag",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "run effect",
-      "effectNumber": "choose",
-      "callback": "effect completion"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
+      "effectNumber": "choose"
     }
   },
   {
@@ -549,6 +517,21 @@
   {
     "action": {
       "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "mindReadingFlag"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
       "comparisonOperators": ">=",
       "value": "effect chosenSP"
     },
@@ -559,24 +542,6 @@
     "effectComplete": {
       "primary": "trigger effect",
       "effectNumber": "failExtraCost"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "1",
-      "verifyTrue": "startEffect"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "undefinedFlag",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   },
   {
