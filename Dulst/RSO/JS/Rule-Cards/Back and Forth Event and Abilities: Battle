@@ -136,8 +136,7 @@
         "from": "hand",
         "player": "owner",
         "class": "Battle Phase",
-        "type": "Event",
-        "stat": "stat-sp<=effect playerSP"
+        "type": "Event"
       }
     },
     "effectComplete": {
@@ -162,8 +161,7 @@
         "from": "hand",
         "player": "opponent",
         "class": "Battle Phase",
-        "type": "Event",
-        "stat": "stat-sp<=effect opponentSP"
+        "type": "Event"
       }
     },
     "effectComplete": {
@@ -1050,8 +1048,7 @@
         "from": "hand",
         "player": "opponent",
         "class": "Battle Phase",
-        "type": "Event",
-        "stat": "stat-sp<=effect opponentSP"
+        "type": "Event"
       }
     },
     "effectComplete": {
@@ -1075,8 +1072,7 @@
         "from": "hand",
         "player": "owner",
         "class": "Battle Phase",
-        "type": "Event",
-        "stat": "stat-sp<=effect playerSP"
+        "type": "Event"
       }
     }
   }
