@@ -136,8 +136,7 @@
         "from": "hand",
         "player": "owner",
         "class": "Replenishing Phase",
-        "type": "Event",
-        "stat": "stat-sp<=effect playerSP"
+        "type": "Event"
       }
     },
     "effectComplete": {
@@ -162,8 +161,7 @@
         "from": "hand",
         "player": "opponent",
         "class": "Replenishing Phase",
-        "type": "Event",
-        "stat": "stat-sp<=effect opponentSP"
+        "type": "Event"
       }
     },
     "effectComplete": {
@@ -1001,8 +999,7 @@
         "from": "hand",
         "player": "opponent",
         "class": "Replenishing Phase",
-        "type": "Event",
-        "stat": "stat-sp<=effect opponentSP"
+        "type": "Event"
       }
     },
     "effectComplete": {
@@ -1026,8 +1023,7 @@
         "from": "hand",
         "player": "owner",
         "class": "Replenishing Phase",
-        "type": "Event",
-        "stat": "stat-sp<=effect playerSP"
+        "type": "Event"
       }
     }
   }
