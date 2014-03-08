@@ -64,9 +64,38 @@
   },
   {
     "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "value",
+      "value": "effect oHV / 2"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "halfAmount"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "floor"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "effect-halfAmount",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "modify stats",
       "operation": "-",
-      "magnitude": "effect oHV / 2",
+      "magnitude": "effect halfAmount",
       "undo": {
         "primary": "game event",
         "event": "post-battlePhase"
