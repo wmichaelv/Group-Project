@@ -185,75 +185,32 @@
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0"
+      "primary": "assign variable"
     },
     "target": {
-      "primary": "card",
-      "cardProperty": "buffAmount",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "<=",
+      "primary": "value",
       "value": "effect UFM / 2"
     },
-    "target": {
-      "primary": "card",
-      "cardProperty": "buffAmount",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
     "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "afterLoop"
+      "primary": "trigger next effect"
     },
-    "effectName": "loop"
+    "effectName": "halfAmount"
   },
   {
     "action": {
       "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "1"
+      "operation": "floor"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "buffAmount",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "loop"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "buffAmount",
+      "cardProperty": "effect-halfAmount",
       "criteria": {
         "passing": "this card"
       }
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "afterLoop"
+    }
   },
   {
     "action": {
@@ -263,14 +220,14 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "buffAmount",
+      "cardProperty": "effect-halfAmount",
       "criteria": {
         "passing": "this card"
       }
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "buffAmount"
+      "effectNumber": "startEffect"
     }
   },
   {
@@ -281,7 +238,7 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "buffAmount",
+      "cardProperty": "effect-halfAmount",
       "criteria": {
         "passing": "this card"
       }
@@ -292,25 +249,9 @@
   },
   {
     "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "buffAmount",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "buffAmount"
-  },
-  {
-    "action": {
       "primary": "modify stats",
       "operation": "+",
-      "magnitude": "effect buffAmount",
+      "magnitude": "effect halfAmount",
       "undo": {
         "primary": "game event",
         "event": "post-battlePhase"
@@ -325,13 +266,14 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "startEffect"
   },
   {
     "action": {
       "primary": "modify stats",
       "operation": "+",
-      "magnitude": "effect buffAmount",
+      "magnitude": "effect halfAmount",
       "undo": {
         "primary": "game event",
         "event": "post-battlePhase"
