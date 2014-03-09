@@ -265,7 +265,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "failPlayer"
+      "effectNumber": "confirmPassPlayer"
     },
     "effectName": "verifyPlayerQS"
   },
@@ -602,7 +602,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "failOpp"
+      "effectNumber": "confirmPassOpp"
     },
     "effectName": "verifyOppQS"
   },
@@ -921,6 +921,44 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "0"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "failPlayer"
+    },
+    "effectName": "confirmPassPlayer"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "owner",
+        "instructions": "There is no Event or Special that can be played. Click \"Finish Select\" to pass."
+      },
+      "count": "1",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      },
+      "mandatory": "mandatory or random"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "modify stats",
       "operation": "=",
       "magnitude": "1",
@@ -957,6 +995,43 @@
     "effectComplete": {
       "primary": "trigger effect",
       "effectNumber": "over"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "0"
+    },
+    "target": {
+      "primary": "opponent"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "failOpp"
+    },
+    "effectName": "confirmPassOpp"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "opponent",
+        "instructions": "There is no Event or Special that can be played. Click \"Finish Select\" to pass."
+      },
+      "count": "1",
+      "criteria": {
+        "player": "opponent",
+        "class": "Leader",
+        "type": "Character"
+      },
+      "mandatory": "mandatory or random"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
     }
   },
   {
