@@ -888,6 +888,34 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "from": [
+          "board",
+          "hand",
+          "deadpool"
+        ],
+        "player": "owner",
+        "class": "Replenishing Phase",
+        "stat": "stat-qualifiedSelect=1&&stat-usable=1&&stat-canActivate=1"
+      },
+      "exclude": {
+        "stat": "stat-disableUse>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "failPlayer"
+    }
+  },
+  {
+    "action": {
       "primary": "assign variable"
     },
     "target": {
@@ -963,6 +991,34 @@
       "effectNumber": "failOpp"
     },
     "effectName": "confirmPassOpp"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "from": [
+          "board",
+          "hand",
+          "deadpool"
+        ],
+        "player": "opponent",
+        "class": "Replenishing Phase",
+        "stat": "stat-qualifiedSelect=1&&stat-usable=1&&stat-canActivate=1"
+      },
+      "exclude": {
+        "stat": "stat-disableUse>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "failOpp"
+    }
   },
   {
     "action": {
