@@ -318,7 +318,7 @@
       "exclude": {
         "stat": "stat-disableUse>=1"
       },
-      "mandatory": "failPlayer"
+      "mandatory": "confirmPassPlayer"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -655,7 +655,7 @@
       "exclude": {
         "stat": "stat-disableUse>=1"
       },
-      "mandatory": "failOpp"
+      "mandatory": "confirmPassOpp"
     },
     "effectComplete": {
       "primary": "trigger next effect"
