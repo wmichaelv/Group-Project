@@ -72,6 +72,7 @@ public class Alice_Movement : MonoBehaviour {
 		}
 */
 		setMovState(direction, shift, mouse, action, reverse);
+		setMovSpeed(direction, shift, mouse, action, reverse);
 	}
 
 	int getDirection(float h, float v) {
@@ -250,5 +251,9 @@ public class Alice_Movement : MonoBehaviour {
 	IEnumerator WaitAndPrint(float waitTime) {
 		yield return new WaitForSeconds(waitTime);
 		//print("WaitAndPrint " + Time.time);
+	}
+
+	void setMovSpeed(int d, bool s, bool m, bool a, bool r) {
+		
 	}
 }
