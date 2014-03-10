@@ -5,11 +5,16 @@ public class Alice_Movement : MonoBehaviour {
 
 	private Animator animator;
 	private bool getSR; //getStateReversed
+	private bool sDash; //startDash
+	private bool fDash; //finishDash
 
 	// Use this for initialization
+
 	void Start() { 
 		animator = this.GetComponent<Animator>();
 		getSR = false;
+		sDash = false;
+		fDash = true;
 	}
 
 	/* 
@@ -40,6 +45,11 @@ public class Alice_Movement : MonoBehaviour {
 		bool shift = getShift();
 		bool mouse = getMouse(v2Pos.x, v2Pos.y, direction);
 		bool reverse = getReverse(direction, mouse);
+
+		if (animation["AliceDashFrontStart"].enabled == true || 
+		    animation["AliceDashBackStart"].enabled == true) {
+			WaitForSeconds (animation.clip.length);
+		}
 
 		setMovState(direction, shift, mouse, false, reverse);
 	}
@@ -120,7 +130,13 @@ public class Alice_Movement : MonoBehaviour {
 				if (m) {
 					if (s) {
 						animator.transform.Rotate(0, getRotation(r), 0);
-						animator.Play("AliceDashFront");
+						if (sDash) {
+  						animator.Play("AliceDashFrontLoop");
+  					} else {
+  						animator.Play("AliceDashFrontStart");
+  						//yield return new WaitForSeconds(animator.clip.length);
+  						sDash = true;
+  					}
 					} else {
 						animator.transform.Rotate(0, getRotation(r), 0);
 						animator.Play("AliceWalkFront");
@@ -128,7 +144,12 @@ public class Alice_Movement : MonoBehaviour {
 				} else {
 					if (s) {
 						animator.transform.Rotate(0, getRotation(r), 0);
-						animator.Play("AliceDashBack");
+						if (sDash) {
+							animator.Play("AliceDashBackLoop");
+						} else {
+  						animator.Play("AliceDashBackStart");
+  						sDash = true;
+  					}
 					} else {
 						animator.transform.Rotate(0, getRotation(r), 0);
 						animator.Play("AliceWalkBack");
