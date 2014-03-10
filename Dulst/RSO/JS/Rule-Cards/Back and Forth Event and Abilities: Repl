@@ -136,8 +136,7 @@
         "from": "hand",
         "player": "owner",
         "class": "Replenishing Phase",
-        "type": "Event",
-        "stat": "stat-sp<=effect playerSP"
+        "type": "Event"
       }
     },
     "effectComplete": {
@@ -162,8 +161,7 @@
         "from": "hand",
         "player": "opponent",
         "class": "Replenishing Phase",
-        "type": "Event",
-        "stat": "stat-sp<=effect opponentSP"
+        "type": "Event"
       }
     },
     "effectComplete": {
@@ -218,7 +216,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "failPlayer"
+      "effectNumber": "confirmPassPlayer"
     },
     "effectName": "verifyPlayerQS"
   },
@@ -271,7 +269,7 @@
       "exclude": {
         "stat": "stat-disableUse>=1"
       },
-      "mandatory": "failPlayer"
+      "mandatory": "confirmPassPlayer"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -345,6 +343,22 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "mindReadingFlag"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "playerRevertExtraCost"
+    },
+    "effectName": "playerRevert"
+  },
+  {
+    "action": {
       "primary": "trigger event",
       "event": {
         "primary": "extraCostUseRevert"
@@ -358,8 +372,7 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "playerRevert"
+    }
   },
   {
     "action": {
@@ -373,7 +386,8 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "playerRevertExtraCost"
   },
   {
     "action": {
@@ -539,7 +553,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "failOpp"
+      "effectNumber": "confirmPassOpp"
     },
     "effectName": "verifyOppQS"
   },
@@ -592,7 +606,7 @@
       "exclude": {
         "stat": "stat-disableUse>=1"
       },
-      "mandatory": "failOpp"
+      "mandatory": "confirmPassOpp"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -666,6 +680,22 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "mindReadingFlag"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "oppRevertExtraCost"
+    },
+    "effectName": "oppRevert"
+  },
+  {
+    "action": {
       "primary": "trigger event",
       "event": {
         "primary": "extraCostUseRevert"
@@ -679,8 +709,7 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "oppRevert"
+    }
   },
   {
     "action": {
@@ -694,7 +723,8 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "oppRevertExtraCost"
   },
   {
     "action": {
@@ -842,6 +872,72 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "0"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "failPlayer"
+    },
+    "effectName": "confirmPassPlayer"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "from": [
+          "board",
+          "hand",
+          "deadpool"
+        ],
+        "player": "owner",
+        "class": "Replenishing Phase",
+        "stat": "stat-qualifiedSelect=1&&stat-usable=1&&stat-canActivate=1"
+      },
+      "exclude": {
+        "stat": "stat-disableUse>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "failPlayer"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "owner",
+        "instructions": "There is no Event or Special that can be played. Click \"Finish Select\" to pass."
+      },
+      "count": "1",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      },
+      "mandatory": "mandatory or random"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "modify stats",
       "operation": "=",
       "magnitude": "1",
@@ -878,6 +974,72 @@
     "effectComplete": {
       "primary": "trigger effect",
       "effectNumber": "over"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "0"
+    },
+    "target": {
+      "primary": "opponent",
+      "playerProperty": "sp"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "failOpp"
+    },
+    "effectName": "confirmPassOpp"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "from": [
+          "board",
+          "hand",
+          "deadpool"
+        ],
+        "player": "opponent",
+        "class": "Replenishing Phase",
+        "stat": "stat-qualifiedSelect=1&&stat-usable=1&&stat-canActivate=1"
+      },
+      "exclude": {
+        "stat": "stat-disableUse>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "failOpp"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "opponent",
+        "instructions": "There is no Event or Special that can be played. Click \"Finish Select\" to pass."
+      },
+      "count": "1",
+      "criteria": {
+        "player": "opponent",
+        "class": "Leader",
+        "type": "Character"
+      },
+      "mandatory": "mandatory or random"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
     }
   },
   {
@@ -969,8 +1131,7 @@
         "from": "hand",
         "player": "opponent",
         "class": "Replenishing Phase",
-        "type": "Event",
-        "stat": "stat-sp<=effect opponentSP"
+        "type": "Event"
       }
     },
     "effectComplete": {
@@ -994,8 +1155,7 @@
         "from": "hand",
         "player": "owner",
         "class": "Replenishing Phase",
-        "type": "Event",
-        "stat": "stat-sp<=effect playerSP"
+        "type": "Event"
       }
     }
   }

@@ -1209,7 +1209,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "-",
-      "magnitude": "2 + effect selectedCardSP"
+      "magnitude": "2"
     },
     "target": {
       "primary": "owner",
@@ -1222,6 +1222,35 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "mindReadingFlag"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterEffect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "effect selectedCardSP"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "send card to",
       "location": "afterlife",
       "player": "owner"
@@ -1231,7 +1260,8 @@
       "criteria": {
         "passing": "this card"
       }
-    }
+    },
+    "effectName": "afterEffect"
   },
   {
     "action": {

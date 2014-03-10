@@ -40,20 +40,19 @@
   },
   {
     "action": {
-      "primary": "send card to",
-      "location": "Board facedown",
-      "player": "target card owner",
-      "silent": "silent"
+      "primary": "assign variable"
     },
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "card"
+        "from": "hand",
+        "player": "opponent"
       }
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "card"
   },
   {
     "action": {
