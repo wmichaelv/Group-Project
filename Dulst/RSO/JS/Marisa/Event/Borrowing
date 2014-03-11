@@ -149,19 +149,34 @@
       },
       "count": "1",
       "criteria": {
-        "passing": "card",
-        "type": [
-          "Support",
-          "Event"
-        ]
+        "passing": "card"
       },
       "mandatory": "selectedCard"
     },
     "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "afterEffect"
+      "primary": "trigger next effect"
     },
     "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "afterEffect"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard",
+        "type": [
+          "Support",
+          "Event"
+        ]
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "selectedCard"
+    }
   },
   {
     "action": {
