@@ -21,14 +21,6 @@ public class Alice_Movement : MonoBehaviour {
 
 		Update is called once per frame
 
-		Basic Movement Keys:
-
-		direction 0 = idle, no need to has 5
-		shift for dashing
-		mouse for reverse movement
-		action for negate movement
-		reverse for reversed sprite
-
 	*/
 
 	void Update() {
@@ -61,18 +53,28 @@ public class Alice_Movement : MonoBehaviour {
 		//Get the position of the mouse from the animator
 
 		int direction = getDirection(horizontal, vertical);
+		//direction 0 = idle, no need to has 5
+
 		bool shift = getShift();
+		//shift for dashing
+
 		bool mouse = getMouse(v2Pos.x, v2Pos.y, direction);
+		//mouse for reverse movement
+
 		bool action = getAction();
+		//action for negate movement
+
 		bool reverse = getReverse(direction, mouse);
-/*
-		if (animation["AliceDashFrontStart"].enabled == true || 
-		    animation["AliceDashBackStart"].enabled == true) {
-			WaitForSeconds (animation.clip.length);
-		}
-*/
+		//reverse for reversed sprite
+
+		float movSpd = getMovSpeed(direction, shift, mouse, reverse);
+		//movSpd for movement speed
+
 		setMovState(direction, shift, mouse, action, reverse);
-		setMovSpeed(direction, shift, mouse, action, reverse);
+		//setMovementAnimationState
+
+		setMovSpeed(direction, reverse, movSpd);
+		//setMovementAnimationSpeed
 	}
 
 	int getDirection(float h, float v) {
@@ -141,6 +143,12 @@ public class Alice_Movement : MonoBehaviour {
 		default:
 			return false;
 		}
+	}
+
+	float getMovSpeed(int d, bool s, bool m, bool r) {
+		return (d != 0) ? ((s) ? ((m) ? 10f : 5f) : ((m) ? 3f : 1f)) : 0f;
+		//return (r) ? ((d != 0) ? ((s) ? ((m) ? -8f : -5f) : ((m) ? -3f : -1f)) : 0f) :
+		//	((d != 0) ? ((s) ? ((m) ? 8f : 5f) : ((m) ? 3f : 1f)) : 0f);
 	}
 
 	void setMovState(int d, bool s, bool m, bool a, bool r) {
@@ -253,7 +261,73 @@ public class Alice_Movement : MonoBehaviour {
 		//print("WaitAndPrint " + Time.time);
 	}
 
-	void setMovSpeed(int d, bool s, bool m, bool a, bool r) {
-		
+	void setMovSpeed(int d, bool r, float mS) {
+		if (r) {
+			switch(d) {
+			case 0: //Idle
+				transform.Translate(new Vector2(0,0) * mS * Time.deltaTime);
+				return;
+			case 1: //Down-Left
+				transform.Translate(new Vector2(1,-1) * mS * Time.deltaTime);
+				return;
+			case 2: //Down
+				transform.Translate(new Vector2(0,-1) * mS * Time.deltaTime);
+				return;
+			case 3: //Down-Right
+				transform.Translate(new Vector2(-1,-1) * mS * Time.deltaTime);
+				return;
+			case 4: //Left
+				transform.Translate(new Vector2(1,0) * mS * Time.deltaTime);
+				return;
+			case 6: //Right
+				transform.Translate(new Vector2(-1,0) * mS * Time.deltaTime);
+				return;
+			case 7: //Up-Left
+				transform.Translate(new Vector2(1,1) * mS * Time.deltaTime);
+				return;
+			case 8: //Up
+				transform.Translate(new Vector2(0,1) * mS * Time.deltaTime);
+				return;
+			case 9: //Up-Right
+				transform.Translate(new Vector2(-1,1) * mS * Time.deltaTime);
+				return;
+			default:
+				transform.Translate(new Vector2(0,0) * mS * Time.deltaTime);
+				return;
+			}
+		} else {
+			switch(d) {
+			case 0: //Idle
+				transform.Translate(new Vector2(0,0) * mS * Time.deltaTime);
+				return;
+			case 1: //Down-Left
+				transform.Translate(new Vector2(-1,-1) * mS * Time.deltaTime);
+				return;
+			case 2: //Down
+				transform.Translate(new Vector2(0,-1) * mS * Time.deltaTime);
+				return;
+			case 3: //Down-Right
+				transform.Translate(new Vector2(1,-1) * mS * Time.deltaTime);
+				return;
+			case 4: //Left
+				transform.Translate(new Vector2(-1,0) * mS * Time.deltaTime);
+				return;
+			case 6: //Right
+				transform.Translate(new Vector2(1,0) * mS * Time.deltaTime);
+				return;
+			case 7: //Up-Left
+				transform.Translate(new Vector2(-1,1) * mS * Time.deltaTime);
+				return;
+			case 8: //Up
+				transform.Translate(new Vector2(0,1) * mS * Time.deltaTime);
+				return;
+			case 9: //Up-Right
+				transform.Translate(new Vector2(1,1) * mS * Time.deltaTime);
+				return;
+			default:
+				transform.Translate(new Vector2(0,0) * mS * Time.deltaTime);
+				return;
+			}
+		}
 	}
 }
