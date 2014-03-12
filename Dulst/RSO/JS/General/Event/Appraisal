@@ -294,11 +294,7 @@
   },
   {
     "action": {
-      "primary": "send card to",
-      "location": "FirstRow",
-      "player": "owner",
-      "stackLocation": "top",
-      "silent": "silent"
+      "primary": "assign variable"
     },
     "target": {
       "primary": "card",
@@ -327,27 +323,6 @@
       "count": "1",
       "criteria": {
         "passing": "card"
-      },
-      "mandatory": "mandatory or random"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "selector": {
-        "primary": "opponent",
-        "instructions": "Viewing the top card of your opponent's deck."
-      },
-      "count": "1",
-      "criteria": {
-        "passing": "card",
-        "player": "owner"
       },
       "mandatory": "mandatory or random"
     },
@@ -393,7 +368,7 @@
       "primary": "card",
       "selector": {
         "primary": "opponent",
-        "instructions": "Viewing the selected card. Click \"Finish Select\" to proceed."
+        "instructions": "Viewing the opponent's card, sent to his hand. Click \"Finish Select\" to proceed."
       },
       "count": "1",
       "criteria": {
@@ -443,7 +418,7 @@
       "primary": "card",
       "selector": {
         "primary": "opponent",
-        "instructions": "Viewing the selected card. Click \"Finish Select\" to proceed."
+        "instructions": "Viewing the opponent's card, sent to the bottom of his deck. Click \"Finish Select\" to proceed."
       },
       "count": "1",
       "criteria": {
