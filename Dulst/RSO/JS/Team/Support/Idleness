@@ -39,18 +39,19 @@
       "primary": "add class",
       "class": "Extra Cost Use",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": [
+          "default",
+          "game event"
+        ],
+        "event": [
+          "post-battlePhase",
+          "post-replPhase"
+        ]
       }
     },
     "target": {
       "primary": "card",
       "criteria": {
-        "from": [
-          "board",
-          "hand",
-          "deadpool"
-        ],
         "player": "owner",
         "class": "Replenishing Phase, Battle Phase"
       }
