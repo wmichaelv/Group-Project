@@ -17,6 +17,18 @@
   },
   {
     "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "from": "board"
+      }
+    }
+  },
+  {
+    "action": {
       "primary": "assign variable"
     },
     "target": {
@@ -301,7 +313,10 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-battlePhase"
+        "primary": [
+          "pre-battlePhase",
+          "pre-replPhase"
+        ]
       }
     },
     "target": {
@@ -332,23 +347,17 @@
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "pre-replPhase"
-      }
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle"
     },
     "target": {
-      "primary": "card",
-      "cardProperty": "ancientRevivalReadyFlag",
-      "criteria": {
-        "passing": "cardB"
-      }
+      "primary": "game",
+      "gameProperty": "phase"
     },
     "effectComplete": {
-      "primary": "trigger next effect"
+      "primary": "trigger effect",
+      "effectNumber": "readyFlag"
     }
   },
   {
@@ -426,7 +435,29 @@
       "criteria": {
         "passing": "cardB"
       }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
     }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "pre-replPhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "ancientRevivalReadyFlag",
+      "criteria": {
+        "passing": "cardB"
+      }
+    },
+    "effectName": "readyFlag"
   },
   {
     "action": {
