@@ -31,7 +31,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "extraCostUse,extraCostUseRevert"
+      "effectNumber": "eventDrawCheck,extraCostUse,extraCostUseRevert"
     }
   },
   {
@@ -39,8 +39,14 @@
       "primary": "add class",
       "class": "Extra Cost Use",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": [
+          "default",
+          "game event"
+        ],
+        "event": [
+          "post-battlePhase",
+          "post-replPhase"
+        ]
       }
     },
     "target": {
@@ -53,6 +59,47 @@
       }
     },
     "effectName": "startEffect"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-moveCard",
+        "to": "hand"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "type": "Event"
+      }
+    },
+    "effectName": "eventDrawCheck"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Extra Cost Use",
+      "undo": {
+        "primary": [
+          "default",
+          "game event"
+        ],
+        "event": [
+          "post-battlePhase",
+          "post-replPhase"
+        ]
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "class": "Replenishing Phase, Battle Phase"
+      },
+      "exclude": {
+        "name": "Yukari Yakumo"
+      }
+    }
   },
   {
     "action": {
