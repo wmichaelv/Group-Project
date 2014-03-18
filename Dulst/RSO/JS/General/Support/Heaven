@@ -1,11 +1,28 @@
 [
   {
     "action": {
+      "primary": "run effect",
+      "effectNumber": "startEffect",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "passive"
+  },
+  {
+    "action": {
       "primary": "trigger on event",
       "event": {
         "primary": [
-          "pre-pre-battlePhase",
-          "pre-pre-replPhase"
+          "pre-battlePhase",
+          "pre-replPhase"
         ]
       }
     },
@@ -14,25 +31,8 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb"
-    },
-    "effectName": "passive"
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "type": "Event",
-        "stat": "stat-lvl=0"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "selectedCard"
+      "effectNumber": "eventDrawCheck,passiveb"
+    }
   },
   {
     "action": {
@@ -40,15 +40,65 @@
       "operation": "=",
       "magnitude": "0",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": [
+          "default",
+          "game event"
+        ],
+        "event": [
+          "post-battlePhase",
+          "post-replPhase"
+        ]
       }
     },
     "target": {
       "primary": "card",
       "cardProperty": "usable",
       "criteria": {
-        "passing": "selectedCard"
+        "type": "Event",
+        "stat": "stat-lvl<=0"
+      }
+    },
+    "effectName": "startEffect"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-moveCard",
+        "to": "hand"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "type": "Event",
+        "stat": "stat-lvl<=0"
+      }
+    },
+    "effectName": "eventDrawCheck"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": [
+          "default",
+          "game event"
+        ],
+        "event": [
+          "post-battlePhase",
+          "post-replPhase"
+        ]
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "usable",
+      "criteria": {
+        "type": "Event",
+        "stat": "stat-lvl<=0"
       }
     }
   },
