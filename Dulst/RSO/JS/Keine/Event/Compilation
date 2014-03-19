@@ -52,7 +52,7 @@
       "primary": "give choice",
       "choiceType": "multiple choice",
       "choiceQuestion": "Choose the target of the effect:",
-      "choices": "effect owner Player\neffect opponent Opponent "
+      "choices": "effect owner Player\neffect opponent Opponent"
     },
     "target": {
       "primary": "owner"
@@ -238,7 +238,9 @@
     }
   },
   {
-    "action": {},
+    "action": {
+      "primary": "assign variable"
+    },
     "target": {
       "primary": "card",
       "selector": {
