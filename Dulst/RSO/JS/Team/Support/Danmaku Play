@@ -105,22 +105,6 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "yourTurn"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "verifyIntcpt"
-    },
-    "effectName": "verifyAtk"
-  },
-  {
-    "action": {
-      "primary": "verify target",
       "verifyTrue": "doNothing"
     },
     "target": {
@@ -135,20 +119,6 @@
       "effectNumber": "startDamage"
     },
     "effectName": "verifyOwn"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "verifyTrue": "verifyOwn"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "player": "opponent",
-        "class": "Battle Spell"
-      }
-    },
-    "effectName": "verifyIntcpt"
   },
   {
     "action": {
