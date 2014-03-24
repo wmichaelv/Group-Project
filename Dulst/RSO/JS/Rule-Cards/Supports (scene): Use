@@ -169,6 +169,21 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "effect spCost"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "notEnoughExtraCostPay"
+    }
+  },
+  {
+    "action": {
       "primary": "modify stats",
       "operation": "-",
       "magnitude": "effect spCost"
