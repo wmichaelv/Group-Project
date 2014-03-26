@@ -146,7 +146,7 @@ public class Alice_Movement : MonoBehaviour {
 		case 1: //Down-Left
 			return m;
 		case 2: //Down
-			return false;
+			return mousePos.x < 0;
 		case 3: //Down-Right
 			return !m;
 		case 4: //Left
@@ -156,7 +156,7 @@ public class Alice_Movement : MonoBehaviour {
 		case 7: //Up-Left
 			return m;
 		case 8: //Up
-			return false;
+			return mousePos.x < 0;
 		case 9: //Up-Right
 			return !m;
 		default:
