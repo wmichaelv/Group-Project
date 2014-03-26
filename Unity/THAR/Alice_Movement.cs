@@ -3,10 +3,17 @@ using System.Collections;
 
 public class Alice_Movement : MonoBehaviour {
 
-	private Animator animator; //Store Animator
-	private bool getSR;        //Store getStateReversed
-	private bool bDash;        //Store backDash
-	private bool fDash;        //Store frontDash
+	public int   playerDirection; //Store playerDirection     to Pass Around Scripts
+	public bool  playerShift;     //Store shift               to Pass Around Scripts
+	public bool  playerMouse;     //Store playerMouse         to Pass Around Scripts
+	public bool  playerAction;    //Store playerAction        to Pass Around Scripts
+	public bool  playerReverse;   //Store playerReverse       to Pass Around Scripts
+	public float playerMovSpd;    //Store playerMovementSpeed to Pass Around Scripts
+
+	private Animator animator;    //Store Animator
+	private bool getSR;           //Store getStateReversed
+	private bool bDash;           //Store backDash
+	private bool fDash;           //Store frontDash
 
 	// Use this for initialization
 
@@ -24,6 +31,18 @@ public class Alice_Movement : MonoBehaviour {
 	*/
 
 	void Update() {
+
+		setPlayerVarValues();
+		//setPlayerVariablesValues
+
+		setMovState(playerDirection, playerShift, playerMouse, playerAction, playerReverse);
+		//setMovementAnimationState
+
+		setMovSpeed(playerDirection, playerReverse, playerMovSpd);
+		//setMovementAnimationSpeed
+	}
+
+	void setPlayerVarValues() {
 
 		var horizontal = Input.GetAxis("Horizontal"); 
 		
@@ -52,29 +71,24 @@ public class Alice_Movement : MonoBehaviour {
 		v2Pos = v2Pos - objectPos; 
 		//Get the position of the mouse from the animator
 
-		int direction = getDirection(horizontal, vertical);
+		playerDirection = getDirection(horizontal, vertical);
 		//direction 0 = idle, no need to has 5
 
-		bool shift = getShift();
+		playerShift = getShift();
 		//shift for dashing
 
-		bool mouse = getMouse(v2Pos.x, v2Pos.y, direction);
+		playerMouse = getMouse(v2Pos.x, v2Pos.y, playerDirection);
 		//mouse for reverse movement
 
-		bool action = getAction();
+		playerAction = getAction();
 		//action for negate movement
 
-		bool reverse = getReverse(direction, mouse);
+		playerReverse = getReverse(playerDirection, playerMouse);
 		//reverse for reversed sprite
 
-		float movSpd = getMovSpeed(direction, shift, mouse, reverse);
-		//movSpd for movement speed
+		playerMovSpd = getMovSpeed(playerDirection, playerShift, playerMouse, playerReverse);
+		//playerMovSpd for player's movement speed
 
-		setMovState(direction, shift, mouse, action, reverse);
-		//setMovementAnimationState
-
-		setMovSpeed(direction, reverse, movSpd);
-		//setMovementAnimationSpeed
 	}
 
 	int getDirection(float h, float v) {
@@ -147,8 +161,6 @@ public class Alice_Movement : MonoBehaviour {
 
 	float getMovSpeed(int d, bool s, bool m, bool r) {
 		return (d != 0) ? ((s) ? ((m) ? 10f : 5f) : ((m) ? 3f : 1f)) : 0f;
-		//return (r) ? ((d != 0) ? ((s) ? ((m) ? -8f : -5f) : ((m) ? -3f : -1f)) : 0f) :
-		//	((d != 0) ? ((s) ? ((m) ? 8f : 5f) : ((m) ? 3f : 1f)) : 0f);
 	}
 
 	void setMovState(int d, bool s, bool m, bool a, bool r) {
@@ -228,7 +240,6 @@ public class Alice_Movement : MonoBehaviour {
 	}
 
 	IEnumerator waitFor(string animationName) {
-
 		switch (animationName) {
 		case "AliceDashFrontStart":
 			animator.Play("AliceDashFrontStart");
@@ -258,76 +269,75 @@ public class Alice_Movement : MonoBehaviour {
 
 	IEnumerator WaitAndPrint(float waitTime) {
 		yield return new WaitForSeconds(waitTime);
-		//print("WaitAndPrint " + Time.time);
 	}
 
 	void setMovSpeed(int d, bool r, float mS) {
-		if (r) {
-			switch(d) {
-			case 0: //Idle
-				transform.Translate(new Vector2(0,0) * mS * Time.deltaTime);
-				return;
-			case 1: //Down-Left
-				transform.Translate(new Vector2(1,-1) * mS * Time.deltaTime);
-				return;
-			case 2: //Down
-				transform.Translate(new Vector2(0,-1) * mS * Time.deltaTime);
-				return;
-			case 3: //Down-Right
-				transform.Translate(new Vector2(-1,-1) * mS * Time.deltaTime);
-				return;
-			case 4: //Left
-				transform.Translate(new Vector2(1,0) * mS * Time.deltaTime);
-				return;
-			case 6: //Right
-				transform.Translate(new Vector2(-1,0) * mS * Time.deltaTime);
-				return;
-			case 7: //Up-Left
-				transform.Translate(new Vector2(1,1) * mS * Time.deltaTime);
-				return;
-			case 8: //Up
-				transform.Translate(new Vector2(0,1) * mS * Time.deltaTime);
-				return;
-			case 9: //Up-Right
-				transform.Translate(new Vector2(-1,1) * mS * Time.deltaTime);
-				return;
-			default:
-				transform.Translate(new Vector2(0,0) * mS * Time.deltaTime);
-				return;
-			}
-		} else {
-			switch(d) {
-			case 0: //Idle
-				transform.Translate(new Vector2(0,0) * mS * Time.deltaTime);
-				return;
-			case 1: //Down-Left
-				transform.Translate(new Vector2(-1,-1) * mS * Time.deltaTime);
-				return;
-			case 2: //Down
-				transform.Translate(new Vector2(0,-1) * mS * Time.deltaTime);
-				return;
-			case 3: //Down-Right
-				transform.Translate(new Vector2(1,-1) * mS * Time.deltaTime);
-				return;
-			case 4: //Left
-				transform.Translate(new Vector2(-1,0) * mS * Time.deltaTime);
-				return;
-			case 6: //Right
-				transform.Translate(new Vector2(1,0) * mS * Time.deltaTime);
-				return;
-			case 7: //Up-Left
-				transform.Translate(new Vector2(-1,1) * mS * Time.deltaTime);
-				return;
-			case 8: //Up
-				transform.Translate(new Vector2(0,1) * mS * Time.deltaTime);
-				return;
-			case 9: //Up-Right
-				transform.Translate(new Vector2(1,1) * mS * Time.deltaTime);
-				return;
-			default:
-				transform.Translate(new Vector2(0,0) * mS * Time.deltaTime);
-				return;
-			}
+		if (r)
+		switch(d) {
+		case 0: //Idle
+			transform.Translate(new Vector2(0,0) * mS * Time.deltaTime);
+			return;
+		case 1: //Down-Left
+			transform.Translate(new Vector2(1,-1) * mS * Time.deltaTime);
+			return;
+		case 2: //Down
+			transform.Translate(new Vector2(0,-1) * mS * Time.deltaTime);
+			return;
+		case 3: //Down-Right
+			transform.Translate(new Vector2(-1,-1) * mS * Time.deltaTime);
+			return;
+		case 4: //Left
+			transform.Translate(new Vector2(1,0) * mS * Time.deltaTime);
+			return;
+		case 6: //Right
+			transform.Translate(new Vector2(-1,0) * mS * Time.deltaTime);
+			return;
+		case 7: //Up-Left
+			transform.Translate(new Vector2(1,1) * mS * Time.deltaTime);
+			return;
+		case 8: //Up
+			transform.Translate(new Vector2(0,1) * mS * Time.deltaTime);
+			return;
+		case 9: //Up-Right
+			transform.Translate(new Vector2(-1,1) * mS * Time.deltaTime);
+			return;
+		default:
+			transform.Translate(new Vector2(0,0) * mS * Time.deltaTime);
+			return;
+		}
+		else
+		switch(d) {
+		case 0: //Idle
+			transform.Translate(new Vector2(0,0) * mS * Time.deltaTime);
+			return;
+		case 1: //Down-Left
+			transform.Translate(new Vector2(-1,-1) * mS * Time.deltaTime);
+			return;
+		case 2: //Down
+			transform.Translate(new Vector2(0,-1) * mS * Time.deltaTime);
+			return;
+		case 3: //Down-Right
+			transform.Translate(new Vector2(1,-1) * mS * Time.deltaTime);
+			return;
+		case 4: //Left
+			transform.Translate(new Vector2(-1,0) * mS * Time.deltaTime);
+			return;
+		case 6: //Right
+			transform.Translate(new Vector2(1,0) * mS * Time.deltaTime);
+			return;
+		case 7: //Up-Left
+			transform.Translate(new Vector2(-1,1) * mS * Time.deltaTime);
+			return;
+		case 8: //Up
+			transform.Translate(new Vector2(0,1) * mS * Time.deltaTime);
+			return;
+		case 9: //Up-Right
+			transform.Translate(new Vector2(1,1) * mS * Time.deltaTime);
+			return;
+		default:
+			transform.Translate(new Vector2(0,0) * mS * Time.deltaTime);
+			return;
 		}
 	}
+
 }
