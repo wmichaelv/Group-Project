@@ -14,6 +14,11 @@ public class Alice_Movement : MonoBehaviour {
 	private bool getSR;           //Store getStateReversed
 	private bool bDash;           //Store backDash
 	private bool fDash;           //Store frontDash
+	private float horz;           //Store Horizontal Input
+	private float vert;           //Store Vertical Input
+	private Vector2 mousePos;     //Store mousePosition
+	private Vector2 objectPos;    //Store objectPosition
+
 
 	// Use this for initialization
 
@@ -35,7 +40,7 @@ public class Alice_Movement : MonoBehaviour {
 		setPlayerVarValues();
 		//setPlayerVariablesValues
 
-		setMovState(playerDirection, playerShift, playerMouse, playerAction, playerReverse);
+		setMovState();
 		//setMovementAnimationState
 
 		setMovSpeed(playerDirection, playerReverse, playerMovSpd);
@@ -44,7 +49,7 @@ public class Alice_Movement : MonoBehaviour {
 
 	void setPlayerVarValues() {
 
-		var horizontal = Input.GetAxis("Horizontal"); 
+		horz = Input.GetAxis("Horizontal");
 		
 		/*
 			GetAxis horizontal direction
@@ -53,7 +58,7 @@ public class Alice_Movement : MonoBehaviour {
 			 0 for no horizontal direction
 		*/
 
-		var vertical = Input.GetAxis("Vertical");
+		vert = Input.GetAxis("Vertical");
 
 		/*
 			GetAxis vertical direction
@@ -62,22 +67,22 @@ public class Alice_Movement : MonoBehaviour {
 			 0 for no vertical direction
 		*/
 
-		Vector2 v2Pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		//Get the position of the mouse
 
-		Vector2 objectPos = animator.transform.position;
+		objectPos = animator.transform.position;
 		//Get the position of the animator
 
-		v2Pos = v2Pos - objectPos; 
+		mousePos = mousePos - objectPos; 
 		//Get the position of the mouse from the animator
 
-		playerDirection = getDirection(horizontal, vertical);
+		playerDirection = getDirection(horz, vert);
 		//direction 0 = idle, no need to has 5
 
 		playerShift = getShift();
 		//shift for dashing
 
-		playerMouse = getMouse(v2Pos.x, v2Pos.y, playerDirection);
+		playerMouse = getMouse(mousePos.x, mousePos.y, playerDirection);
 		//mouse for reverse movement
 
 		playerAction = getAction();
@@ -86,7 +91,7 @@ public class Alice_Movement : MonoBehaviour {
 		playerReverse = getReverse(playerDirection, playerMouse);
 		//reverse for reversed sprite
 
-		playerMovSpd = getMovSpeed(playerDirection, playerShift, playerMouse, playerReverse);
+		playerMovSpd = getMovSpeed(playerDirection, playerShift, playerMouse);
 		//playerMovSpd for player's movement speed
 
 	}
@@ -159,54 +164,67 @@ public class Alice_Movement : MonoBehaviour {
 		}
 	}
 
-	float getMovSpeed(int d, bool s, bool m, bool r) {
+	float getMovSpeed(int d, bool s, bool m) {
 		return (d != 0) ? ((s) ? ((m) ? 10f : 5f) : ((m) ? 3f : 1f)) : 0f;
 	}
 
-	void setMovState(int d, bool s, bool m, bool a, bool r) {
-		if (!a) {
-			if (d != 0) {
-				if (m) {
-					if (s) {
-						animator.transform.Rotate(0, getRotation(r), 0);
-						if (fDash) {
-							animator.Play("AliceDashFrontLoop");
-						} else {
-							if (!isDashing()) {
-								StartCoroutine(waitFor("AliceDashFrontStart"));
-							}
-						}
-					} else {
-						if (!isDashing()) {
-							animator.transform.Rotate(0, getRotation(r), 0);
-							animator.Play("AliceWalkFront");
-						}
-					}
-				} else {
-					if (s) {
-						animator.transform.Rotate(0, getRotation(r), 0);
-						if (bDash) {
-							animator.Play("AliceDashBackLoop");
-						} else {
-							if (!isDashing()) {
-								StartCoroutine(waitFor("AliceDashBackStart"));
-							}
-						}
-					} else {
-						if (!isDashing()) {
-							animator.transform.Rotate(0, getRotation(r), 0);
-							animator.Play("AliceWalkBack");
-						}
-					}
-				}
-			} else {
-				if (!isDashing()) {
-					animator.Play("AliceStand");
-				}
-			}
-		} else {
-			return; //action animation pending here :x
-		}
+	void setMovState() {
+		//Check if Character is Processing Action
+		if (playerAction) setActionMovState();
+		else setNonActionMovState();
+	}
+
+	void setActionMovState() {
+		//Pending for Action States
+	}
+
+	void setNonActionMovState() {
+		//Check if Character is idle
+		if (playerDirection == 0) setIdleMovState();
+		else setMovingMovState();
+	}
+
+	void setIdleMovState() {
+		//isDashing() is to finish pre#, post# dashing animation
+		if (!isDashing()) animator.Play("AliceStand");
+	}
+
+	void setMovingMovState() {
+		//Set if Sprite needs to be reversed
+		animator.transform.Rotate(0, getRotation(playerReverse), 0);
+		//Check if Character is moving to position of mouse
+		if (playerMouse) setForwardMovState();
+		else setBackwardMovState();
+	}
+
+	void setForwardMovState() {
+		//Check if Character is dashing
+		if (playerShift) setForwardDashMovState();
+		else setForwardWalkMovSate();
+	}
+
+	void setBackwardMovState() {
+		//Check if Character is dashing
+		if (playerShift) setBackwardDashMovState();
+		else setBackwardWalkMovSate();
+	}
+
+	void setForwardDashMovState() {
+		if (fDash) animator.Play("AliceDashFrontLoop");
+		else if (!isDashing()) StartCoroutine(waitFor("AliceDashFrontStart"));
+	}
+
+	void setForwardWalkMovSate() {
+		if (!isDashing()) animator.Play("AliceWalkFront");
+	}
+
+	void setBackwardDashMovState() {
+		if (bDash) animator.Play("AliceDashBackLoop");
+		else if (!isDashing()) StartCoroutine(waitFor("AliceDashBackStart"));
+	}
+
+	void setBackwardWalkMovSate() {
+		if (!isDashing()) animator.Play("AliceWalkBack");
 	}
 
 	int getRotation(bool r) {
