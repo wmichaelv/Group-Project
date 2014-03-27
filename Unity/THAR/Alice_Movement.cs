@@ -92,12 +92,30 @@ public class Alice_Movement : MonoBehaviour {
 	}
 
 	int getDirection(float h, float v) {
+		
+		/***********************************************************************
+		 * Direction is based on numpad key 0-9                                *
+		 *                                                                     *
+		 * 7 8 9   =  North-West North North-East =   Up-Left   Up   Up-Right  *
+		 * 4 5 6   =     West      -       East   =    Left      -    Right    *
+		 * 1 2 3   =  South-West South South-East =  Down-Left Down Down-Right *
+		 *   0     =             Idle             =            Idle            *
+		 *                                                                     *
+		 ***********************************************************************/
+
 		return (h != 0 || v != 0) ? ((h != 0) ? ((v != 0) ? 
 			((h < 0) ? ((v < 0) ? 1 : 7) : ((v < 0) ? 3 : 9)) : 
 			((h < 0) ? 4 : 6)) : ((v < 0) ? 2 : 8)) : 0;
 	}
 
 	bool getMouse(float x, float y, int d) {
+
+		/**********************************************************************
+		 * To check whether movement direction is approaching mousePos or not *
+		 * Mouse is based on the mousePos and the movement direction          *
+		 *                                                                    *
+		 **********************************************************************/
+
 		switch (d) {
 		case 0: // Idle
 			return true;
@@ -127,6 +145,7 @@ public class Alice_Movement : MonoBehaviour {
 	}
 
 	bool getShift() {
+		//Check if Shift is pressed or not
 		return Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.LeftShift);
 	}
 
@@ -135,6 +154,7 @@ public class Alice_Movement : MonoBehaviour {
 	}
 
 	bool getReverse(int d, bool m) {
+		//Check if sprite needs to be reversed or not
 		switch (d) {
 		case 0: // Idle
 			return false;
@@ -160,6 +180,17 @@ public class Alice_Movement : MonoBehaviour {
 	}
 
 	float getMovSpeed(int d, bool s, bool m) {
+
+		/**********************
+		 * Alice Movement:    *
+		 * Idle          =  0 *
+		 * Foward Walk   =  3 *
+		 * Backward Walk =  1 *
+		 * Froward Dash  = 10 *
+		 * Backward Dash =  5 *
+		 *                    *
+		 **********************/
+
 		return (d != 0) ? ((s) ? ((m) ? 10f : 5f) : ((m) ? 3f : 1f)) : 0f;
 	}
 
@@ -223,6 +254,15 @@ public class Alice_Movement : MonoBehaviour {
 	}
 
 	int getRotation(bool r) {
+
+		/************************************************************
+		 * Rotation is by 180 degree on y axis                      *
+		 * Return 180 to rotate                                     *
+		 * Return 0 to keep position state                          *
+		 * getSR is used to check whether rotation is needed or not *
+		 *                                                          *
+		 ************************************************************/
+		
 		if (r)
 			if (getSR) {
 				return 0;
@@ -284,7 +324,7 @@ public class Alice_Movement : MonoBehaviour {
 	}
 
 	void setPlayerMovSpeed(float mS) {
-		
+
 	if (!scrollBackgroundScript.setMapScroll())
 		if (playerReverse)
 
