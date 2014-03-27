@@ -1230,6 +1230,10 @@
     "target": {
       "primary": "game",
       "gameProperty": "DRAW"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "failExtraCost"
     }
   },
   {
@@ -1349,10 +1353,6 @@
       "criteria": {
         "passing": "this card"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "extraCostBattle"
     },
     "effectName": "extraCostUseRevert"
   },
