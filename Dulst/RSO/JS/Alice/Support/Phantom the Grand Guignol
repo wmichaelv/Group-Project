@@ -146,10 +146,8 @@
         "from": "board",
         "player": "owner",
         "class": "Doll&&Leader",
-        "type": "Support"
-      },
-      "exclude": {
-        "stat": "stat-dollPhantom>=1"
+        "type": "Support",
+        "stat": "stat-phantom>=1"
       }
     },
     "effectComplete": {
