@@ -256,23 +256,6 @@
   },
   {
     "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "pre-useEvent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
       "primary": "verify target",
       "comparisonOperators": ">=",
       "value": "1",
