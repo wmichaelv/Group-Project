@@ -383,91 +383,32 @@
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "buffAmount",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "<=",
-      "value": "effect handCount / 3"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "buffAmount",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "afterLoop"
-    },
-    "effectName": "loop"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "buffAmount",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "loop"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "buffAmount",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "afterLoop"
-  },
-  {
-    "action": {
       "primary": "assign variable"
     },
     "target": {
-      "primary": "card",
-      "cardProperty": "buffAmount",
-      "criteria": {
-        "passing": "this card"
-      }
+      "primary": "value",
+      "value": "effect handCount / 3"
     },
     "effectComplete": {
       "primary": "trigger next effect"
     },
     "effectName": "buffAmount"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "floor"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "effect-buffAmount",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
