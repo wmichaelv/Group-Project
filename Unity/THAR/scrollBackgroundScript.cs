@@ -7,8 +7,11 @@ public class scrollBackgroundScript : MonoBehaviour {
 	public static float leftMapBorder;   // Store leftMapBorder    to Pass Around Scripts
 	public static float bottomMapBorder; // Store bottomMapBorder  to Pass Around Scripts
 	public static float rightMapBorder;  // Store rightMapBorder   to Pass Around Scripts
-	
+	public static float mapX;            // Store map x-coordinate to Pass Around Scripts
+	public static float mapY;            // Store map y-coordinate to Pass Around Scripts
+
 	// Use this for initialization
+	
 	void Start () {
 
 		setMapBorder();
@@ -31,11 +34,21 @@ public class scrollBackgroundScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+
+		mapX = transform.position.x;
+		mapY = transform.position.y;
+
 		if (setMapScroll()) scrollMap(Alice_Movement.playerMovSpd);
 	}
 
 	public static bool setMapScroll() {
-		return true;
+
+		if (mapY > bottomMapBorder && 
+			mapY < topMapBorder &&
+			mapX > leftMapBorder && 
+			mapX < rightMapBorder)
+			return true;
+		else return false;
 	}
 
 	void scrollMap(float mS) {
