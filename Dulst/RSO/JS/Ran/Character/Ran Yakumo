@@ -186,7 +186,7 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "selectedCard"
+        "passing": "card"
       }
     }
   },
