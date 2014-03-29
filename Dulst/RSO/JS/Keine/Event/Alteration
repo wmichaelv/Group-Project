@@ -1369,7 +1369,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "useSupport"
+      "effectNumber": "spUse, useSupport"
     },
     "effectName": "finishEffect"
   },
@@ -1420,10 +1420,6 @@
       "criteria": {
         "passing": "selectedCard"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "spUse"
     }
   },
   {
