@@ -3,7 +3,7 @@
     "action": {
       "primary": "verify target",
       "comparisonOperators": ">=",
-      "value": "2"
+      "value": "3"
     },
     "target": {
       "primary": "owner",
@@ -311,7 +311,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "-",
-      "magnitude": "2",
+      "magnitude": "3",
       "undo": {
         "primary": "permanent"
       }
