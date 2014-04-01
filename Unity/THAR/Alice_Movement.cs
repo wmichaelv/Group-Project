@@ -9,6 +9,8 @@ public class Alice_Movement : MonoBehaviour {
 	public static bool  playerAction;    // Store playerAction        to Pass Around Scripts
 	public static bool  playerReverse;   // Store playerReverse       to Pass Around Scripts
 	public static float playerMovSpd;    // Store playerMovementSpeed to Pass Around Scripts
+	public static float plaX;            // Store Player x-coordinate to Pass Around Scripts
+	public static float plaY;            // Store Player y-coordinate to Pass Around Scripts
 
 	private static Animator animator;    // Store Animator
 	private static bool getSR;           // Store getStateReversed
@@ -19,6 +21,11 @@ public class Alice_Movement : MonoBehaviour {
 	private static Vector2 mousePos;     // Store mousePosition
 	private static Vector2 objectPos;    // Store objectPosition
 
+	private static bool setMap;          //Switch
+	private static float top;            // Store Top Map Border
+	private static float bottom;         // Store Bottom Map Border
+	private static float left;           // Store Left Map Border
+	private static float right;          // Store Right Map Border
 
 	// Use this for initialization
 
@@ -32,13 +39,24 @@ public class Alice_Movement : MonoBehaviour {
 	// Update is call once per turn
 	void Update() {
 
+		if (!setMap) {
+			top    = dataBackgroundScript.topMapBorder;
+			bottom = dataBackgroundScript.bottomMapBorder;
+			left   = dataBackgroundScript.leftMapBorder;
+			right  = dataBackgroundScript.rightMapBorder;
+			setMap = true;
+		}
+
+		plaX = animator.transform.position.x;
+		plaY = animator.transform.position.y;
+
 		setPlayerVarValues();
 		// setPlayerVariablesValues
 
 		setPlayerMovState();
 		// setMovementAnimationState
 
-		setPlayerMovSpeed(playerMovSpd);
+		setPlayerMovSpeed();
 		// setMovementAnimationSpeed
 	}
 
@@ -323,12 +341,54 @@ public class Alice_Movement : MonoBehaviour {
 		yield return new WaitForSeconds(waitTime);
 	}
 
-	void setPlayerMovSpeed(float mS) {
+	void setPlayerMovSpeed() {
+		if (playerNotNextToCorner()) movePlayer(playerDirection, playerMovSpd);
+		else movePlayer(checkDirection(), playerMovSpd);
+		Debug.Log(checkDirection());
+	}
 
-	if (!scrollBackgroundScript.setMapScroll())
+	bool playerNotNextToCorner() {
+		return (plaY < top && plaY > bottom && plaX > left && plaX < right);
+	}
+
+	int checkDirection() {
+		switch (playerDirection) {
+		case 0: // Idle
+			return 0;
+		case 1: // Down-Left
+			return plaX > left ? 
+				(plaY > bottom ? 1 : 4) : 
+				(plaY > bottom ? 2 : 0);
+		case 2: // Down
+			return plaY > bottom ? 2 : 0;
+		case 3: // Down-Right
+			return plaX < right ? 
+				(plaY > bottom ? 3 : 6) : 
+				(plaY > bottom ? 2 : 0);
+		case 4: // Left
+			return plaX > left ? 4 : 0;
+		case 6: // Right
+			return plaX < right ? 6 : 0;
+		case 7: // Up-Left
+			return plaX > left ? 
+				(plaY < top ? 7 : 4) : 
+				(plaY < top ? 8 : 0);
+		case 8: // Up
+			return plaY < top ? 8 : 0;
+		case 9: // Up-Right
+			return plaX < right ? 
+				(plaY < top ? 9 : 6) : 
+				(plaY < top ? 8 : 0);
+		default:
+			return 0;
+		}
+	}
+
+	void movePlayer(int d, float mS) {
+
 		if (playerReverse)
 
-		switch(playerDirection) {
+		switch(d) {
 		case 0: // Idle
 			transform.Translate(new Vector2(0,0) * mS * Time.deltaTime);
 			return;
@@ -363,7 +423,7 @@ public class Alice_Movement : MonoBehaviour {
 
 		else
 
-		switch(playerDirection) {
+		switch(d) {
 		case 0: // Idle
 			transform.Translate(new Vector2(0,0) * mS * Time.deltaTime);
 			return;
