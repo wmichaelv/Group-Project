@@ -344,7 +344,6 @@ public class Alice_Movement : MonoBehaviour {
 	void setPlayerMovSpeed() {
 		if (playerNotNextToCorner()) movePlayer(playerDirection, playerMovSpd);
 		else movePlayer(checkDirection(), playerMovSpd);
-		Debug.Log(checkDirection());
 	}
 
 	bool playerNotNextToCorner() {
