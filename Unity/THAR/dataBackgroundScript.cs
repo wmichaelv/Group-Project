@@ -24,10 +24,10 @@ public class dataBackgroundScript : MonoBehaviour {
 		topMapBorder = transform.Find("TopLeftCorner").transform.position.y;
 		leftMapBorder = transform.Find("TopLeftCorner").transform.position.x;
 
-		Debug.Log(bottomMapBorder);
-		Debug.Log(rightMapBorder);
-		Debug.Log(topMapBorder);
-		Debug.Log(leftMapBorder);
+		Debug.Log("bottom = " + bottomMapBorder);
+		Debug.Log("right = " + rightMapBorder);
+		Debug.Log("top = " + topMapBorder);
+		Debug.Log("left = " + leftMapBorder);
 	}
 
 
