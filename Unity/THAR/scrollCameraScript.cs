@@ -5,8 +5,10 @@ public class scrollCameraScript : MonoBehaviour {
 
 	public static float camX;    // Store Camera x-coordinate to Pass Around Scripts
 	public static float camY;    // Store Camera y-coordinate to Pass Around Scripts
+	public static float camW;    // Store Camera Width to Pass Around Scripts
+	public static float camH;    // Store Camera Height to Pass Around Scripts
 
-	private static bool setMap;  //Switch
+	private static float tempH;  // Temporary Storage for switches and conditional check
 	private static float plaX;   // Store Player x-coordinate
 	private static float plaY;   // Store Player y-coordinate
 	private static float top;    // Store Top Map Border
@@ -16,18 +18,25 @@ public class scrollCameraScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//Nothing here :D
+		camH  = Camera.main.orthographicSize; // Half Width
+		camW  = camH * camera.aspect;         // Half Height
+		tempH = 0;
 	}
 
 	// Update is called once per frame
 	void Update () {
 
-		if (!setMap) {
-			top    = dataBackgroundScript.topMapBorder;
-			bottom = dataBackgroundScript.bottomMapBorder;
-			left   = dataBackgroundScript.leftMapBorder;
-			right  = dataBackgroundScript.rightMapBorder;
-			setMap = true;
+		camH = Camera.main.orthographicSize;
+
+		if (camH != tempH) {
+
+			camW = camH * camera.aspect;
+
+			top    = dataBackgroundScript.topMapBorder - camH;
+			bottom = dataBackgroundScript.bottomMapBorder + camH;
+			left   = dataBackgroundScript.leftMapBorder + camW;
+			right  = dataBackgroundScript.rightMapBorder - camW;
+			tempH  = camW;
 		}
 
 		camX = transform.position.x;
