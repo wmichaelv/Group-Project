@@ -189,13 +189,31 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "passing": "oneSpellFlag"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "countCheck"
+    }
+  },
+  {
+    "action": {
       "primary": "assign variable"
     },
     "target": {
       "primary": "card",
       "selector": {
         "primary": "opponent",
-        "instructions": "Your opponent has only 1 Spell in their first draw. Click on Finish Select to proceed."
+        "instructions": "Your opponent has only 1 Spell in their first draw and will now mulligan. Click on Finish Select to proceed."
       },
       "count": "1",
       "criteria": {
@@ -223,7 +241,8 @@
     "effectComplete": {
       "primary": "trigger effect",
       "effectNumber": "afterShufflin"
-    }
+    },
+    "effectName": "countCheck"
   },
   {
     "action": {
