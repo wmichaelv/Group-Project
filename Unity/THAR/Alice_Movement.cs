@@ -11,6 +11,7 @@ public class Alice_Movement : MonoBehaviour {
 	public static float playerMovSpd;    // Store playerMovementSpeed to Pass Around Scripts
 	public static float plaX;            // Store Player x-coordinate to Pass Around Scripts
 	public static float plaY;            // Store Player y-coordinate to Pass Around Scripts
+	public static Vector2 mousePos;      // Store mousePosition       to Pass Around Scripts
 
 	private static Animator animator;    // Store Animator
 	private static bool getSR;           // Store getStateReversed
@@ -18,7 +19,6 @@ public class Alice_Movement : MonoBehaviour {
 	private static bool fDash;           // Store frontDash
 	private static float horz;           // Store Horizontal Input
 	private static float vert;           // Store Vertical Input
-	public static Vector2 mousePos;     // Store mousePosition
 	private static Vector2 objectPos;    // Store objectPosition
 
 	private static bool setMap;          //Switch
@@ -34,6 +34,7 @@ public class Alice_Movement : MonoBehaviour {
 		getSR = false;
 		bDash = false;
 		fDash = false;
+		playerReverse = false;
 	}
 
 	// Update is call once per turn
@@ -175,7 +176,7 @@ public class Alice_Movement : MonoBehaviour {
 		//Check if sprite needs to be reversed or not
 		switch (d) {
 		case 0: // Idle
-			return false;
+			return playerReverse;
 		case 1: // Down-Left
 			return m;
 		case 2: // Down
@@ -193,7 +194,7 @@ public class Alice_Movement : MonoBehaviour {
 		case 9: // Up-Right
 			return !m;
 		default:
-			return false;
+			return playerReverse;
 		}
 	}
 
@@ -213,6 +214,8 @@ public class Alice_Movement : MonoBehaviour {
 	}
 
 	void setPlayerMovState() {
+		// Set if Sprite needs to be reversed
+		animator.transform.Rotate(0, getRotation(playerReverse), 0);
 		// Check if Character is Processing Action
 		if (playerAction) setPlayerActionMovState();
 		else setPlayerNonActionMovState();
@@ -229,8 +232,6 @@ public class Alice_Movement : MonoBehaviour {
 	}
 
 	void setPlayerMovingMovState() {
-		// Set if Sprite needs to be reversed
-		animator.transform.Rotate(0, getRotation(playerReverse), 0);
 		// Check if Character is moving to position of mouse
 		if (playerMouse) setPlayerForwardMovState();
 		else setPlayerBackwardMovState();
