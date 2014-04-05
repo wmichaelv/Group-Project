@@ -18,7 +18,7 @@ public class Alice_Movement : MonoBehaviour {
 	private static bool fDash;           // Store frontDash
 	private static float horz;           // Store Horizontal Input
 	private static float vert;           // Store Vertical Input
-	private static Vector2 mousePos;     // Store mousePosition
+	public static Vector2 mousePos;     // Store mousePosition
 	private static Vector2 objectPos;    // Store objectPosition
 
 	private static bool setMap;          //Switch
