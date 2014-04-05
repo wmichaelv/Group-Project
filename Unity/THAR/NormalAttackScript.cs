@@ -22,13 +22,13 @@ public class NormalAttackScript : MonoBehaviour {
 
 		//Debug.Log("prev    = " + prevRotate);
 
+		objectMouse = Alice_Movement.mousePos;
 		storeGetRotation = getRotation();
 
 		//Debug.Log("current = " + currentRotate);
 		//Debug.Log("rotate  = " + storeGetRotation);
 
 		//Rotate All Child Objects
-		objectMouse = Alice_Movement.mousePos;
 		foreach (Transform child in transform) {
 			child.transform.Rotate(storeGetRotation, 0, 0);
 		}
