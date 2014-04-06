@@ -3,7 +3,7 @@
 # "Persistent Map Events"
 # Version 2.0
 # Last Update: September 9th, 2013
-# Author: DerTraveler (dertraveler [at] gmail.com)
+# Author: DerTraveler (dertraveler [at] gmail.com) Modified By Vlue For Waypoint
 #
 #==============================================================================
 #
@@ -110,7 +110,7 @@ module PersistentMapEvents
   # GLOBAL_PERSISTENCE
   # Set this to true, if every map event should be persistent by default.
   #---------------------------------------------------------------------------
-  CONFIG[:GLOBAL_PERSISTENCE] = false
+  CONFIG[:GLOBAL_PERSISTENCE] = true
   #---------------------------------------------------------------------------
   # PERSISTENT_PROPERTIES
   # The list of properties that should be saved by default.
@@ -118,7 +118,7 @@ module PersistentMapEvents
   # <persistence on> is used.
   #---------------------------------------------------------------------------
   CONFIG[:PERSISTENT_PROPERTIES] = [:position, :direction, :move_route,
-                                    :appearance, :move_style, :interpreter, :erase]
+                                    :appearance, :move_style, :interpreter]
  
 end
  
@@ -330,6 +330,7 @@ class Game_Event < Game_Character
       @jump_peak = restored.instance_variable_get("@jump_peak")
       @move_route = restored.instance_variable_get("@move_route")
       @move_route_index = restored.instance_variable_get("@move_route_index")
+      @waypoint = restored.instance_variable_get("@waypoint")
       @original_move_route = restored.instance_variable_get("@original_move_route")
       @original_move_route_index = restored.instance_variable_get("@original_move_route_index")
       @wait_count = restored.instance_variable_get("@wait_count")
@@ -372,6 +373,7 @@ class Game_Event < Game_Character
       @move_route_forcing = restored.move_route_forcing
       @move_route         = restored.instance_variable_get("@move_route")
       @move_route_index   = restored.instance_variable_get("@move_route_index")
+      @waypoint = restored.instance_variable_get("@waypoint")
       @original_move_route = restored.instance_variable_get("@original_move_route")
       @original_move_route_index = restored.instance_variable_get("@original_move_route_index")
       @wait_count = restored.instance_variable_get("@wait_count")
