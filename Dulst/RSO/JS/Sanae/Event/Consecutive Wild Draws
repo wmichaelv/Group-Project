@@ -187,7 +187,7 @@
     "action": {
       "primary": "verify target",
       "comparisonOperators": ">=",
-      "value": "1"
+      "value": "0"
     },
     "target": {
       "primary": "card",
