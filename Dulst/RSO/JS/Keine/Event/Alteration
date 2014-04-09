@@ -1140,7 +1140,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "useSupport"
+      "effectNumber": "spUse, useSupport"
     }
   },
   {
