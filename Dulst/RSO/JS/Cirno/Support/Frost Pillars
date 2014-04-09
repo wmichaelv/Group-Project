@@ -44,7 +44,7 @@
       "primary": "card",
       "criteria": {
         "player": "owner",
-        "class": "Battle Phase",
+        "class": "Replenishing Phase",
         "type": "Event",
         "stat": "stat-lvl<=0"
       }
