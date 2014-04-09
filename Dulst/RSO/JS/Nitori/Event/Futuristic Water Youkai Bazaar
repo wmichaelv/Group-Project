@@ -337,7 +337,7 @@
         "player": "owner",
         "first": "2"
       },
-      "mandatory": "chooseCard"
+      "mandatory": "selectedCard"
     },
     "effectComplete": {
       "primary": "trigger next effect"
