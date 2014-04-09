@@ -50,8 +50,15 @@
     "effectName": "cardB"
   },
   {
-    "action": {},
-    "target": {},
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
     "effectComplete": {
       "primary": "trigger effect",
       "effectNumber": "calculateOwnBuff,calculateOppBuff,setOwnBuff,setOppBuff"
@@ -59,8 +66,15 @@
     "effectName": "calculateBuff then setBuff"
   },
   {
-    "action": {},
-    "target": {},
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
     "effectComplete": {
       "primary": "trigger next effect"
     },
@@ -111,8 +125,15 @@
     "effectName": "roundDownOwnBuff"
   },
   {
-    "action": {},
-    "target": {},
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
     "effectComplete": {
       "primary": "trigger next effect"
     },
@@ -197,8 +218,14 @@
     "effectName": "trigger gainedStat"
   },
   {
-    "action": {},
-    "target": {},
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "owner"
+    },
     "effectComplete": {
       "primary": "trigger next effect"
     },
@@ -252,8 +279,15 @@
     "effectName": "roundDownOppBuff"
   },
   {
-    "action": {},
-    "target": {},
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
     "effectComplete": {
       "primary": "trigger next effect"
     },
@@ -372,8 +406,14 @@
     "effectName": "triggerOn newEffect newTarget"
   },
   {
-    "action": {},
-    "target": {},
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "owner"
+    },
     "effectComplete": {
       "primary": "trigger effect",
       "effectNumber": "recalculateOwnBuff,recalculateOppBuff,checkOwnDifference,checkOppDifference"
@@ -381,8 +421,15 @@
     "effectName": "recalculateBuff then checkDifference"
   },
   {
-    "action": {},
-    "target": {},
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
     "effectComplete": {
       "primary": "trigger next effect"
     },
@@ -451,8 +498,15 @@
     "effectName": "subtractTempOwnBuff"
   },
   {
-    "action": {},
-    "target": {},
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
     "effectComplete": {
       "primary": "trigger next effect"
     },
@@ -553,8 +607,14 @@
     "effectName": "checkOppDifference"
   },
   {
-    "action": {},
-    "target": {},
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "owner"
+    },
     "effectComplete": {
       "primary": "trigger effect",
       "effectNumber": "resetOwnBuff,updateOwnBuff,setOwnBuff"
@@ -562,8 +622,15 @@
     "effectName": "applyDifferenceOwnBuff"
   },
   {
-    "action": {},
-    "target": {},
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
     "effectComplete": {
       "primary": "trigger effect",
       "effectNumber": "resetOppBuff,updateOppBuff,setOppBuff"
@@ -613,8 +680,15 @@
     "effectName": "passivec"
   },
   {
-    "action": {},
-    "target": {},
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
     "effectComplete": {
       "primary": "trigger effect",
       "effectNumber": "resetOwnBuff,resetOppBuff"
@@ -622,8 +696,14 @@
     "effectName": "resetBuff"
   },
   {
-    "action": {},
-    "target": {},
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "owner"
+    },
     "effectComplete": {
       "primary": "trigger next effect"
     },
@@ -690,8 +770,15 @@
     "effectName": "deflagOwn"
   },
   {
-    "action": {},
-    "target": {},
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
     "effectComplete": {
       "primary": "trigger next effect"
     },
