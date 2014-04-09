@@ -50,6 +50,23 @@
     "effectName": "cardB"
   },
   {
+    "action": {},
+    "target": {},
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "calculateOwnBuff,calculateOppBuff,setOwnBuff,setOppBuff"
+    },
+    "effectName": "calculateBuff then setBuff"
+  },
+  {
+    "action": {},
+    "target": {},
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "calculateOwnBuff"
+  },
+  {
     "action": {
       "primary": "assign variable"
     },
@@ -64,7 +81,7 @@
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "ownCount1"
+    "effectName": "ownAfterLifeCount"
   },
   {
     "action": {
@@ -72,12 +89,12 @@
     },
     "target": {
       "primary": "value",
-      "value": "effect ownCount1 / 6"
+      "value": "effect ownAfterLifeCount / 6"
     },
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "ownCountFinal"
+    "effectName": "ownBuff"
   },
   {
     "action": {
@@ -86,20 +103,26 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "effect-ownCountFinal",
+      "cardProperty": "effect-ownBuff",
       "criteria": {
         "passing": "this card"
       }
     },
+    "effectName": "roundDownOwnBuff"
+  },
+  {
+    "action": {},
+    "target": {},
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "setOwnBuff"
   },
   {
     "action": {
       "primary": "modify stats",
       "operation": "+",
-      "magnitude": "effect ownCountFinal",
+      "magnitude": "effect ownBuff",
       "undo": {
         "primary": "permanent"
       }
@@ -113,13 +136,14 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "setOwnBuffAV"
   },
   {
     "action": {
       "primary": "modify stats",
       "operation": "+",
-      "magnitude": "effect ownCountFinal",
+      "magnitude": "effect ownBuff",
       "undo": {
         "primary": "permanent"
       }
@@ -133,7 +157,8 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "setOwnBuffHV"
   },
   {
     "action": {
@@ -153,7 +178,8 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "flagOwnBuff"
   },
   {
     "action": {
@@ -168,10 +194,15 @@
         "passing": "card"
       }
     },
+    "effectName": "trigger gainedStat"
+  },
+  {
+    "action": {},
+    "target": {},
     "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "oppCount1"
-    }
+      "primary": "trigger next effect"
+    },
+    "effectName": "calculateOppBuff"
   },
   {
     "action": {
@@ -188,7 +219,7 @@
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "oppCount1"
+    "effectName": "oppAfterLifeCount"
   },
   {
     "action": {
@@ -196,12 +227,12 @@
     },
     "target": {
       "primary": "value",
-      "value": "effect oppCount1 / 6"
+      "value": "effect oppAfterLifeCount / 6"
     },
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "oppCountFinal"
+    "effectName": "oppBuff"
   },
   {
     "action": {
@@ -210,20 +241,29 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "effect-oppCountFinal",
+      "cardProperty": "effect-oppBuff",
       "criteria": {
         "passing": "this card"
       }
     },
     "effectComplete": {
+      "primary": "nothing"
+    },
+    "effectName": "roundDownOppBuff"
+  },
+  {
+    "action": {},
+    "target": {},
+    "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "setOppBuff"
   },
   {
     "action": {
       "primary": "modify stats",
       "operation": "+",
-      "magnitude": "effect oppCountFinal",
+      "magnitude": "effect oppBuff",
       "undo": {
         "primary": "permanent"
       }
@@ -237,13 +277,14 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "setOppBuffAV"
   },
   {
     "action": {
       "primary": "modify stats",
       "operation": "+",
-      "magnitude": "effect oppCountFinal",
+      "magnitude": "effect oppBuff",
       "undo": {
         "primary": "permanent"
       }
@@ -257,7 +298,8 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "setOppBuffV"
   },
   {
     "action": {
@@ -277,7 +319,8 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "flagOppBuff"
   },
   {
     "action": {
@@ -291,7 +334,11 @@
       "criteria": {
         "passing": "cardB"
       }
-    }
+    },
+    "effectComplete": {
+      "primary": "nothing"
+    },
+    "effectName": "trigger gainedStat"
   },
   {
     "action": {
@@ -321,36 +368,237 @@
     },
     "target": {
       "primary": "game"
-    }
+    },
+    "effectName": "triggerOn newEffect newTarget"
+  },
+  {
+    "action": {},
+    "target": {},
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "recalculateOwnBuff,recalculateOppBuff,checkOwnDifference,checkOppDifference"
+    },
+    "effectName": "recalculateBuff then checkDifference"
+  },
+  {
+    "action": {},
+    "target": {},
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "recalculateOwnBuff"
   },
   {
     "action": {
-      "primary": "run effect",
-      "effectNumber": "revert",
-      "callback": "effect completion"
+      "primary": "assign variable"
     },
     "target": {
       "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "from": "afterlife",
+        "player": "owner"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "tempOwnAfterLifeCount"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "value",
+      "value": "effect tempOwnAfterLifeCount / 6"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "tempOwnBuff"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "floor"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "effect-tempOwnBuff",
       "criteria": {
         "passing": "this card"
       }
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "roundDownTempOwnBuff"
   },
   {
     "action": {
-      "primary": "run effect",
-      "effectNumber": "ownCount1",
-      "callback": "effect completion"
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "effect ownBuff"
     },
     "target": {
       "primary": "card",
+      "cardProperty": "effect-tempOwnBuff",
       "criteria": {
         "passing": "this card"
       }
-    }
+    },
+    "effectName": "subtractTempOwnBuff"
+  },
+  {
+    "action": {},
+    "target": {},
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "recalculateOppBuff"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "from": "afterlife",
+        "player": "opponent"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "tempOppAfterLifeCount"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "value",
+      "value": "effect tempOppAfterLifeCount / 6"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "tempOppBuff"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "floor"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "effect-tempOppBuff",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "roundDownTempOppBuff"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "effect oppBuff"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "effect-tempOppBuff",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "subtractTempOppBuff"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "0",
+      "verifyTrue": "applyDifferenceOwnBuff"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "effect-tempOwnBuff",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "checkOwnDifference"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "0",
+      "verifyTrue": "applyDifferenceOppBuff"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "effect-tempOppBuff",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "checkOppDifference"
+  },
+  {
+    "action": {},
+    "target": {},
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "resetOwnBuff,updateOwnBuff,setOwnBuff"
+    },
+    "effectName": "applyDifferenceOwnBuff"
+  },
+  {
+    "action": {},
+    "target": {},
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "resetOppBuff,updateOppBuff,setOppBuff"
+    },
+    "effectName": "applyDifferenceOppBuff"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "effect tempOwnBuff"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "effect-ownBuff",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "updateOwnBuff"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "effect tempOppBuff"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "effect-oppBuff",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "updateOppBuff"
   },
   {
     "action": {
@@ -365,10 +613,27 @@
     "effectName": "passivec"
   },
   {
+    "action": {},
+    "target": {},
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "resetOwnBuff,resetOppBuff"
+    },
+    "effectName": "resetBuff"
+  },
+  {
+    "action": {},
+    "target": {},
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "resetOwnBuff"
+  },
+  {
     "action": {
       "primary": "modify stats",
       "operation": "-",
-      "magnitude": "effect ownCountFinal",
+      "magnitude": "effect ownBuff",
       "undo": {
         "primary": "permanent"
       }
@@ -383,13 +648,13 @@
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "revert"
+    "effectName": "resetOwnAV"
   },
   {
     "action": {
       "primary": "modify stats",
       "operation": "-",
-      "magnitude": "effect ownCountFinal",
+      "magnitude": "effect ownBuff",
       "undo": {
         "primary": "permanent"
       }
@@ -403,7 +668,8 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "resetOwnHV"
   },
   {
     "action": {
@@ -421,15 +687,21 @@
         "passing": "card"
       }
     },
+    "effectName": "deflagOwn"
+  },
+  {
+    "action": {},
+    "target": {},
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "resetOppBuff"
   },
   {
     "action": {
       "primary": "modify stats",
       "operation": "-",
-      "magnitude": "effect oppCountFinal",
+      "magnitude": "effect oppBuff",
       "undo": {
         "primary": "permanent"
       }
@@ -443,13 +715,14 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "resetOppAV"
   },
   {
     "action": {
       "primary": "modify stats",
       "operation": "-",
-      "magnitude": "effect oppCountFinal",
+      "magnitude": "effect oppBuff",
       "undo": {
         "primary": "permanent"
       }
@@ -463,7 +736,8 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "resetOppHV"
   },
   {
     "action": {
@@ -481,8 +755,6 @@
         "passing": "cardB"
       }
     },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
+    "effectName": "deflagOpp"
   }
 ]
