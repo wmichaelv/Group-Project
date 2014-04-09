@@ -576,6 +576,10 @@
         "passing": "this card"
       }
     },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "effect slowDown"
+    },
     "effectName": "verifyBottomCount"
   },
   {
@@ -621,5 +625,22 @@
       "primary": "trigger effect",
       "effectNumber": "effect verifyBottomCount"
     }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "owner",
+        "instructions": "Press \"Finish Select\" to proceed"
+      },
+      "count": "1",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "slowDown"
   }
 ]
