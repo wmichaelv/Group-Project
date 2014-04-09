@@ -11,7 +11,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb,passivec"
+      "effectNumber": "passiveb,passivec,passived,passivee"
     },
     "effectName": "passive"
   },
@@ -207,6 +207,27 @@
   },
   {
     "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "thoseWhoControlFlag",
+      "criteria": {
+        "passing": "cardB"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "trigger event",
       "event": {
         "primary": "lostStat"
@@ -294,6 +315,27 @@
   },
   {
     "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "thoseWhoControlFlag",
+      "criteria": {
+        "passing": "cardC"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "trigger event",
       "event": {
         "primary": "lostStat"
@@ -303,6 +345,232 @@
       "primary": "card",
       "criteria": {
         "passing": "cardC"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "lostLevel"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "player": "owner",
+        "type": "Spell"
+      }
+    },
+    "effectName": "passived"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "player": "owner",
+        "type": "Spell",
+        "stat": "stat-targetableByOwnSpecials>=1 && stat-lvl!=1 && stat-thoseWhoControlFlag!=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "cardD"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "av",
+      "criteria": {
+        "passing": "cardD"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "modifyCard"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "iv",
+      "criteria": {
+        "passing": "cardD"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "thoseWhoControlFlag",
+      "criteria": {
+        "passing": "cardD"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "lostStat"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "cardD"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "lostLevel"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "player": "opponent",
+        "type": "Spell"
+      }
+    },
+    "effectName": "passivee"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "player": "opponent",
+        "type": "Spell",
+        "stat": "stat-targetableByOppSpecials>=1 && stat-lvl!=1 && stat-thoseWhoControlFlag!=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "cardE"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "av",
+      "criteria": {
+        "passing": "cardE"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "modifyCard"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "iv",
+      "criteria": {
+        "passing": "cardE"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "thoseWhoControlFlag",
+      "criteria": {
+        "passing": "cardE"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "lostStat"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "cardE"
       }
     }
   }
