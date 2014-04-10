@@ -419,7 +419,7 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": ">",
+      "comparisonOperators": ">=",
       "value": "effect cardLevel"
     },
     "target": {
