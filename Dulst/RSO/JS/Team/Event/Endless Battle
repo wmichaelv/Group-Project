@@ -314,7 +314,7 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": ">",
+      "comparisonOperators": ">=",
       "value": "2"
     },
     "target": {
