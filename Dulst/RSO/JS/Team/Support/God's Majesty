@@ -618,7 +618,7 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": ">",
+      "comparisonOperators": ">=",
       "value": "effect cardCount"
     },
     "target": {
