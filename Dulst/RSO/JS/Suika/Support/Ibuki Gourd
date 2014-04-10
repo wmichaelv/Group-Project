@@ -154,7 +154,7 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": ">",
+      "comparisonOperators": ">=",
       "value": "2",
       "verifyTrue": "special2Proceed"
     },
