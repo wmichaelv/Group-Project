@@ -2,7 +2,7 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": ">",
+      "comparisonOperators": ">=",
       "value": "4"
     },
     "target": {
