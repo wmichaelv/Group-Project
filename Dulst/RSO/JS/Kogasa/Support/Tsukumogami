@@ -1009,7 +1009,7 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": ">",
+      "comparisonOperators": ">=",
       "value": "5"
     },
     "target": {
