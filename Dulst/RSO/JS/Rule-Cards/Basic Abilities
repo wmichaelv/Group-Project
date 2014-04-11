@@ -89,7 +89,8 @@
       "primary": "card",
       "cardProperty": "Penetration",
       "criteria": {
-        "passing": "attackerSpell"
+        "passing": "attackerSpell",
+        "stat": "stat-disableBA!=1 && stat-disablePen!=1"
       }
     },
     "effectComplete": {
@@ -108,7 +109,8 @@
       "primary": "card",
       "cardProperty": "Protection",
       "criteria": {
-        "passing": "interceptSpell"
+        "passing": "interceptSpell",
+        "stat": "stat-disableBA!=1 && stat-disablePro!=1"
       }
     },
     "effectComplete": {
@@ -165,7 +167,8 @@
       "primary": "card",
       "cardProperty": "Penetration",
       "criteria": {
-        "passing": "interceptSpell"
+        "passing": "interceptSpell",
+        "stat": "stat-disableBA!=1 && stat-disablePen!=1"
       }
     },
     "effectComplete": {
@@ -184,7 +187,8 @@
       "primary": "card",
       "cardProperty": "Protection",
       "criteria": {
-        "passing": "attackerSpell"
+        "passing": "attackerSpell",
+        "stat": "stat-disableBA!=1 && stat-disablePro!=1"
       }
     },
     "effectComplete": {
@@ -242,7 +246,8 @@
       "primary": "card",
       "cardProperty": "Guided Bullets",
       "criteria": {
-        "passing": "attackerSpell"
+        "passing": "attackerSpell",
+        "stat": "stat-disableBA!=1 && stat-disableGB!=1"
       }
     },
     "effectComplete": {
@@ -260,7 +265,8 @@
       "primary": "card",
       "cardProperty": "Focused Movement",
       "criteria": {
-        "passing": "interceptSpell"
+        "passing": "interceptSpell",
+        "stat": "stat-disableBA!=1 && stat-disableFM!=1"
       }
     },
     "effectComplete": {
@@ -335,7 +341,8 @@
       "primary": "card",
       "cardProperty": "Unfocused Movement",
       "criteria": {
-        "passing": "interceptSpell"
+        "passing": "interceptSpell",
+        "stat": "stat-disableBA!=1 && stat-disableUFM!=1"
       }
     },
     "effectComplete": {
@@ -412,7 +419,8 @@
       "primary": "card",
       "cardProperty": "Guided Bullets",
       "criteria": {
-        "passing": "interceptSpell"
+        "passing": "interceptSpell",
+        "stat": "stat-disableBA!=1 && stat-disableGB!=1"
       }
     },
     "effectComplete": {
@@ -430,7 +438,8 @@
       "primary": "card",
       "cardProperty": "Focused Movement",
       "criteria": {
-        "passing": "attackerSpell"
+        "passing": "attackerSpell",
+        "stat": "stat-disableBA!=1 && stat-disableFM!=1"
       }
     },
     "effectComplete": {
@@ -505,7 +514,8 @@
       "primary": "card",
       "cardProperty": "Unfocused Movement",
       "criteria": {
-        "passing": "attackerSpell"
+        "passing": "attackerSpell",
+        "stat": "stat-disableBA!=1 && stat-disableUFM!=1"
       }
     },
     "effectComplete": {
@@ -579,7 +589,8 @@
       "primary": "card",
       "cardProperty": "Faith",
       "criteria": {
-        "passing": "attackerSpell"
+        "passing": "attackerSpell",
+        "stat": "stat-disableBA!=1 && stat-disableFaith!=1"
       }
     },
     "effectComplete": {
@@ -595,7 +606,8 @@
       "primary": "card",
       "cardProperty": "Faith",
       "criteria": {
-        "passing": "interceptSpell"
+        "passing": "interceptSpell",
+        "stat": "stat-disableBA!=1 && stat-disableFaith!=1"
       }
     },
     "effectComplete": {
