@@ -190,7 +190,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "0",
+      "magnitude": "1",
       "undo": {
         "primary": "game event",
         "event": "post-battlePhase"
@@ -198,117 +198,7 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "Unfocused Movement",
-      "criteria": {
-        "from": "board",
-        "stat": "stat-ciid=effect ciid"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Focused Movement",
-      "criteria": {
-        "from": "board",
-        "stat": "stat-ciid=effect ciid"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Protection",
-      "criteria": {
-        "from": "board",
-        "stat": "stat-ciid=effect ciid"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Faith",
-      "criteria": {
-        "from": "board",
-        "stat": "stat-ciid=effect ciid"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Penetration",
-      "criteria": {
-        "from": "board",
-        "stat": "stat-ciid=effect ciid"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Guided Bullets",
+      "cardProperty": "disableBA",
       "criteria": {
         "from": "board",
         "stat": "stat-ciid=effect ciid"
@@ -322,164 +212,14 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,lostStat,lostBasicAbility"
+        "primary": [
+          "lostStat",
+          "lostBasicAbility"
+        ]
       }
     },
     "target": {
       "primary": "card",
-      "criteria": {
-        "from": "board",
-        "stat": "stat-ciid=effect ciid"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "triggerDisableBA"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "gainedBasicAbility"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "from": "board",
-        "stat": "stat-ciid=effect ciid"
-      }
-    },
-    "effectName": "triggerDisableBA"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Unfocused Movement",
-      "criteria": {
-        "from": "board",
-        "stat": "stat-ciid=effect ciid"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Focused Movement",
-      "criteria": {
-        "from": "board",
-        "stat": "stat-ciid=effect ciid"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Protection",
-      "criteria": {
-        "from": "board",
-        "stat": "stat-ciid=effect ciid"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Faith",
-      "criteria": {
-        "from": "board",
-        "stat": "stat-ciid=effect ciid"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Penetration",
-      "criteria": {
-        "from": "board",
-        "stat": "stat-ciid=effect ciid"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Guided Bullets",
       "criteria": {
         "from": "board",
         "stat": "stat-ciid=effect ciid"
