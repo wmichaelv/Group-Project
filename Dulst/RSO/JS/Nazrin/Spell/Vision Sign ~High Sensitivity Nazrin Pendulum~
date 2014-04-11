@@ -108,14 +108,19 @@
   },
   {
     "action": {
-      "primary": "run effect",
-      "effectNumber": "negateBA",
-      "callback": "effect completion"
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
     },
     "target": {
       "primary": "card",
+      "cardProperty": "disablePen",
       "criteria": {
-        "passing": "this card"
+        "passing": "selectedCard"
       }
     },
     "effectComplete": {
@@ -182,10 +187,6 @@
       "criteria": {
         "passing": "this card"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "triggerOnBA"
     },
     "effectName": "verifyFail"
   },
@@ -312,43 +313,5 @@
         "passing": "this card"
       }
     }
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "gainedBasicAbility"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectName": "triggerOnBA"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Penetration",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectName": "negateBA"
   }
 ]
