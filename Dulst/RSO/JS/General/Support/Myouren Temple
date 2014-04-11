@@ -47,25 +47,9 @@
   },
   {
     "action": {
-      "primary": "run effect",
-      "effectNumber": "triggerOnOwn",
-      "callback": "effect completion"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "0",
+      "magnitude": "1",
       "undo": {
         "primary": "game event",
         "event": "post-battlePhase"
@@ -73,7 +57,7 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "Faith",
+      "cardProperty": "disableFaith",
       "criteria": {
         "player": "owner",
         "type": "Spell"
@@ -88,7 +72,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "0",
+      "magnitude": "1",
       "undo": {
         "primary": "game event",
         "event": "post-battlePhase"
@@ -96,7 +80,7 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "Protection",
+      "cardProperty": "disablePro",
       "criteria": {
         "player": "owner",
         "type": "Spell"
@@ -140,25 +124,9 @@
   },
   {
     "action": {
-      "primary": "run effect",
-      "effectNumber": "triggerOnOpp",
-      "callback": "effect completion"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "0",
+      "magnitude": "1",
       "undo": {
         "primary": "game event",
         "event": "post-battlePhase"
@@ -166,7 +134,7 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "Faith",
+      "cardProperty": "disableFaith",
       "criteria": {
         "player": "opponent",
         "type": "Spell"
@@ -181,7 +149,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "0",
+      "magnitude": "1",
       "undo": {
         "primary": "game event",
         "event": "post-battlePhase"
@@ -189,7 +157,7 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "Protection",
+      "cardProperty": "disablePro",
       "criteria": {
         "player": "opponent",
         "type": "Spell"
@@ -211,72 +179,6 @@
       "criteria": {
         "player": "opponent",
         "type": "Spell"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "gainedBasicAbility"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "player": "owner",
-        "type": "Spell"
-      }
-    },
-    "effectName": "triggerOnOwn"
-  },
-  {
-    "action": {
-      "primary": "run effect",
-      "effectNumber": "modifyOwn",
-      "callback": "effect completion"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "gainedBasicAbility"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "player": "opponent",
-        "type": "Spell"
-      }
-    },
-    "effectName": "triggerOnOpp"
-  },
-  {
-    "action": {
-      "primary": "run effect",
-      "effectNumber": "modifyOpp",
-      "callback": "effect completion"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
       }
     }
   }
