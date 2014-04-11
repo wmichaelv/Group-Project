@@ -36,42 +36,6 @@
   },
   {
     "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Protection",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "oPro"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "effect oPro",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "pro",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
       "primary": "verify target",
       "comparisonOperators": ">=",
       "value": "1"
@@ -150,22 +114,27 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "0",
+      "magnitude": "1",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": [
+          "verify false",
+          "game event"
+        ],
+        "event": "post-battlePhase",
+        "verifyEffectIndex": "verifyFaith"
       }
     },
     "target": {
       "primary": "card",
-      "cardProperty": "Protection",
+      "cardProperty": "disablePro",
       "criteria": {
         "passing": "selectedCard"
       }
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "startEffect"
   },
   {
     "action": {
@@ -249,10 +218,7 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": [
-          "gainedStat",
-          "lostStat"
-        ]
+        "primary": "gainedBasicAbility"
       }
     },
     "target": {
@@ -280,7 +246,7 @@
   {
     "action": {
       "primary": "run effect",
-      "effectNumber": "updatePro,proceed",
+      "effectNumber": "proceed",
       "callback": "effect completion"
     },
     "target": {
@@ -303,106 +269,7 @@
         "passing": "this card"
       }
     },
-    "effectName": "updatePro"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Protection",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Protection",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "oPro2"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "effect oPro2",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "pro",
-      "criteria": {
-        "passing": "this card"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "isOnFlag",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
     "effectName": "turnOff"
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "pro",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "pro"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "effect pro",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Protection",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
   },
   {
     "action": {
@@ -424,5 +291,20 @@
     "effectComplete": {
       "primary": "trigger next effect"
     }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "<",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Faith",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectName": "verifyFaith"
   }
 ]
