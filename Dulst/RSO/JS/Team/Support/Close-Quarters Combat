@@ -34,14 +34,19 @@
   },
   {
     "action": {
-      "primary": "run effect",
-      "effectNumber": "negateBA",
-      "callback": "effect completion"
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
     },
     "target": {
       "primary": "card",
+      "cardProperty": "disableBA",
       "criteria": {
-        "passing": "this card"
+        "passing": "selectedCard"
       }
     },
     "effectComplete": {
@@ -60,10 +65,6 @@
       "criteria": {
         "passing": "selectedCard"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "triggerOnBA"
     }
   },
   {
@@ -132,152 +133,6 @@
       "criteria": {
         "passing": "cardB"
       }
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "gainedBasicAbility"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectName": "triggerOnBA"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Unfocused Movement",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "negateBA"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Focused Movement",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Protection",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Faith",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Penetration",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Guided Bullets",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   }
 ]
