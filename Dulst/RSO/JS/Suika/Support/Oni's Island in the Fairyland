@@ -30,7 +30,7 @@
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "card"
+    "effectName": "ownCard"
   },
   {
     "action": {
@@ -47,7 +47,7 @@
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "cardB"
+    "effectName": "oppCard"
   },
   {
     "action": {
@@ -61,24 +61,9 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "calculateOwnBuff,calculateOppBuff,setOwnBuff,setOppBuff"
+      "effectNumber": "ownAfterLifeCount,oppAfterLifeCount,setOwnBuffAV,setOppBuffAV"
     },
     "effectName": "calculateBuff then setBuff"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "sp"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "calculateOwnBuff"
   },
   {
     "action": {
@@ -123,113 +108,6 @@
       }
     },
     "effectName": "roundDownOwnBuff"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "sp"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "setOwnBuff"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "effect ownBuff",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "av",
-      "criteria": {
-        "passing": "card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "setOwnBuffAV"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "effect ownBuff",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "hv",
-      "criteria": {
-        "passing": "card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "setOwnBuffHV"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "onigashimaFlag",
-      "criteria": {
-        "passing": "card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "flagOwnBuff"
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "gainedStat"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "card"
-      }
-    },
-    "effectName": "trigger gainedStat"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "owner"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "calculateOppBuff"
   },
   {
     "action": {
@@ -282,16 +160,79 @@
     "action": {
       "primary": "modify stats",
       "operation": "+",
-      "magnitude": "0"
+      "magnitude": "effect ownBuff",
+      "undo": {
+        "primary": "permanent"
+      }
     },
     "target": {
-      "primary": "owner",
-      "playerProperty": "sp"
+      "primary": "card",
+      "cardProperty": "av",
+      "criteria": {
+        "passing": "ownCard"
+      }
     },
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "setOppBuff"
+    "effectName": "setOwnBuffAV"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "effect ownBuff",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "hv",
+      "criteria": {
+        "passing": "ownCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "setOwnBuffHV"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "onigashimaFlag",
+      "criteria": {
+        "passing": "ownCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "flagOwnBuff"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "gainedStat"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "ownCard"
+      }
+    },
+    "effectName": "trigger own gainedStat"
   },
   {
     "action": {
@@ -306,7 +247,7 @@
       "primary": "card",
       "cardProperty": "av",
       "criteria": {
-        "passing": "cardB"
+        "passing": "oppCard"
       }
     },
     "effectComplete": {
@@ -327,7 +268,7 @@
       "primary": "card",
       "cardProperty": "hv",
       "criteria": {
-        "passing": "cardB"
+        "passing": "oppCard"
       }
     },
     "effectComplete": {
@@ -348,7 +289,7 @@
       "primary": "card",
       "cardProperty": "onigashimaFlag",
       "criteria": {
-        "passing": "cardB"
+        "passing": "oppCard"
       }
     },
     "effectComplete": {
@@ -366,13 +307,13 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "cardB"
+        "passing": "ownCard"
       }
     },
     "effectComplete": {
       "primary": "nothing"
     },
-    "effectName": "trigger gainedStat"
+    "effectName": "trigger opp gainedStat"
   },
   {
     "action": {
@@ -416,24 +357,9 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "recalculateOwnBuff,recalculateOppBuff,checkOwnDifference,checkOppDifference"
+      "effectNumber": "tempOwnAfterLifeCount,tempOppAfterLifeCount,checkOwnDifference,checkOppDifference"
     },
     "effectName": "recalculateBuff then checkDifference"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "sp"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "recalculateOwnBuff"
   },
   {
     "action": {
@@ -496,21 +422,6 @@
       }
     },
     "effectName": "subtractTempOwnBuff"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "sp"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "recalculateOppBuff"
   },
   {
     "action": {
@@ -617,7 +528,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "resetOwnBuff,updateOwnBuff,setOwnBuff"
+      "effectNumber": "resetOwnAV,updateOwnBuff,setOwnBuffAV"
     },
     "effectName": "applyDifferenceOwnBuff"
   },
@@ -633,7 +544,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "resetOppBuff,updateOppBuff,setOppBuff"
+      "effectNumber": "resetOppAV,updateOppBuff,setOppBuffAV"
     },
     "effectName": "applyDifferenceOppBuff"
   },
@@ -698,20 +609,6 @@
   {
     "action": {
       "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "owner"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "resetOwnBuff"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
       "operation": "-",
       "magnitude": "effect ownBuff",
       "undo": {
@@ -722,7 +619,7 @@
       "primary": "card",
       "cardProperty": "av",
       "criteria": {
-        "passing": "card"
+        "passing": "ownCard"
       }
     },
     "effectComplete": {
@@ -743,7 +640,7 @@
       "primary": "card",
       "cardProperty": "hv",
       "criteria": {
-        "passing": "card"
+        "passing": "ownCard"
       }
     },
     "effectComplete": {
@@ -764,25 +661,10 @@
       "primary": "card",
       "cardProperty": "onigashimaFlag",
       "criteria": {
-        "passing": "card"
+        "passing": "ownCard"
       }
     },
     "effectName": "deflagOwn"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "sp"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "resetOppBuff"
   },
   {
     "action": {
@@ -797,7 +679,7 @@
       "primary": "card",
       "cardProperty": "av",
       "criteria": {
-        "passing": "cardB"
+        "passing": "oppCard"
       }
     },
     "effectComplete": {
@@ -818,7 +700,7 @@
       "primary": "card",
       "cardProperty": "hv",
       "criteria": {
-        "passing": "cardB"
+        "passing": "oppCard"
       }
     },
     "effectComplete": {
@@ -839,7 +721,7 @@
       "primary": "card",
       "cardProperty": "onigashimaFlag",
       "criteria": {
-        "passing": "cardB"
+        "passing": "oppCard"
       }
     },
     "effectName": "deflagOpp"
