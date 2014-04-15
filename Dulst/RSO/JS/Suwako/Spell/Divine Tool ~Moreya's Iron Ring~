@@ -55,7 +55,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "0",
+      "magnitude": "1",
       "undo": {
         "primary": "game event",
         "event": "post-battlePhase"
@@ -63,7 +63,7 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "Faith",
+      "cardProperty": "disableFaith",
       "criteria": {
         "passing": "selectedCard"
       }
@@ -76,53 +76,11 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "lostStat"
+        "primary": "lostBasicAbility"
       }
     },
     "target": {
       "primary": "card",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": [
-          "gainedBasicAbility",
-          "lostBasicAbility"
-        ]
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Faith",
       "criteria": {
         "passing": "selectedCard"
       }

@@ -171,7 +171,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "0",
+      "magnitude": "1",
       "undo": {
         "primary": "game event",
         "event": "post-battlePhase"
@@ -179,8 +179,7 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "Penetration",
-      "count": "1",
+      "cardProperty": "disablePen",
       "criteria": {
         "passing": "selectedCard"
       }
@@ -282,47 +281,7 @@
       "primary": "owner",
       "playerProperty": "sp"
     },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
     "effectName": "spUse"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "gainedBasicAbility"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Penetration",
-      "count": "1",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    }
   },
   {
     "action": {

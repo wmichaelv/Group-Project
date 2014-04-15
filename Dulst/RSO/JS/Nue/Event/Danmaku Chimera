@@ -407,7 +407,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "0",
+      "magnitude": "1",
       "undo": {
         "primary": "game event",
         "event": "post-battlePhase"
@@ -415,7 +415,7 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "Guided Bullets",
+      "cardProperty": "disableGB",
       "criteria": {
         "passing": "sp1Activate"
       }
@@ -442,7 +442,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "triggerOnGB,spUse"
+      "effectNumber": "spUse"
     }
   },
   {
@@ -510,7 +510,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "0",
+      "magnitude": "1",
       "undo": {
         "primary": "game event",
         "event": "post-battlePhase"
@@ -518,7 +518,7 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "Penetration",
+      "cardProperty": "disablePen",
       "criteria": {
         "passing": "sp2Activate"
       }
@@ -545,7 +545,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "triggerOnPen,spUse"
+      "effectNumber": "spUse"
     }
   },
   {
@@ -593,79 +593,5 @@
       }
     },
     "effectName": "verifyFail"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "gainedBasicAbility"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "sp1Activate"
-      }
-    },
-    "effectName": "triggerOnGB"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Guided Bullets",
-      "criteria": {
-        "passing": "sp1Activate"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "gainedBasicAbility"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "sp2Activate"
-      }
-    },
-    "effectName": "triggerOnPen"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Penetration",
-      "criteria": {
-        "passing": "sp2Activate"
-      }
-    }
   }
 ]

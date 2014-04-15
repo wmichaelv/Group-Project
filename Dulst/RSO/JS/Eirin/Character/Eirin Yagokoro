@@ -40,8 +40,7 @@
     "action": {
       "primary": "verify target",
       "comparisonOperators": ">=",
-      "value": "1",
-      "verifyTrue": "verifySuccess"
+      "value": "1"
     },
     "target": {
       "primary": "card",
@@ -55,132 +54,6 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1",
-      "verifyTrue": "verifySuccess"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "oUFM",
-      "criteria": {
-        "from": "board",
-        "player": "owner",
-        "class": "Battle Spell",
-        "type": "Spell"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1",
-      "verifyTrue": "verifySuccess"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "oFM",
-      "criteria": {
-        "from": "board",
-        "player": "owner",
-        "class": "Battle Spell",
-        "type": "Spell"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1",
-      "verifyTrue": "verifySuccess"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "oPro",
-      "criteria": {
-        "from": "board",
-        "player": "owner",
-        "class": "Battle Spell",
-        "type": "Spell"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1",
-      "verifyTrue": "verifySuccess"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "oFaith",
-      "criteria": {
-        "from": "board",
-        "player": "owner",
-        "class": "Battle Spell",
-        "type": "Spell"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1",
-      "verifyTrue": "verifySuccess"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "oPen",
-      "criteria": {
-        "from": "board",
-        "player": "owner",
-        "class": "Battle Spell",
-        "type": "Spell"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "oGB",
-      "criteria": {
-        "from": "board",
-        "player": "owner",
-        "class": "Battle Spell",
-        "type": "Spell"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "verifyFail"
     }
   },
   {

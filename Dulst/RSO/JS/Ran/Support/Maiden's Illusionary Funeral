@@ -11,7 +11,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb,passivec,passived"
+      "effectNumber": "passiveb,passivec"
     },
     "effectName": "passive"
   },
@@ -145,199 +145,46 @@
   },
   {
     "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Guided Bullets",
-      "criteria": {
-        "passing": "card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "oGB"
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Penetration",
-      "criteria": {
-        "passing": "card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "oPen"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "0"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Guided Bullets",
-      "criteria": {
-        "passing": "card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "setGB0"
-    },
-    "effectName": "verifyGB"
-  },
-  {
-    "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "effect oGB",
+      "magnitude": "1",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": [
+          "verify false",
+          "game event"
+        ],
+        "event": "post-battlePhase",
+        "verifyEffectIndex": "verifyShiki"
       }
     },
     "target": {
       "primary": "card",
-      "cardProperty": "mifGB",
+      "cardProperty": "disableGB",
       "criteria": {
         "passing": "card"
       }
     },
     "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "verifyPen"
+      "primary": "trigger next effect"
     }
   },
   {
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "0",
+      "magnitude": "1",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": [
+          "verify false",
+          "game event"
+        ],
+        "event": "post-battlePhase",
+        "verifyEffectIndex": "verifyShiki"
       }
     },
     "target": {
       "primary": "card",
-      "cardProperty": "mifGB",
-      "criteria": {
-        "passing": "card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "verifyPen"
-    },
-    "effectName": "setGB0"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "0"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Penetration",
-      "criteria": {
-        "passing": "card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "setPen0"
-    },
-    "effectName": "verifyPen"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "effect oPen",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "mifPen",
-      "criteria": {
-        "passing": "card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "proceed"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "mifPen",
-      "criteria": {
-        "passing": "card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "proceed"
-    },
-    "effectName": "setPen0"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Guided Bullets",
-      "criteria": {
-        "passing": "card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "proceed"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Penetration",
+      "cardProperty": "disablePen",
       "criteria": {
         "passing": "card"
       }
@@ -407,35 +254,20 @@
   },
   {
     "action": {
-      "primary": "assign variable"
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "mifGB",
+      "cardProperty": "shikigami",
       "criteria": {
         "passing": "cardB"
       }
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "mifGB"
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "mifPen",
-      "criteria": {
-        "passing": "cardB"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "mifPen"
+    }
   },
   {
     "action": {
@@ -519,48 +351,6 @@
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "effect mifGB",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Guided Bullets",
-      "criteria": {
-        "passing": "cardB"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "effect mifPen",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Penetration",
-      "criteria": {
-        "passing": "cardB"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
       "primary": "trigger event",
       "event": {
         "primary": "gainedStat"
@@ -577,98 +367,13 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "game"
-    },
-    "effectName": "passivec"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "gainedBasicAbility"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "from": "board"
-      }
-    },
-    "effectName": "cardC"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "shikigami",
-      "criteria": {
-        "passing": "cardC",
-        "from": "board"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Guided Bullets",
-      "criteria": {
-        "passing": "cardC"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Penetration",
-      "criteria": {
-        "passing": "cardC"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
         "primary": "post-battlePhase"
       }
     },
     "target": {
       "primary": "game"
     },
-    "effectName": "passived"
+    "effectName": "passivec"
   },
   {
     "action": {

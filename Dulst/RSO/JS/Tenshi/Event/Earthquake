@@ -164,7 +164,7 @@
   },
   {
     "action": {
-      "primary": "assign variable"
+      "primary": "each"
     },
     "target": {
       "primary": "card",
@@ -176,7 +176,8 @@
       "mandatory": "selectedCard"
     },
     "effectComplete": {
-      "primary": "trigger next effect"
+      "primary": "trigger effect",
+      "effectNumber": "afterEffect"
     },
     "effectName": "selectedCard"
   },
@@ -208,9 +209,6 @@
       "criteria": {
         "passing": "selectedCard"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   },
   {

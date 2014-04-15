@@ -128,7 +128,87 @@
       "primary": "card",
       "criteria": {
         "passing": "card",
-        "stat": "stat-oUFM<=0 && stat-oFM<=0 && stat-oPro<=0 && stat-oFaith<=0 && stat-oPen<=0 && stat-oGB<=0"
+        "stat": "stat-oUFM<=0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "hasBA"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card",
+        "stat": "stat-oFM<=0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "hasBA"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card",
+        "stat": "stat-oPro<=0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "hasBA"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card",
+        "stat": "stat-oFaith<=0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "hasBA"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card",
+        "stat": "stat-oPen<=0"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "hasBA"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card",
+        "stat": "stat-oGB<=0"
       }
     },
     "effectComplete": {
@@ -140,7 +220,10 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "0"
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
     },
     "target": {
       "primary": "card",
@@ -155,7 +238,10 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "1"
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
     },
     "target": {
       "primary": "card",
