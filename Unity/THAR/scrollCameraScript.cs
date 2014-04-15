@@ -9,8 +9,8 @@ public class scrollCameraScript : MonoBehaviour {
 	public static float camH;    // Store Camera Height to Pass Around Scripts
 
 	private static float tempH;  // Temporary Storage for switches and conditional check
-	private static float plaX;   // Store Player x-coordinate
-	private static float plaY;   // Store Player y-coordinate
+	private static float charaX; // Store Player x-coordinate
+	private static float charaY; // Store Player y-coordinate
 	private static float top;    // Store Top Map Border
 	private static float bottom; // Store Bottom Map Border
 	private static float left;   // Store Left Map Border
@@ -42,11 +42,11 @@ public class scrollCameraScript : MonoBehaviour {
 		camX = transform.position.x;
 		camY = transform.position.y;
 
-		plaX = Alice_Movement.plaX;
-		plaY = Alice_Movement.plaY;
+		charaX = Alice_Movement.charaX;
+		charaY = Alice_Movement.charaY;
 
-		if (setCamScroll()) scrollCam(Alice_Movement.playerDirection, Alice_Movement.playerMovSpd);
-		else scrollCam(checkDirection(), Alice_Movement.playerMovSpd);
+		if (setCamScroll()) scrollCam(Alice_Movement.charaDirection, Alice_Movement.charaMovSpd);
+		else scrollCam(checkDirection(), Alice_Movement.charaMovSpd);
 	}
 
 	bool setCamScroll() {
@@ -54,33 +54,33 @@ public class scrollCameraScript : MonoBehaviour {
 	}
 
 	int checkDirection() {
-		switch (Alice_Movement.playerDirection) {
+		switch (Alice_Movement.charaDirection) {
 		case 0: // Idle
 			return 0;
 		case 1: // Down-Left
-			return plaX > left && plaX < right ? 
-				(plaY < top && plaY > bottom ? 1 : 4) : 
-				(plaY < top && plaY > bottom ? 2 : 0);
+			return charaX > left && charaX < right ? 
+				(charaY < top && charaY > bottom ? 1 : 4) : 
+				(charaY < top && charaY > bottom ? 2 : 0);
 		case 2: // Down
-			return plaY < top && plaY > bottom ? 2 : 0;
+			return charaY < top && charaY > bottom ? 2 : 0;
 		case 3: // Down-Right
-			return plaX > left && plaX < right ? 
-				(plaY < top && plaY > bottom ? 3 : 6) : 
-				(plaY < top && plaY > bottom ? 2 : 0);
+			return charaX > left && charaX < right ? 
+				(charaY < top && charaY > bottom ? 3 : 6) : 
+				(charaY < top && charaY > bottom ? 2 : 0);
 		case 4: // Left
-			return plaX > left && plaX < right ? 4 : 0;
+			return charaX > left && charaX < right ? 4 : 0;
 		case 6: // Right
-			return plaX > left && plaX < right ? 6 : 0;
+			return charaX > left && charaX < right ? 6 : 0;
 		case 7: // Up-Left
-			return plaX > left && plaX < right ? 
-				(plaY < top && plaY > bottom ? 7 : 4) : 
-				(plaY < top && plaY > bottom ? 8 : 0);
+			return charaX > left && charaX < right ? 
+				(charaY < top && charaY > bottom ? 7 : 4) : 
+				(charaY < top && charaY > bottom ? 8 : 0);
 		case 8: // Up
-			return plaY < top && plaY > bottom ? 8 : 0;
+			return charaY < top && charaY > bottom ? 8 : 0;
 		case 9: // Up-Right
-			return plaX > left && plaX < right ? 
-				(plaY < top && plaY > bottom ? 9 : 6) : 
-				(plaY < top && plaY > bottom ? 8 : 0);
+			return charaX > left && charaX < right ? 
+				(charaY < top && charaY > bottom ? 9 : 6) : 
+				(charaY < top && charaY > bottom ? 8 : 0);
 		default:
 			return 0;
 		}
