@@ -3,15 +3,17 @@ using System.Collections;
 
 public class Alice_Movement : MonoBehaviour {
 
-	public static int   playerDirection; // Store playerDirection     to Pass Around Scripts
-	public static bool  playerShift;     // Store shift               to Pass Around Scripts
-	public static bool  playerMouse;     // Store playerMouse         to Pass Around Scripts
-	public static bool  playerAction;    // Store playerAction        to Pass Around Scripts
-	public static bool  playerReverse;   // Store playerReverse       to Pass Around Scripts
-	public static float playerMovSpd;    // Store playerMovementSpeed to Pass Around Scripts
-	public static float plaX;            // Store Player x-coordinate to Pass Around Scripts
-	public static float plaY;            // Store Player y-coordinate to Pass Around Scripts
-	public static Vector2 mousePos;      // Store mousePosition       to Pass Around Scripts
+	public static int    charaDirection; // Store charaDirection     to Pass Around Scripts
+	public static bool   charaShift;     // Store shift              to Pass Around Scripts
+	public static bool   charaMouse;     // Store charaMouse         to Pass Around Scripts
+	public static bool   charaAction;    // Store charaAction        to Pass Around Scripts
+	public static bool   charaReverse;   // Store charaReverse       to Pass Around Scripts
+	public static float  charaMovSpd;    // Store charaMovementSpeed to Pass Around Scripts
+	public static float  charaX;         // Store Chara x-coordinate to Pass Around Scripts
+	public static float  charaY;         // Store Chara y-coordinate to Pass Around Scripts
+	public static string control;        // Store Character Control  to Pass Around Scripts
+
+	public static Transform controller;  // Store Character Control  to Pass Around Scripts  
 
 	private static Animator animator;    // Store Animator
 	private static bool getSR;           // Store getStateReversed
@@ -19,9 +21,8 @@ public class Alice_Movement : MonoBehaviour {
 	private static bool fDash;           // Store frontDash
 	private static float horz;           // Store Horizontal Input
 	private static float vert;           // Store Vertical Input
-	private static Vector2 objectPos;    // Store objectPosition
 
-	private static bool setMap;          //Switch
+	private static bool setMap;          // Switch
 	private static float top;            // Store Top Map Border
 	private static float bottom;         // Store Bottom Map Border
 	private static float left;           // Store Left Map Border
@@ -34,7 +35,7 @@ public class Alice_Movement : MonoBehaviour {
 		getSR = false;
 		bDash = false;
 		fDash = false;
-		playerReverse = false;
+		charaReverse = false;
 	}
 
 	// Update is call once per turn
@@ -48,139 +49,51 @@ public class Alice_Movement : MonoBehaviour {
 			setMap = true;
 		}
 
-		plaX = animator.transform.position.x;
-		plaY = animator.transform.position.y;
+		charaX = animator.transform.position.x;
+		charaY = animator.transform.position.y;
 
-		setPlayerVarValues();
-		// setPlayerVariablesValues
+		attachController();
 
-		setPlayerMovState();
+		setCharaVarValues();
+		// setCharaVariablesValues
+
+		setCharaMovState();
 		// setMovementAnimationState
 
-		setPlayerMovSpeed();
+		setCharaMovSpeed();
 		// setMovementAnimationSpeed
 	}
 
-	void setPlayerVarValues() {
-
-		horz = Input.GetAxis("Horizontal");
-		
-		/*********************************
-		 * GetAxis horizontal direction  *
-		 * 1 for right direction         *
-		 *-1 for left direction          *
-		 * 0 for no horizontal direction *
-		 *********************************/
-
-		vert = Input.GetAxis("Vertical");
-
-		/********************************
-		 * GetAxis vertical direction   *
-		 * 1 for up direction           *
-		 *-1 for bottom direction       *
-		 * 0 for no vertical direction  *
-		 ********************************/
-
-		mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		// Get the position of the mouse
-
-		objectPos = animator.transform.position;
-		// Get the position of the animator
-
-		mousePos = mousePos - objectPos; 
-		// Get the position of the mouse from the animator
-
-		playerDirection = getDirection(horz, vert);
-		// direction 0 = idle, no need to has 5
-
-		playerShift = getShift();
-		// shift for dashing
-
-		playerMouse = getMouse(mousePos.x, mousePos.y, playerDirection);
-		// mouse for reverse movement
-
-		playerAction = getAction();
-		// action for negate movement
-
-		playerReverse = getReverse(playerDirection, playerMouse);
-		// reverse for reversed sprite
-
-		playerMovSpd = getMovSpeed(playerDirection, playerShift, playerMouse);
-		// playerMovSpd for player's movement speed
-
+	void attachController() {
+		control = "human";
 	}
 
-	int getDirection(float h, float v) {
-		
-		/***********************************************************************
-		 * Direction is based on numpad key 0-9                                *
-		 *                                                                     *
-		 * 7 8 9   =  North-West North North-East =   Up-Left   Up   Up-Right  *
-		 * 4 5 6   =     West      -       East   =    Left      -    Right    *
-		 * 1 2 3   =  South-West South South-East =  Down-Left Down Down-Right *
-		 *   0     =             Idle             =            Idle            *
-		 *                                                                     *
-		 ***********************************************************************/
+	void setCharaVarValues() {
 
-		return (h != 0 || v != 0) ? ((h != 0) ? ((v != 0) ? 
-			((h < 0) ? ((v < 0) ? 1 : 7) : ((v < 0) ? 3 : 9)) : 
-			((h < 0) ? 4 : 6)) : ((v < 0) ? 2 : 8)) : 0;
-	}
+		switch (control) {
+		case "human" :
 
-	bool getMouse(float x, float y, int d) {
-
-		/**********************************************************************
-		 * To check whether movement direction is approaching mousePos or not *
-		 * Mouse is based on the mousePos and the movement direction          *
-		 *                                                                    *
-		 **********************************************************************/
-
-		switch (d) {
-		case 0: // Idle
-			return true;
-		case 1: // Down-Left
-			return (x < 0 && y < 0) ? true : ((x > 0) ? 
-				(y / x < -1) : (x / y < -1));
-		case 2: // Down
-			return y < 0;
-		case 3: // Down-Right
-			return (x > 0 && y < 0) ? true : ((x > 0) ? 
-				(x / y > 1) : (y / x > 1));
-		case 4: // Left
-			return x < 0;
-		case 6: // Right
-			return x > 0;
-		case 7: // Top-Left
-			return (x < 0 && y > 0) ? true : ((x > 0) ? 
-				(y / x > 1) : (x / y > 1));
-		case 8: // Up
-			return y > 0;
-		case 9: // Top-Right
-			return (x > 0 && y > 0) ? true : ((x > 0) ?
-				(x / y < -1) : (y / x < -1));
-		default:
-			return true;
+			charaDirection = playerControlScript.playerDirection;
+			charaShift     = playerControlScript.playerShift;
+			charaMouse     = playerControlScript.playerMouse;
+			charaAction    = playerControlScript.playerAction;
+			charaReverse   = getReverse(charaDirection, charaMouse);
+			charaMovSpd    = getMovSpeed(charaDirection, charaShift, charaMouse);
+			break;
+		case "AI" :
+			break;
 		}
-	}
-
-	bool getShift() {
-		//Check if Shift is pressed or not
-		return Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.LeftShift);
-	}
-
-	bool getAction() {
-		return false; // False for now since no action is implemented yet
 	}
 
 	bool getReverse(int d, bool m) {
 		//Check if sprite needs to be reversed or not
 		switch (d) {
 		case 0: // Idle
-			return playerReverse;
+			return charaReverse;
 		case 1: // Down-Left
 			return m;
 		case 2: // Down
-			return mousePos.x < 0;
+			return playerControlScript.mousePos.x < 0;
 		case 3: // Down-Right
 			return !m;
 		case 4: // Left
@@ -190,11 +103,11 @@ public class Alice_Movement : MonoBehaviour {
 		case 7: // Up-Left
 			return m;
 		case 8: // Up
-			return mousePos.x < 0;
+			return playerControlScript.mousePos.x < 0;
 		case 9: // Up-Right
 			return !m;
 		default:
-			return playerReverse;
+			return charaReverse;
 		}
 	}
 
@@ -213,39 +126,39 @@ public class Alice_Movement : MonoBehaviour {
 		return (d != 0) ? ((s) ? ((m) ? 10f : 5f) : ((m) ? 3f : 1f)) : 0f;
 	}
 
-	void setPlayerMovState() {
+	void setCharaMovState() {
 		// Set if Sprite needs to be reversed
-		animator.transform.Rotate(0, getRotation(playerReverse), 0);
+		animator.transform.Rotate(0, getRotation(charaReverse), 0);
 		// Check if Character is Processing Action
-		if (playerAction) setPlayerActionMovState();
-		else setPlayerNonActionMovState();
+		if (charaAction) setCharaActionMovState();
+		else setCharaNonActionMovState();
 	}
 
-	void setPlayerActionMovState() {
+	void setCharaActionMovState() {
 		// Pending for Action States
 	}
 
-	void setPlayerNonActionMovState() {
+	void setCharaNonActionMovState() {
 		// Check if Character is idle
-		if (playerDirection == 0) setIdleMovState();
-		else setPlayerMovingMovState();
+		if (charaDirection == 0) setIdleMovState();
+		else setCharaMovingMovState();
 	}
 
-	void setPlayerMovingMovState() {
+	void setCharaMovingMovState() {
 		// Check if Character is moving to position of mouse
-		if (playerMouse) setPlayerForwardMovState();
-		else setPlayerBackwardMovState();
+		if (charaMouse) setCharaForwardMovState();
+		else setCharaBackwardMovState();
 	}
 
-	void setPlayerForwardMovState() {
+	void setCharaForwardMovState() {
 		// Check if Character is dashing
-		if (playerShift) setForwardDashMovState();
+		if (charaShift) setForwardDashMovState();
 		else setForwardWalkMovSate();
 	}
 
-	void setPlayerBackwardMovState() {
+	void setCharaBackwardMovState() {
 		// Check if Character is dashing
-		if (playerShift) setBackwardDashMovState();
+		if (charaShift) setBackwardDashMovState();
 		else setBackwardWalkMovSate();
 	}
 
@@ -342,51 +255,51 @@ public class Alice_Movement : MonoBehaviour {
 		yield return new WaitForSeconds(waitTime);
 	}
 
-	void setPlayerMovSpeed() {
-		if (playerNotNextToCorner()) movePlayer(playerDirection, playerMovSpd);
-		else movePlayer(checkDirection(), playerMovSpd);
+	void setCharaMovSpeed() {
+		if (charaNotNextToCorner()) moveChara(charaDirection, charaMovSpd);
+		else moveChara(checkDirection(), charaMovSpd);
 	}
 
-	bool playerNotNextToCorner() {
-		return (plaY < top && plaY > bottom && plaX > left && plaX < right);
+	bool charaNotNextToCorner() {
+		return (charaY < top && charaY > bottom && charaX > left && charaX < right);
 	}
 
 	int checkDirection() {
-		switch (playerDirection) {
+		switch (charaDirection) {
 		case 0: // Idle
 			return 0;
 		case 1: // Down-Left
-			return plaX > left ? 
-				(plaY > bottom ? 1 : 4) : 
-				(plaY > bottom ? 2 : 0);
+			return charaX > left ? 
+				(charaY > bottom ? 1 : 4) : 
+				(charaY > bottom ? 2 : 0);
 		case 2: // Down
-			return plaY > bottom ? 2 : 0;
+			return charaY > bottom ? 2 : 0;
 		case 3: // Down-Right
-			return plaX < right ? 
-				(plaY > bottom ? 3 : 6) : 
-				(plaY > bottom ? 2 : 0);
+			return charaX < right ? 
+				(charaY > bottom ? 3 : 6) : 
+				(charaY > bottom ? 2 : 0);
 		case 4: // Left
-			return plaX > left ? 4 : 0;
+			return charaX > left ? 4 : 0;
 		case 6: // Right
-			return plaX < right ? 6 : 0;
+			return charaX < right ? 6 : 0;
 		case 7: // Up-Left
-			return plaX > left ? 
-				(plaY < top ? 7 : 4) : 
-				(plaY < top ? 8 : 0);
+			return charaX > left ? 
+				(charaY < top ? 7 : 4) : 
+				(charaY < top ? 8 : 0);
 		case 8: // Up
-			return plaY < top ? 8 : 0;
+			return charaY < top ? 8 : 0;
 		case 9: // Up-Right
-			return plaX < right ? 
-				(plaY < top ? 9 : 6) : 
-				(plaY < top ? 8 : 0);
+			return charaX < right ? 
+				(charaY < top ? 9 : 6) : 
+				(charaY < top ? 8 : 0);
 		default:
 			return 0;
 		}
 	}
 
-	void movePlayer(int d, float mS) {
+	void moveChara(int d, float mS) {
 
-		if (playerReverse)
+		if (charaReverse)
 
 		switch(d) {
 		case 0: // Idle
