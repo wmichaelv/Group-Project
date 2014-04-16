@@ -434,7 +434,7 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "C2",
+      "cardProperty": "charC2",
       "criteria": {
         "passing": "this card"
       }
@@ -456,7 +456,7 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "C2",
+      "cardProperty": "charC2",
       "criteria": {
         "passing": "this card"
       }
@@ -492,7 +492,7 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "C2",
+      "cardProperty": "charC2",
       "criteria": {
         "passing": "this card"
       }
