@@ -208,7 +208,7 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner"
+      "player": "target card owner"
     },
     "target": {
       "primary": "card",
