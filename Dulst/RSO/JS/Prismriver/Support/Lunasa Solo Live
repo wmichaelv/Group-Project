@@ -11,7 +11,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb,passivec,passivee"
+      "effectNumber": "passiveb,passivec,passived,passivee"
     },
     "effectName": "passive"
   },
