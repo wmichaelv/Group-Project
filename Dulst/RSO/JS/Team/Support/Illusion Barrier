@@ -4,13 +4,17 @@
       "primary": "trigger on event",
       "event": {
         "primary": [
-          "pre-pre-battlePhase",
-          "pre-pre-replPhase"
+          "pre-pre-replPhase",
+          "pre-pre-battlePhase"
         ]
       }
     },
     "target": {
       "primary": "game"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "ciid"
     },
     "effectName": "passive"
   },
@@ -55,7 +59,10 @@
       "magnitude": "0",
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": [
+          "post-battlePhase",
+          "post-replPhase"
+        ]
       }
     },
     "target": {
@@ -78,7 +85,10 @@
       "magnitude": "0",
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": [
+          "post-battlePhase",
+          "post-replPhase"
+        ]
       }
     },
     "target": {
@@ -88,9 +98,6 @@
         "from": "board",
         "stat": "stat-ciid=effect ciid"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   }
 ]
