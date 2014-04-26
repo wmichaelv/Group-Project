@@ -129,7 +129,7 @@
         "from": "board",
         "player": "opponent",
         "type": "Spell",
-        "stat": "stat-targetableByOwnEvents>=1"
+        "stat": "stat-targetableByOppEvents>=1"
       }
     },
     "effectComplete": {
