@@ -3,7 +3,7 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-pre-battlePhase"
+        "primary": "post-replPhase"
       }
     },
     "target": {
