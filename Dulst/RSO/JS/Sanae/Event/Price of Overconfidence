@@ -213,7 +213,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passive,passiveb"
+      "effectNumber": "passive"
     },
     "effectName": "spUse"
   },
@@ -231,52 +231,6 @@
       }
     },
     "effectName": "verifyFail"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "pre-preparationPhase"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "pre-replPhase"
-      }
-    },
-    "target": {
-      "primary": "game"
-    },
-    "effectName": "passive"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "activate"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "pre-replPhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "player": "owner",
-        "type": "Spell"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "2"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "sp"
-    }
   },
   {
     "action": {
@@ -299,7 +253,7 @@
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "passiveb"
+    "effectName": "passive"
   },
   {
     "action": {
