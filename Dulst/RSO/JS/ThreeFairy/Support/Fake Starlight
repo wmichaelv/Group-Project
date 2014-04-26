@@ -108,6 +108,38 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Replenishing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startPassive"
+    },
+    "effectName": "passiveb"
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "ciid",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "trigger on event",
       "event": {
         "primary": [
@@ -119,7 +151,7 @@
     "target": {
       "primary": "game"
     },
-    "effectName": "passiveb"
+    "effectName": "startPassive"
   },
   {
     "action": {
@@ -157,67 +189,28 @@
   },
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "Replenishing",
-      "verifyTrue": "repl"
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "game event",
+        "event": [
+          "post-battlePhase",
+          "post-replPhase"
+        ]
+      }
     },
     "target": {
-      "primary": "game",
-      "gameProperty": "phase"
+      "primary": "card",
+      "cardProperty": "lvl",
+      "criteria": {
+        "from": "board",
+        "stat": "stat-ciid=effect ciid"
+      }
     },
     "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "battle"
+      "primary": "trigger next effect"
     }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-replPhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "lvl",
-      "criteria": {
-        "from": "board",
-        "stat": "stat-ciid=effect ciid"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "afterEffect"
-    },
-    "effectName": "repl"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "lvl",
-      "criteria": {
-        "from": "board",
-        "stat": "stat-ciid=effect ciid"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "afterEffect"
-    },
-    "effectName": "battle"
   },
   {
     "action": {
@@ -232,7 +225,6 @@
         "from": "board",
         "stat": "stat-ciid=effect ciid"
       }
-    },
-    "effectName": "afterEffect"
+    }
   }
 ]
