@@ -261,6 +261,20 @@
   },
   {
     "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetCardCount"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "verify target",
       "comparisonOperators": "<=",
       "value": "0",
@@ -302,12 +316,16 @@
   },
   {
     "action": {
-      "primary": "each"
+      "primary": "assign variable"
     },
     "target": {
       "primary": "card",
+      "selector": {
+        "primary": "owner",
+        "instructions": "Select one card to send to the bottom of its owner's deck."
+      },
+      "count": "1",
       "criteria": {
-        "from": "board",
         "stat": "stat-sinkingFlag>=1"
       }
     },
@@ -326,7 +344,7 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "selectedCard"
+        "passing": "afterEffect"
       }
     },
     "effectComplete": {
@@ -343,12 +361,42 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "selectedCard"
+        "passing": "afterEffect"
       }
     },
     "effectComplete": {
       "primary": "trigger next effect"
     }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetCardCount"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "afterEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetCardCount"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "LoopAfterEffect"
   },
   {
     "action": {
@@ -364,8 +412,7 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "afterEffect"
+    }
   },
   {
     "action": {
@@ -381,6 +428,19 @@
       "playerProperty": "sp"
     },
     "effectName": "spUse"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetCardCount",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "targetCardCount"
   },
   {
     "action": {
@@ -436,7 +496,7 @@
       "primary": "give choice",
       "choiceType": "multiple choice",
       "choiceQuestion": "Do you want to stop selecting?",
-      "choices": "effect afterEffect Yes.\neffect selectedCard No."
+      "choices": "effect LoopAfterEffect Yes.\neffect selectedCard No."
     },
     "target": {
       "primary": "owner"
