@@ -148,7 +148,7 @@
       "magnitude": "0",
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": "pre-preparationPhase"
       }
     },
     "target": {
