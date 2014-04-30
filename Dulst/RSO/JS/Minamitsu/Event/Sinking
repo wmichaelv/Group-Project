@@ -213,7 +213,7 @@
       },
       "count": "1",
       "criteria": {
-        "stat": "stat-qs>=1"
+        "stat": "stat-qs>=1&&stat-sinkingFlag!=1"
       },
       "mandatory": "cardCount"
     },
@@ -224,30 +224,13 @@
   },
   {
     "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "targetedByEvent"
-      }
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
     },
     "target": {
       "primary": "card",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "send card to",
-      "location": "deck",
-      "player": "target card owner",
-      "stackLocation": "bottom"
-    },
-    "target": {
-      "primary": "card",
+      "cardProperty": "sinkingFlag",
       "criteria": {
         "passing": "selectedCard"
       }
@@ -289,7 +272,7 @@
       "criteria": {
         "from": "board",
         "type": "Support",
-        "stat": "stat-qs>=1"
+        "stat": "stat-qs>=1&&stat-sinkingFlag!=1"
       },
       "exclude": {
         "class": "Scene"
@@ -315,6 +298,56 @@
     "effectComplete": {
       "primary": "trigger effect",
       "effectNumber": "selectedCard"
+    }
+  },
+  {
+    "action": {
+      "primary": "each"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "stat": "stat-sinkingFlag>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "afterEffect"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "deck",
+      "player": "target card owner",
+      "stackLocation": "bottom"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
     }
   },
   {
