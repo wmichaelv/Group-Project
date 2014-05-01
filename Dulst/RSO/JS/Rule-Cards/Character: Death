@@ -24,7 +24,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "endPhase"
+        "primary": "countDeck"
       }
     },
     "target": {},
@@ -149,7 +149,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "endPhase"
+        "primary": "countDeck"
       }
     },
     "target": {},
