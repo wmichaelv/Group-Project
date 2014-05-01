@@ -1562,6 +1562,19 @@
   },
   {
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "countDeck"
+      }
+    },
+    "target": {},
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "countDeckPreAttack"
+  },
+  {
+    "action": {
       "primary": "verify target",
       "comparisonOperators": ">",
       "value": "effect defenderEV"
@@ -1891,6 +1904,19 @@
       "primary": "trigger next effect"
     },
     "effectName": "attackerEV"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "countDeck"
+      }
+    },
+    "target": {},
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "countDeckPreIntercept"
   },
   {
     "action": {
