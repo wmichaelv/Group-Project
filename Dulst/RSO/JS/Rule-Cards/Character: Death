@@ -22,6 +22,18 @@
   },
   {
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "endPhase"
+      }
+    },
+    "target": {},
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "verify target",
       "comparisonOperators": "<=",
       "value": "0"
@@ -132,6 +144,18 @@
       "playerProperty": "hp"
     },
     "effectName": "oppTrigger"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "endPhase"
+      }
+    },
+    "target": {},
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
