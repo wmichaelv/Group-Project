@@ -73,8 +73,7 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "prePreReplPhase"
+    }
   },
   {
     "action": {
@@ -92,6 +91,24 @@
   },
   {
     "action": {
+      "primary": "send card to",
+      "location": "deadpool",
+      "player": "owner",
+      "silent": "silent"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "deadpool",
+        "player": "owner"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "trigger event",
       "event": {
         "primary": "pre-replPhase"
@@ -102,30 +119,7 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "preReplPhase"
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "pre-repl"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "from": [
-          "afterlife",
-          "board",
-          "deadpool"
-        ]
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "preReplPerCard"
+    }
   },
   {
     "action": {
@@ -139,8 +133,7 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "spAndDraw"
+    }
   },
   {
     "action": {
@@ -152,29 +145,7 @@
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "replBackAndForth"
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "post-repl"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "from": [
-          "afterlife",
-          "board",
-          "deadpool"
-        ]
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "postReplPerCard"
+    "effectName": "replbackandforth"
   },
   {
     "action": {
@@ -189,7 +160,7 @@
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "postReplPhase"
+    "effectName": "postRepl"
   },
   {
     "action": {
@@ -267,6 +238,24 @@
   },
   {
     "action": {
+      "primary": "send card to",
+      "location": "deadpool",
+      "player": "owner",
+      "silent": "silent"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "deadpool",
+        "player": "owner"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "trigger event",
       "event": {
         "primary": "pre-pre-battlePhase"
@@ -277,8 +266,7 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "prePreBattlePhase"
+    }
   },
   {
     "action": {
@@ -292,30 +280,7 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "preBattlePhase"
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "pre-battle"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "from": [
-          "afterlife",
-          "board",
-          "deadpool"
-        ]
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "preBattlePerCard"
+    }
   },
   {
     "action": {
@@ -1597,19 +1562,6 @@
   },
   {
     "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "countDeck"
-      }
-    },
-    "target": {},
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "countDeckPreAttack"
-  },
-  {
-    "action": {
       "primary": "verify target",
       "comparisonOperators": ">",
       "value": "effect defenderEV"
@@ -1939,19 +1891,6 @@
       "primary": "trigger next effect"
     },
     "effectName": "attackerEV"
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "countDeck"
-      }
-    },
-    "target": {},
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "countDeckPreIntercept"
   },
   {
     "action": {
@@ -2502,28 +2441,6 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "post-battle"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "from": [
-          "afterlife",
-          "board",
-          "deadpool"
-        ]
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "endBattlePhase"
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
         "primary": "post-battlePhase"
       }
     },
@@ -2533,7 +2450,7 @@
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "postBattlePhase"
+    "effectName": "endBattlePhase"
   },
   {
     "action": {
@@ -2625,6 +2542,24 @@
   },
   {
     "action": {
+      "primary": "send card to",
+      "location": "deadpool",
+      "player": "owner",
+      "silent": "silent"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "deadpool",
+        "player": "owner"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "trigger event",
       "event": {
         "primary": "pre-pre-preparationPhase"
@@ -2635,8 +2570,7 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "prePrePreparationPhase"
+    }
   },
   {
     "action": {
@@ -2650,30 +2584,7 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "prePreparationPhase"
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "pre-Preparation"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "from": [
-          "afterlife",
-          "board",
-          "deadpool"
-        ]
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "prePreparationByHand"
+    }
   },
   {
     "action": {
@@ -2695,6 +2606,62 @@
     "target": {
       "primary": "opponent"
     }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "from": "hand",
+        "player": "owner"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "cardsInHand"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">",
+      "value": "7"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "cardsInHand"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "nextTurn"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "afterlife"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "owner"
+      },
+      "count": "10 - effect cardsInHand",
+      "criteria": {
+        "from": "hand",
+        "player": "owner"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "nextTurn"
+    },
+    "effectName": "discard"
   },
   {
     "action": {
