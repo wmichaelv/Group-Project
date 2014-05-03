@@ -113,6 +113,17 @@
     "action": {
       "primary": "verify target",
       "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "value",
+      "value": "effect lvl"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
       "value": "effect lvl"
     },
     "target": {
