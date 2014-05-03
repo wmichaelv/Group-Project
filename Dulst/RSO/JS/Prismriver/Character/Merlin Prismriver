@@ -185,7 +185,7 @@
       "primary": "card",
       "cardProperty": "hp",
       "criteria": {
-        "passing": "currLeader"
+        "passing": "selectedCard"
       }
     },
     "effectComplete": {
