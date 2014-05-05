@@ -17,6 +17,26 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "discardTargetableByOwnEvents",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyFail"
+    }
+  },
+  {
+    "action": {
       "primary": "verify target"
     },
     "target": {
