@@ -30,7 +30,7 @@
       "primary": "card",
       "cardProperty": "reqPass",
       "criteria": {
-        "passing": "this card"
+        "passing": "card"
       }
     },
     "effectName": "finishChecking"
@@ -45,7 +45,7 @@
       "primary": "card",
       "cardProperty": "reqPass",
       "criteria": {
-        "passing": "this card"
+        "passing": "card"
       }
     },
     "effectComplete": {
