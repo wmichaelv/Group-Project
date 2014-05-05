@@ -125,7 +125,7 @@
   {
     "action": {
       "primary": "run effect",
-      "effectNumber": "ciid",
+      "effectNumber": "cardCiid",
       "callback": "effect completion"
     },
     "target": {
@@ -167,7 +167,7 @@
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "ciid"
+    "effectName": "cardCiid"
   },
   {
     "action": {
@@ -180,7 +180,7 @@
       "cardProperty": "targetableByOwnSpecials",
       "criteria": {
         "from": "board",
-        "stat": "stat-ciid=effect ciid"
+        "stat": "stat-ciid=effect cardCiid"
       }
     },
     "effectComplete": {
@@ -193,7 +193,10 @@
       "operation": "=",
       "magnitude": "0",
       "undo": {
-        "primary": "game event",
+        "primary": [
+          "default",
+          "game event"
+        ],
         "event": [
           "post-battlePhase",
           "post-replPhase"
@@ -205,7 +208,7 @@
       "cardProperty": "lvl",
       "criteria": {
         "from": "board",
-        "stat": "stat-ciid=effect ciid"
+        "stat": "stat-ciid=effect cardCiid"
       }
     },
     "effectComplete": {
@@ -223,7 +226,7 @@
       "primary": "card",
       "criteria": {
         "from": "board",
-        "stat": "stat-ciid=effect ciid"
+        "stat": "stat-ciid=effect cardCiid"
       }
     }
   }
