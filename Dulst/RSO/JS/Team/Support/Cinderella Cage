@@ -210,7 +210,7 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "post-battlePhase"
+        "primary": "pre-preparationPhase"
       },
       "undo": {
         "primary": "game event",
