@@ -174,7 +174,8 @@
       }
     },
     "target": {
-      "primary": "owner"
+      "primary": "owner",
+      "playerProperty": "hp"
     },
     "effectName": "triggerOnDamage"
   },
