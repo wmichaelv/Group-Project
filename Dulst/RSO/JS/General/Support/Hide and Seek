@@ -57,7 +57,6 @@
       "primary": "card",
       "cardProperty": "disableBA",
       "criteria": {
-        "passing": "cardC",
         "from": "board",
         "stat": "stat-ciid=effect ciid"
       }
