@@ -14,7 +14,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb,passivec,passived,passivee,passivef"
+      "effectNumber": "passiveb,passived,passivee,passivef"
     },
     "effectName": "passive"
   },
@@ -98,7 +98,7 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "av",
+      "cardProperty": "oAV",
       "criteria": {
         "passing": "selectedCard"
       }
@@ -603,10 +603,7 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": [
-          "post-statIncrease",
-          "post-statDecrease"
-        ]
+        "primary": "lostLevel"
       }
     },
     "target": {
