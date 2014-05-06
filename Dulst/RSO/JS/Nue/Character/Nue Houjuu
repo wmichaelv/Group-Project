@@ -4,6 +4,10 @@
       "primary": "trigger on event",
       "event": {
         "primary": "pre-pre-replPhase"
+      },
+      "undo": {
+        "primary": "game event",
+        "event": "pre-replPhase"
       }
     },
     "target": {
