@@ -526,6 +526,17 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "endTurnFlag"
+    }
+  },
+  {
+    "action": {
       "primary": "set to attack position"
     },
     "target": {
