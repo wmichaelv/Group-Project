@@ -1,9 +1,5 @@
 [
   {
-    "ruleTrigger": {
-      "primary": "start",
-      "player": "each player"
-    },
     "action": {
       "primary": "assign variable"
     },
