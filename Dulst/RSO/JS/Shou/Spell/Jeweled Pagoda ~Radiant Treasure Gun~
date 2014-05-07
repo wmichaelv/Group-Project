@@ -315,6 +315,17 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "damageAmount"
+    }
+  },
+  {
+    "action": {
       "primary": "assign variable"
     },
     "target": {
