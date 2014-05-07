@@ -275,10 +275,9 @@
       "primary": "card",
       "cardProperty": "qualifiedTarget",
       "criteria": {
-        "player": "opponent",
+        "player": "owner",
         "class": "Leader",
-        "type": "Character",
-        "stat": "stat-targetableByOppEvents>=1&&stat-disableEquip!=1"
+        "type": "Character"
       }
     },
     "effectComplete": {
