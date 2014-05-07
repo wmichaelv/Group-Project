@@ -1220,6 +1220,19 @@
   },
   {
     "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard",
+        "from": "board",
+        "player": "owner"
+      }
+    }
+  },
+  {
+    "action": {
       "primary": "send card to",
       "location": "afterlife",
       "player": "target card owner"
