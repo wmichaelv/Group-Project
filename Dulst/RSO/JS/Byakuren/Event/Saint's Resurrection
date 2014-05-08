@@ -1226,8 +1226,7 @@
       "primary": "card",
       "criteria": {
         "passing": "selectedCard",
-        "from": "board",
-        "player": "owner"
+        "from": "board"
       }
     }
   },
