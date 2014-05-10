@@ -260,6 +260,9 @@
       "primary": "card",
       "criteria": {
         "player": "owner"
+      },
+      "exclude": {
+        "class": "Scene"
       }
     },
     "effectName": "passive"
