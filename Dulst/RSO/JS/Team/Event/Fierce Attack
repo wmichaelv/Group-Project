@@ -471,7 +471,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "discard"
+      "effectNumber": "afterCount"
     },
     "effectName": "countB"
   },
@@ -526,7 +526,8 @@
     "effectComplete": {
       "primary": "trigger effect",
       "effectNumber": "afterDiscard"
-    }
+    },
+    "effectName": "afterCount"
   },
   {
     "action": {
