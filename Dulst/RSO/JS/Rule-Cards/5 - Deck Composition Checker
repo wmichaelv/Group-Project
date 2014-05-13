@@ -876,7 +876,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "ownLoses"
+      "effectNumber": "ownLosesTeam"
     },
     "effectName": "verifyOnC1ACountTeam"
   },
@@ -896,7 +896,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "ownLoses"
+      "effectNumber": "ownLosesTeam"
     },
     "effectName": "verifyOnC2ACountTeam"
   },
@@ -1083,7 +1083,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "ownLoses"
+      "effectNumber": "ownLosesTeam"
     },
     "effectName": "verifyOnC1BCountTeam"
   },
@@ -1103,7 +1103,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "ownLoses"
+      "effectNumber": "ownLosesTeam"
     },
     "effectName": "verifyOnC2BCountTeam"
   },
