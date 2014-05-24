@@ -70,6 +70,20 @@
   },
   {
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "deckTargetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "send card to",
       "location": "afterlife",
       "player": "target card owner",
@@ -82,25 +96,6 @@
         "from": "deck",
         "player": "opponent",
         "first": "2"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "deckTargetedByEvent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "player": "opponent",
-        "class": "Leader",
-        "type": "Character"
       }
     },
     "effectComplete": {
@@ -128,10 +123,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "-",
-      "magnitude": "2",
-      "undo": {
-        "primary": "permanent"
-      }
+      "magnitude": "2"
     },
     "target": {
       "primary": "owner",
