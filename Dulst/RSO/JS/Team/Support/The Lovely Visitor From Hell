@@ -61,7 +61,8 @@
     "action": {
       "primary": "send card to",
       "location": "SecondRow",
-      "player": "opponent"
+      "player": "opponent",
+      "silent": "silent"
     },
     "target": {
       "primary": "card",
@@ -306,7 +307,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner"
+      "player": "owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
