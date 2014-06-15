@@ -41,6 +41,20 @@
   {
     "action": {
       "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
       "comparisonOperators": ">=",
       "value": "1"
     },
@@ -154,7 +168,7 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "post-useEvent"
+        "primary": "pre-useEvent"
       }
     },
     "target": {
@@ -165,6 +179,39 @@
       }
     },
     "effectName": "passiveb"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-useEvent"
+      },
+      "undo": {
+        "primary": "game event",
+        "event": "pre-useEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "opponent",
+        "type": "Event"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    }
   },
   {
     "action": {
