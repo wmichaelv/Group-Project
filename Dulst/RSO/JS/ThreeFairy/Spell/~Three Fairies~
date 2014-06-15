@@ -12,12 +12,13 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "this card"
+        "passing": "this card",
+        "stat": "stat-disableSpecial!=1"
       }
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb,passivec,passived,passivee,passivef,passiveg,passiveh"
+      "effectNumber": "passiveb,undoA,undoB,undoC,undoD,undoE,undoF,undoG"
     },
     "effectName": "passive"
   },
@@ -274,8 +275,8 @@
       "primary": "trigger on event",
       "event": {
         "primary": [
-          "pre-battlePhase",
-          "pre-replPhase"
+          "pre-pre-replPhase",
+          "pre-pre-battlePhase"
         ]
       }
     },
@@ -286,54 +287,32 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "Preparation"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "startEffect"
+  },
+  {
+    "action": {
       "primary": "verify target"
     },
     "target": {
       "primary": "card",
       "criteria": {
         "passing": "this card",
-        "from": "FirstRow"
-      }
-    },
-    "effectName": "turnOn"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "isOnFlag",
-      "criteria": {
-        "passing": "this card"
+        "from": "FirstRow",
+        "stat": "stat-disableSpecial!=1"
       }
     }
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "isOnFlag",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "each"
+      "primary": "assign variable"
     },
     "target": {
       "primary": "card",
@@ -345,63 +324,10 @@
         "stat": "stat-targetableByOwnSpecials>=1&&stat-isEquippedWithSupport!=1"
       }
     },
-    "effectName": "cardB"
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "lvl",
-      "criteria": {
-        "passing": "cardB"
-      }
-    },
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "levelB"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "effect levelB",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "threeFairiesAmount",
-      "criteria": {
-        "passing": "cardB"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "threeFairiesFlag",
-      "criteria": {
-        "passing": "cardB"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
+    "effectName": "selectedCard"
   },
   {
     "action": {
@@ -409,14 +335,15 @@
       "operation": "=",
       "magnitude": "0",
       "undo": {
-        "primary": "permanent"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyRed,verifySpecial,verifyBP,verifyActive,verifySupp,verifySuppB"
       }
     },
     "target": {
       "primary": "card",
       "cardProperty": "lvl",
       "criteria": {
-        "passing": "cardB"
+        "passing": "selectedCard"
       }
     },
     "effectComplete": {
@@ -433,7 +360,7 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "cardB"
+        "passing": "selectedCard"
       }
     }
   },
@@ -441,269 +368,174 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-replPhase"
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOwnSpecials",
+      "criteria": {
+        "from": "board",
+        "player": "owner",
+        "class": "ThreeFairy",
+        "type": "Spell"
+      }
+    },
+    "effectName": "undoA"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "dummy",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifyRed"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "undoB"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifySpecial"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-battlePhase"
       }
     },
     "target": {
       "primary": "game"
     },
-    "effectName": "passivec"
+    "effectName": "undoC"
   },
   {
     "action": {
-      "primary": "verify target"
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle",
+      "verifyTrue": "doNothing"
     },
     "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card",
-        "from": "SecondRow"
-      }
-    }
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "verifyBP"
   },
   {
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "activate"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-replPhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "run effect",
-      "effectNumber": "turnOn",
-      "callback": "effect completion"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "pre-battlePhase"
+        "primary": "post-replPhase"
       }
     },
     "target": {
       "primary": "game"
     },
-    "effectName": "passived"
+    "effectName": "undoD"
   },
   {
     "action": {
-      "primary": "verify target"
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Replenishing",
+      "verifyTrue": "doNothing"
     },
     "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card",
-        "from": "SecondRow"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "activate"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
+      "primary": "game",
+      "gameProperty": "phase"
     },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "run effect",
-      "effectNumber": "turnOn",
-      "callback": "effect completion"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    }
+    "effectName": "verifyRP"
   },
   {
     "action": {
       "primary": "trigger on event",
       "event": {
         "primary": [
-          "post-battlePhase",
-          "post-replPhase"
+          "reserve",
+          "activate"
         ]
       }
     },
     "target": {
-      "primary": "game"
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
     },
-    "effectName": "passivee"
+    "effectName": "undoE"
   },
   {
     "action": {
       "primary": "verify target",
       "comparisonOperators": ">=",
-      "value": "1"
+      "value": "1",
+      "verifyTrue": "startEffect"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "isOnFlag",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectName": "turnOff"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "isOnFlag",
+      "cardProperty": "dummy",
       "criteria": {
         "passing": "this card"
       }
     },
     "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "each"
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
     },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "from": "board",
-        "player": "owner",
-        "class": "ThreeFairy",
-        "type": "Spell",
-        "stat": "stat-threeFairiesFlag>=1"
-      }
-    },
-    "effectName": "cardE"
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "threeFairiesAmount",
-      "criteria": {
-        "passing": "cardE"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "levelE"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "threeFairiesFlag",
-      "criteria": {
-        "passing": "cardE"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "effect levelE",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "lvl",
-      "criteria": {
-        "passing": "cardE"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "lostLevel"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "cardE"
-      }
-    }
+    "effectName": "verifyActive"
   },
   {
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-replPhase"
-      }
-    },
-    "target": {
-      "primary": "game"
-    },
-    "effectName": "passivef"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "reserve"
+        "primary": "removeFromBoard"
       },
       "undo": {
-        "primary": "game event",
-        "event": "post-replPhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp"
       }
     },
     "target": {
@@ -711,228 +543,60 @@
       "criteria": {
         "passing": "this card"
       }
-    }
-  },
-  {
-    "action": {
-      "primary": "run effect",
-      "effectNumber": "turnOff",
-      "callback": "effect completion"
     },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "post-statDecrease"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "from": "board",
-        "player": "owner",
-        "class": "ThreeFairy",
-        "type": "Spell",
-        "stat": "stat-targetableByOwnSpecials>=1&&stat-lvl<=0&&stat-isEquippedWithSupport!=1&&stat-threeFairiesFlag!=1"
-      }
-    },
-    "effectName": "passiveg"
+    "effectName": "undoF"
   },
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "Preparation"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "phase"
-    }
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "lvl",
-      "criteria": {
-        "passing": "passiveg"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "levelG"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "effect levelG",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "threeFairiesAmount",
-      "criteria": {
-        "passing": "passiveg"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "threeFairiesFlag",
-      "criteria": {
-        "passing": "passiveg"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "lvl",
-      "criteria": {
-        "passing": "passiveg"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "lostLevel"
-      }
+      "verifyTrue": "doNothing"
     },
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "passiveg"
+        "passing": "this card",
+        "from": "board"
       }
-    }
+    },
+    "effectName": "verifySupp"
   },
   {
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "post-statIncrease"
+        "primary": "post-statChange"
       }
     },
     "target": {
       "primary": "card",
+      "cardProperty": "isEquippedWithSupport",
       "criteria": {
         "from": "board",
         "player": "owner",
         "class": "ThreeFairy",
-        "type": "Spell",
-        "stat": "stat-isEquippedWithSupport>=1&&stat-threeFairiesFlag>=1"
+        "type": "Spell"
       }
     },
-    "effectName": "passiveh"
+    "effectName": "undoG"
   },
   {
     "action": {
-      "primary": "assign variable"
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "threeFairiesAmount",
+      "cardProperty": "dummy",
       "criteria": {
-        "passing": "passiveh"
+        "passing": "this card"
       }
     },
     "effectComplete": {
-      "primary": "trigger next effect"
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
     },
-    "effectName": "levelH"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "threeFairiesFlag",
-      "criteria": {
-        "passing": "passiveh"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "effect levelH",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "lvl",
-      "criteria": {
-        "passing": "passiveh"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "lostLevel"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "passiveh"
-      }
-    }
+    "effectName": "verifySuppB"
   }
 ]
