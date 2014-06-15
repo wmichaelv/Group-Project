@@ -45,7 +45,8 @@
       "cardProperty": "targetableByOwnSpecials",
       "criteria": {
         "player": "owner",
-        "class": "Battle Spell"
+        "class": "Battle Spell",
+        "stat": "stat-doubleHornFlag!=1"
       }
     },
     "effectComplete": {
@@ -163,7 +164,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner"
+      "player": "owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
@@ -199,6 +201,23 @@
     "target": {
       "primary": "card",
       "cardProperty": "canActivate",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "post-useSpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
       "criteria": {
         "passing": "this card"
       }
