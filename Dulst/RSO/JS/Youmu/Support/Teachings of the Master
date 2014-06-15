@@ -163,10 +163,7 @@
   },
   {
     "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "targetedBySpecial"
-      }
+      "primary": "each"
     },
     "target": {
       "primary": "card",
@@ -176,6 +173,25 @@
         "class": "Youmu",
         "type": "Spell",
         "stat": "stat-targetableByOwnSpecials>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterEffect"
+    },
+    "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedBySpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
       }
     },
     "effectComplete": {
@@ -196,11 +212,7 @@
       "primary": "card",
       "cardProperty": "av",
       "criteria": {
-        "from": "board",
-        "player": "owner",
-        "class": "Youmu",
-        "type": "Spell",
-        "stat": "stat-targetableByOwnSpecials>=1"
+        "passing": "selectedCard"
       }
     },
     "effectComplete": {
@@ -221,11 +233,7 @@
       "primary": "card",
       "cardProperty": "iv",
       "criteria": {
-        "from": "board",
-        "player": "owner",
-        "class": "Youmu",
-        "type": "Spell",
-        "stat": "stat-targetableByOwnSpecials>=1"
+        "passing": "selectedCard"
       }
     },
     "effectComplete": {
@@ -246,11 +254,7 @@
       "primary": "card",
       "cardProperty": "hv",
       "criteria": {
-        "from": "board",
-        "player": "owner",
-        "class": "Youmu",
-        "type": "Spell",
-        "stat": "stat-targetableByOwnSpecials>=1"
+        "passing": "selectedCard"
       }
     },
     "effectComplete": {
@@ -267,15 +271,8 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "from": "board",
-        "player": "owner",
-        "class": "Youmu",
-        "type": "Spell",
-        "stat": "stat-targetableByOwnSpecials>=1"
+        "passing": "selectedCard"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   },
   {
@@ -290,7 +287,8 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "afterEffect"
   },
   {
     "action": {
@@ -301,6 +299,23 @@
     "target": {
       "primary": "card",
       "cardProperty": "canActivate",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "post-useSpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
       "criteria": {
         "passing": "this card"
       }
