@@ -18,7 +18,10 @@
         "primary": "preDamagedBySpell"
       },
       "undo": {
-        "primary": "game event",
+        "primary": [
+          "default",
+          "game event"
+        ],
         "event": "post-battlePhase"
       }
     },
@@ -28,6 +31,20 @@
         "player": "owner",
         "class": "Leader",
         "type": "Character"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
       }
     }
   },
@@ -252,7 +269,10 @@
       "operation": "+",
       "magnitude": "99",
       "undo": {
-        "primary": "game event",
+        "primary": [
+          "default",
+          "game event"
+        ],
         "event": "post-battlePhase"
       }
     },
