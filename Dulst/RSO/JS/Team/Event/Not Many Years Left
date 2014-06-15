@@ -112,35 +112,25 @@
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "effect oppHP / 2",
-      "undo": {
-        "primary": "permanent"
-      }
+      "primary": "assign variable"
     },
     "target": {
-      "primary": "card",
-      "cardProperty": "damage",
-      "criteria": {
-        "passing": "this card"
-      }
+      "primary": "value",
+      "value": "effect oppHP / 2"
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "halfAmount"
   },
   {
     "action": {
       "primary": "modify stats",
-      "operation": "floor",
-      "undo": {
-        "primary": "permanent"
-      }
+      "operation": "floor"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "damage",
+      "cardProperty": "effect-halfAmount",
       "criteria": {
         "passing": "this card"
       }
@@ -155,7 +145,7 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "damage",
+      "cardProperty": "effect-halfAmount",
       "criteria": {
         "passing": "this card"
       }
@@ -272,7 +262,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner"
+      "player": "owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
@@ -606,7 +597,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner"
+      "player": "owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
