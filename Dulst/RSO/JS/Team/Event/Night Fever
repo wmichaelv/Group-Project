@@ -135,7 +135,8 @@
     "action": {
       "primary": "send card to",
       "location": "FirstRow",
-      "player": "target card owner"
+      "player": "target card owner",
+      "silent": "silent"
     },
     "target": {
       "primary": "card",
@@ -182,7 +183,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner"
+      "player": "owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
