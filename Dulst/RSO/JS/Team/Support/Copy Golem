@@ -36,12 +36,15 @@
       "primary": "trigger on event",
       "event": {
         "primary": [
-          "setIntercept",
-          "setAttacker"
+          "setAttacker",
+          "setIntercept"
         ]
       },
       "undo": {
-        "primary": "game event",
+        "primary": [
+          "default",
+          "game event"
+        ],
         "event": "post-battlePhase"
       }
     },
@@ -60,12 +63,29 @@
         "primary": "preLostHP"
       },
       "undo": {
-        "primary": "game event",
+        "primary": [
+          "default",
+          "game event"
+        ],
         "event": "pre-preparationPhase"
       }
     },
     "target": {
       "primary": "opponent"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
     }
   },
   {
@@ -107,35 +127,39 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": [
-          "pre-battlePhase",
-          "pre-replPhase"
-        ]
-      }
-    },
-    "target": {
-      "primary": "game"
-    },
-    "effectName": "passiveb"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
         "primary": "post-moveCard",
-        "to": "afterlife"
+        "to": "afterlife",
+        "toPlayer": "owner"
       },
       "undo": {
-        "primary": "game event",
-        "event": "pre-preparationPhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyOnBoard"
       }
     },
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "this card"
+        "passing": "this card",
+        "stat": "stat-disableSpecial!=1"
       }
-    }
+    },
+    "effectName": "passiveb"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "from": "board"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "verifyOnBoard"
   },
   {
     "action": {
