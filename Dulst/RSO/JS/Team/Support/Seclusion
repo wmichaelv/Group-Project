@@ -3,7 +3,7 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-pre-battlePhase"
+        "primary": "pre-battlePhase"
       }
     },
     "target": {
@@ -33,7 +33,8 @@
     "action": {
       "primary": "send card to",
       "location": "SecondRow",
-      "player": "target card owner"
+      "player": "target card owner",
+      "silent": "silent"
     },
     "target": {
       "primary": "card",
@@ -75,6 +76,84 @@
   },
   {
     "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "pre-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "passiveb"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      },
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "lvl",
+      "criteria": {
+        "from": "board",
+        "stat": "stat-lvl>=3"
+      }
+    },
+    "effectName": "cardB"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "SecondRow",
+      "player": "target card owner",
+      "silent": "silent"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "cardB"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "set to defense position"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "cardB"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "reserve"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "cardB"
+      }
+    }
+  },
+  {
+    "action": {
       "primary": "verify target",
       "comparisonOperators": "==",
       "value": "Replenishing"
@@ -87,7 +166,7 @@
       "primary": "trigger effect",
       "effectNumber": "startPassive"
     },
-    "effectName": "passiveb"
+    "effectName": "passivec"
   },
   {
     "action": {
@@ -110,8 +189,8 @@
       "primary": "trigger on event",
       "event": {
         "primary": [
-          "pre-pre-battlePhase",
-          "pre-pre-replPhase"
+          "pre-pre-replPhase",
+          "pre-pre-battlePhase"
         ]
       }
     },
