@@ -30,7 +30,8 @@
       "primary": "card",
       "cardProperty": "isOnFlag",
       "criteria": {
-        "passing": "this card"
+        "passing": "this card",
+        "stat": "stat-disableSpecial!=1"
       }
     }
   },
