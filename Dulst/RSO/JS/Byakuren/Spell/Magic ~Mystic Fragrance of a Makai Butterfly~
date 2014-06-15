@@ -3,36 +3,49 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "game"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "passiveb"
-    },
-    "effectName": "passive"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
         "primary": [
           "setAttacker",
           "setIntercept"
         ]
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
       }
     },
     "target": {
       "primary": "card",
       "criteria": {
         "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "undoA,undoB,undoC,undoD"
+    },
+    "effectName": "passive"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "opponent",
+      "playerProperty": "canBV"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "startEffect"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "class": "Battle Spell",
+        "stat": "stat-disableSpecial!=1"
       }
     }
   },
@@ -50,6 +63,9 @@
         "class": "Leader",
         "type": "Character"
       }
+    },
+    "effectComplete": {
+      "primary": "nothing"
     }
   },
   {
@@ -70,15 +86,27 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "post-battlePhase"
+        "primary": "post-statChange"
       },
       "undo": {
-        "primary": "game event",
-        "event": "pre-preparationPhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyRed,verifyBS,verifySpecial,verifyBP"
       }
     },
     "target": {
-      "primary": "game"
+      "primary": "owner",
+      "playerProperty": "canBV"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "canBV"
     }
   },
   {
@@ -90,6 +118,145 @@
     "target": {
       "primary": "opponent",
       "playerProperty": "canBV"
-    }
+    },
+    "effectName": "undoEffect"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOppSpecials",
+      "criteria": {
+        "player": "opponent",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectName": "undoA"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOppSpecials",
+      "criteria": {
+        "player": "opponent",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifyRed"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "trick"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "undoB"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifyBS"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "undoC"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifySpecial"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "undoD"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle",
+      "verifyTrue": "undoEffect"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "undoEffect"
+    },
+    "effectName": "verifyBP"
   }
 ]
