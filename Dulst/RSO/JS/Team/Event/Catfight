@@ -336,52 +336,28 @@
   },
   {
     "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "post-battlePhase"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "pre-preparationPhase"
-      }
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "0"
     },
     "target": {
-      "primary": "game"
+      "primary": "owner",
+      "playerProperty": "sp"
     },
     "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "spUse"
+      "primary": "trigger next effect"
     },
     "effectName": "sp2Activate"
   },
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "targetableByOppEvents",
-      "criteria": {
-        "from": "board",
-        "player": "opponent",
-        "class": "Spell",
-        "type": "Support"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "send card to",
-      "location": "afterlife",
-      "player": "target card owner"
+      "primary": "assign variable"
     },
     "target": {
       "primary": "card",
       "selector": {
         "primary": "owner",
-        "instructions": "Select an opponent Spell Support card to discard."
+        "instructions": "Select an opponent Spell Support card to discard at end of Battle Phase."
       },
       "count": "1",
       "criteria": {
@@ -412,8 +388,86 @@
       }
     },
     "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "extraCostTarget",
+      "criteria": {
+        "passing": "discard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterCheck"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "failExtraCost"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "failExtraCost"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-battlePhase"
+      },
+      "undo": {
+        "primary": "game event",
+        "event": "pre-preparationPhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectComplete": {
       "primary": "trigger effect",
       "effectNumber": "spUse"
+    },
+    "effectName": "afterCheck"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "discard",
+        "from": "board"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "afterlife",
+      "player": "target card owner",
+      "stackLocation": "top"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "discard"
+      }
     }
   },
   {
@@ -435,7 +489,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner"
+      "player": "owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
@@ -447,21 +502,6 @@
       "primary": "trigger effect",
       "effectNumber": "passive"
     }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "qualifiedSelect",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectName": "verifyFail"
   },
   {
     "action": {
@@ -539,5 +579,33 @@
       }
     },
     "effectName": "verifyFail"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "failExtraCost"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "failExtraCost"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "hand",
+      "player": "owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    }
   }
 ]
