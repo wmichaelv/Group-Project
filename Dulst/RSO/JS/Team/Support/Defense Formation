@@ -4,7 +4,7 @@
       "primary": "trigger on event",
       "event": {
         "primary": [
-          "pre-useSpecial",
+          "post-useSpecial",
           "post-useEvent"
         ]
       }
@@ -16,6 +16,20 @@
       }
     },
     "effectName": "passive"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    }
   },
   {
     "action": {
