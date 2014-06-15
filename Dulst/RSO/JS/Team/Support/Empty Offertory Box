@@ -64,9 +64,27 @@
   },
   {
     "action": {
-      "primary": "send card to",
-      "location": "afterlife",
-      "player": "target card owner"
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "canActivate",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "post-useSpecial"
+      }
     },
     "target": {
       "primary": "card",
@@ -80,13 +98,13 @@
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0"
+      "primary": "send card to",
+      "location": "afterlife",
+      "player": "target card owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "canActivate",
       "criteria": {
         "passing": "this card"
       }
@@ -129,7 +147,10 @@
         "primary": "pre-pre-replPhase"
       },
       "undo": {
-        "primary": "game event",
+        "primary": [
+          "default",
+          "game event"
+        ],
         "event": "pre-replPhase"
       }
     },
@@ -165,6 +186,23 @@
     "target": {
       "primary": "owner",
       "playerProperty": "yourTurn"
+    },
+    "effectComplete": {
+      "primary": "nothing"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
     },
     "effectComplete": {
       "primary": "nothing"
