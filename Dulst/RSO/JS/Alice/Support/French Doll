@@ -11,9 +11,35 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb"
+      "effectNumber": "undoA,undoB,undoC,undoD,undoE"
     },
     "effectName": "passive"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "startEffect"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    }
   },
   {
     "action": {
@@ -27,13 +53,11 @@
       "criteria": {
         "from": "board",
         "player": "owner",
-        "name": "French Doll"
+        "class": "Leader",
+        "name": "French Doll",
+        "type": "Support"
       }
-    },
-    "effectComplete": {
-      "primary": "nothing"
-    },
-    "effectName": "dollCount"
+    }
   },
   {
     "action": {
@@ -60,8 +84,8 @@
       "operation": "+",
       "magnitude": "1",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyRed,verifySupp,verifySuppB,verifySpecial,verifyBP"
       }
     },
     "target": {
@@ -69,28 +93,6 @@
       "cardProperty": "hv",
       "criteria": {
         "passing": "card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "modifyCard"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "isOnFlag",
-      "criteria": {
-        "passing": "this card"
       }
     },
     "effectComplete": {
@@ -115,102 +117,169 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-battlePhase"
+        "primary": "post-statChange"
       }
     },
     "target": {
-      "primary": "game"
+      "primary": "card",
+      "cardProperty": "targetableByOwnSpecials",
+      "criteria": {
+        "from": "board",
+        "player": "owner",
+        "type": "Spell"
+      }
     },
-    "effectName": "passiveb"
+    "effectName": "undoA"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "dummy",
+      "criteria": {
+        "passing": "undoA"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifyRed"
   },
   {
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "post-moveCard"
+        "primary": "removeFromBoard"
       },
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "undoB"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "from": "board"
+      }
+    },
+    "effectName": "verifySupp"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "undoC"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifySpecial"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "undoD"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "verifyBP"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "removeFromBoard"
       }
     },
     "target": {
       "primary": "card",
       "criteria": {
         "player": "owner",
-        "class": "Doll&&Leader",
-        "name": "French Doll",
-        "type": "Support"
+        "name": "French Doll"
+      },
+      "exclude": {
+        "passing": "this card"
       }
-    }
+    },
+    "effectName": "undoE"
   },
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "1"
+      "verifyTrue": "startEffect"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "isOnFlag",
       "criteria": {
-        "passing": "this card"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "isOnFlag",
-      "criteria": {
-        "passing": "this card"
+        "from": "board",
+        "name": "Dummy"
       }
     },
     "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
     },
-    "target": {
-      "primary": "card",
-      "cardProperty": "hv",
-      "criteria": {
-        "passing": "card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "run effect",
-      "effectNumber": "effect dollCount",
-      "callback": "effect completion"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    }
+    "effectName": "verifySuppB"
   }
 ]
