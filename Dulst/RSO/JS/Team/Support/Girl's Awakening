@@ -142,7 +142,10 @@
       "operation": "=",
       "magnitude": "1",
       "undo": {
-        "primary": "game event",
+        "primary": [
+          "default",
+          "game event"
+        ],
         "event": "post-battlePhase"
       }
     },
@@ -192,7 +195,10 @@
       "operation": "+",
       "magnitude": "1",
       "undo": {
-        "primary": "game event",
+        "primary": [
+          "default",
+          "game event"
+        ],
         "event": "post-battlePhase"
       }
     },
