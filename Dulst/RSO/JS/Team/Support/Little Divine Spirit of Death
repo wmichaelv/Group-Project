@@ -20,14 +20,15 @@
   },
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "Battle",
-      "verifyTrue": "proceed"
+      "primary": "run effect",
+      "effectNumber": "proceed",
+      "callback": "effect completion"
     },
     "target": {
-      "primary": "game",
-      "gameProperty": "phase"
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
     }
   },
   {
@@ -49,15 +50,31 @@
   },
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "Preparation",
-      "verifyTrue": "proceed"
+      "primary": "run effect",
+      "effectNumber": "proceed",
+      "callback": "effect completion"
     },
     "target": {
-      "primary": "game",
-      "gameProperty": "phase"
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
     }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "proceed"
   },
   {
     "action": {
@@ -73,8 +90,7 @@
         "class": "Leader",
         "type": "Character"
       }
-    },
-    "effectName": "proceed"
+    }
   },
   {
     "action": {
