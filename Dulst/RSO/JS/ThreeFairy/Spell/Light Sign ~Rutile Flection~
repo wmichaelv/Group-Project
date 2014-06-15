@@ -13,7 +13,7 @@
       "primary": "card",
       "criteria": {
         "passing": "this card",
-        "stat": "stat-lvl=0"
+        "stat": "stat-disableSpecial!=1&&stat-lvl=0"
       }
     },
     "effectName": "passive"
