@@ -11,9 +11,21 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb"
+      "effectNumber": "passiveb,undoA,undoB"
     },
     "effectName": "passive"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "startEffect"
   },
   {
     "action": {
@@ -38,8 +50,8 @@
       "operation": "=",
       "magnitude": "1",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp,verifyBP"
       }
     },
     "target": {
@@ -81,6 +93,18 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "startEffectB"
+  },
+  {
+    "action": {
       "primary": "assign variable"
     },
     "target": {
@@ -102,8 +126,8 @@
       "operation": "=",
       "magnitude": "0",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp,verifyBP"
       }
     },
     "target": {
@@ -123,8 +147,8 @@
       "operation": "=",
       "magnitude": "0",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp,verifyBP"
       }
     },
     "target": {
@@ -134,5 +158,67 @@
         "passing": "cardB"
       }
     }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "isEquippedWithSupport",
+      "criteria": {
+        "from": "board",
+        "type": "Spell"
+      }
+    },
+    "effectName": "undoA"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect,startEffectB"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "dummy",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect,startEffectB"
+    },
+    "effectName": "verifySupp"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "undoB"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "verifyBP"
   }
 ]
