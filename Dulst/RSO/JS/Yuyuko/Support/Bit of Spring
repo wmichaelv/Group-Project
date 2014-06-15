@@ -173,9 +173,27 @@
   },
   {
     "action": {
-      "primary": "send card to",
-      "location": "afterlife",
-      "player": "owner"
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "canActivate",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "post-useSpecial"
+      }
     },
     "target": {
       "primary": "card",
@@ -189,13 +207,13 @@
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0"
+      "primary": "send card to",
+      "location": "afterlife",
+      "player": "owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "canActivate",
       "criteria": {
         "passing": "this card"
       }
