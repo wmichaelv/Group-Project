@@ -136,7 +136,7 @@
       "magnitude": "0",
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": "pre-replPhase"
       }
     },
     "target": {
@@ -190,6 +190,23 @@
     "target": {
       "primary": "card",
       "cardProperty": "canActivate",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "post-useSpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
       "criteria": {
         "passing": "this card"
       }
@@ -262,6 +279,20 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    }
+  },
+  {
+    "action": {
       "primary": "assign variable"
     },
     "target": {
@@ -319,6 +350,20 @@
       "criteria": {
         "player": "opponent",
         "class": "Battle Spell"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
       }
     }
   },
