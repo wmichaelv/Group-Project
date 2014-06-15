@@ -181,7 +181,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner"
+      "player": "owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
@@ -230,22 +231,6 @@
       }
     },
     "effectName": "extraCostBattle"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">",
-      "value": "4"
-    },
-    "target": {
-      "primary": "opponent",
-      "playerProperty": "hp"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "failExtraCost"
-    },
-    "effectName": "checkOpp"
   },
   {
     "action": {
