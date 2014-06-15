@@ -21,7 +21,9 @@
       "primary": "card",
       "cardProperty": "targetableByOwnSpecials",
       "criteria": {
-        "passing": "this card"
+        "passing": "this card",
+        "from": "FirstRow",
+        "stat": "stat-disableSpecial!=1"
       }
     },
     "effectComplete": {
@@ -30,7 +32,9 @@
   },
   {
     "action": {
-      "primary": "assign variable"
+      "primary": "verify target",
+      "comparisonOperators": "<",
+      "value": "4"
     },
     "target": {
       "primary": "card",
@@ -42,30 +46,14 @@
         "type": "Support"
       }
     },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
     "effectName": "dollCount"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "<",
-      "value": "4"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "effect-dollCount",
-      "criteria": {
-        "passing": "this card"
-      }
-    }
   },
   {
     "action": {
       "primary": "send card to",
       "location": "SecondRow",
-      "player": "owner"
+      "player": "owner",
+      "silent": "silent"
     },
     "target": {
       "primary": "card",
@@ -95,7 +83,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,reserve"
+        "primary": "reserve"
       }
     },
     "target": {
@@ -103,9 +91,6 @@
       "criteria": {
         "passing": "this card"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   }
 ]
