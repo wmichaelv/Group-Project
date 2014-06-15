@@ -89,6 +89,20 @@
   },
   {
     "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "DRAW"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "trigger event",
       "event": {
         "primary": "deckTargetedByEvent"
@@ -372,6 +386,20 @@
       "primary": "trigger next effect"
     },
     "effectName": "spUse"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "DRAW"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
