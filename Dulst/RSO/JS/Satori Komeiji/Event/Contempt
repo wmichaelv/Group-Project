@@ -1,68 +1,19 @@
 [
   {
     "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "setIntercept"
-      }
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "3"
     },
     "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card",
-        "stat": "stat-disableSpecial!=1"
-      }
+      "primary": "owner",
+      "playerProperty": "sp"
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "undoA,undoB,undoC,undoD,undoE"
+      "effectNumber": "verifyFail"
     },
-    "effectName": "passive"
-  },
-  {
-    "action": {
-      "primary": "verify target"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card",
-        "class": "Battle Spell",
-        "stat": "stat-disableSpecial!=1"
-      }
-    },
-    "effectComplete": {
-      "primary": "nothing"
-    },
-    "effectName": "startEffect"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "Koishi"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "charName"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "requestLevel"
-      }
-    },
-    "target": {
-      "primary": "owner"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
+    "effectName": "verify"
   },
   {
     "action": {
@@ -71,9 +22,50 @@
       "value": "1"
     },
     "target": {
-      "primary": "game",
-      "gameProperty": "charLevel"
+      "primary": "card",
+      "cardProperty": "targetableByOppEvents",
+      "criteria": {
+        "player": "opponent",
+        "class": "Battle Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyFail"
     }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedSelect",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "verifySuccess"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "pre-useEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "active"
   },
   {
     "action": {
@@ -82,10 +74,8 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "from": "board",
         "player": "opponent",
-        "type": "Spell",
-        "stat": "stat-targetableByOppSpecials>=1"
+        "class": "Battle Spell"
       }
     },
     "effectComplete": {
@@ -95,187 +85,244 @@
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "verify false",
-        "verifyEffectIndex": "verifyRed,verifyLevel,verifyBS,verifySpecial,verifyBP"
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
       }
     },
     "target": {
       "primary": "card",
-      "cardProperty": "targetableByOwnSpecials",
       "criteria": {
         "passing": "selectedCard"
       }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
     }
   },
   {
     "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "post-statChange"
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
       }
     },
     "target": {
       "primary": "card",
-      "cardProperty": "targetableByOppSpecials",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectName": "undoA"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1",
-      "verifyTrue": "startEffect"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "targetableByOppSpecials",
+      "cardProperty": "av",
       "criteria": {
         "passing": "selectedCard"
       }
     },
     "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "startEffect"
-    },
-    "effectName": "verifyRed"
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "changeLevel"
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
       }
     },
     "target": {
       "primary": "card",
+      "cardProperty": "iv",
       "criteria": {
-        "player": "owner",
-        "class": "Leader",
-        "type": "Character"
-      }
-    },
-    "effectName": "undoB"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1",
-      "verifyTrue": "startEffect"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "dummy",
-      "criteria": {
-        "passing": "this card"
+        "passing": "selectedCard"
       }
     },
     "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "startEffect"
-    },
-    "effectName": "verifyLevel"
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "trick"
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
       }
     },
     "target": {
       "primary": "card",
+      "cardProperty": "hv",
       "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectName": "undoC"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "verifyTrue": "startEffect"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card",
-        "class": "Battle Spell"
+        "passing": "selectedCard"
       }
     },
     "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "startEffect"
-    },
-    "effectName": "verifyBS"
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
-      "primary": "trigger on event",
+      "primary": "trigger event",
       "event": {
-        "primary": "post-statChange"
+        "primary": "lostStat"
       }
     },
     "target": {
       "primary": "card",
-      "cardProperty": "disableSpecial",
       "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectName": "undoD"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "1",
-      "verifyTrue": "startEffect"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "disableSpecial",
-      "criteria": {
-        "passing": "this card"
+        "passing": "selectedCard"
       }
     },
     "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "startEffect"
-    },
-    "effectName": "verifySpecial"
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "post-battlePhase"
-      }
+      "primary": "assign variable"
     },
     "target": {
-      "primary": "game"
+      "primary": "card",
+      "cardProperty": "C1",
+      "criteria": {
+        "passing": "selectedCard"
+      }
     },
-    "effectName": "undoE"
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "name"
   },
   {
     "action": {
       "primary": "verify target",
       "comparisonOperators": "==",
-      "value": "Battle",
-      "verifyTrue": "doNothing"
+      "value": "effect name"
     },
     "target": {
-      "primary": "game",
-      "gameProperty": "phase"
+      "primary": "card",
+      "cardProperty": "C1",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell"
+      }
     },
-    "effectName": "verifyBP"
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterEffect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "2",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "av",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "2",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "iv",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "2",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "hv",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "afterlife",
+      "player": "owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "afterEffect"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "3",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
+    "effectName": "spUse"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedSelect",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "verifyFail"
   }
 ]
