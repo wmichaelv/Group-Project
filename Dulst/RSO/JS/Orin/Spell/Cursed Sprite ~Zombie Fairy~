@@ -3,19 +3,38 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-moveCard",
+        "primary": "post-moveCard",
         "to": "afterlife",
         "toPlayer": "owner"
+      },
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyOnBoard"
       }
     },
     "target": {
       "primary": "card",
       "criteria": {
         "passing": "this card",
-        "from": "board"
+        "stat": "stat-disableSpecial!=1"
       }
     },
     "effectName": "passive"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "verifyOnBoard"
   },
   {
     "action": {
@@ -69,6 +88,20 @@
   },
   {
     "action": {
+      "primary": "set to attack position"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "set to defense position"
     },
     "target": {
@@ -109,6 +142,20 @@
   },
   {
     "action": {
+      "primary": "set to defense position"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "run effect",
       "effectNumber": "passive",
       "callback": "effect completion"
@@ -134,36 +181,6 @@
       "primary": "card",
       "criteria": {
         "passing": "selectedCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "pre-battlePhase"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "pre-replPhase"
-      }
-    },
-    "target": {
-      "primary": "game"
-    }
-  },
-  {
-    "action": {
-      "primary": "set to defense position"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "selectedCard",
-        "from": "board"
       }
     }
   }
