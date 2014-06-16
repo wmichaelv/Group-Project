@@ -102,6 +102,23 @@
   },
   {
     "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "koakumaFlag",
+      "criteria": {
+        "passing": "effect koakumaSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "verify target",
       "comparisonOperators": ">=",
       "value": "1",
@@ -155,6 +172,46 @@
       "effectNumber": "verifyFail"
     },
     "effectName": "verifyFlag"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "from": "SecondRow",
+        "player": "owner",
+        "type": "Spell",
+        "stat": "stat-targetableByOwnSpecials>=1&&stat-lvl<=1&&stat-koakumaFlag!=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "effect verifyFail"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "koakumaFlag",
+      "criteria": {
+        "from": "SecondRow",
+        "player": "owner",
+        "type": "Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
@@ -328,7 +385,7 @@
       "magnitude": "1",
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": "newEffect"
       }
     },
     "target": {
@@ -345,6 +402,24 @@
       "primary": "trigger next effect"
     },
     "effectName": "proceedToEffectB"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "SecondRow",
+        "player": "owner",
+        "type": "Spell",
+        "stat": "stat-qs>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterEffect"
+    }
   },
   {
     "action": {
@@ -463,7 +538,7 @@
       "primary": "send card to",
       "location": "FirstRow",
       "player": "owner",
-      "stackLocation": "top"
+      "silent": "silent"
     },
     "target": {
       "primary": "card",
@@ -507,7 +582,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner"
+      "player": "owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
