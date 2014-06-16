@@ -1,501 +1,27 @@
 [
   {
     "ruleTrigger": {
-      "primary": "card",
-      "player": "card owner"
+      "primary": "start",
+      "player": "turn player"
     },
     "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "sp"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "eventDrawCheck,opponentSP"
-    },
-    "effectName": "playerSP"
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "opponent",
-      "playerProperty": "sp"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "opponentSP"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "passPlayer",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "passOpp",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "canActivate",
-      "criteria": {
-        "from": [
-          "board",
-          "hand"
-        ],
-        "class": "Battle Phase"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "canActivate",
-      "criteria": {
-        "from": "deadpool",
-        "class": "Battle Phase",
-        "type": "Character"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "leader"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "canActivate",
-      "criteria": {
-        "from": "hand",
-        "player": "owner",
-        "class": "Battle Phase",
-        "type": "Event"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "ownEvent"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "canActivate",
-      "criteria": {
-        "from": "hand",
-        "player": "opponent",
-        "class": "Battle Phase",
-        "type": "Event"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "opponentEvent"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "canActivate",
-      "criteria": {
-        "from": "board",
-        "class": "Battle Phase",
-        "type": "Support"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "support"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "canActivate",
-      "criteria": {
-        "from": "board",
-        "player": "owner",
-        "class": "Battle Phase",
-        "type": "Spell",
-        "stat": "stat-isBattleSpell>=1"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "ownBattle"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "canActivate",
-      "criteria": {
-        "from": "board",
-        "player": "opponent",
-        "class": "Battle Phase",
-        "type": "Spell",
-        "stat": "stat-isBattleSpell>=1"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "oppBattle"
-  },
-  {
-    "action": {
-      "primary": "verify target"
-    },
-    "target": {
-      "primary": "card",
-      "count": "1",
-      "criteria": {
-        "from": [
-          "board",
-          "hand",
-          "deadpool"
-        ],
-        "player": "owner",
-        "class": "Battle Phase",
-        "stat": "stat-usable=1&&stat-canActivate=1"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "confirmPassPlayer"
-    },
-    "effectName": "verifyPlayerQS"
-  },
-  {
-    "action": {
-      "primary": "run effect",
-      "effectNumber": "verify",
-      "callback": "effect completion"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "from": [
-          "board",
-          "hand",
-          "deadpool"
-        ],
-        "player": "owner",
-        "class": "Battle Phase",
-        "stat": "stat-usable=1&&stat-canActivate=1"
-      },
-      "mandatory": "effect playerCard"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "playerSpCheck"
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "selector": {
-        "primary": "owner",
-        "instructions": "Play an Event or a Special"
-      },
-      "count": "1",
-      "criteria": {
-        "from": [
-          "board",
-          "hand",
-          "deadpool"
-        ],
-        "player": "owner",
-        "class": "Battle Phase",
-        "stat": "stat-qualifiedSelect>=1&&stat-usable=1&&stat-canActivate=1"
-      },
-      "exclude": {
-        "stat": "stat-disableUse>=1"
-      },
-      "mandatory": "confirmPassPlayer"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "playerCard"
-  },
-  {
-    "action": {
-      "primary": "verify target"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "playerCard",
-        "class": "Extra Cost Use"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "runPlayerCard"
-    },
-    "effectName": "verifyPlayerExtraCost"
-  },
-  {
-    "action": {
-      "primary": "run effect",
-      "effectNumber": "extraCostUse",
-      "callback": "effect completion"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "playerCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger event",
+      "primary": "trigger on event",
       "event": {
-        "primary": "extraCostUse"
+        "primary": "post-statChange"
       }
     },
     "target": {
       "primary": "card",
+      "cardProperty": "disableUFM",
       "criteria": {
-        "passing": "playerCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "1",
-      "verifyTrue": "effect runPlayerCard"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "failExtraCost"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "mindReadingFlag"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "playerRevertExtraCost"
-    },
-    "effectName": "playerRevert"
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "extraCostUseRevert"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "playerCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "failExtraCost"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "playerRevertExtraCost"
-  },
-  {
-    "action": {
-      "primary": "send event message",
-      "text": "Not enough resources to pay Extra Cost."
-    },
-    "target": {
-      "primary": "owner"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "playerCard"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "playerCard",
-        "class": "Extra Cost Use",
-        "type": [
-          "Character",
-          "Spell",
-          "Support",
-          "Event"
-        ]
+        "type": "Spell"
       }
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "runPlayer"
+      "effectNumber": "FM,Pro,Faith,Pen,GB,BA,Act,Spec,OwnSp,OwnEv,OppSp,OppEv,Bya,Shiki"
     },
-    "effectName": "runPlayerCard"
-  },
-  {
-    "action": {
-      "primary": "run effect",
-      "effectNumber": "verify",
-      "callback": "effect completion"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "playerCard",
-        "class": "Extra Cost Use",
-        "type": [
-          "Character",
-          "Spell",
-          "Support",
-          "Event"
-        ]
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
+    "effectName": "UFM"
   },
   {
     "action": {
@@ -505,705 +31,669 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "qualifiedSelect",
+      "cardProperty": "disableUFM",
       "criteria": {
-        "passing": "playerCard"
+        "passing": "UFM"
       }
     },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "playerRevert"
-    }
+    "effectName": "verifyUFM"
   },
   {
     "action": {
-      "primary": "run effect",
-      "effectNumber": "active",
-      "callback": "effect completion"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "playerCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "runPlayer"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
+      "primary": "add class",
+      "class": "Unfocused Movement Disabled",
       "undo": {
-        "primary": "permanent"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyUFM"
       }
     },
     "target": {
       "primary": "card",
-      "cardProperty": "passPlayer",
       "criteria": {
-        "passing": "this card"
+        "passing": "UFM"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "1",
-      "verifyTrue": "verifyOppQS"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "failExtraCost"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "failExtraCost"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "verifyPlayerQS"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target"
-    },
-    "target": {
-      "primary": "card",
-      "count": "1",
-      "criteria": {
-        "from": [
-          "board",
-          "hand",
-          "deadpool"
-        ],
-        "player": "opponent",
-        "class": "Battle Phase",
-        "stat": "stat-usable=1&&stat-canActivate=1"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "confirmPassOpp"
-    },
-    "effectName": "verifyOppQS"
-  },
-  {
-    "action": {
-      "primary": "run effect",
-      "effectNumber": "verify",
-      "callback": "effect completion"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "from": [
-          "board",
-          "hand",
-          "deadpool"
-        ],
-        "player": "opponent",
-        "class": "Battle Phase",
-        "stat": "stat-usable=1&&stat-canActivate=1"
-      },
-      "mandatory": "effect opponentCard"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "oppSpCheck"
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "selector": {
-        "primary": "opponent",
-        "instructions": "Play an Event or a Special"
-      },
-      "count": "1",
-      "criteria": {
-        "from": [
-          "board",
-          "hand",
-          "deadpool"
-        ],
-        "player": "opponent",
-        "class": "Battle Phase",
-        "stat": "stat-qualifiedSelect>=1&&stat-usable=1&&stat-canActivate=1"
-      },
-      "exclude": {
-        "stat": "stat-disableUse>=1"
-      },
-      "mandatory": "confirmPassOpp"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "opponentCard"
-  },
-  {
-    "action": {
-      "primary": "verify target"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "opponentCard",
-        "class": "Extra Cost Use"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "runOpponentCard"
-    },
-    "effectName": "verifyOpponentExtraCost"
-  },
-  {
-    "action": {
-      "primary": "run effect",
-      "effectNumber": "extraCostUse",
-      "callback": "effect completion"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "opponentCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "extraCostUse"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "opponentCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "1",
-      "verifyTrue": "effect runOpponentCard"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "failExtraCost"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "mindReadingFlag"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "oppRevertExtraCost"
-    },
-    "effectName": "oppRevert"
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "extraCostUseRevert"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "opponentCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "failExtraCost"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "oppRevertExtraCost"
-  },
-  {
-    "action": {
-      "primary": "send event message",
-      "text": "Not enough resources to pay Extra Cost."
-    },
-    "target": {
-      "primary": "opponent"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "opponentCard"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "opponentCard",
-        "class": "Extra Cost Use",
-        "type": [
-          "Character",
-          "Spell",
-          "Support",
-          "Event"
-        ]
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "runOpp"
-    },
-    "effectName": "runOpponentCard"
-  },
-  {
-    "action": {
-      "primary": "run effect",
-      "effectNumber": "verify",
-      "callback": "effect completion"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "opponentCard",
-        "class": "Extra Cost Use",
-        "type": [
-          "Character",
-          "Spell",
-          "Support",
-          "Event"
-        ]
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "qualifiedSelect",
-      "criteria": {
-        "passing": "opponentCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "oppRevert"
-    }
-  },
-  {
-    "action": {
-      "primary": "run effect",
-      "effectNumber": "active",
-      "callback": "effect completion"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "opponentCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "runOpp"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "passOpp",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "1",
-      "verifyTrue": "verifyPlayerQS"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "failExtraCost"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "failExtraCost"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "verifyOppQS"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">",
-      "value": "0"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "sp"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "failPlayer"
-    },
-    "effectName": "confirmPassPlayer"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "0"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "count",
-      "criteria": {
-        "from": [
-          "board",
-          "hand",
-          "deadpool"
-        ],
-        "player": "owner",
-        "class": "Battle Phase",
-        "stat": "stat-qualifiedSelect>=1&&stat-usable=1&&stat-canActivate=1"
-      },
-      "exclude": {
-        "stat": "stat-disableUse>=1"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "failPlayer"
-    }
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "selector": {
-        "primary": "owner",
-        "instructions": "There is no Event or Special that can be played. Click \"Finish Select\" to pass."
-      },
-      "count": "1",
-      "criteria": {
-        "player": "owner",
-        "class": "Leader",
-        "type": "Character"
-      },
-      "mandatory": "mandatory or random"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "passPlayer",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "failPlayer"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "1",
-      "verifyTrue": "verifyOppQS"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "passOpp",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "over"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">",
-      "value": "0"
-    },
-    "target": {
-      "primary": "opponent"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "failOpp"
-    },
-    "effectName": "confirmPassOpp"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "0"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "count",
-      "criteria": {
-        "from": [
-          "board",
-          "hand",
-          "deadpool"
-        ],
-        "player": "opponent",
-        "class": "Battle Phase",
-        "stat": "stat-qualifiedSelect>=1&&stat-usable=1&&stat-canActivate=1"
-      },
-      "exclude": {
-        "stat": "stat-disableUse>=1"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "failOpp"
-    }
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "selector": {
-        "primary": "opponent",
-        "instructions": "There is no Event or Special that can be played. Click \"Finish Select\" to pass."
-      },
-      "count": "1",
-      "criteria": {
-        "player": "opponent",
-        "class": "Leader",
-        "type": "Character"
-      },
-      "mandatory": "mandatory or random"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "passOpp",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "failOpp"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "1",
-      "verifyTrue": "verifyPlayerQS"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "passPlayer",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "over"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "backandforthends"
-      }
-    },
-    "target": {
-      "primary": "owner"
-    },
-    "effectName": "over"
   },
   {
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "post-moveCard",
-        "to": "hand"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "post-statChange"
       }
     },
     "target": {
       "primary": "card",
+      "cardProperty": "disableFM",
       "criteria": {
-        "type": "Event"
+        "type": "Spell"
       }
     },
-    "effectName": "eventDrawCheck"
+    "effectName": "FM"
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableFM",
+      "criteria": {
+        "passing": "FM"
+      }
+    },
+    "effectName": "verifyFM"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Focused Movement Disabled",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyFM"
       }
     },
     "target": {
       "primary": "card",
-      "cardProperty": "canActivate",
       "criteria": {
-        "from": "hand",
-        "player": "opponent",
-        "class": "Battle Phase",
-        "type": "Event"
+        "passing": "FM"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
       }
     },
     "target": {
       "primary": "card",
-      "cardProperty": "canActivate",
+      "cardProperty": "disablePro",
       "criteria": {
-        "from": "hand",
-        "player": "owner",
-        "class": "Battle Phase",
-        "type": "Event"
+        "type": "Spell"
+      }
+    },
+    "effectName": "Pro"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disablePro",
+      "criteria": {
+        "passing": "Pro"
+      }
+    },
+    "effectName": "verifyPro"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Protection Disabled",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyPro"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "Pro"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableFaith",
+      "criteria": {
+        "type": "Spell"
+      }
+    },
+    "effectName": "Faith"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableFaith",
+      "criteria": {
+        "passing": "Faith"
+      }
+    },
+    "effectName": "verifyFaith"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Faith Disabled",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyFaith"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "Faith"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disablePen",
+      "criteria": {
+        "type": "Spell"
+      }
+    },
+    "effectName": "Pen"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disablePen",
+      "criteria": {
+        "passing": "Pen"
+      }
+    },
+    "effectName": "verifyPen"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Penetration Disabled",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyPen"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "Pen"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableGB",
+      "criteria": {
+        "type": "Spell"
+      }
+    },
+    "effectName": "GB"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableGB",
+      "criteria": {
+        "passing": "GB"
+      }
+    },
+    "effectName": "verifyGB"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Guided Bullets Disabled",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyGB"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "GB"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableBA",
+      "criteria": {
+        "type": "Spell"
+      }
+    },
+    "effectName": "BA"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableBA",
+      "criteria": {
+        "passing": "BA"
+      }
+    },
+    "effectName": "verifyBA"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Basic Abilities Disabled",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyBA"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "BA"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableActivate",
+      "criteria": {
+        "type": "Spell"
+      }
+    },
+    "effectName": "Act"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableActivate",
+      "criteria": {
+        "passing": "Act"
+      }
+    },
+    "effectName": "verifyAct"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Activation Disabled",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyAct"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "Act"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial"
+    },
+    "effectName": "Spec"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "Spec"
+      }
+    },
+    "effectName": "verifySpec"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Specials Disabled",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySpec"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "Spec"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOwnSpecials"
+    },
+    "effectName": "OwnSp"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOwnSpecials",
+      "criteria": {
+        "passing": "OwnSp"
+      }
+    },
+    "effectName": "verifyOwnSp"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Untargetable by Own Specials",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyOwnSp"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "OwnSp"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOwnEvents"
+    },
+    "effectName": "OwnEv"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOwnEvents",
+      "criteria": {
+        "passing": "OwnEv"
+      }
+    },
+    "effectName": "verifyOwnEv"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Untargetable by Own Events",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyOwnEv"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "OwnEv"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOppSpecials"
+    },
+    "effectName": "OppSp"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOppSpecials",
+      "criteria": {
+        "passing": "OppSp"
+      }
+    },
+    "effectName": "verifyOppSp"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Untargetable by Opponent Specials",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyOppSp"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "OppSp"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOppEvents"
+    },
+    "effectName": "OppEv"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOppEvents",
+      "criteria": {
+        "passing": "OppEv"
+      }
+    },
+    "effectName": "verifyOppEv"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Untargetable by Opponent Events",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyOppEv"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "OppEv"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "statsFreeze",
+      "criteria": {
+        "type": "Spell"
+      }
+    },
+    "effectName": "Bya"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "statsFreeze",
+      "criteria": {
+        "passing": "Bya"
+      }
+    },
+    "effectName": "verifyBya"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "AV-IV-HV Sealed",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyBya"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "Bya"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "shikigami",
+      "criteria": {
+        "type": "Spell"
+      }
+    },
+    "effectName": "Shiki"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "shikigami",
+      "criteria": {
+        "passing": "Shiki"
+      }
+    },
+    "effectName": "verifyShiki"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Shikigami-Enhanced",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyShiki"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "Shiki"
       }
     }
   }
