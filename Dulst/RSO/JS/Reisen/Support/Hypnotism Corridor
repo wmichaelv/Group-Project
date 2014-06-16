@@ -95,7 +95,8 @@
     "action": {
       "primary": "send card to",
       "location": "SecondRow",
-      "player": "target card owner"
+      "player": "target card owner",
+      "silent": "silent"
     },
     "target": {
       "primary": "card",
@@ -209,7 +210,8 @@
     "action": {
       "primary": "send card to",
       "location": "SecondRow",
-      "player": "target card owner"
+      "player": "target card owner",
+      "silent": "silent"
     },
     "target": {
       "primary": "card",
