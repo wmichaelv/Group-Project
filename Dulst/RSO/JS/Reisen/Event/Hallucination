@@ -28,7 +28,7 @@
         "player": "owner",
         "class": "Spread,Concentration",
         "type": "Spell",
-        "stat": "stat-targetableByOwnEvents>=1"
+        "stat": "stat-targetableByOwnEvents>=1&&stat-isBattleSpell>=1&&stat-doubleHornFlag!=1"
       }
     },
     "effectComplete": {
@@ -47,7 +47,7 @@
         "player": "opponent",
         "class": "Spread,Concentration",
         "type": "Spell",
-        "stat": "stat-targetableByOppEvents>=1"
+        "stat": "stat-targetableByOppEvents>=1&&stat-isBattleSpell>=1"
       }
     },
     "effectComplete": {
@@ -106,7 +106,7 @@
         "player": "owner",
         "class": "Spread,Concentration",
         "type": "Spell",
-        "stat": "stat-targetableByOwnEvents>=1"
+        "stat": "stat-targetableByOwnEvents>=1&&stat-isBattleSpell>=1&&stat-doubleHornFlag!=1"
       }
     },
     "effectComplete": {
@@ -131,7 +131,7 @@
         "player": "opponent",
         "class": "Spread,Concentration",
         "type": "Spell",
-        "stat": "stat-targetableByOppEvents>=1"
+        "stat": "stat-targetableByOppEvents>=1&&stat-isBattleSpell>=1"
       }
     },
     "effectComplete": {
@@ -278,7 +278,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner"
+      "player": "owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
@@ -290,6 +291,23 @@
       "primary": "trigger next effect"
     },
     "effectName": "afterEffect"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "changeType"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
