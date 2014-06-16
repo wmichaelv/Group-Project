@@ -3,7 +3,7 @@
     "action": {
       "primary": "verify target",
       "comparisonOperators": ">=",
-      "value": "2"
+      "value": "3"
     },
     "target": {
       "primary": "owner",
@@ -17,20 +17,36 @@
   },
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
+      "primary": "verify target"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "targetableByOppEvents",
       "criteria": {
         "from": "board",
+        "player": "owner",
+        "class": "Satori Komeiji",
+        "type": "Spell",
+        "stat": "stat-targetableByOwnEvents>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyFail"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": [
+          "afterlife",
+          "deck"
+        ],
         "player": "opponent",
-        "type": "Support"
-      },
-      "exclude": {
-        "class": "Scene"
+        "type": "Spell"
       }
     },
     "effectComplete": {
@@ -46,7 +62,27 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "handTargetableByOppEvents",
+      "cardProperty": "deckTargetableByOppEvents",
+      "criteria": {
+        "player": "opponent",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyFail"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "discardTargetableByOppEvents",
       "criteria": {
         "player": "opponent",
         "class": "Leader",
@@ -70,8 +106,7 @@
       "criteria": {
         "passing": "this card"
       }
-    },
-    "effectName": "verifySuccess"
+    }
   },
   {
     "action": {
@@ -93,51 +128,28 @@
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "newEffect"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "qs",
-      "criteria": {
-        "from": "board",
-        "player": "opponent",
-        "type": "Support",
-        "stat": "stat-targetableByOppEvents>=1"
-      },
-      "exclude": {
-        "class": "Scene"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
       "primary": "assign variable"
     },
     "target": {
       "primary": "card",
       "selector": {
         "primary": "owner",
-        "instructions": "Select a non-Scene Support card on your opponent's side to return to their hand. You then look at their hand and your opponent discards one from it."
+        "instructions": "Select 1 Satori Spell card on your side to discard."
       },
       "count": "1",
       "criteria": {
-        "stat": "stat-qs>=1"
+        "from": "board",
+        "player": "owner",
+        "class": "Satori Komeiji",
+        "type": "Spell",
+        "stat": "stat-targetableByOwnEvents>=1"
       },
-      "mandatory": "effect selectedCard"
+      "mandatory": "discard"
     },
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "selectedCard"
+    "effectName": "discard"
   },
   {
     "action": {
@@ -149,41 +161,8 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "selectedCard"
+        "passing": "discard"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "extraCostTarget",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "afterCheck"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1",
-      "verifyTrue": "failExtraCost"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "failExtraCost"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -192,29 +171,14 @@
   {
     "action": {
       "primary": "send card to",
-      "location": "hand",
-      "player": "target card owner"
+      "location": "afterlife",
+      "player": "owner"
     },
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "selectedCard"
+        "passing": "discard"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "afterCheck"
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "handTargetedByEvent"
-      }
-    },
-    "target": {
-      "primary": "opponent"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -222,19 +186,17 @@
   },
   {
     "action": {
-      "primary": "assign variable"
+      "primary": "set to attack position"
     },
     "target": {
       "primary": "card",
       "criteria": {
-        "from": "hand",
-        "player": "opponent"
+        "passing": "discard"
       }
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "card"
+    }
   },
   {
     "action": {
@@ -244,13 +206,81 @@
       "primary": "card",
       "selector": {
         "primary": "owner",
-        "instructions": "Viewing your opponent's hand. Click \"Finish Select\" to proceed."
+        "instructions": "Viewing your opponent's deck and discard. Select 1 Spell to reserve into your side. The opponent's deck is then shuffled."
       },
       "count": "1",
       "criteria": {
-        "passing": "card"
+        "from": [
+          "afterlife",
+          "deck"
+        ],
+        "player": "opponent"
       },
-      "mandatory": "mandatory or random"
+      "mandatory": "selectedCard"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard",
+        "type": "Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "selectedCard"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard",
+        "from": "afterlife"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "triggerDeck"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "discardTargetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "opponent"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "triggerDiscard"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "SecondRow",
+      "player": "owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -258,16 +288,48 @@
   },
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
+      "primary": "set to defense position"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "count",
       "criteria": {
-        "from": "hand",
-        "player": "opponent"
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "passive,passiveFromDiscard",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": [
+          "reserve",
+          "passiveFromDiscard"
+        ]
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
       }
     },
     "effectComplete": {
@@ -277,28 +339,82 @@
   },
   {
     "action": {
-      "primary": "send card to",
-      "location": "afterlife",
-      "player": "target card owner",
-      "stackLocation": "top"
+      "primary": "trigger event",
+      "event": {
+        "primary": "deckTargetedByEvent"
+      }
     },
     "target": {
-      "primary": "card",
-      "selector": {
-        "primary": "opponent",
-        "instructions": "Select 1 card from your hand to discard."
-      },
-      "count": "1",
-      "criteria": {
-        "from": "hand",
-        "player": "opponent"
-      },
-      "mandatory": "discard"
+      "primary": "opponent"
     },
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "discard"
+    "effectName": "triggerDeck"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "SecondRow",
+      "player": "owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "set to defense position"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "passive",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "reserve"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterEffect"
+    }
   },
   {
     "action": {
@@ -320,12 +436,60 @@
   },
   {
     "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      },
+      "exclude": {
+        "class": "Satori Komeiji"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterEffectB"
+    }
+  },
+  {
+    "action": {
       "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "2",
+      "operation": "=",
+      "magnitude": "1",
       "undo": {
         "primary": "permanent"
       }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableActivate",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "shuffle deck",
+      "player": "opponent"
+    },
+    "target": {},
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "afterEffectB"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "3"
     },
     "target": {
       "primary": "owner",
@@ -347,33 +511,5 @@
       }
     },
     "effectName": "verifyFail"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "failExtraCost"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "failExtraCost"
-  },
-  {
-    "action": {
-      "primary": "send card to",
-      "location": "hand",
-      "player": "owner"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    }
   }
 ]
