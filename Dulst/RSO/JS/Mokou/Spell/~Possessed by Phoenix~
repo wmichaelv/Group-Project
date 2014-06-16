@@ -178,6 +178,23 @@
   },
   {
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "post-useSpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "modify stats",
       "operation": "=",
       "magnitude": "0"
@@ -196,19 +213,46 @@
   },
   {
     "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "pre-battlePhase"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "pre-replPhase"
-      }
+      "primary": "run effect",
+      "effectNumber": "undoA,undoB,undoC,undoD",
+      "callback": "effect completion"
     },
     "target": {
-      "primary": "game"
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
     },
     "effectName": "passiveFromDiscard"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Replenishing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "startEffect"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    }
   },
   {
     "action": {
@@ -220,13 +264,28 @@
         "from": "board",
         "player": "opponent",
         "type": "Spell",
-        "stat": "stat-targetableByOppSpecials>=1 && stat-lvl<=1"
+        "stat": "stat-targetableByOppSpecials>=1&&stat-lvl<=1"
       }
     },
     "effectComplete": {
       "primary": "trigger next effect"
     },
     "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "pre-battlePhase"
+      },
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyRed,verifySpecial,verifyPP,verifyLevel"
+      }
+    },
+    "target": {
+      "primary": "game"
+    }
   },
   {
     "action": {
@@ -277,40 +336,152 @@
   },
   {
     "action": {
-      "primary": "each"
+      "primary": "set to attack position"
     },
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectName": "card"
-  },
-  {
-    "action": {
-      "primary": "verify target"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "card",
+        "passing": "selectedCard",
         "from": "FirstRow"
       }
     }
   },
   {
     "action": {
-      "primary": "set to attack position"
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
     },
     "target": {
       "primary": "card",
+      "cardProperty": "targetableByOppSpecials",
       "criteria": {
-        "passing": "card"
+        "from": "board",
+        "player": "opponent",
+        "type": "Spell",
+        "stat": "stat-lvl<=1"
+      }
+    },
+    "effectName": "undoA"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "dummy",
+      "criteria": {
+        "passing": "this card"
       }
     },
     "effectComplete": {
-      "primary": "trigger next effect"
-    }
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifyRed"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "undoB"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifySpecial"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "pre-replPhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "undoC"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Preparation",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "verifyPP"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "lvl",
+      "criteria": {
+        "from": "board",
+        "player": "opponent",
+        "type": "Spell"
+      }
+    },
+    "effectName": "undoD"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "dummy",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifyLevel"
   }
 ]
