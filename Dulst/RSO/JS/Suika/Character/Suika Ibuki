@@ -155,7 +155,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner"
+      "player": "owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
@@ -164,6 +165,23 @@
         "from": "deck",
         "player": "owner",
         "first": "2"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "post-useSpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
       }
     }
   },
@@ -211,7 +229,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb,passivec,extraCostActivate,extraCostActivateRevert"
+      "effectNumber": "passiveb,extraCostActivate,extraCostActivateRevert,undoA,undoB,undoC,undoD"
     },
     "effectName": "passive"
   },
@@ -299,6 +317,32 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Preparation"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "startEffect"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    }
+  },
+  {
+    "action": {
       "primary": "assign variable"
     },
     "target": {
@@ -320,64 +364,14 @@
       "primary": "add class",
       "class": "Extra Cost Activate",
       "undo": {
-        "primary": "game event",
-        "event": "pre-replPhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyRed,verifySpecial,verifyPP,verifyReserve"
       }
     },
     "target": {
       "primary": "card",
       "criteria": {
         "passing": "selectedCard"
-      }
-    },
-    "effectName": "modifyCard"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "pre-preparationPhase"
-      }
-    },
-    "target": {
-      "primary": "game"
-    },
-    "effectName": "passivec"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "reserve"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "pre-replPhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "player": "owner",
-        "type": "Spell",
-        "stat": "stat-targetableByOwnSpecials>=1"
-      }
-    },
-    "effectName": "card"
-  },
-  {
-    "action": {
-      "primary": "add class",
-      "class": "Extra Cost Activate",
-      "undo": {
-        "primary": "game event",
-        "event": "pre-replPhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "card"
       }
     },
     "effectName": "modifyCard"
@@ -402,6 +396,20 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    }
+  },
+  {
+    "action": {
       "primary": "assign variable"
     },
     "target": {
@@ -418,28 +426,10 @@
   },
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "effect cardLevel"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "count",
-      "criteria": {
-        "from": "deck",
-        "player": "owner"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "failExtraCost"
-    }
-  },
-  {
-    "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner"
+      "player": "owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
@@ -569,6 +559,142 @@
       "gameProperty": "failExtraCost"
     },
     "effectName": "failExtraCost"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOwnSpecials",
+      "criteria": {
+        "from": "board",
+        "player": "owner",
+        "type": "Spell"
+      }
+    },
+    "effectName": "undoA"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "dummy",
+      "criteria": {
+        "passing": "undoA"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifyRed"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "undoB"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifySpecial"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "pre-replPhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "undoC"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Preparation",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "verifyPP"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "reserve"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "type": "Spell",
+        "stat": "stat-targetableByOwnSpecials>=1"
+      }
+    },
+    "effectName": "undoD"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "dummy",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifyReserve"
   },
   {
     "action": {
