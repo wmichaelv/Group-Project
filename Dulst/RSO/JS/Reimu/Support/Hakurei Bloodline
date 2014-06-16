@@ -334,7 +334,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner"
+      "player": "owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
@@ -397,6 +398,23 @@
   },
   {
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "post-useSpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "modify stats",
       "operation": "=",
       "magnitude": "1",
@@ -415,23 +433,6 @@
   },
   {
     "action": {
-      "primary": "send card to",
-      "location": "afterlife",
-      "player": "owner"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "sp2Activate"
-  },
-  {
-    "action": {
       "primary": "assign variable"
     },
     "target": {
@@ -447,12 +448,12 @@
         "class": "Leader",
         "type": "Support"
       },
-      "mandatory": "selectedCard"
+      "mandatory": "sp2Activate"
     },
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "selectedCard"
+    "effectName": "sp2Activate"
   },
   {
     "action": {
@@ -464,7 +465,75 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "selectedCard"
+        "passing": "sp2Activate"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "extraCostTarget",
+      "criteria": {
+        "passing": "sp2Activate"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterCheck"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "failExtraCost"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "failExtraCost"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "post-useSpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "afterCheck"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "afterlife",
+      "player": "owner",
+      "stackLocation": "top"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
       }
     },
     "effectComplete": {
@@ -475,12 +544,13 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "target card owner"
+      "player": "target card owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "selectedCard"
+        "passing": "sp2Activate"
       }
     },
     "effectComplete": {
