@@ -285,7 +285,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "target card owner"
+      "player": "target card owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
@@ -337,7 +338,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner"
+      "player": "owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
@@ -382,17 +384,16 @@
   },
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "0"
     },
     "target": {
       "primary": "owner",
-      "playerProperty": "hp"
+      "playerProperty": "sp"
     },
     "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "failExtraCost"
+      "primary": "trigger next effect"
     },
     "effectName": "extraCostUse"
   },
