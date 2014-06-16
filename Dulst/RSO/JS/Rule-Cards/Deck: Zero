@@ -7,16 +7,24 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": [
-          "newTarget",
-          "newEffect",
-          "endPhase",
-          "countDeck"
+        "primary": "post-moveCard",
+        "to": [
+          "afterlife",
+          "hand",
+          "Board faceup",
+          "Board facedown"
         ]
       }
     },
     "target": {
-      "primary": "game"
+      "primary": "card",
+      "criteria": {
+        "type": [
+          "Spell",
+          "Support",
+          "Event"
+        ]
+      }
     }
   },
   {
