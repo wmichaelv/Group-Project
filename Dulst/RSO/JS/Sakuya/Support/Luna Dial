@@ -1,23 +1,6 @@
 [
   {
     "action": {
-      "primary": "run effect",
-      "effectNumber": "startEffect",
-      "callback": "effect completion"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "passive"
-  },
-  {
-    "action": {
       "primary": "trigger on event",
       "event": {
         "primary": [
@@ -31,16 +14,29 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb,passivec,passived,extraCostUse,extraCostActivate,extraCostUseRevert,extraCostActivateRevert"
-    }
+      "effectNumber": "startEffect,passiveb,extraCostUse,extraCostActivate,extraCostUseRevert,extraCostActivateRevert,undoA,undoB,undoC,undoD,undoE,undoF"
+    },
+    "effectName": "passive"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "Preparation"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "startEffect"
   },
   {
     "action": {
       "primary": "add class",
       "class": "Extra Cost Use",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp,verifyBP,verifyRP,verifyHand"
       }
     },
     "target": {
@@ -54,8 +50,7 @@
         "class": "Replenishing Phase, Battle Phase",
         "type": "Event"
       }
-    },
-    "effectName": "startEffect"
+    }
   },
   {
     "action": {
@@ -197,7 +192,7 @@
       "primary": "verify target",
       "comparisonOperators": "==",
       "value": "effect player",
-      "verifyTrue": "affectOwn"
+      "verifyTrue": "discard"
     },
     "target": {
       "primary": "card",
@@ -208,34 +203,15 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "affectOpp"
+      "effectNumber": "discardB"
     }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "count",
-      "criteria": {
-        "from": "deck",
-        "player": "owner"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "failExtraCost"
-    },
-    "effectName": "affectOwn"
   },
   {
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "target card owner"
+      "player": "target card owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
@@ -286,29 +262,10 @@
   },
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "count",
-      "criteria": {
-        "from": "deck",
-        "player": "opponent"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "failExtraCost"
-    },
-    "effectName": "affectOpp"
-  },
-  {
-    "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "target card owner"
+      "player": "target card owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
@@ -507,6 +464,22 @@
   },
   {
     "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "pre-preparationPhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffectB"
+    },
+    "effectName": "passiveb"
+  },
+  {
+    "action": {
       "primary": "verify target",
       "comparisonOperators": "==",
       "value": "Preparation"
@@ -515,47 +488,15 @@
       "primary": "game",
       "gameProperty": "phase"
     },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "triggerOnPrep"
-    },
-    "effectName": "passiveb"
-  },
-  {
-    "action": {
-      "primary": "run effect",
-      "effectNumber": "startEffectB,card",
-      "callback": "effect completion"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "pre-preparationPhase"
-      }
-    },
-    "target": {
-      "primary": "game"
-    },
-    "effectName": "triggerOnPrep"
+    "effectName": "startEffectB"
   },
   {
     "action": {
       "primary": "add class",
       "class": "Extra Cost Activate",
       "undo": {
-        "primary": "game event",
-        "event": "pre-replPhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp,verifyPP,verifyReserve"
       }
     },
     "target": {
@@ -564,56 +505,7 @@
         "from": "board",
         "type": "Spell"
       }
-    },
-    "effectName": "startEffectB"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "pre-preparationPhase"
-      }
-    },
-    "target": {
-      "primary": "game"
-    },
-    "effectName": "passivec"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "reserve"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "pre-replPhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "type": "Spell"
-      }
-    },
-    "effectName": "card"
-  },
-  {
-    "action": {
-      "primary": "add class",
-      "class": "Extra Cost Activate",
-      "undo": {
-        "primary": "game event",
-        "event": "pre-replPhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "card"
-      }
-    },
-    "effectName": "modifyCard"
+    }
   },
   {
     "action": {
@@ -751,7 +643,7 @@
       "primary": "verify target",
       "comparisonOperators": "==",
       "value": "effect player",
-      "verifyTrue": "affectOwnB"
+      "verifyTrue": "discardC"
     },
     "target": {
       "primary": "card",
@@ -762,28 +654,8 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "affectOppB"
+      "effectNumber": "discardD"
     }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "count",
-      "criteria": {
-        "from": "deck",
-        "player": "owner"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "failExtraCost"
-    },
-    "effectName": "affectOwnB"
   },
   {
     "action": {
@@ -837,26 +709,6 @@
         "passing": "extraCostActivate"
       }
     }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "count",
-      "criteria": {
-        "from": "deck",
-        "player": "opponent"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "failExtraCost"
-    },
-    "effectName": "affectOppB"
   },
   {
     "action": {
@@ -1043,6 +895,114 @@
     "action": {
       "primary": "trigger on event",
       "event": {
+        "primary": "removeFromBoard"
+      },
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "undoA"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "from": "board"
+      }
+    },
+    "effectName": "verifySupp"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-replPhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "undoB"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Replenishing",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "verifyRP"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "pre-replPhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "undoC"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Preparation",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "verifyPP"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "undoD"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "verifyBP"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
         "primary": "post-moveCard",
         "to": "hand"
       }
@@ -1053,22 +1013,60 @@
         "type": "Event"
       }
     },
-    "effectName": "passived"
+    "effectName": "undoE"
   },
   {
     "action": {
-      "primary": "add class",
-      "class": "Extra Cost Use",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "dummy",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifyHand"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "reserve"
       }
     },
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "passived"
+        "type": "Spell"
       }
+    },
+    "effectName": "undoF"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffectB"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "dummy",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffectB"
     }
   }
 ]
