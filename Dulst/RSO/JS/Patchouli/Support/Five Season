@@ -84,6 +84,20 @@
   {
     "action": {
       "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
       "comparisonOperators": ">=",
       "value": "1"
     },
@@ -128,7 +142,8 @@
     "action": {
       "primary": "send card to",
       "location": "FirstRow",
-      "player": "owner"
+      "player": "owner",
+      "silent": "silent"
     },
     "target": {
       "primary": "card",
