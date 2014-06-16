@@ -30,7 +30,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb"
+      "effectNumber": "passiveb,undoA,undoB,undoC,undoD,undoE"
     },
     "effectName": "passive"
   },
@@ -55,6 +55,20 @@
         "player": "owner",
         "class": "Battle Spell",
         "type": "Spell"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
       }
     }
   },
@@ -183,50 +197,47 @@
   },
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "Replenishing"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "phase"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "startEffect"
-    },
-    "effectName": "passiveb"
-  },
-  {
-    "action": {
-      "primary": "run effect",
-      "effectNumber": "card",
-      "callback": "effect completion"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
       "primary": "trigger on event",
       "event": {
         "primary": [
-          "pre-pre-battlePhase",
-          "pre-pre-replPhase"
+          "pre-battlePhase",
+          "pre-replPhase"
         ]
       }
     },
     "target": {
       "primary": "game"
     },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "passiveb"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "Preparation"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
     "effectName": "startEffect"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    }
   },
   {
     "action": {
@@ -245,65 +256,182 @@
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "card"
+    "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyRed,verifySupp,verifySpecial,verifyBP,verifyRP"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOppEvents",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOwnSpecials",
+      "criteria": {
+        "from": "board",
+        "player": "owner",
+        "class": "Remilia",
+        "type": "Support"
+      }
+    },
+    "effectName": "undoA"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "dummy",
+      "criteria": {
+        "passing": "undoA"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifyRed"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "removeFromBoard"
+      },
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "undoB"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "from": "board"
+      }
+    },
+    "effectName": "verifySupp"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "undoC"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1",
+      "verifyTrue": "startEffect,startEffectB"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect,startEffectB"
+    },
+    "effectName": "verifySpecial"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "undoD"
   },
   {
     "action": {
       "primary": "verify target",
       "comparisonOperators": "==",
-      "value": "Replenishing"
+      "value": "Battle",
+      "verifyTrue": "doNothing"
     },
     "target": {
       "primary": "game",
       "gameProperty": "phase"
     },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "battle"
-    }
+    "effectName": "verifyBP"
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": [
-          "default",
-          "game event"
-        ],
-        "event": "post-replPhase"
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-battlePhase"
       }
     },
     "target": {
-      "primary": "card",
-      "cardProperty": "targetableByOppEvents",
-      "criteria": {
-        "passing": "card"
-      }
+      "primary": "game"
     },
-    "effectName": "repl"
+    "effectName": "undoE"
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": [
-          "default",
-          "game event"
-        ],
-        "event": "post-battlePhase"
-      }
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Replenishing",
+      "verifyTrue": "doNothing"
     },
     "target": {
-      "primary": "card",
-      "cardProperty": "targetableByOppEvents",
-      "criteria": {
-        "passing": "card"
-      }
+      "primary": "game",
+      "gameProperty": "phase"
     },
-    "effectName": "battle"
+    "effectName": "verifyRP"
   }
 ]
