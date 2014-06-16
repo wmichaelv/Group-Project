@@ -1,73 +1,54 @@
 [
   {
-    "ruleTrigger": {
-      "primary": "start",
-      "player": "turn player"
-    },
     "action": {
-      "primary": "verify target"
+      "primary": "give choice",
+      "choiceType": "multiple choice",
+      "choiceQuestion": "Would you like to turn on BGM?",
+      "choices": "effect oppDecides Yes\neffect nothing No"
     },
     "target": {
-      "primary": "card",
-      "criteria": {
-        "name": "Mischief",
-        "type": "Event"
-      }
-    }
+      "primary": "owner"
+    },
+    "effectName": "ownDecides"
   },
   {
     "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "pre-replPhase"
-      }
+      "primary": "give choice",
+      "choiceType": "multiple choice",
+      "choiceQuestion": "Would you like to turn on BGM?",
+      "choices": "effect proceed Yes\neffect nothing No"
     },
     "target": {
-      "primary": "game"
-    }
+      "primary": "opponent"
+    },
+    "effectName": "oppDecides"
   },
   {
     "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": [
-          "useSupport",
-          "activate",
-          "useScene"
-        ]
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-replPhase"
-      }
+      "primary": "chance",
+      "odds": ".5"
     },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "type": [
-          "Spell",
-          "Support"
-        ]
-      }
+    "target": {},
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "runOpp"
     },
-    "effectName": "card"
+    "effectName": "proceed"
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "post-replPhase"
-      }
+      "primary": "run effect",
+      "cardName": "Music Controller Own"
     },
-    "target": {
-      "primary": "card",
-      "cardProperty": "mischiefTag",
-      "criteria": {
-        "passing": "effect card"
-      }
-    }
+    "target": {},
+    "effectName": "runOwn"
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "cardName": "Music Controller Opp"
+    },
+    "target": {},
+    "effectName": "runOpp"
   }
 ]
