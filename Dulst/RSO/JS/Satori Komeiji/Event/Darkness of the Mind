@@ -23,11 +23,10 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "handTargetableByOppEvents",
+      "cardProperty": "targetableByOwnSpecials",
       "criteria": {
-        "player": "opponent",
-        "class": "Leader",
-        "type": "Character"
+        "passing": "this card",
+        "stat": "stat-doubleHornFlag!=1"
       }
     },
     "effectComplete": {
@@ -53,7 +52,10 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "pre-useEvent"
+        "primary": [
+          "targetedBySpecial",
+          "pre-useSpecial"
+        ]
       }
     },
     "target": {
@@ -69,163 +71,41 @@
   },
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "count",
-      "criteria": {
-        "from": "hand",
-        "player": "opponent"
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
       }
     },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "cardCount"
-    }
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
     "target": {
       "primary": "card",
+      "cardProperty": "Faith",
       "criteria": {
-        "from": "hand",
-        "player": "opponent"
+        "passing": "this card"
       }
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "card"
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "selector": {
-        "primary": "owner",
-        "instructions": "Viewing the opponent's hand. Click Finish Select to proceed."
-      },
-      "count": "1",
-      "criteria": {
-        "passing": "card"
-      },
-      "mandatory": "mandatory or random"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "count",
-      "criteria": {
-        "from": "afterlife",
-        "player": "owner",
-        "name": "Darkness of the Mind"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "cardCount"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "<",
-      "value": "effect cardCount + 1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "count",
-      "criteria": {
-        "from": "hand",
-        "player": "opponent"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "discard"
-    }
-  },
-  {
-    "action": {
-      "primary": "send card to",
-      "location": "afterlife",
-      "player": "target card owner"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "from": "hand",
-        "player": "opponent"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "afterDiscard"
-    }
-  },
-  {
-    "action": {
-      "primary": "send card to",
-      "location": "afterlife",
-      "player": "target card owner"
-    },
-    "target": {
-      "primary": "card",
-      "selector": {
-        "primary": "opponent",
-        "instructions": "Discard X cards from your hand, where X is the number of Darkness of the Mind cards in your opponent's discard plus one."
-      },
-      "count": "effect cardCount + 1",
-      "criteria": {
-        "from": "hand",
-        "player": "opponent"
-      },
-      "mandatory": "discard"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "discard"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "opponent",
-      "playerProperty": "canLoseSP"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "afterEffect"
-    },
-    "effectName": "afterDiscard"
   },
   {
     "action": {
       "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "effect cardCount + 1"
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
     },
     "target": {
-      "primary": "opponent",
-      "playerProperty": "sp"
+      "primary": "card",
+      "cardProperty": "Penetration",
+      "criteria": {
+        "passing": "this card"
+      }
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -233,9 +113,34 @@
   },
   {
     "action": {
-      "primary": "send card to",
-      "location": "afterlife",
-      "player": "owner"
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "hv",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": [
+          "gainedStat",
+          "gainedBasicAbility"
+        ]
+      }
     },
     "target": {
       "primary": "card",
@@ -245,8 +150,7 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "afterEffect"
+    }
   },
   {
     "action": {
@@ -258,7 +162,43 @@
       "primary": "owner",
       "playerProperty": "sp"
     },
-    "effectName": "spUse"
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "canActivate",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "post-useSpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
@@ -272,6 +212,9 @@
       "criteria": {
         "passing": "this card"
       }
+    },
+    "effectComplete": {
+      "primary": "nothing"
     },
     "effectName": "verifyFail"
   }
