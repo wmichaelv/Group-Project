@@ -77,7 +77,7 @@
       "magnitude": "0",
       "undo": {
         "primary": "game event",
-        "event": "post-replPhase"
+        "event": "post-battlePhase"
       }
     },
     "target": {
@@ -88,7 +88,7 @@
           "board",
           "hand"
         ],
-        "class": "Replenishing Phase"
+        "class": "Battle Phase"
       }
     },
     "effectComplete": {
@@ -102,7 +102,7 @@
       "magnitude": "1",
       "undo": {
         "primary": "game event",
-        "event": "post-replPhase"
+        "event": "post-battlePhase"
       }
     },
     "target": {
@@ -110,7 +110,7 @@
       "cardProperty": "canActivate",
       "criteria": {
         "from": "deadpool",
-        "class": "Replenishing Phase",
+        "class": "Battle Phase",
         "type": "Character"
       }
     },
@@ -126,7 +126,7 @@
       "magnitude": "1",
       "undo": {
         "primary": "game event",
-        "event": "post-replPhase"
+        "event": "post-battlePhase"
       }
     },
     "target": {
@@ -135,7 +135,7 @@
       "criteria": {
         "from": "hand",
         "player": "owner",
-        "class": "Replenishing Phase",
+        "class": "Battle Phase",
         "type": "Event"
       }
     },
@@ -151,7 +151,7 @@
       "magnitude": "1",
       "undo": {
         "primary": "game event",
-        "event": "post-replPhase"
+        "event": "post-battlePhase"
       }
     },
     "target": {
@@ -160,7 +160,7 @@
       "criteria": {
         "from": "hand",
         "player": "opponent",
-        "class": "Replenishing Phase",
+        "class": "Battle Phase",
         "type": "Event"
       }
     },
@@ -176,7 +176,7 @@
       "magnitude": "1",
       "undo": {
         "primary": "game event",
-        "event": "post-replPhase"
+        "event": "post-battlePhase"
       }
     },
     "target": {
@@ -184,17 +184,66 @@
       "cardProperty": "canActivate",
       "criteria": {
         "from": "board",
-        "class": "Replenishing Phase",
-        "type": [
-          "Spell",
-          "Support"
-        ]
+        "class": "Battle Phase",
+        "type": "Support"
       }
     },
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "spellSupport"
+    "effectName": "support"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "canActivate",
+      "criteria": {
+        "from": "board",
+        "player": "owner",
+        "class": "Battle Phase",
+        "type": "Spell",
+        "stat": "stat-isBattleSpell>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "ownBattle"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "canActivate",
+      "criteria": {
+        "from": "board",
+        "player": "opponent",
+        "class": "Battle Phase",
+        "type": "Spell",
+        "stat": "stat-isBattleSpell>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "oppBattle"
   },
   {
     "action": {
@@ -210,7 +259,7 @@
           "deadpool"
         ],
         "player": "owner",
-        "class": "Replenishing Phase",
+        "class": "Battle Phase",
         "stat": "stat-usable=1&&stat-canActivate=1"
       }
     },
@@ -235,7 +284,7 @@
           "deadpool"
         ],
         "player": "owner",
-        "class": "Replenishing Phase",
+        "class": "Battle Phase",
         "stat": "stat-usable=1&&stat-canActivate=1"
       },
       "mandatory": "effect playerCard"
@@ -263,8 +312,8 @@
           "deadpool"
         ],
         "player": "owner",
-        "class": "Replenishing Phase",
-        "stat": "stat-qualifiedSelect=1&&stat-usable=1&&stat-canActivate=1"
+        "class": "Battle Phase",
+        "stat": "stat-qualifiedSelect>=1&&stat-usable=1&&stat-canActivate=1"
       },
       "exclude": {
         "stat": "stat-disableUse>=1"
@@ -547,7 +596,7 @@
           "deadpool"
         ],
         "player": "opponent",
-        "class": "Replenishing Phase",
+        "class": "Battle Phase",
         "stat": "stat-usable=1&&stat-canActivate=1"
       }
     },
@@ -572,7 +621,7 @@
           "deadpool"
         ],
         "player": "opponent",
-        "class": "Replenishing Phase",
+        "class": "Battle Phase",
         "stat": "stat-usable=1&&stat-canActivate=1"
       },
       "mandatory": "effect opponentCard"
@@ -600,8 +649,8 @@
           "deadpool"
         ],
         "player": "opponent",
-        "class": "Replenishing Phase",
-        "stat": "stat-qualifiedSelect=1&&stat-usable=1&&stat-canActivate=1"
+        "class": "Battle Phase",
+        "stat": "stat-qualifiedSelect>=1&&stat-usable=1&&stat-canActivate=1"
       },
       "exclude": {
         "stat": "stat-disableUse>=1"
@@ -902,8 +951,8 @@
           "deadpool"
         ],
         "player": "owner",
-        "class": "Replenishing Phase",
-        "stat": "stat-qualifiedSelect=1&&stat-usable=1&&stat-canActivate=1"
+        "class": "Battle Phase",
+        "stat": "stat-qualifiedSelect>=1&&stat-usable=1&&stat-canActivate=1"
       },
       "exclude": {
         "stat": "stat-disableUse>=1"
@@ -983,8 +1032,7 @@
       "value": "0"
     },
     "target": {
-      "primary": "opponent",
-      "playerProperty": "sp"
+      "primary": "opponent"
     },
     "effectComplete": {
       "primary": "trigger effect",
@@ -1008,8 +1056,8 @@
           "deadpool"
         ],
         "player": "opponent",
-        "class": "Replenishing Phase",
-        "stat": "stat-qualifiedSelect=1&&stat-usable=1&&stat-canActivate=1"
+        "class": "Battle Phase",
+        "stat": "stat-qualifiedSelect>=1&&stat-usable=1&&stat-canActivate=1"
       },
       "exclude": {
         "stat": "stat-disableUse>=1"
@@ -1103,7 +1151,7 @@
       },
       "undo": {
         "primary": "game event",
-        "event": "post-replPhase"
+        "event": "post-battlePhase"
       }
     },
     "target": {
@@ -1121,7 +1169,7 @@
       "magnitude": "1",
       "undo": {
         "primary": "game event",
-        "event": "post-replPhase"
+        "event": "post-battlePhase"
       }
     },
     "target": {
@@ -1130,7 +1178,7 @@
       "criteria": {
         "from": "hand",
         "player": "opponent",
-        "class": "Replenishing Phase",
+        "class": "Battle Phase",
         "type": "Event"
       }
     },
@@ -1145,7 +1193,7 @@
       "magnitude": "1",
       "undo": {
         "primary": "game event",
-        "event": "post-replPhase"
+        "event": "post-battlePhase"
       }
     },
     "target": {
@@ -1154,7 +1202,7 @@
       "criteria": {
         "from": "hand",
         "player": "owner",
-        "class": "Replenishing Phase",
+        "class": "Battle Phase",
         "type": "Event"
       }
     }
