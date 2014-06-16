@@ -27,7 +27,7 @@
         "player": "owner",
         "class": "Battle Spell",
         "type": "Spell",
-        "stat": "stat-targetableByOwnEvents>=1"
+        "stat": "stat-targetableByOwnEvents>=1&&stat-doubleHornFlag!=1"
       }
     },
     "effectComplete": {
@@ -110,7 +110,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner"
+      "player": "owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
@@ -179,7 +180,6 @@
       "primary": "send card to",
       "location": "FirstRow",
       "player": "owner",
-      "stackLocation": "top",
       "silent": "silent"
     },
     "target": {
