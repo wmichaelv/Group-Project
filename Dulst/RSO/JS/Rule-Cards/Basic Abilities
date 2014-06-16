@@ -5,6 +5,20 @@
       "player": "turn player"
     },
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "pre-BACalculation"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "assign variable"
     },
     "target": {
