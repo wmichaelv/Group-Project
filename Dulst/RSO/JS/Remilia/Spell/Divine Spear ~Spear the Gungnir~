@@ -41,7 +41,9 @@
       "primary": "card",
       "cardProperty": "targetableByOwnSpecials",
       "criteria": {
-        "passing": "this card"
+        "passing": "this card",
+        "from": "FirstRow",
+        "stat": "stat-disableSpecial!=1"
       }
     }
   },
@@ -49,7 +51,8 @@
     "action": {
       "primary": "send card to",
       "location": "SecondRow",
-      "player": "owner"
+      "player": "owner",
+      "silent": "silent"
     },
     "target": {
       "primary": "card",
@@ -93,40 +96,39 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": [
-          "setAttacker",
-          "setIntercept"
-        ]
+        "primary": "post-battlePhase"
       }
     },
     "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
+      "primary": "game"
     },
     "effectName": "passiveb"
   },
   {
     "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "post-battlePhase"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "pre-preparationPhase"
-      }
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
     },
     "target": {
-      "primary": "game"
+      "primary": "card",
+      "cardProperty": "targetableByOwnSpecials",
+      "criteria": {
+        "passing": "this card",
+        "class": "Battle Spell",
+        "stat": "stat-disableSpecial!=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "nothing"
     }
   },
   {
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner"
+      "player": "owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
