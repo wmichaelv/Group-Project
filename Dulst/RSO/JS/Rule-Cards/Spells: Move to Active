@@ -91,6 +91,24 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableActivateSatori",
+      "criteria": {
+        "passing": "give effect target"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "notifyCannotActivate"
+    }
+  },
+  {
+    "action": {
       "primary": "verify target"
     },
     "target": {
