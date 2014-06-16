@@ -183,6 +183,23 @@
   },
   {
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "post-useSpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "modify stats",
       "operation": "=",
       "magnitude": "0"
@@ -308,9 +325,35 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb,passivec"
+      "effectNumber": "undoA,undoB,undoC,undoD"
     },
     "effectName": "passive"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "startEffect"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    }
   },
   {
     "action": {
@@ -341,6 +384,9 @@
         "from": "board",
         "stat": "stat-ciid=effect ciid"
       }
+    },
+    "effectComplete": {
+      "primary": "nothing"
     }
   },
   {
@@ -349,8 +395,8 @@
       "operation": "+",
       "magnitude": "1",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyRed,verifySupp,verifySpecial,verifyBP,verifyHand"
       }
     },
     "target": {
@@ -363,7 +409,8 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "modifyCard"
   },
   {
     "action": {
@@ -397,21 +444,7 @@
         "player": "owner"
       }
     },
-    "effectName": "verify8"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "isOnAFlag",
-      "criteria": {
-        "passing": "this card"
-      }
-    }
+    "effectName": "verifyEight"
   },
   {
     "action": {
@@ -419,7 +452,8 @@
       "operation": "+",
       "magnitude": "1",
       "undo": {
-        "primary": "permanent"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyRed,verifySupp,verifySpecial,verifyBP,verifyHand"
       }
     },
     "target": {
@@ -440,7 +474,8 @@
       "operation": "+",
       "magnitude": "1",
       "undo": {
-        "primary": "permanent"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyRed,verifySupp,verifySpecial,verifyBP,verifyHand"
       }
     },
     "target": {
@@ -461,7 +496,8 @@
       "operation": "+",
       "magnitude": "1",
       "undo": {
-        "primary": "permanent"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyRed,verifySupp,verifySpecial,verifyBP,verifyHand"
       }
     },
     "target": {
@@ -470,26 +506,6 @@
       "criteria": {
         "from": "board",
         "stat": "stat-ciid=effect ciid"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "isOnAFlag",
-      "criteria": {
-        "passing": "this card"
       }
     },
     "effectComplete": {
@@ -518,144 +534,8 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "post-battlePhase"
+        "primary": "post-statChange"
       }
-    },
-    "target": {
-      "primary": "game"
-    },
-    "effectName": "passiveb"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "isOnAFlag",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectName": "verifyAFlag"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Penetration",
-      "criteria": {
-        "from": "board",
-        "stat": "stat-ciid=effect ciid"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "av",
-      "criteria": {
-        "from": "board",
-        "stat": "stat-ciid=effect ciid"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "iv",
-      "criteria": {
-        "from": "board",
-        "stat": "stat-ciid=effect ciid"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "isOnAFlag",
-      "criteria": {
-        "passing": "this card"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "pre-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "game"
-    },
-    "effectName": "passivec"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": [
-          "newTarget",
-          "newEffect"
-        ]
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "game"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
     },
     "target": {
       "primary": "card",
@@ -664,13 +544,40 @@
         "from": "board",
         "stat": "stat-ciid=effect ciid"
       }
-    }
+    },
+    "effectName": "undoA"
   },
   {
     "action": {
-      "primary": "run effect",
-      "effectNumber": "effect verifyAFlag",
-      "callback": "effect completion"
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOwnSpecials",
+      "criteria": {
+        "from": "board",
+        "stat": "stat-ciid=effect ciid"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifyRed"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "removeFromBoard"
+      },
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp"
+      }
     },
     "target": {
       "primary": "card",
@@ -678,24 +585,121 @@
         "passing": "this card"
       }
     },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
+    "effectName": "undoB"
   },
   {
     "action": {
-      "primary": "run effect",
-      "effectNumber": "effect verify8",
-      "callback": "effect completion"
+      "primary": "verify target",
+      "verifyTrue": "doNothing"
     },
     "target": {
       "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "from": "board"
+      }
+    },
+    "effectName": "verifySupp"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "undoC"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
       "criteria": {
         "passing": "this card"
       }
     },
     "effectComplete": {
-      "primary": "trigger next effect"
-    }
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifySpecial"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "undoD"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "verifyBP"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-moveCard",
+        "to": [
+          "afterlife",
+          "hand"
+        ],
+        "toPlayer": "owner"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner"
+      }
+    },
+    "effectName": "undoE"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "dummy",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifyHand"
   }
 ]
