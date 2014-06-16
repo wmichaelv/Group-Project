@@ -1,4 +1,4 @@
-Note: Yo katon, done till Suwako, including team cards. test
+Note: From the bottom done till Miko, including team card and rule card.
 
 JS File goes here.
 
