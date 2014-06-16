@@ -14,138 +14,63 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb"
+      "effectNumber": "undoA,undoB,undoC,undoD,undoE,passiveb"
     },
     "effectName": "passive"
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0"
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "Preparation"
     },
     "target": {
-      "primary": "card",
-      "cardProperty": "qualifiedSelect",
-      "criteria": {
-        "player": "owner",
-        "type": "Event",
-        "stat": "stat-sp>=5"
-      }
+      "primary": "game",
+      "gameProperty": "phase"
     },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "playerIsAffected"
+    "effectName": "startEffect"
   },
   {
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "qualifiedSelect",
-      "criteria": {
-        "player": "opponent",
-        "type": "Event",
-        "stat": "stat-sp>=5"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "oppIsAffected"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "post-statIncrease"
-      },
+      "magnitude": "0",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp,verifyBP,verifyRP,verifyHand"
       }
     },
     "target": {
       "primary": "card",
       "cardProperty": "qualifiedSelect",
       "criteria": {
-        "from": "hand",
+        "player": "owner",
         "type": "Event",
         "stat": "stat-sp>=5"
       }
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "card"
-  },
-  {
-    "action": {
-      "primary": "verify target"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card",
-        "from": "board"
-      }
     }
   },
   {
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "0"
+      "magnitude": "0",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp,verifyBP,verifyRP,verifyHand"
+      }
     },
     "target": {
       "primary": "card",
       "cardProperty": "qualifiedSelect",
       "criteria": {
-        "passing": "card"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "disableEquip",
-      "criteria": {
-        "player": "owner",
-        "type": "Support",
-        "stat": "stat-sp>=5"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "passiveb"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "disableEquip",
-      "criteria": {
         "player": "opponent",
-        "type": "Support",
+        "type": "Event",
         "stat": "stat-sp>=5"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   },
   {
@@ -160,13 +85,33 @@
     },
     "target": {
       "primary": "game"
-    }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "passiveb"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "Battle"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "startEffectB"
   },
   {
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "1"
+      "magnitude": "1",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp,verifyBP,verifyRP,verifyHand"
+      }
     },
     "target": {
       "primary": "card",
@@ -179,14 +124,17 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "playerIsAffected"
+    }
   },
   {
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "1"
+      "magnitude": "1",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp,verifyPP,verifyRP,verifyHand"
+      }
     },
     "target": {
       "primary": "card",
@@ -196,40 +144,31 @@
         "type": "Support",
         "stat": "stat-sp>=5"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "oppIsAffected"
+    }
   },
   {
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "post-statIncrease"
+        "primary": "removeFromBoard"
       },
       "undo": {
-        "primary": "game event",
-        "event": "pre-pre-replPhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp"
       }
     },
     "target": {
       "primary": "card",
-      "cardProperty": "disableEquip",
       "criteria": {
-        "from": "hand",
-        "type": "Support",
-        "stat": "stat-sp>=5"
+        "passing": "this card"
       }
     },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "cardb"
+    "effectName": "undoA"
   },
   {
     "action": {
-      "primary": "verify target"
+      "primary": "verify target",
+      "verifyTrue": "doNothing"
     },
     "target": {
       "primary": "card",
@@ -237,20 +176,122 @@
         "passing": "this card",
         "from": "board"
       }
-    }
+    },
+    "effectName": "verifySupp"
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1"
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-replPhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "undoB"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Replenishing",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "verifyRP"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "pre-replPhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "undoC"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Preparation",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "verifyPP"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "undoD"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "verifyBP"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-moveCard",
+        "to": "hand"
+      }
     },
     "target": {
       "primary": "card",
-      "cardProperty": "disableEquip",
       "criteria": {
-        "passing": "cardb"
+        "type": [
+          "Support",
+          "Event"
+        ],
+        "stat": "stat-sp>=5"
       }
-    }
+    },
+    "effectName": "undoE"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect,startEffectB"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "dummy",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect,startEffectB"
+    },
+    "effectName": "verifyHand"
   }
 ]
