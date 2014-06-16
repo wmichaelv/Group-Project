@@ -23,7 +23,8 @@
       "primary": "card",
       "criteria": {
         "passing": "this card",
-        "class": "Leader"
+        "class": "Leader",
+        "stat": "stat-disableSpecial!=1"
       }
     },
     "effectName": "verifyLeader"
@@ -257,6 +258,22 @@
   },
   {
     "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "title",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "name"
+  },
+  {
+    "action": {
       "primary": "each"
     },
     "target": {
@@ -279,6 +296,23 @@
     "target": {
       "primary": "card",
       "cardProperty": "effect-equipTarget",
+      "criteria": {
+        "passing": "leaderSupports"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect name"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Equipped To",
       "criteria": {
         "passing": "leaderSupports"
       }
