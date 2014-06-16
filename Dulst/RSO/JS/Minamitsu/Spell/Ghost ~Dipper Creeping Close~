@@ -469,8 +469,26 @@
       }
     },
     "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "afterSelect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "extraCostTarget",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "afterSelect"
+      "effectNumber": "afterCheck"
     }
   },
   {
@@ -504,9 +522,43 @@
       }
     },
     "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "afterSelect"
+      "primary": "trigger next effect"
     }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "afterSelect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "extraCostTarget",
+      "criteria": {
+        "passing": "cardB"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterCheck"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "failExtraCost"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "failExtraCost"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "afterSelect"
   },
   {
     "action": {
@@ -528,7 +580,7 @@
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "afterSelect"
+    "effectName": "afterCheck"
   },
   {
     "action": {
@@ -702,6 +754,23 @@
   },
   {
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "post-useSpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "modify stats",
       "operation": "=",
       "magnitude": "0"
@@ -779,5 +848,17 @@
         "passing": "cardB"
       }
     }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "failExtraCost"
+    },
+    "effectName": "failExtraCost"
   }
 ]
