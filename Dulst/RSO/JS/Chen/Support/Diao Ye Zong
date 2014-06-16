@@ -11,9 +11,21 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb,passivec"
+      "effectNumber": "undoA,undoB"
     },
     "effectName": "passive"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "startEffect"
   },
   {
     "action": {
@@ -38,7 +50,8 @@
       "operation": "+",
       "magnitude": "1",
       "undo": {
-        "primary": "permanent"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyShiki,verifyBP"
       }
     },
     "target": {
@@ -58,32 +71,13 @@
       "operation": "+",
       "magnitude": "1",
       "undo": {
-        "primary": "permanent"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyShiki,verifyBP"
       }
     },
     "target": {
       "primary": "card",
       "cardProperty": "Focused Movement",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "DYZFlag",
       "criteria": {
         "passing": "selectedCard"
       }
@@ -110,120 +104,39 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "game"
-    },
-    "effectName": "passiveb"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "gainedShikigami"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "post-statChange"
       }
     },
     "target": {
       "primary": "card",
+      "cardProperty": "shikigami",
       "criteria": {
-        "from": "board"
+        "from": "board",
+        "player": "owner",
+        "type": "Spell"
       }
     },
-    "effectName": "cardB"
+    "effectName": "undoA"
   },
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "1"
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "DYZFlag",
+      "cardProperty": "dummy",
       "criteria": {
-        "passing": "cardB"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Unfocused Movement",
-      "criteria": {
-        "passing": "cardB"
+        "passing": "this card"
       }
     },
     "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
     },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Focused Movement",
-      "criteria": {
-        "passing": "cardB"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "DYZFlag",
-      "criteria": {
-        "passing": "cardB"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "gainedBasicAbility"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "cardB"
-      }
-    }
+    "effectName": "verifyShiki"
   },
   {
     "action": {
@@ -235,80 +148,19 @@
     "target": {
       "primary": "game"
     },
-    "effectName": "passivec"
+    "effectName": "undoB"
   },
   {
     "action": {
-      "primary": "assign variable"
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle",
+      "verifyTrue": "doNothing"
     },
     "target": {
-      "primary": "card",
-      "criteria": {
-        "from": "board",
-        "type": "Spell",
-        "stat": "stat-DYZFlag>=1"
-      }
+      "primary": "game",
+      "gameProperty": "phase"
     },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "cardC"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Unfocused Movement",
-      "criteria": {
-        "passing": "cardC"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "Focused Movement",
-      "criteria": {
-        "passing": "cardC"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "DYZFlag",
-      "criteria": {
-        "passing": "cardC"
-      }
-    }
+    "effectName": "verifyBP"
   }
 ]
