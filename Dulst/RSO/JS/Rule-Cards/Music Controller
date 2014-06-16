@@ -1,147 +1,54 @@
 [
   {
-    "ruleTrigger": {
-      "primary": "card",
-      "player": "turn player opponent"
-    },
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0"
+      "primary": "give choice",
+      "choiceType": "multiple choice",
+      "choiceQuestion": "Would you like to turn on BGM?",
+      "choices": "effect oppDecides Yes\neffect nothing No"
     },
     "target": {
-      "primary": "owner",
-      "playerProperty": "bossFight"
+      "primary": "owner"
     },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
+    "effectName": "ownDecides"
   },
   {
     "action": {
-      "primary": "run effect",
-      "effectNumber": "bgmStart",
-      "callback": "effect completion"
+      "primary": "give choice",
+      "choiceType": "multiple choice",
+      "choiceQuestion": "Would you like to turn on BGM?",
+      "choices": "effect proceed Yes\neffect nothing No"
     },
     "target": {
-      "primary": "card",
-      "criteria": {
-        "player": "opponent",
-        "class": "Leader",
-        "type": "Character"
-      }
+      "primary": "opponent"
     },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "bossTrigger,sceneTrigger"
-    },
-    "effectName": "bgmStart"
+    "effectName": "oppDecides"
   },
   {
     "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "post-statDecrease"
-      }
-    },
-    "target": {
-      "primary": "opponent",
-      "playerProperty": "hp"
-    },
-    "effectName": "bossTrigger"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "<=",
-      "value": "10"
-    },
-    "target": {
-      "primary": "opponent",
-      "playerProperty": "hp"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "0",
-      "verifyTrue": "bgmBoss"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "bossFight"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "post-moveCard"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "from": "board",
-        "player": "opponent",
-        "class": "Scene",
-        "type": "Support"
-      }
-    },
-    "effectName": "sceneTrigger"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "0",
-      "verifyTrue": "bgmBoss"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "bossFight"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "bossFight"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "bgmBoss"
-  },
-  {
-    "action": {
-      "primary": "media",
-      "command": "clear channel",
-      "channel": "bgm1"
+      "primary": "chance",
+      "odds": ".5"
     },
     "target": {},
     "effectComplete": {
-      "primary": "trigger next effect"
-    }
+      "primary": "trigger effect",
+      "effectNumber": "runOpp"
+    },
+    "effectName": "proceed"
   },
   {
     "action": {
       "primary": "run effect",
-      "effectNumber": "bgmBoss",
-      "callback": "effect completion"
+      "cardName": "Music Controller Own"
     },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "player": "opponent",
-        "class": "Leader",
-        "type": "Character"
-      }
-    }
+    "target": {},
+    "effectName": "runOwn"
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "cardName": "Music Controller Opp"
+    },
+    "target": {},
+    "effectName": "runOpp"
   }
 ]
