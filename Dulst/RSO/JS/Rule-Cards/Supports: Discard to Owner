@@ -242,17 +242,60 @@
   },
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
+      "primary": "modify stats",
+      "operation": "=",
+      "stringValue": "",
+      "undo": {
+        "primary": "permanent"
+      }
     },
     "target": {
       "primary": "card",
-      "cardProperty": "isEquippedWithSupport",
+      "cardProperty": "Equipped To",
       "criteria": {
-        "type": "Spell",
-        "stat": "stat-ciid=effect equipTarget"
+        "passing": "spellSupports"
       }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "-1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "effect-equipTarget",
+      "criteria": {
+        "passing": "spellSupports"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "class": "Spell",
+        "type": "Support",
+        "stat": "stat-effect-equipTarget=effect equipTarget"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
     }
   },
   {
