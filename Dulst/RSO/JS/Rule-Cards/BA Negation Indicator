@@ -1,0 +1,700 @@
+[
+  {
+    "ruleTrigger": {
+      "primary": "start",
+      "player": "turn player"
+    },
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableUFM",
+      "criteria": {
+        "type": "Spell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "FM,Pro,Faith,Pen,GB,BA,Act,Spec,OwnSp,OwnEv,OppSp,OppEv,Bya,Shiki"
+    },
+    "effectName": "UFM"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableUFM",
+      "criteria": {
+        "passing": "UFM"
+      }
+    },
+    "effectName": "verifyUFM"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Unfocused Movement Disabled",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyUFM"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "UFM"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableFM",
+      "criteria": {
+        "type": "Spell"
+      }
+    },
+    "effectName": "FM"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableFM",
+      "criteria": {
+        "passing": "FM"
+      }
+    },
+    "effectName": "verifyFM"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Focused Movement Disabled",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyFM"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "FM"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disablePro",
+      "criteria": {
+        "type": "Spell"
+      }
+    },
+    "effectName": "Pro"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disablePro",
+      "criteria": {
+        "passing": "Pro"
+      }
+    },
+    "effectName": "verifyPro"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Protection Disabled",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyPro"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "Pro"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableFaith",
+      "criteria": {
+        "type": "Spell"
+      }
+    },
+    "effectName": "Faith"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableFaith",
+      "criteria": {
+        "passing": "Faith"
+      }
+    },
+    "effectName": "verifyFaith"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Faith Disabled",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyFaith"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "Faith"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disablePen",
+      "criteria": {
+        "type": "Spell"
+      }
+    },
+    "effectName": "Pen"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disablePen",
+      "criteria": {
+        "passing": "Pen"
+      }
+    },
+    "effectName": "verifyPen"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Penetration Disabled",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyPen"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "Pen"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableGB",
+      "criteria": {
+        "type": "Spell"
+      }
+    },
+    "effectName": "GB"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableGB",
+      "criteria": {
+        "passing": "GB"
+      }
+    },
+    "effectName": "verifyGB"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Guided Bullets Disabled",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyGB"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "GB"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableBA",
+      "criteria": {
+        "type": "Spell"
+      }
+    },
+    "effectName": "BA"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableBA",
+      "criteria": {
+        "passing": "BA"
+      }
+    },
+    "effectName": "verifyBA"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Basic Abilities Disabled",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyBA"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "BA"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableActivate",
+      "criteria": {
+        "type": "Spell"
+      }
+    },
+    "effectName": "Act"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableActivate",
+      "criteria": {
+        "passing": "Act"
+      }
+    },
+    "effectName": "verifyAct"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Activation Disabled",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyAct"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "Act"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial"
+    },
+    "effectName": "Spec"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "Spec"
+      }
+    },
+    "effectName": "verifySpec"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Specials Disabled",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySpec"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "Spec"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOwnSpecials"
+    },
+    "effectName": "OwnSp"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOwnSpecials",
+      "criteria": {
+        "passing": "OwnSp"
+      }
+    },
+    "effectName": "verifyOwnSp"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Untargetable by Own Specials",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyOwnSp"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "OwnSp"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOwnEvents"
+    },
+    "effectName": "OwnEv"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOwnEvents",
+      "criteria": {
+        "passing": "OwnEv"
+      }
+    },
+    "effectName": "verifyOwnEv"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Untargetable by Own Events",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyOwnEv"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "OwnEv"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOppSpecials"
+    },
+    "effectName": "OppSp"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOppSpecials",
+      "criteria": {
+        "passing": "OppSp"
+      }
+    },
+    "effectName": "verifyOppSp"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Untargetable by Opponent Specials",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyOppSp"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "OppSp"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOppEvents"
+    },
+    "effectName": "OppEv"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOppEvents",
+      "criteria": {
+        "passing": "OppEv"
+      }
+    },
+    "effectName": "verifyOppEv"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Untargetable by Opponent Events",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyOppEv"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "OppEv"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "statsFreeze",
+      "criteria": {
+        "type": "Spell"
+      }
+    },
+    "effectName": "Bya"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "statsFreeze",
+      "criteria": {
+        "passing": "Bya"
+      }
+    },
+    "effectName": "verifyBya"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "AV-IV-HV Sealed",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyBya"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "Bya"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "shikigami",
+      "criteria": {
+        "type": "Spell"
+      }
+    },
+    "effectName": "Shiki"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "shikigami",
+      "criteria": {
+        "passing": "Shiki"
+      }
+    },
+    "effectName": "verifyShiki"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Shikigami-Enhanced",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyShiki"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "Shiki"
+      }
+    }
+  }
+]
