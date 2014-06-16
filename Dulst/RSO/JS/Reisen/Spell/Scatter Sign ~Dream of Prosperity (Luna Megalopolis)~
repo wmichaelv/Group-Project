@@ -12,7 +12,8 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "this card"
+        "passing": "this card",
+        "stat": "stat-disableSpecial!=1"
       }
     },
     "effectName": "passive"
@@ -69,7 +70,8 @@
     "action": {
       "primary": "send card to",
       "location": "SecondRow",
-      "player": "target card owner"
+      "player": "target card owner",
+      "silent": "silent"
     },
     "target": {
       "primary": "card",
