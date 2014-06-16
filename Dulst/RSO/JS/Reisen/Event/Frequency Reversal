@@ -25,7 +25,7 @@
       "criteria": {
         "player": "owner",
         "class": "Battle Spell",
-        "stat": "stat-targetableByOwnEvents>=1"
+        "stat": "stat-targetableByOwnEvents>=1&&stat-hv>stat-oHV"
       }
     },
     "effectComplete": {
@@ -41,7 +41,7 @@
       "criteria": {
         "player": "opponent",
         "class": "Battle Spell",
-        "stat": "stat-targetableByOppEvents>=1"
+        "stat": "stat-targetableByOppEvents>=1&&stat-hv>stat-oHV"
       }
     },
     "effectComplete": {
