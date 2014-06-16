@@ -1,60 +1,31 @@
 [
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "4"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "sp"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "verifyFail"
-    },
-    "effectName": "verify"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "Satori Komeiji"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "charName"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger event",
+      "primary": "trigger on event",
       "event": {
-        "primary": "requestLevel"
+        "primary": "pre-battlePhase"
       }
     },
     "target": {
-      "primary": "owner"
+      "primary": "game"
     },
     "effectComplete": {
-      "primary": "trigger next effect"
-    }
+      "primary": "trigger effect",
+      "effectNumber": "undoA,undoB,undoC,undoD"
+    },
+    "effectName": "passive"
   },
   {
     "action": {
-      "primary": "assign variable"
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle"
     },
     "target": {
       "primary": "game",
-      "gameProperty": "charLevel"
+      "gameProperty": "phase"
     },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "level"
+    "effectName": "startEffect"
   },
   {
     "action": {
@@ -64,53 +35,12 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "discardTargetableByOppEvents",
+      "cardProperty": "targetableByOwnSpecials",
       "criteria": {
-        "player": "opponent",
-        "class": "Leader",
-        "type": "Character"
+        "passing": "this card",
+        "stat": "stat-disableSpecial!=1"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "verifyFail"
     }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "Replenishing"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "phase"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "verifyBattle"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "verifyTrue": "verifySuccess"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "from": "afterlife",
-        "player": "opponent",
-        "class": "Replenishing Phase",
-        "type": "Event",
-        "stat": "stat-lvl<=effect level"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "verifyFail"
-    },
-    "effectName": "verifyRepl"
   },
   {
     "action": {
@@ -119,224 +49,31 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "from": "afterlife",
-        "player": "opponent",
-        "class": "Battle Phase",
-        "type": "Event",
-        "stat": "stat-lvl<=effect level"
+        "from": "board",
+        "player": "owner",
+        "class": "Leader",
+        "type": "Support"
       }
     },
     "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "verifyFail"
-    },
-    "effectName": "verifyBattle"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "qualifiedSelect",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectName": "verifySuccess"
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "pre-useEvent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "active"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "DRAW"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "failExtraCost"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "Replenishing"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "phase"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "tagBattle"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "newEffect"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "qs",
-      "criteria": {
-        "from": "afterlife",
-        "player": "opponent",
-        "class": "Replenishing Phase",
-        "type": "Event"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "selectedCard"
-    },
-    "effectName": "tagRepl"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "newEffect"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "qs",
-      "criteria": {
-        "from": "afterlife",
-        "player": "opponent",
-        "class": "Battle Phase",
-        "type": "Event"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "tagBattle"
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "selector": {
-        "primary": "owner",
-        "instructions": "Select a card to play, disregarding SP or Extra Costs."
-      },
-      "count": "1",
-      "criteria": {
-        "from": "afterlife",
-        "player": "opponent",
-        "type": "Event",
-        "stat": "stat-qs>=1&&stat-lvl<=effect level"
-      },
-      "mandatory": "selectedCard"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "selectedCard"
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "sp",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "sp"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "failExtraCost"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
+      "primary": "nothing"
     }
   },
   {
     "action": {
       "primary": "modify stats",
       "operation": "+",
-      "magnitude": "effect sp"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "sp"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "send card to",
-      "location": "hand",
-      "player": "owner"
+      "magnitude": "1",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyRed,verifySpecial,verifyBP,verifySupp"
+      }
     },
     "target": {
       "primary": "card",
+      "cardProperty": "Protection",
       "criteria": {
-        "passing": "selectedCard"
+        "passing": "this card"
       }
     },
     "effectComplete": {
@@ -345,241 +82,150 @@
   },
   {
     "action": {
-      "primary": "run effect",
-      "effectNumber": "verify",
-      "callback": "effect completion"
+      "primary": "trigger event",
+      "event": {
+        "primary": "gainedBasicAbility"
+      }
     },
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "selectedCard"
+        "passing": "this card"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
       }
     },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOwnSpecials",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "undoA"
   },
   {
     "action": {
       "primary": "verify target",
       "comparisonOperators": ">=",
-      "value": "1"
+      "value": "1",
+      "verifyTrue": "startEffect"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "qualifiedSelect",
+      "cardProperty": "targetableByOwnSpecials",
       "criteria": {
-        "passing": "selectedCard"
+        "passing": "this card"
       }
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "useFail"
-    }
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifyRed"
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "mindReadingFlag"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "run effect",
-      "effectNumber": "active",
-      "callback": "effect completion"
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
     },
     "target": {
       "primary": "card",
+      "cardProperty": "disableSpecial",
       "criteria": {
-        "passing": "selectedCard"
+        "passing": "this card"
       }
     },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
+    "effectName": "undoB"
   },
   {
     "action": {
       "primary": "verify target",
       "comparisonOperators": "!=",
-      "value": "1"
+      "value": "1",
+      "verifyTrue": "startEffect"
     },
     "target": {
-      "primary": "game",
-      "gameProperty": "failExtraCost"
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "useFail"
-    }
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifySpecial"
   },
   {
     "action": {
-      "primary": "send card to",
-      "location": "afterlife",
-      "player": "owner"
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "undoC"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "verifyBP"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "removeFromBoard"
+      }
     },
     "target": {
       "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Support"
+      }
+    },
+    "effectName": "undoD"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "dummy",
       "criteria": {
         "passing": "this card"
       }
     },
     "effectComplete": {
-      "primary": "trigger next effect"
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
     },
-    "effectName": "afterEffect"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "mindReadingFlag"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "send card to",
-      "location": "afterlife",
-      "player": "opponent"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "DRAW"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "4"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "sp"
-    },
-    "effectName": "spUse"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "qualifiedSelect",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectName": "verifyFail"
-  },
-  {
-    "action": {
-      "primary": "send card to",
-      "location": "hand",
-      "player": "owner"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "useFail"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "mindReadingFlag"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "send card to",
-      "location": "afterlife",
-      "player": "opponent"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "effect sp"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "sp"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "DRAW"
-    }
+    "effectName": "verifySupp"
   }
 ]
