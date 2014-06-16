@@ -11,9 +11,35 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb"
+      "effectNumber": "passiveb,undoA,undoB,undoC,undoD"
     },
     "effectName": "passive"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "startEffect"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    }
   },
   {
     "action": {
@@ -55,8 +81,8 @@
       "operation": "+",
       "magnitude": "1",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyRed,verifySupp,verifySpecial,verifyBP"
       }
     },
     "target": {
@@ -78,8 +104,8 @@
       "operation": "+",
       "magnitude": "1",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyRed,verifySupp,verifySpecial,verifyBP"
       }
     },
     "target": {
@@ -113,13 +139,146 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "targetedByEvent"
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOwnSpecials",
+      "criteria": {
+        "from": "board",
+        "stat": "stat-ciid=effect ciid"
+      }
+    },
+    "effectName": "undoA"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOwnSpecials",
+      "criteria": {
+        "from": "board",
+        "stat": "stat-ciid=effect ciid"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifyRed"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "removeFromBoard"
+      },
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp"
       }
     },
     "target": {
       "primary": "card",
       "criteria": {
         "passing": "this card"
+      }
+    },
+    "effectName": "undoB"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "from": "board"
+      }
+    },
+    "effectName": "verifySupp"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "undoC"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifySpecial"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "undoD"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "verifyBP"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "stat": "stat-disableSpecial!=1"
       }
     },
     "effectName": "passiveb"
@@ -303,83 +462,6 @@
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "effect ciid"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "ciid"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "send card to",
-      "location": "realityMarble",
-      "player": "target card owner",
-      "clone": "clone"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "stat": "stat-ciid=effect ciid"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "count": "1",
-      "criteria": {
-        "from": "realityMarble"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "card"
-  },
-  {
-    "action": {
-      "primary": "give effect",
-      "effectFrom": "ominousCryCiid",
-      "replaceEffect": "add"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "failExtraCost"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
       "primary": "verify target",
       "comparisonOperators": "==",
       "value": "effect player"
@@ -405,83 +487,32 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "discard",
-        "stat": "stat-ominousActiveFlag>=1"
+        "passing": "discard"
       }
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "proceedRevert"
+      "effectNumber": "failExtraCost"
     },
     "effectName": "revertOwn"
   },
   {
     "action": {
       "primary": "send card to",
-      "location": "FirstRow",
+      "location": "hand",
       "player": "opponent"
     },
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "discardB",
-        "stat": "stat-ominousActiveFlag>=1"
+        "passing": "discardB"
       }
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "proceedRevert"
+      "effectNumber": "failExtraCost"
     },
     "effectName": "revertOpp"
-  },
-  {
-    "action": {
-      "primary": "give effect",
-      "effectFrom": "effect replace",
-      "replaceEffect": "replace"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "stat": "stat-ciid=effect ciid"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "proceedRevert"
-  },
-  {
-    "action": {
-      "primary": "verify target"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "type": "Event",
-        "stat": "stat-ciid=effect ciid"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "triggerOnFail"
-    }
-  },
-  {
-    "action": {
-      "primary": "send card to",
-      "location": "hand",
-      "player": "target card owner"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "stat": "stat-ciid=effect ciid"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
   },
   {
     "action": {
@@ -490,73 +521,10 @@
       "magnitude": "1"
     },
     "target": {
-      "primary": "card",
-      "cardProperty": "qualifiedSelect",
-      "criteria": {
-        "stat": "stat-ciid=effect ciid"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "post-statDecrease"
-      },
-      "undo": {
-        "primary": "verify false",
-        "verifyEffectIndex": "verifyFailExtraCost"
-      }
-    },
-    "target": {
-      "primary": "game"
-    },
-    "effectName": "triggerOnFail"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
       "primary": "game",
       "gameProperty": "failExtraCost"
     },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "verifyFailExtraCost"
-  },
-  {
-    "action": {
-      "primary": "run effect",
-      "effectNumber": "ominousCryCiid",
-      "callback": "effect completion"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "remove card from match"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "card"
-      }
-    }
+    "effectName": "failExtraCost"
   },
   {
     "action": {
@@ -627,47 +595,5 @@
       "primary": "trigger effect",
       "effectNumber": "afterPay"
     }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "sp"
-    },
-    "effectName": "replace"
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "ciid"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "ominousCryCiid"
-  },
-  {
-    "action": {
-      "primary": "give effect",
-      "effectFrom": "this card",
-      "replaceEffect": "replace"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "stat": "stat-ciid=effect ominousCryCiid"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "giveEffect"
   }
 ]
