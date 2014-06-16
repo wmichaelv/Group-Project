@@ -22,27 +22,26 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "Replenishing",
-      "verifyTrue": "proceed"
+      "comparisonOperators": "!=",
+      "value": "Preparation"
     },
     "target": {
       "primary": "game",
       "gameProperty": "phase"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   },
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "Battle"
+      "comparisonOperators": "!=",
+      "value": "1"
     },
     "target": {
-      "primary": "game",
-      "gameProperty": "phase"
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
     }
   },
   {
