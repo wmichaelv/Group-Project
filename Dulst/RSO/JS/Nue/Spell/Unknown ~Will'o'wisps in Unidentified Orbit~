@@ -180,6 +180,24 @@
   },
   {
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "changeType"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "afterEffect"
+  },
+  {
+    "action": {
       "primary": "modify stats",
       "operation": "-",
       "magnitude": "1"
@@ -190,8 +208,7 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "afterEffect"
+    }
   },
   {
     "action": {
@@ -202,6 +219,23 @@
     "target": {
       "primary": "card",
       "cardProperty": "canActivate",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "post-useSpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
       "criteria": {
         "passing": "this card"
       }
