@@ -1,26 +1,6 @@
 [
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "4"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "count",
-      "criteria": {
-        "from": "deck",
-        "player": "owner"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "failExtraCost"
-    },
-    "effectName": "extraCostEquipCheck"
-  },
-  {
-    "action": {
       "primary": "modify stats",
       "operation": "=",
       "magnitude": "1",
@@ -35,13 +15,15 @@
       "criteria": {
         "passing": "this card"
       }
-    }
+    },
+    "effectName": "extraCostEquipCheck"
   },
   {
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "target card owner"
+      "player": "target card owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
