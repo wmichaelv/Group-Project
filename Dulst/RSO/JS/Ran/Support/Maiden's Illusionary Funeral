@@ -11,9 +11,21 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb,passivec"
+      "effectNumber": "undoA,undoB"
     },
     "effectName": "passive"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "startEffect"
   },
   {
     "action": {
@@ -38,7 +50,8 @@
       "operation": "+",
       "magnitude": "1",
       "undo": {
-        "primary": "permanent"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyBP,verifyShiki"
       }
     },
     "target": {
@@ -58,7 +71,8 @@
       "operation": "+",
       "magnitude": "1",
       "undo": {
-        "primary": "permanent"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyBP,verifyShiki"
       }
     },
     "target": {
@@ -78,32 +92,13 @@
       "operation": "+",
       "magnitude": "1",
       "undo": {
-        "primary": "permanent"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyBP,verifyShiki"
       }
     },
     "target": {
       "primary": "card",
       "cardProperty": "hv",
-      "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "MIFFlag",
       "criteria": {
         "passing": "selectedCard"
       }
@@ -131,15 +126,18 @@
   },
   {
     "action": {
-      "primary": "each"
+      "primary": "assign variable"
     },
     "target": {
       "primary": "card",
       "criteria": {
         "from": "board",
         "type": "Spell",
-        "stat": "stat-shikigami=0"
+        "stat": "stat-shikigami!=1"
       }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
     },
     "effectName": "card"
   },
@@ -149,12 +147,8 @@
       "operation": "=",
       "magnitude": "1",
       "undo": {
-        "primary": [
-          "verify false",
-          "game event"
-        ],
-        "event": "post-battlePhase",
-        "verifyEffectIndex": "verifyShiki"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyBP,verifyShiki"
       }
     },
     "target": {
@@ -174,12 +168,8 @@
       "operation": "=",
       "magnitude": "1",
       "undo": {
-        "primary": [
-          "verify false",
-          "game event"
-        ],
-        "event": "post-battlePhase",
-        "verifyEffectIndex": "verifyShiki"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyBP,verifyShiki"
       }
     },
     "target": {
@@ -211,262 +201,63 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "game"
-    },
-    "effectName": "passiveb"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "gainedShikigami"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "from": "board"
-      }
-    },
-    "effectName": "cardB"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "MIFFlag",
-      "criteria": {
-        "passing": "cardB"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "shikigami",
-      "criteria": {
-        "passing": "cardB"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "av",
-      "criteria": {
-        "passing": "cardB"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "iv",
-      "criteria": {
-        "passing": "cardB"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "hv",
-      "criteria": {
-        "passing": "cardB"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "MIFFlag",
-      "criteria": {
-        "passing": "cardB"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "gainedStat"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "cardB"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
         "primary": "post-battlePhase"
       }
     },
     "target": {
       "primary": "game"
     },
-    "effectName": "passivec"
+    "effectName": "undoA"
   },
   {
     "action": {
-      "primary": "assign variable"
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "verifyBP"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
     },
     "target": {
       "primary": "card",
+      "cardProperty": "shikigami",
       "criteria": {
         "from": "board",
-        "type": "Spell",
-        "stat": "stat-MIFFlag>=1"
+        "player": "owner",
+        "type": "Spell"
       }
     },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "cardD"
+    "effectName": "undoB"
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "av",
+      "cardProperty": "dummy",
       "criteria": {
-        "passing": "cardD"
+        "passing": "this card"
       }
     },
     "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
     },
-    "target": {
-      "primary": "card",
-      "cardProperty": "iv",
-      "criteria": {
-        "passing": "cardD"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "hv",
-      "criteria": {
-        "passing": "cardD"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "MIFFlag",
-      "criteria": {
-        "passing": "cardD"
-      }
-    }
+    "effectName": "verifyShiki"
   }
 ]
