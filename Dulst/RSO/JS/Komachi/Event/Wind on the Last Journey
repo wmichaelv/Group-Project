@@ -17,24 +17,20 @@
   },
   {
     "action": {
-      "primary": "verify target"
+      "primary": "verify target",
+      "verifyTrue": "verifySuccess"
     },
     "target": {
       "primary": "card",
-      "count": "1",
       "criteria": {
-        "from": "board",
-        "player": "opponent",
+        "player": "owner",
         "class": "Battle Spell",
-        "type": "Spell",
-        "stat": "stat-targetableByOppEvents>=1"
+        "stat": "stat-targetableByOwnEvents>=1&&stat-ghost>=1&&stat-doubleHornFlag!=1"
       }
     },
     "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "verifyFail"
-    },
-    "effectName": "ciid"
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
@@ -43,9 +39,9 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "from": "board",
-        "class": "Ghost",
-        "stat": "stat-effect-equipTarget=effect ciid"
+        "player": "opponent",
+        "class": "Battle Spell",
+        "stat": "stat-targetableByOppEvents>=1&&stat-ghost>=1"
       }
     },
     "effectComplete": {
@@ -88,14 +84,66 @@
   },
   {
     "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "newEffect"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qs",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell",
+        "stat": "stat-targetableByOwnEvents>=1&&stat-ghost>=1&&stat-doubleHornFlag!=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "newEffect"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qs",
+      "criteria": {
+        "player": "opponent",
+        "class": "Battle Spell",
+        "stat": "stat-targetableByOppEvents>=1&&stat-ghost>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "assign variable"
     },
     "target": {
       "primary": "card",
+      "selector": {
+        "primary": "owner",
+        "instructions": "Select 1 Spell to disable its Basic Abilities."
+      },
+      "count": "1",
       "criteria": {
-        "player": "opponent",
-        "class": "Battle Spell"
-      }
+        "class": "Battle Spell",
+        "stat": "stat-qs>=1"
+      },
+      "mandatory": "selectedCard"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -161,7 +209,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner"
+      "player": "owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
@@ -171,8 +220,7 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "afterEffect"
+    }
   },
   {
     "action": {
