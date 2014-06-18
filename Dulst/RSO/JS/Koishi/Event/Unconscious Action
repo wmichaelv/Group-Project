@@ -68,7 +68,8 @@
         "from": "board",
         "player": "opponent",
         "class": "Spell",
-        "type": "Support"
+        "type": "Support",
+        "stat": "stat-fromOpp!=1"
       }
     },
     "effectComplete": {
@@ -333,7 +334,7 @@
         "player": "opponent",
         "class": "Spell",
         "type": "Support",
-        "stat": "stat-targetableByOppEvents>=1"
+        "stat": "stat-targetableByOppEvents>=1&&stat-fromOpp!=1"
       },
       "mandatory": "selectedCard"
     },
@@ -470,6 +471,56 @@
   },
   {
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "extraCostTarget",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterCheck"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "failExtraCost"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "failExtraCost"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "modify stats",
       "operation": "=",
       "magnitude": "1",
@@ -483,7 +534,8 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "afterCheck"
   },
   {
     "action": {
@@ -688,23 +740,6 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "selectedCard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "targetedByEvent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
         "passing": "equipTarget"
       }
     },
@@ -726,6 +761,34 @@
       }
     },
     "effectName": "useFail"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "failExtraCost"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "failExtraCost"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "hand",
+      "player": "owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    }
   },
   {
     "action": {
@@ -894,7 +957,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner"
+      "player": "owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
