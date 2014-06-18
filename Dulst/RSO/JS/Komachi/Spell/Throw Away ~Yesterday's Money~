@@ -11,9 +11,24 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb,passivec"
+      "effectNumber": "undoA,undoB,undoC,undoD"
     },
     "effectName": "passive"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectComplete": {
+      "primary": "nothing"
+    },
+    "effectName": "startEffect"
   },
   {
     "action": {
@@ -26,10 +41,8 @@
       "playerProperty": "hp"
     },
     "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "turnOff"
-    },
-    "effectName": "startPassiveA"
+      "primary": "nothing"
+    }
   },
   {
     "action": {
@@ -41,25 +54,8 @@
       "primary": "card",
       "cardProperty": "targetableByOwnSpecials",
       "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "nothing"
-    },
-    "effectName": "turnOn"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "isOnAFlag",
-      "criteria": {
-        "passing": "this card"
+        "passing": "this card",
+        "stat": "stat-disableSpecial!=1"
       }
     },
     "effectComplete": {
@@ -72,7 +68,8 @@
       "operation": "+",
       "magnitude": "1",
       "undo": {
-        "primary": "permanent"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyRed,verifySpecial,verifyBP,verifyHP"
       }
     },
     "target": {
@@ -92,32 +89,13 @@
       "operation": "+",
       "magnitude": "2",
       "undo": {
-        "primary": "permanent"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyRed,verifySpecial,verifyBP,verifyHP"
       }
     },
     "target": {
       "primary": "card",
       "cardProperty": "hv",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "isOnAFlag",
       "criteria": {
         "passing": "this card"
       }
@@ -144,45 +122,73 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-battlePhase"
+        "primary": "post-statChange"
       }
     },
     "target": {
-      "primary": "game"
+      "primary": "card",
+      "cardProperty": "targetableByOwnSpecials",
+      "criteria": {
+        "passing": "this card"
+      }
     },
-    "effectName": "passiveb"
+    "effectName": "undoA"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOwnSpecials",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifyRed"
   },
   {
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": [
-          "post-statIncrease",
-          "post-statDecrease"
-        ]
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "post-statChange"
       }
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "hp"
-    }
-  },
-  {
-    "action": {
-      "primary": "run effect",
-      "effectNumber": "startPassiveA",
-      "callback": "effect completion"
     },
     "target": {
       "primary": "card",
+      "cardProperty": "disableSpecial",
       "criteria": {
         "passing": "this card"
       }
-    }
+    },
+    "effectName": "undoB"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifySpecial"
   },
   {
     "action": {
@@ -194,84 +200,49 @@
     "target": {
       "primary": "game"
     },
-    "effectName": "passivec"
+    "effectName": "undoC"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "verifyBP"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "hp"
+    },
+    "effectName": "undoD"
   },
   {
     "action": {
       "primary": "verify target",
       "comparisonOperators": ">=",
-      "value": "1"
+      "value": "99",
+      "verifyTrue": "startEffect"
     },
     "target": {
-      "primary": "card",
-      "cardProperty": "isOnAFlag",
-      "criteria": {
-        "passing": "this card"
-      }
+      "primary": "owner",
+      "playerProperty": "hp"
     },
     "effectComplete": {
-      "primary": "nothing"
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
     },
-    "effectName": "turnOff"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "iv",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "2",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "hv",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "isOnAFlag",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
+    "effectName": "verifyHP"
   }
 ]
