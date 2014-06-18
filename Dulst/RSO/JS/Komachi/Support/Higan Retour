@@ -3,7 +3,10 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-pre-replPhase"
+        "primary": [
+          "pre-pre-replPhase",
+          "pre-pre-battlePhase"
+        ]
       }
     },
     "target": {
@@ -11,7 +14,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb"
+      "effectNumber": "undoA,undoB,undoC,undoD,undoE"
     },
     "effectName": "passive"
   },
@@ -26,7 +29,8 @@
       "criteria": {
         "passing": "this card"
       }
-    }
+    },
+    "effectName": "startEffect"
   },
   {
     "action": {
@@ -47,7 +51,7 @@
   },
   {
     "action": {
-      "primary": "assign variable"
+      "primary": "each"
     },
     "target": {
       "primary": "card",
@@ -56,10 +60,10 @@
         "player": "owner",
         "class": "Spell",
         "type": "Support"
+      },
+      "exclude": {
+        "class": "Ghost"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     },
     "effectName": "card"
   },
@@ -68,8 +72,8 @@
       "primary": "add class",
       "class": "Ghost",
       "undo": {
-        "primary": "game event",
-        "event": "post-replPhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifySuppB,verifyBP,verifyRP"
       }
     },
     "target": {
@@ -79,47 +83,41 @@
       }
     },
     "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "triggerReplOwn"
+      "primary": "trigger next effect"
     }
   },
   {
     "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "useSupport"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-replPhase"
-      }
+      "primary": "assign variable"
     },
     "target": {
       "primary": "card",
+      "cardProperty": "effect-equipTarget",
       "criteria": {
-        "player": "owner",
-        "class": "Spell",
-        "type": "Support"
-      },
-      "exclude": {
-        "class": "Ghost"
+        "passing": "card"
       }
     },
-    "effectName": "triggerReplOwn"
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "ciid"
   },
   {
     "action": {
-      "primary": "add class",
-      "class": "Ghost",
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
       "undo": {
-        "primary": "game event",
-        "event": "post-replPhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifySuppB,verifyBP,verifyRP"
       }
     },
     "target": {
       "primary": "card",
+      "cardProperty": "ghost",
       "criteria": {
-        "passing": "triggerReplOwn"
+        "from": "board",
+        "stat": "stat-ciid=effect ciid"
       }
     }
   },
@@ -142,7 +140,7 @@
   },
   {
     "action": {
-      "primary": "assign variable"
+      "primary": "each"
     },
     "target": {
       "primary": "card",
@@ -151,10 +149,10 @@
         "player": "opponent",
         "class": "Spell",
         "type": "Support"
+      },
+      "exclude": {
+        "class": "Ghost"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     },
     "effectName": "cardB"
   },
@@ -163,8 +161,8 @@
       "primary": "add class",
       "class": "Ghost",
       "undo": {
-        "primary": "game event",
-        "event": "post-replPhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifySuppB,verifyBP,verifyRP"
       }
     },
     "target": {
@@ -174,175 +172,198 @@
       }
     },
     "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "effect-equipTarget",
+      "criteria": {
+        "passing": "cardB"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "ciidB"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifySuppB,verifyBP,verifyRP"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "ghost",
+      "criteria": {
+        "from": "board",
+        "stat": "stat-ciid=effect ciidB"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "changeDesignation"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectName": "undoA"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "dummy",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "triggerReplOpp"
-    }
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifyDesign"
   },
   {
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "useSupport"
+        "primary": "removeFromBoard"
       },
       "undo": {
-        "primary": "game event",
-        "event": "post-replPhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp"
       }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "player": "opponent",
-        "class": "Spell",
-        "type": "Support"
-      },
-      "exclude": {
-        "class": "Ghost"
-      }
-    },
-    "effectName": "triggerReplOpp"
-  },
-  {
-    "action": {
-      "primary": "add class",
-      "class": "Ghost",
-      "undo": {
-        "primary": "game event",
-        "event": "post-replPhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "triggerReplOpp"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "pre-pre-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "game"
-    },
-    "effectName": "passiveb"
-  },
-  {
-    "action": {
-      "primary": "run effect",
-      "effectNumber": "batOwn,batOpp",
-      "callback": "effect completion"
     },
     "target": {
       "primary": "card",
       "criteria": {
         "passing": "this card"
       }
-    }
+    },
+    "effectName": "undoB"
   },
   {
     "action": {
-      "primary": "verify target"
+      "primary": "verify target",
+      "verifyTrue": "doNothing"
     },
     "target": {
       "primary": "card",
       "criteria": {
-        "player": "owner",
-        "class": "Leader",
-        "type": "Character"
-      },
-      "exclude": {
-        "class": "Higan"
+        "passing": "this card",
+        "from": "board"
       }
     },
-    "effectName": "batOwn"
+    "effectName": "verifySupp"
   },
   {
     "action": {
-      "primary": "assign variable"
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
     },
     "target": {
       "primary": "card",
+      "cardProperty": "isEquippedWithSupport",
       "criteria": {
         "from": "board",
-        "player": "owner",
-        "class": "Spell",
-        "type": "Support"
+        "type": "Spell"
+      }
+    },
+    "effectName": "undoC"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "dummy",
+      "criteria": {
+        "passing": "this card"
       }
     },
     "effectComplete": {
-      "primary": "trigger next effect"
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
     },
-    "effectName": "cardC"
+    "effectName": "verifySuppB"
   },
   {
     "action": {
-      "primary": "add class",
-      "class": "Ghost",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-battlePhase"
       }
     },
     "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "cardC"
-      }
-    }
+      "primary": "game"
+    },
+    "effectName": "undoD"
   },
   {
     "action": {
-      "primary": "verify target"
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle",
+      "verifyTrue": "doNothing"
     },
     "target": {
-      "primary": "card",
-      "criteria": {
-        "player": "opponent",
-        "class": "Leader",
-        "type": "Character"
-      },
-      "exclude": {
-        "class": "Higan"
-      }
+      "primary": "game",
+      "gameProperty": "phase"
     },
-    "effectName": "batOpp"
+    "effectName": "verifyBP"
   },
   {
     "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "from": "board",
-        "player": "opponent",
-        "class": "Spell",
-        "type": "Support"
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-replPhase"
       }
     },
-    "effectComplete": {
-      "primary": "trigger next effect"
+    "target": {
+      "primary": "game"
     },
-    "effectName": "cardD"
+    "effectName": "undoE"
   },
   {
     "action": {
-      "primary": "add class",
-      "class": "Ghost",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Replenishing",
+      "verifyTrue": "doNothing"
     },
     "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "cardD"
-      }
-    }
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "verifyRP"
   }
 ]
