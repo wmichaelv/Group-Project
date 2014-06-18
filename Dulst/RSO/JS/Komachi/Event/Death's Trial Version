@@ -23,11 +23,11 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "discardTargetableByOwnEvents",
+      "cardProperty": "targetableByOppSpecials",
       "criteria": {
-        "player": "owner",
-        "class": "Leader",
-        "type": "Character"
+        "player": "opponent",
+        "class": "Battle Spell",
+        "stat": "stat-ghost>=1"
       }
     },
     "effectComplete": {
@@ -47,13 +47,14 @@
       "criteria": {
         "passing": "this card"
       }
-    }
+    },
+    "effectName": "verifySuccess"
   },
   {
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "pre-useEvent"
+        "primary": "pre-useSpecial"
       }
     },
     "target": {
@@ -73,16 +74,10 @@
     },
     "target": {
       "primary": "card",
-      "selector": {
-        "primary": "owner",
-        "instructions": "Select a card to add to your hand."
-      },
-      "count": "1",
       "criteria": {
-        "from": "afterlife",
-        "player": "owner"
-      },
-      "mandatory": "useFail"
+        "player": "opponent",
+        "class": "Battle Spell"
+      }
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -93,21 +88,8 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "discardTargetedByEvent"
+        "primary": "targetedBySpecial"
       }
-    },
-    "target": {
-      "primary": "owner"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "send card to",
-      "location": "hand",
-      "player": "owner"
     },
     "target": {
       "primary": "card",
@@ -121,14 +103,19 @@
   },
   {
     "action": {
-      "primary": "send card to",
-      "location": "afterlife",
-      "player": "owner"
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
     },
     "target": {
       "primary": "card",
+      "cardProperty": "av",
       "criteria": {
-        "passing": "this card"
+        "passing": "selectedCard"
       }
     },
     "effectComplete": {
@@ -139,16 +126,87 @@
     "action": {
       "primary": "modify stats",
       "operation": "-",
-      "magnitude": "2",
+      "magnitude": "1",
       "undo": {
-        "primary": "permanent"
+        "primary": "game event",
+        "event": "post-battlePhase"
       }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "iv",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "lostStat"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "2"
     },
     "target": {
       "primary": "owner",
       "playerProperty": "sp"
     },
-    "effectName": "spUse"
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "canActivate",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "post-useSpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
@@ -167,213 +225,24 @@
   },
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "5"
+      "primary": "media",
+      "command": "play",
+      "file": "1",
+      "channel": "bgm1",
+      "loop": "loop"
     },
-    "target": {
-      "primary": "card",
-      "cardProperty": "count",
-      "criteria": {
-        "from": "deck",
-        "player": "owner"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "verifyFail"
-    },
-    "effectName": "extraCostUse"
+    "target": {},
+    "effectName": "bgmStart"
   },
   {
     "action": {
-      "primary": "send card to",
-      "location": "afterlife",
-      "player": "owner"
+      "primary": "media",
+      "command": "play",
+      "file": "2",
+      "channel": "bgm1",
+      "loop": "loop"
     },
-    "target": {
-      "primary": "card",
-      "count": "5",
-      "criteria": {
-        "from": "deck",
-        "player": "owner",
-        "first": "5"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "discard"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "paidExtraCost",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "extraCostUseRevert"
-    }
-  },
-  {
-    "action": {
-      "primary": "send card to",
-      "location": "hand",
-      "player": "owner"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "useFail"
-  },
-  {
-    "action": {
-      "primary": "send card to",
-      "location": "deck",
-      "player": "owner",
-      "stackLocation": "top"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "discard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "failExtraCost"
-    },
-    "effectName": "failExtraCost"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "extraCostUseRevert"
-      },
-      "undo": {
-        "primary": "verify false",
-        "verifyEffectIndex": "verifyPaid"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectName": "extraCostUseRevert"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "paidExtraCost",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectName": "verifyPaid"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "extraCostRevert"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "send card to",
-      "location": "deck",
-      "player": "owner",
-      "stackLocation": "top"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "discard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "extraCostRevert"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "paidExtraCost",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "failExtraCost"
-    }
+    "target": {},
+    "effectName": "bgmBoss"
   }
 ]
