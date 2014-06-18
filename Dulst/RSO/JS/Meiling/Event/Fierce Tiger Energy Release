@@ -1718,21 +1718,6 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "effect useCount"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "hp"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "failExtraCost"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
       "comparisonOperators": ">",
       "value": "effect useCount"
     },
