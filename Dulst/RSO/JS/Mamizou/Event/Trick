@@ -131,10 +131,8 @@
   },
   {
     "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "reserve"
-      }
+      "primary": "remove class",
+      "class": "Battle Spell"
     },
     "target": {
       "primary": "card",
@@ -148,8 +146,10 @@
   },
   {
     "action": {
-      "primary": "remove class",
-      "class": "Battle Spell"
+      "primary": "trigger event",
+      "event": {
+        "primary": "trick"
+      }
     },
     "target": {
       "primary": "card",
@@ -191,6 +191,29 @@
     "effectComplete": {
       "primary": "trigger effect",
       "effectNumber": "choose"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qs",
+      "criteria": {
+        "player": "owner",
+        "class": "Battle Spell",
+        "stat": "stat-targetableByOwnEvents>=1&&stat-disableActivate!=1&&stat-lvl<=effect useCount"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
     }
   },
   {
@@ -276,6 +299,23 @@
       "primary": "card",
       "criteria": {
         "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "reserve"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
       }
     },
     "effectComplete": {
@@ -399,24 +439,10 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "setAttacker"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "useSpell"
+        "primary": [
+          "trick",
+          "useSpell"
+        ]
       }
     },
     "target": {
@@ -510,24 +536,10 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "setIntercept"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "useSpell"
+        "primary": [
+          "trick",
+          "useSpell"
+        ]
       }
     },
     "target": {
@@ -545,7 +557,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner"
+      "player": "owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
