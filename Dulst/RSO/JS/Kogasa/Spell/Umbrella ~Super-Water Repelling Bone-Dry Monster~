@@ -3,7 +3,7 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-pre-replPhase"
+        "primary": "pre-replPhase"
       }
     },
     "target": {
@@ -11,9 +11,34 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb,passivec"
+      "effectNumber": "undoA,undoB,undoC,undoD,undoE"
     },
     "effectName": "passive"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Replenishing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "startEffect"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "from": "FirstRow",
+        "stat": "stat-disableSpecial!=1"
+      }
+    }
   },
   {
     "action": {
@@ -25,78 +50,116 @@
       "primary": "card",
       "cardProperty": "targetableByOwnSpecials",
       "criteria": {
-        "passing": "this card"
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyRed,verifySpecial,verifyBP,verifyActive,verifySupp"
       }
     },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "turnOff"
+    "target": {
+      "primary": "owner",
+      "playerProperty": "damageableByOppEvents"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyRed,verifySpecial,verifyBP,verifyActive,verifySupp"
+      }
     },
-    "effectName": "startEffect"
+    "target": {
+      "primary": "owner",
+      "playerProperty": "damageableByOppEvents"
+    },
+    "effectName": "undoEffect"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "targetableByOwnSpecials",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectName": "undoA"
   },
   {
     "action": {
       "primary": "verify target",
-      "verifyTrue": "turnOn"
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "undoEffect,startEffect"
     },
     "target": {
       "primary": "card",
+      "cardProperty": "dummy",
       "criteria": {
-        "passing": "this card",
-        "from": "FirstRow"
+        "passing": "this card"
       }
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "turnOff"
-    }
+      "effectNumber": "undoEffect,startEffect"
+    },
+    "effectName": "verifyRed"
   },
   {
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-replPhase"
-      }
-    },
-    "target": {
-      "primary": "game"
-    },
-    "effectName": "passiveb"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": [
-          "removeFromBoard",
-          "reserve",
-          "activate"
-        ]
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-replPhase"
+        "primary": "post-statChange"
       }
     },
     "target": {
       "primary": "card",
+      "cardProperty": "disableSpecial",
       "criteria": {
         "passing": "this card"
       }
-    }
+    },
+    "effectName": "undoB"
   },
   {
     "action": {
-      "primary": "run effect",
-      "effectNumber": "startEffect",
-      "callback": "effect completion"
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1",
+      "verifyTrue": "undoEffect,startEffect"
     },
     "target": {
       "primary": "card",
+      "cardProperty": "disableSpecial",
       "criteria": {
         "passing": "this card"
       }
-    }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "undoEffect,startEffect"
+    },
+    "effectName": "verifySpecial"
   },
   {
     "action": {
@@ -108,117 +171,98 @@
     "target": {
       "primary": "game"
     },
-    "effectName": "passivec"
-  },
-  {
-    "action": {
-      "primary": "run effect",
-      "effectNumber": "turnOff",
-      "callback": "effect completion"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    }
+    "effectName": "undoC"
   },
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "1"
+      "comparisonOperators": "==",
+      "value": "Replenishing",
+      "verifyTrue": "undoEffect"
     },
     "target": {
-      "primary": "card",
-      "cardProperty": "isOnFlag",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectName": "turnOn"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "isOnFlag",
-      "criteria": {
-        "passing": "this card"
-      }
+      "primary": "game",
+      "gameProperty": "phase"
     },
     "effectComplete": {
-      "primary": "trigger next effect"
-    }
+      "primary": "trigger effect",
+      "effectNumber": "undoEffect"
+    },
+    "effectName": "verifyRP"
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "permanent"
+      "primary": "trigger on event",
+      "event": {
+        "primary": [
+          "reserve",
+          "activate"
+        ]
       }
     },
     "target": {
-      "primary": "owner",
-      "playerProperty": "damageableByOppEvents"
-    }
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "undoD"
   },
   {
     "action": {
       "primary": "verify target",
       "comparisonOperators": ">=",
-      "value": "1"
+      "value": "1",
+      "verifyTrue": "undoEffect,startEffect"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "isOnFlag",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectName": "turnOff"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "isOnFlag",
+      "cardProperty": "dummy",
       "criteria": {
         "passing": "this card"
       }
     },
     "effectComplete": {
-      "primary": "trigger next effect"
-    }
+      "primary": "trigger effect",
+      "effectNumber": "undoEffect,startEffect"
+    },
+    "effectName": "verifyActive"
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
+      "primary": "trigger on event",
+      "event": {
+        "primary": "removeFromBoard"
+      },
       "undo": {
-        "primary": "permanent"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp"
       }
     },
     "target": {
-      "primary": "owner",
-      "playerProperty": "damageableByOppEvents"
-    }
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "undoE"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "undoEffect"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "from": "board"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "undoEffect"
+    },
+    "effectName": "verifySupp"
   }
 ]
