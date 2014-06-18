@@ -37,7 +37,8 @@
       "primary": "card",
       "cardProperty": "targetableByOwnSpecials",
       "criteria": {
-        "passing": "this card"
+        "passing": "this card",
+        "stat": "stat-disableSpecial!=1"
       }
     }
   },
@@ -45,7 +46,8 @@
     "action": {
       "primary": "send card to",
       "location": "SecondRow",
-      "player": "owner"
+      "player": "owner",
+      "silent": "silent"
     },
     "target": {
       "primary": "card",
