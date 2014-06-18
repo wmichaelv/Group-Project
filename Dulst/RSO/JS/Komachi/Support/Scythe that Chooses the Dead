@@ -159,30 +159,6 @@
   },
   {
     "action": {
-      "primary": "send card to",
-      "location": "afterlife",
-      "player": "owner"
-    },
-    "target": {
-      "primary": "card",
-      "selector": {
-        "primary": "owner",
-        "instructions": "Discard 1 card from your hand to use Scythe that Chooses the Dead."
-      },
-      "count": "1",
-      "criteria": {
-        "from": "hand",
-        "player": "owner"
-      },
-      "mandatory": "discard"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "discard"
-  },
-  {
-    "action": {
       "primary": "modify stats",
       "operation": "=",
       "magnitude": "1",
@@ -237,7 +213,7 @@
       "primary": "card",
       "selector": {
         "primary": "owner",
-        "instructions": "Select 1 Ghost Support in play to return to your hand."
+        "instructions": "Select 1 Ghost Support in play to return to its respective owner's hand."
       },
       "count": "1",
       "criteria": {
@@ -251,6 +227,81 @@
       "primary": "trigger next effect"
     },
     "effectName": "card"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedBySpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "extraCostTarget",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "discard"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "failExtraCost"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "failExtraCost"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "afterlife",
+      "player": "owner",
+      "stackLocation": "top"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "owner",
+        "instructions": "Discard 1 card from your hand to use Scythe that Chooses the Dead."
+      },
+      "count": "1",
+      "criteria": {
+        "from": "hand",
+        "player": "owner"
+      },
+      "mandatory": "discard"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "discard"
   },
   {
     "action": {
@@ -681,6 +732,23 @@
   },
   {
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "post-useSpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "modify stats",
       "operation": "=",
       "magnitude": "0"
@@ -720,7 +788,8 @@
     "target": {
       "primary": "game",
       "gameProperty": "failExtraCost"
-    }
+    },
+    "effectName": "failExtraCost"
   },
   {
     "action": {
@@ -734,38 +803,35 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb"
+      "effectNumber": "undoA,undoB,undoC,undoD,undoE,undoF"
     },
     "effectName": "passive"
   },
   {
     "action": {
-      "primary": "each"
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle"
     },
     "target": {
-      "primary": "card",
-      "criteria": {
-        "from": "board",
-        "class": "Ghost"
-      }
+      "primary": "game",
+      "gameProperty": "phase"
     },
-    "effectName": "eachCard"
+    "effectName": "startEffect"
   },
   {
     "action": {
-      "primary": "assign variable"
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "effect-equipTarget",
+      "cardProperty": "disableSpecial",
       "criteria": {
-        "passing": "eachCard"
+        "passing": "this card"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "ciid"
+    }
   },
   {
     "action": {
@@ -775,8 +841,9 @@
       "primary": "card",
       "criteria": {
         "from": "board",
+        "player": "opponent",
         "type": "Spell",
-        "stat": "stat-ciid=effect ciid"
+        "stat": "stat-targetableByOppSpecials>=1&&stat-ghost>=1"
       }
     },
     "effectComplete": {
@@ -786,79 +853,12 @@
   },
   {
     "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "playerNumber",
-      "criteria": {
-        "passing": "cardB"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "player"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "effect player",
-      "verifyTrue": "affectOwn"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "playerNumber",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "affectOpp"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1",
-      "verifyTrue": "proceedDebuff"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "targetableByOwnSpecials",
-      "criteria": {
-        "passing": "cardB"
-      }
-    },
-    "effectName": "affectOwn"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1",
-      "verifyTrue": "proceedDebuff"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "targetableByOppSpecials",
-      "criteria": {
-        "passing": "cardB"
-      }
-    },
-    "effectName": "affectOpp"
-  },
-  {
-    "action": {
       "primary": "modify stats",
       "operation": "-",
       "magnitude": "1",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyRed,verifyRedB,verifySupp,verifySpecial,verifyBP,verifyGhost"
       }
     },
     "target": {
@@ -870,8 +870,7 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "proceedDebuff"
+    }
   },
   {
     "action": {
@@ -879,34 +878,13 @@
       "operation": "-",
       "magnitude": "1",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyRed,verifyRedB,verifySupp,verifySpecial,verifyBP,verifyGhost"
       }
     },
     "target": {
       "primary": "card",
       "cardProperty": "iv",
-      "criteria": {
-        "passing": "cardB"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "scytheFlag",
       "criteria": {
         "passing": "cardB"
       }
@@ -933,13 +911,39 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-battlePhase"
+        "primary": "post-statChange"
       }
     },
     "target": {
-      "primary": "game"
+      "primary": "card",
+      "cardProperty": "targetableByOwnSpecials",
+      "criteria": {
+        "from": "board",
+        "player": "owner",
+        "type": "Spell"
+      }
     },
-    "effectName": "passiveb"
+    "effectName": "undoA"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "dummy",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifyRed"
   },
   {
     "action": {
@@ -948,126 +952,165 @@
         "primary": "removeFromBoard"
       },
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp"
       }
     },
     "target": {
       "primary": "card",
       "criteria": {
-        "class": "Ghost"
+        "passing": "this card"
       }
     },
-    "effectName": "cardC"
+    "effectName": "undoB"
   },
   {
     "action": {
-      "primary": "assign variable"
+      "primary": "verify target",
+      "verifyTrue": "doNothing"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "effect-equipTarget",
       "criteria": {
-        "passing": "cardC"
+        "passing": "this card",
+        "from": "board"
+      }
+    },
+    "effectName": "verifySupp"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "undoC"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
       }
     },
     "effectComplete": {
-      "primary": "trigger next effect"
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
     },
-    "effectName": "ciidC"
+    "effectName": "verifySpecial"
   },
   {
     "action": {
-      "primary": "assign variable"
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "undoD"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "verifyBP"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "removeFromBoard"
+      }
     },
     "target": {
       "primary": "card",
       "criteria": {
         "from": "board",
-        "type": "Spell",
-        "stat": "stat-ciid=effect ciidC"
+        "class": "Ghost"
       }
     },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "cardD"
+    "effectName": "undoE"
   },
   {
     "action": {
       "primary": "verify target",
       "comparisonOperators": ">=",
-      "value": "1"
+      "value": "1",
+      "verifyTrue": "startEffect"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "scytheFlag",
+      "cardProperty": "dummy",
       "criteria": {
-        "passing": "cardD"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "av",
-      "criteria": {
-        "passing": "cardD"
+        "passing": "this card"
       }
     },
     "effectComplete": {
-      "primary": "trigger next effect"
-    }
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifyGhost"
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
       }
     },
     "target": {
       "primary": "card",
-      "cardProperty": "iv",
+      "cardProperty": "targetableByOppSpecials",
       "criteria": {
-        "passing": "cardD"
+        "from": "board",
+        "player": "opponent",
+        "type": "Spell"
       }
     },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
+    "effectName": "undoF"
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "scytheFlag",
+      "cardProperty": "dummy",
       "criteria": {
-        "passing": "cardD"
+        "passing": "this card"
       }
     },
     "effectComplete": {
-      "primary": "trigger next effect"
-    }
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifyRedB"
   }
 ]
