@@ -9,7 +9,8 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "this card"
+        "passing": "this card",
+        "stat": "stat-disableSpecial!=1"
       }
     },
     "effectName": "passive"
@@ -22,7 +23,7 @@
       },
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": "pre-preparationPhase"
       }
     },
     "target": {
@@ -140,7 +141,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "target card owner"
+      "player": "target card owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
