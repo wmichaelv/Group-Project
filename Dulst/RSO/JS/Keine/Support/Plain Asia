@@ -258,6 +258,22 @@
   },
   {
     "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "title",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "name"
+  },
+  {
+    "action": {
       "primary": "each"
     },
     "target": {
@@ -280,6 +296,23 @@
     "target": {
       "primary": "card",
       "cardProperty": "effect-equipTarget",
+      "criteria": {
+        "passing": "leaderSupports"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect name"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Equipped To",
       "criteria": {
         "passing": "leaderSupports"
       }
@@ -540,13 +573,29 @@
   },
   {
     "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "title",
+      "criteria": {
+        "passing": "selectedCardB"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "nameB"
+  },
+  {
+    "action": {
       "primary": "each"
     },
     "target": {
       "primary": "card",
       "criteria": {
         "from": "board",
-        "player": "opponent",
+        "player": "owner",
         "class": "Leader",
         "type": "Support"
       }
@@ -562,6 +611,23 @@
     "target": {
       "primary": "card",
       "cardProperty": "effect-equipTarget",
+      "criteria": {
+        "passing": "leaderSupportsB"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect nameB"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "Equipped To",
       "criteria": {
         "passing": "leaderSupportsB"
       }
@@ -698,7 +764,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "target card owner"
+      "player": "target card owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
@@ -735,7 +802,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "target card owner"
+      "player": "target card owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
