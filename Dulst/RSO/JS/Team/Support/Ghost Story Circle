@@ -42,38 +42,6 @@
   },
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "deckTargetableByOwnSpecials",
-      "criteria": {
-        "player": "owner",
-        "class": "Leader",
-        "type": "Character"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "deckTargetableByOppSpecials",
-      "criteria": {
-        "player": "opponent",
-        "class": "Leader",
-        "type": "Character"
-      }
-    }
-  },
-  {
-    "action": {
       "primary": "send card to",
       "location": "afterlife",
       "player": "target card owner",
@@ -143,22 +111,6 @@
       "cardProperty": "disableSpecial",
       "criteria": {
         "passing": "this card"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "deckTargetableByOppSpecials",
-      "criteria": {
-        "player": "opponent",
-        "class": "Leader",
-        "type": "Character"
       }
     }
   },
