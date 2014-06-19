@@ -192,6 +192,20 @@
   },
   {
     "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "Battle"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "verify target",
       "comparisonOperators": "!=",
       "value": "1"
@@ -249,20 +263,6 @@
       "primary": "trigger next effect"
     },
     "effectName": "prePreBattlePhase"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "Battle"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "phase"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
   },
   {
     "action": {
