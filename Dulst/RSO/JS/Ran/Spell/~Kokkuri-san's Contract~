@@ -54,7 +54,7 @@
         "player": "owner",
         "class": "Ran",
         "type": "Spell",
-        "stat": "stat-targetableByOwnSpecials>=1"
+        "stat": "stat-targetableByOwnSpecials>=1&&stat-shikigami!=1"
       }
     },
     "effectComplete": {
