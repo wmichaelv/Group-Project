@@ -22,10 +22,9 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "from": "board",
         "player": "owner",
-        "type": "Spell",
-        "stat": "stat-targetableByOwnEvents>=1"
+        "class": "Battle Spell",
+        "stat": "stat-targetableByOwnEvents>=1&&stat-doubleHornFlag!=1"
       }
     },
     "effectComplete": {
@@ -85,50 +84,36 @@
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "qs",
-      "criteria": {
-        "from": "board",
-        "player": "owner",
-        "type": "Spell",
-        "stat": "stat-targetableByOwnEvents>=1"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
       "primary": "assign variable"
     },
     "target": {
       "primary": "card",
-      "selector": {
-        "primary": "owner",
-        "instructions": "Select one of your Spell cards to give Unfocused Movement (X) and Focused Movement (X) to, X being the Level of your Leader."
-      },
-      "count": "1",
       "criteria": {
-        "from": "board",
-        "type": "Spell",
-        "stat": "stat-qs>=1"
-      },
-      "mandatory": "effect selectedCard"
+        "player": "owner",
+        "class": "Battle Spell"
+      }
     },
     "effectComplete": {
       "primary": "trigger next effect"
     },
     "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
@@ -212,7 +197,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedByEvent,gainedBasicAbility"
+        "primary": "gainedBasicAbility"
       }
     },
     "target": {
