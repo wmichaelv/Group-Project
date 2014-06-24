@@ -67,6 +67,42 @@
   },
   {
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "pre-useSpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "active"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedBySpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "stat": "stat-ciid=effect ciid"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "modify stats",
       "operation": "+",
       "magnitude": "1",
@@ -85,31 +121,13 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "active"
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "pre-useSpecial"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   },
   {
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,gainedStat"
+        "primary": "gainedStat"
       }
     },
     "target": {
@@ -146,6 +164,23 @@
     "target": {
       "primary": "card",
       "cardProperty": "canActivate",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "post-useSpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
       "criteria": {
         "passing": "this card"
       }
