@@ -3,30 +3,13 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": [
-          "setAttacker",
-          "setIntercept"
-        ]
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectName": "passive"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
         "primary": "post-battlePhase"
       }
     },
     "target": {
       "primary": "game"
-    }
+    },
+    "effectName": "passive"
   },
   {
     "action": {
@@ -38,7 +21,9 @@
       "primary": "card",
       "cardProperty": "targetableByOwnSpecials",
       "criteria": {
-        "passing": "this card"
+        "passing": "this card",
+        "class": "Battle Spell",
+        "stat": "stat-disableSpecial!=1"
       }
     },
     "effectComplete": {
@@ -65,23 +50,6 @@
   {
     "action": {
       "primary": "set to attack position"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "targetedBySpecial"
-      }
     },
     "target": {
       "primary": "card",
