@@ -44,7 +44,7 @@
       "criteria": {
         "player": "owner",
         "class": "Battle Spell",
-        "stat": "stat-basicAbility=0"
+        "stat": "stat-basicAbility!=1"
       }
     },
     "effectComplete": {
