@@ -23,7 +23,7 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "deckTargetableByOppEvents",
+      "cardProperty": "handTargetableByOppEvents",
       "criteria": {
         "player": "opponent",
         "class": "Leader",
@@ -69,6 +69,20 @@
   },
   {
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "handTargetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "opponent"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "assign variable"
     },
     "target": {
@@ -105,20 +119,6 @@
   },
   {
     "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "deckTargetedByEvent"
-      }
-    },
-    "target": {
-      "primary": "opponent"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
       "primary": "verify target",
       "comparisonOperators": ">=",
       "value": "1"
@@ -136,10 +136,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "+",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
+      "magnitude": "1"
     },
     "target": {
       "primary": "owner",
