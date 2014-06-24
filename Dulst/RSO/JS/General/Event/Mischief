@@ -90,11 +90,19 @@
   },
   {
     "action": {
-      "primary": "assign variable"
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "newEffect"
+      }
     },
     "target": {
       "primary": "card",
+      "cardProperty": "qs",
       "criteria": {
+        "from": "board",
         "player": "owner",
         "type": [
           "Spell",
@@ -105,16 +113,23 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "affectedOwn"
+    }
   },
   {
     "action": {
-      "primary": "assign variable"
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "newEffect"
+      }
     },
     "target": {
       "primary": "card",
+      "cardProperty": "qs",
       "criteria": {
+        "from": "board",
         "player": "opponent",
         "type": [
           "Spell",
@@ -125,20 +140,39 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "affectedOpp"
+    }
   },
   {
     "action": {
-      "primary": "send card to",
-      "location": "afterlife",
-      "player": "target card owner",
-      "stackLocation": "top"
+      "primary": "assign variable"
     },
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "affectedOwn"
+        "from": "board",
+        "type": [
+          "Spell",
+          "Support"
+        ],
+        "stat": "stat-qs>=1&&stat-mischiefTag>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
       }
     },
     "effectComplete": {
@@ -155,7 +189,7 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "affectedOpp"
+        "passing": "selectedCard"
       }
     },
     "effectComplete": {
@@ -169,55 +203,7 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "affectedOwn"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "set to attack position"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "affectedOpp"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "targetedByEvent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "affectedOwn"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "targetedByEvent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "affectedOpp"
+        "passing": "selectedCard"
       }
     },
     "effectComplete": {
