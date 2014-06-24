@@ -123,10 +123,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "-",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
+      "magnitude": "1"
     },
     "target": {
       "primary": "owner",
