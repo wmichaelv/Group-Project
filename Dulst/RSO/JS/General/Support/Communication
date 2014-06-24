@@ -23,27 +23,37 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "Replenishing",
-      "verifyTrue": "playerIsAffected"
+      "comparisonOperators": "!=",
+      "value": "Preparation"
     },
     "target": {
       "primary": "game",
       "gameProperty": "phase"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   },
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "Battle"
+      "comparisonOperators": "!=",
+      "value": "1"
     },
     "target": {
-      "primary": "game",
-      "gameProperty": "phase"
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "canGainSP"
     }
   },
   {
@@ -55,8 +65,7 @@
     "target": {
       "primary": "owner",
       "playerProperty": "sp"
-    },
-    "effectName": "playerIsAffected"
+    }
   },
   {
     "action": {
@@ -86,6 +95,20 @@
       "gameProperty": "phase"
     },
     "effectName": "checkPrep"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    }
   },
   {
     "action": {
