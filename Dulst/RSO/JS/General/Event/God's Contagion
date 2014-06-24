@@ -220,7 +220,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner"
+      "player": "owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
@@ -306,22 +307,6 @@
   },
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "hp"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "failExtraCost"
-    },
-    "effectName": "checkOwn"
-  },
-  {
-    "action": {
       "primary": "modify stats",
       "operation": "-",
       "magnitude": "1"
@@ -332,7 +317,8 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "checkOwn"
   },
   {
     "action": {
@@ -355,22 +341,6 @@
   },
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "opponent",
-      "playerProperty": "hp"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "failExtraCost"
-    },
-    "effectName": "checkOpp"
-  },
-  {
-    "action": {
       "primary": "modify stats",
       "operation": "-",
       "magnitude": "1"
@@ -381,7 +351,8 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "checkOpp"
   },
   {
     "action": {
