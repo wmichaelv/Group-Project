@@ -43,9 +43,9 @@
       "primary": "card",
       "cardProperty": "targetableByOwnSpecials",
       "criteria": {
-        "from": "board",
         "player": "owner",
-        "type": "Spell"
+        "class": "Battle Spell",
+        "stat": "stat-doubleHornFlag!=1"
       }
     },
     "effectComplete": {
@@ -62,9 +62,8 @@
       "primary": "card",
       "cardProperty": "targetableByOppSpecials",
       "criteria": {
-        "from": "board",
         "player": "opponent",
-        "type": "Spell"
+        "class": "Battle Spell"
       }
     },
     "effectComplete": {
@@ -151,17 +150,16 @@
       "magnitude": "1",
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": "newEffect"
       }
     },
     "target": {
       "primary": "card",
       "cardProperty": "qs",
       "criteria": {
-        "from": "board",
         "player": "owner",
-        "type": "Spell",
-        "stat": "stat-targetableByOwnSpecials>=1"
+        "class": "Battle Spell",
+        "stat": "stat-targetableByOwnSpecials>=1&&stat-doubleHornFlag!=1"
       }
     },
     "effectComplete": {
@@ -175,16 +173,15 @@
       "magnitude": "1",
       "undo": {
         "primary": "game event",
-        "event": "post-battlePhase"
+        "event": "newEffect"
       }
     },
     "target": {
       "primary": "card",
       "cardProperty": "qs",
       "criteria": {
-        "from": "board",
         "player": "opponent",
-        "type": "Spell",
+        "class": "Battle Spell",
         "stat": "stat-targetableByOppSpecials>=1"
       }
     },
@@ -291,7 +288,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial"
+        "primary": "gainedStat"
       }
     },
     "target": {
@@ -328,6 +325,23 @@
     "target": {
       "primary": "card",
       "cardProperty": "canActivate",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "post-useSpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
       "criteria": {
         "passing": "this card"
       }
