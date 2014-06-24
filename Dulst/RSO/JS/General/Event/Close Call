@@ -136,7 +136,10 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "gainedStat"
+        "primary": [
+          "gainedStat",
+          "lostStat"
+        ]
       }
     },
     "target": {
@@ -155,7 +158,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner"
+      "player": "owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
