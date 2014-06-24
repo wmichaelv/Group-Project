@@ -3,34 +3,28 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": [
-          "setAttacker",
-          "setIntercept"
-        ]
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectName": "passive"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
         "primary": "post-statDecrease"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
       }
     },
     "target": {
       "primary": "owner",
       "playerProperty": "hp"
+    },
+    "effectName": "passive"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card",
+        "class": "Battle Spell"
+      }
     }
   },
   {
@@ -58,7 +52,9 @@
       "primary": "card",
       "cardProperty": "isOnFlag",
       "criteria": {
-        "passing": "this card"
+        "passing": "this card",
+        "class": "Battle Spell",
+        "stat": "stat-disableSpecial!=1"
       }
     }
   },
@@ -77,10 +73,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "+",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
+      "magnitude": "1"
     },
     "target": {
       "primary": "opponent",
@@ -97,7 +90,7 @@
       "magnitude": "1",
       "undo": {
         "primary": "game event",
-        "event": "pre-preparationPhase"
+        "event": "pre-replPhase"
       }
     },
     "target": {
