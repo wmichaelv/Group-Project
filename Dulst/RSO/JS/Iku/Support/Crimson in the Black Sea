@@ -11,7 +11,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb,passivec,extraCostEquip,extraCostEquipRevert"
+      "effectNumber": "undoA,undoB,undoC,undoD,passiveb,extraCostEquip,extraCostEquipRevert"
     },
     "effectName": "passive"
   },
@@ -167,11 +167,17 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-replPhase"
+        "primary": [
+          "pre-replPhase",
+          "pre-preparationPhase"
+        ]
       }
     },
     "target": {
       "primary": "game"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
     },
     "effectName": "passiveb"
   },
@@ -180,8 +186,8 @@
       "primary": "add class",
       "class": "Extra Cost Equip",
       "undo": {
-        "primary": "game event",
-        "event": "post-replPhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp,verifyRP,verifyPP,verifyHand"
       }
     },
     "target": {
@@ -192,69 +198,6 @@
         "stat": "stat-lvl<=0"
       }
     }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "Preparation"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "phase"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "triggerOnPrep"
-    },
-    "effectName": "passivec"
-  },
-  {
-    "action": {
-      "primary": "run effect",
-      "effectNumber": "prepEffect",
-      "callback": "effect completion"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "pre-preparationPhase"
-      }
-    },
-    "target": {
-      "primary": "game"
-    },
-    "effectName": "triggerOnPrep"
-  },
-  {
-    "action": {
-      "primary": "add class",
-      "class": "Extra Cost Equip",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "class": "Scene",
-        "type": "Support",
-        "stat": "stat-lvl<=0"
-      }
-    },
-    "effectName": "prepEffect"
   },
   {
     "action": {
@@ -579,5 +522,125 @@
       "primary": "trigger effect",
       "effectNumber": "failExtraCost"
     }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "removeFromBoard"
+      },
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "undoA"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "from": "board"
+      }
+    },
+    "effectName": "verifySupp"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-replPhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "undoB"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Replenishing",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "verifyRP"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "pre-replPhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "undoC"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Preparation",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "verifyPP"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-moveCard",
+        "to": "hand"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "class": "Scene",
+        "type": "Support"
+      }
+    },
+    "effectName": "undoD"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffectB"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "dummy",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffectB"
+    },
+    "effectName": "verifyHand"
   }
 ]
