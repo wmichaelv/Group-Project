@@ -1,6 +1,25 @@
 [
   {
     "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedTarget",
+      "criteria": {
+        "class": "Leader",
+        "type": "Character"
+      },
+      "exclude": {
+        "class": "Human"
+      }
+    },
+    "effectName": "verifyTarget"
+  },
+  {
+    "action": {
       "primary": "verify target",
       "comparisonOperators": ">=",
       "value": "1"
@@ -42,9 +61,8 @@
       "primary": "card",
       "cardProperty": "targetableByOwnSpecials",
       "criteria": {
-        "from": "board",
         "player": "owner",
-        "type": "Spell"
+        "class": "Battle Spell"
       }
     },
     "effectComplete": {
@@ -69,50 +87,6 @@
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "qualifiedTarget",
-      "criteria": {
-        "class": "Leader",
-        "type": "Character"
-      },
-      "exclude": {
-        "class": "Leader&&Human"
-      }
-    },
-    "effectName": "verifyTarget"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "qs",
-      "criteria": {
-        "from": "board",
-        "player": "owner",
-        "type": "Spell",
-        "stat": "stat-targetableByOwnSpecials>=1"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "active"
-  },
-  {
-    "action": {
       "primary": "trigger event",
       "event": {
         "primary": "pre-useSpecial"
@@ -126,7 +100,8 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
+    },
+    "effectName": "active"
   },
   {
     "action": {
@@ -134,20 +109,32 @@
     },
     "target": {
       "primary": "card",
-      "selector": {
-        "primary": "owner",
-        "instructions": "Select a Spell Card to give +1 HV to."
-      },
-      "count": "1",
       "criteria": {
-        "stat": "stat-qs>=1"
-      },
-      "mandatory": "effect selectedCard"
+        "player": "owner",
+        "class": "Battle Spell"
+      }
     },
     "effectComplete": {
       "primary": "trigger next effect"
     },
     "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedBySpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
@@ -174,13 +161,13 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedBySpecial,gainedStat"
+        "primary": "gainedStat"
       }
     },
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "effect active"
+        "passing": "selectedCard"
       }
     },
     "effectComplete": {
@@ -210,6 +197,23 @@
     "target": {
       "primary": "card",
       "cardProperty": "canActivate",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "post-useSpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
       "criteria": {
         "passing": "this card"
       }
