@@ -3,7 +3,7 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-replPhase"
+        "primary": "pre-battlePhase"
       }
     },
     "target": {
@@ -13,54 +13,83 @@
   },
   {
     "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "turnPlayer"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "turnPlayer"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "effect turnPlayer",
-      "verifyTrue": "playerIsAffected"
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "3",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
     },
     "target": {
       "primary": "card",
-      "cardProperty": "playerNumber",
+      "cardProperty": "hv",
       "criteria": {
-        "passing": "this card"
+        "from": "board",
+        "player": "owner",
+        "type": "Spell"
       }
     },
     "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "oppIsAffected"
+      "primary": "trigger next effect"
     }
   },
   {
     "action": {
-      "primary": "draw card",
-      "count": "1"
+      "primary": "trigger event",
+      "event": {
+        "primary": "gainedStat"
+      }
     },
     "target": {
-      "primary": "owner"
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "player": "owner",
+        "type": "Spell"
+      }
     },
-    "effectName": "playerIsAffected"
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
-      "primary": "draw card",
-      "count": "1"
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "3",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
     },
     "target": {
-      "primary": "opponent"
+      "primary": "card",
+      "cardProperty": "hv",
+      "criteria": {
+        "from": "board",
+        "player": "opponent",
+        "type": "Spell"
+      }
     },
-    "effectName": "oppIsAffected"
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "gainedStat"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "player": "opponent",
+        "type": "Spell"
+      }
+    }
   }
 ]
