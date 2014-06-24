@@ -89,6 +89,20 @@
   },
   {
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "discardTargetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "send card to",
       "location": "deck",
       "player": "target card owner",
@@ -111,25 +125,6 @@
       "player": "owner"
     },
     "target": {},
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "discardTargetedByEvent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "player": "owner",
-        "class": "Leader",
-        "type": "Character"
-      }
-    },
     "effectComplete": {
       "primary": "trigger next effect"
     }
