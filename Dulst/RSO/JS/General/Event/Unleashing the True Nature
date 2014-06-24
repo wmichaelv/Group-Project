@@ -17,24 +17,6 @@
   },
   {
     "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "ciid",
-      "criteria": {
-        "player": "owner",
-        "class": "Leader",
-        "type": "Character"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "ciid"
-  },
-  {
-    "action": {
       "primary": "verify target"
     },
     "target": {
@@ -42,9 +24,7 @@
       "criteria": {
         "from": "board",
         "player": "owner",
-        "class": "Incident",
-        "type": "Support",
-        "stat": "stat-effect-equipTarget=effect ciid"
+        "class": "Incident"
       }
     },
     "effectComplete": {
@@ -60,11 +40,9 @@
       "primary": "card",
       "count": "1",
       "criteria": {
-        "from": "board",
         "player": "owner",
         "class": "Battle Spell",
-        "type": "Spell",
-        "stat": "stat-targetableByOwnEvents>=1"
+        "stat": "stat-targetableByOwnEvents>=1&&stat-doubleHornFlag!=1"
       }
     },
     "effectComplete": {
@@ -107,42 +85,13 @@
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "qs",
-      "criteria": {
-        "from": "board",
-        "player": "owner",
-        "class": "Battle Spell",
-        "type": "Spell",
-        "stat": "stat-targetableByOwnEvents>=1"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
       "primary": "assign variable"
     },
     "target": {
       "primary": "card",
-      "count": "1",
       "criteria": {
-        "from": "board",
         "player": "owner",
-        "class": "Battle Spell",
-        "type": "Spell",
-        "stat": "stat-qs>=1"
+        "class": "Battle Spell"
       },
       "mandatory": "effect selectedCard"
     },
@@ -150,6 +99,23 @@
       "primary": "trigger next effect"
     },
     "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
@@ -239,7 +205,10 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedByEvent,gainedBasicAbility,gainedStat"
+        "primary": [
+          "gainedStat",
+          "gainedBasicAbility"
+        ]
       }
     },
     "target": {
@@ -273,10 +242,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "-",
-      "magnitude": "5",
-      "undo": {
-        "primary": "permanent"
-      }
+      "magnitude": "5"
     },
     "target": {
       "primary": "owner",
