@@ -37,32 +37,17 @@
   },
   {
     "action": {
-      "primary": "verify target"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "player": "opponent",
-        "class": "Battle Spell",
-        "type": "Spell"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "verifyFail"
-    },
-    "effectName": "oppCard"
-  },
-  {
-    "action": {
       "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
       "verifyTrue": "verifySuccess"
     },
     "target": {
       "primary": "card",
+      "cardProperty": "oGB",
       "criteria": {
-        "passing": "oppCard",
-        "class": "Normal"
+        "player": "opponent",
+        "class": "Battle Spell"
       }
     },
     "effectComplete": {
@@ -73,18 +58,31 @@
     "action": {
       "primary": "verify target",
       "comparisonOperators": ">=",
-      "value": "1"
+      "value": "1",
+      "verifyTrue": "verifySuccess"
     },
     "target": {
       "primary": "card",
       "cardProperty": "Guided Bullets",
       "criteria": {
-        "passing": "oppCard"
+        "player": "opponent",
+        "class": "Battle Spell"
       }
     },
     "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "verifyFail"
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "opponent",
+        "class": "Normal&&Battle Spell"
+      }
     }
   },
   {
@@ -122,6 +120,25 @@
   },
   {
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "modify stats",
       "operation": "+",
       "magnitude": "4",
@@ -147,7 +164,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedByEvent,gainedStat"
+        "primary": "gainedStat"
       }
     },
     "target": {
