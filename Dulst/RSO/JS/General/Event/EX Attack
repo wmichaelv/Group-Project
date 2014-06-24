@@ -136,11 +136,11 @@
       "primary": "card",
       "selector": {
         "primary": "owner",
-        "instructions": "Select 1 Spell to give +X HV to, X being the level of the Spell."
+        "instructions": "Select 1 Spell to give +X HV to, X being its level."
       },
       "count": "1",
       "criteria": {
-        "class": "Normal&&Battle Spell",
+        "class": "Battle Spell",
         "stat": "stat-qs>=1"
       },
       "mandatory": "selectedCard"
@@ -149,6 +149,23 @@
       "primary": "trigger next effect"
     },
     "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
@@ -191,7 +208,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedByEvent,gainedStat"
+        "primary": "gainedStat"
       }
     },
     "target": {
