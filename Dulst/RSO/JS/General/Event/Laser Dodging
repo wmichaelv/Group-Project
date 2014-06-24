@@ -37,21 +37,22 @@
   },
   {
     "action": {
-      "primary": "verify target"
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "verifySuccess"
     },
     "target": {
       "primary": "card",
+      "cardProperty": "oPen",
       "criteria": {
         "player": "opponent",
-        "class": "Battle Spell",
-        "type": "Spell"
+        "class": "Battle Spell"
       }
     },
     "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "verifyFail"
-    },
-    "effectName": "oppCard"
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
@@ -63,12 +64,9 @@
       "primary": "card",
       "cardProperty": "Penetration",
       "criteria": {
-        "passing": "oppCard"
+        "player": "opponent",
+        "class": "Battle Spell"
       }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "verifyFail"
     }
   },
   {
@@ -106,6 +104,25 @@
   },
   {
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "modify stats",
       "operation": "+",
       "magnitude": "4",
@@ -131,7 +148,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedByEvent,gainedStat"
+        "primary": "gainedStat"
       }
     },
     "target": {
