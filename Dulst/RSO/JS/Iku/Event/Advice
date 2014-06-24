@@ -28,7 +28,7 @@
       "criteria": {
         "player": "owner",
         "class": "Battle Spell",
-        "stat": "stat-basicAbility>=1"
+        "stat": "stat-basicAbility>=1&&stat-doubleHornFlag!=1"
       }
     },
     "effectComplete": {
@@ -104,7 +104,7 @@
       "criteria": {
         "player": "owner",
         "class": "Battle Spell",
-        "stat": "stat-targetableByOwnEvents>=1&&stat-basicAbility>=1"
+        "stat": "stat-targetableByOwnEvents>=1&&stat-basicAbility>=1stat-basicAbility>=1&&stat-doubleHornFlag!=1"
       }
     },
     "effectComplete": {
