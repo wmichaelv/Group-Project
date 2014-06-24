@@ -1,6 +1,23 @@
 [
   {
     "action": {
+      "primary": "run effect",
+      "effectNumber": "undoA",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "passive"
+  },
+  {
+    "action": {
       "primary": "modify stats",
       "operation": "=",
       "magnitude": "0"
@@ -10,10 +27,9 @@
       "playerProperty": "healableByOwnEvents"
     },
     "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "effect 1, passiveb"
+      "primary": "trigger next effect"
     },
-    "effectName": "passive"
+    "effectName": "startEffect"
   },
   {
     "action": {
@@ -142,17 +158,37 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "useScene"
+        "primary": "removeFromBoard"
+      },
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp"
       }
     },
     "target": {
       "primary": "card",
       "criteria": {
-        "class": "Scene",
-        "type": "Support"
+        "passing": "this card"
       }
     },
-    "effectName": "passiveb"
+    "effectName": "undoA"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "from": "board"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "verifySupp"
   },
   {
     "action": {
