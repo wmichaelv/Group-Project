@@ -140,7 +140,7 @@
       },
       "count": "1",
       "criteria": {
-        "class": "Concentration&&Battle Spell",
+        "class": "Battle Spell",
         "stat": "stat-qs>=1"
       },
       "mandatory": "selectedCard"
@@ -149,6 +149,23 @@
       "primary": "trigger next effect"
     },
     "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
@@ -175,7 +192,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedByEvent,gainedStat"
+        "primary": "gainedStat"
       }
     },
     "target": {
