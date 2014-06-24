@@ -16,7 +16,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb"
+      "effectNumber": "undoA,undoB,undoC,undoD"
     },
     "effectName": "passive"
   },
@@ -33,7 +33,7 @@
     "effectComplete": {
       "primary": "nothing"
     },
-    "effectName": "startPassive"
+    "effectName": "startEffect"
   },
   {
     "action": {
@@ -45,24 +45,8 @@
       "primary": "card",
       "cardProperty": "targetableByOwnSpecials",
       "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "nothing"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "isOnFlag",
-      "criteria": {
-        "passing": "this card"
+        "passing": "this card",
+        "stat": "stat-disableSpecial!=1"
       }
     },
     "effectComplete": {
@@ -74,11 +58,11 @@
       "primary": "verify target",
       "comparisonOperators": ">=",
       "value": "1",
-      "verifyTrue": "startEffect"
+      "verifyTrue": "modifyCard"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "Focused Movement",
+      "cardProperty": "oFM",
       "criteria": {
         "from": "board",
         "player": "opponent",
@@ -97,7 +81,7 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "oFM",
+      "cardProperty": "Focused Movement",
       "criteria": {
         "from": "board",
         "player": "opponent",
@@ -111,8 +95,8 @@
       "operation": "+",
       "magnitude": "3",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyRed,verifySpecial,verifyBP,verifyBA"
       }
     },
     "target": {
@@ -125,28 +109,7 @@
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "startEffect"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "isOnFlag",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
+    "effectName": "modifyCard"
   },
   {
     "action": {
@@ -166,128 +129,135 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "setIntercept"
+        "primary": "post-statChange"
       }
     },
     "target": {
       "primary": "card",
+      "cardProperty": "targetableByOwnSpecials",
       "criteria": {
-        "from": "board",
-        "player": "opponent",
-        "type": "Spell"
+        "passing": "this card"
       }
     },
-    "effectName": "passiveb"
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "player": "opponent",
-        "class": "Battle Spell"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "oppBattleSpell"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": [
-          "gainedBasicAbility",
-          "lostBasicAbility"
-        ]
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "oppBattleSpell"
-      }
-    }
+    "effectName": "undoA"
   },
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": "==",
-      "value": "1"
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "isOnFlag",
+      "cardProperty": "targetableByOwnSpecials",
       "criteria": {
         "passing": "this card"
       }
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "restartPassive"
-    }
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifyRed"
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "3",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
       }
     },
     "target": {
       "primary": "card",
-      "cardProperty": "hv",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "undoB"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
       "criteria": {
         "passing": "this card"
       }
     },
     "effectComplete": {
-      "primary": "trigger next effect"
-    }
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
+    },
+    "effectName": "verifySpecial"
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "undoC"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "verifyBP"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
       }
     },
     "target": {
       "primary": "card",
-      "cardProperty": "isOnFlag",
+      "cardProperty": "Focused Movement",
       "criteria": {
-        "passing": "this card"
+        "player": "opponent",
+        "class": "Battle Spell"
+      }
+    },
+    "effectName": "undoD"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "dummy",
+      "criteria": {
+        "player": "opponent",
+        "class": "Battle Spell"
       }
     },
     "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "run effect",
-      "effectNumber": "startPassive",
-      "callback": "effect completion"
+      "primary": "trigger effect",
+      "effectNumber": "startEffect"
     },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectName": "restartPassive"
+    "effectName": "verifyBA"
   }
 ]
