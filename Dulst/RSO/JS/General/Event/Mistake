@@ -112,7 +112,7 @@
       "primary": "card",
       "selector": {
         "primary": "owner",
-        "instructions": "Select an active Spell card to reserve."
+        "instructions": "Select an active opponent Spell card  of level 1 or less to reserve."
       },
       "count": "1",
       "criteria": {
@@ -127,9 +127,27 @@
   },
   {
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "send card to",
       "location": "SecondRow",
-      "player": "target card owner"
+      "player": "target card owner",
+      "silent": "silent"
     },
     "target": {
       "primary": "card",
@@ -159,7 +177,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedByEvent,reserve"
+        "primary": "reserve"
       }
     },
     "target": {
