@@ -3,34 +3,17 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": [
-          "setAttacker",
-          "setIntercept"
-        ]
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectName": "passive"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
         "primary": "post-battlePhase"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "pre-preparationPhase"
       }
     },
     "target": {
       "primary": "game"
-    }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "passiveb,undoA,undoB,undoC"
+    },
+    "effectName": "passive"
   },
   {
     "action": {
@@ -43,7 +26,8 @@
       "cardProperty": "targetableByOwnSpecials",
       "criteria": {
         "passing": "this card",
-        "from": "FirstRow"
+        "class": "Battle Spell",
+        "stat": "stat-disableSpecial!=1"
       }
     },
     "effectComplete": {
@@ -55,7 +39,7 @@
       "primary": "send card to",
       "location": "SecondRow",
       "player": "owner",
-      "stackLocation": "top"
+      "silent": "silent"
     },
     "target": {
       "primary": "card",
@@ -85,10 +69,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": [
-          "targetedBySpecial",
-          "reserve"
-        ]
+        "primary": "reserve"
       }
     },
     "target": {
