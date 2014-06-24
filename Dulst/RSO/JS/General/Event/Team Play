@@ -39,10 +39,9 @@
       "primary": "card",
       "count": "1",
       "criteria": {
-        "from": "board",
         "player": "owner",
-        "type": "Spell",
-        "stat": "stat-targetableByOwnEvents>=1"
+        "class": "Battle Spell",
+        "stat": "stat-targetableByOwnEvents>=1&&stat-doubleHornFlag!=1"
       }
     },
     "effectComplete": {
@@ -220,30 +219,6 @@
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "qs",
-      "criteria": {
-        "from": "board",
-        "player": "owner",
-        "type": "Spell",
-        "stat": "stat-targetableByOwnEvents>=1"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
       "primary": "assign variable"
     },
     "target": {
@@ -307,22 +282,33 @@
     },
     "target": {
       "primary": "card",
-      "selector": {
-        "primary": "owner",
-        "instructions": "Select a Spell card to give Protection (X) and +X HV to, X being the Level of your selected non-Leader."
-      },
-      "count": "1",
       "criteria": {
-        "from": "board",
-        "type": "Spell",
-        "stat": "stat-qs>=1"
+        "player": "owner",
+        "class": "Battle Spell"
       },
-      "mandatory": "effect selectedCard"
+      "mandatory": "selectedCard"
     },
     "effectComplete": {
       "primary": "trigger next effect"
     },
     "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
@@ -370,7 +356,10 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedByEvent,gainedBasicAbility,gainedStat"
+        "primary": [
+          "gainedStat",
+          "gainedBasicAbility"
+        ]
       }
     },
     "target": {
