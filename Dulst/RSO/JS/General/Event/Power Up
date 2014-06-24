@@ -22,15 +22,14 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "from": "board",
         "player": "owner",
-        "type": "Spell",
-        "stat": "stat-targetableByOwnEvents>=1 && stat-lvl<=1"
+        "class": "Battle Spell",
+        "stat": "stat-targetableByOwnEvents>=1&&stat-lvl<=1"
       }
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": ""
+      "effectNumber": "verifyFail"
     }
   },
   {
@@ -68,50 +67,36 @@
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "qs",
-      "criteria": {
-        "from": "board",
-        "player": "owner",
-        "type": "Spell",
-        "stat": "stat-targetableByOwnEvents>=1 && stat-lvl<=1"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
       "primary": "assign variable"
     },
     "target": {
       "primary": "card",
-      "selector": {
-        "primary": "owner",
-        "instructions": "Select a Level 0-1 card to give +2 HV to."
-      },
-      "count": "1",
       "criteria": {
-        "from": "board",
-        "type": "Spell",
-        "stat": "stat-qs>=1"
-      },
-      "mandatory": "effect selectedCard"
+        "player": "owner",
+        "class": "Battle Spell"
+      }
     },
     "effectComplete": {
       "primary": "trigger next effect"
     },
     "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
@@ -138,7 +123,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "targetedByEvent,gainedStat"
+        "primary": "gainedStat"
       }
     },
     "target": {
