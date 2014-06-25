@@ -14,7 +14,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "undoA,undoB,undoC,undoD,undoE"
+      "effectNumber": "passiveb,undoA,undoB,undoC,undoD,undoE"
     },
     "effectName": "passive"
   },
