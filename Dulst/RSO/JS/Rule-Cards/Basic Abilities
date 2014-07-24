@@ -887,7 +887,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "-",
-      "magnitude": "effect faith",
+      "magnitude": "effect faith * 2",
       "undo": {
         "primary": "game event",
         "event": "post-BACalculation"
