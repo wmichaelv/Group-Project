@@ -19,7 +19,7 @@
     "action": {
       "primary": "verify target",
       "comparisonOperators": "==",
-      "value": "Battle"
+      "value": "PreBattle"
     },
     "target": {
       "primary": "game",
