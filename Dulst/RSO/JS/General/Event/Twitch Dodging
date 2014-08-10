@@ -83,6 +83,10 @@
         "player": "opponent",
         "class": "Normal&&Battle Spell"
       }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyFail"
     }
   },
   {
