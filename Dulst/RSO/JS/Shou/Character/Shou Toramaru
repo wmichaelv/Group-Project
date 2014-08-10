@@ -55,6 +55,9 @@
         "from": "board",
         "player": "owner",
         "type": "Support"
+      },
+      "exclude": {
+        "class": "Scene"
       }
     },
     "effectComplete": {
