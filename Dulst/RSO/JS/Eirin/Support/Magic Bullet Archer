@@ -280,13 +280,13 @@
   {
     "action": {
       "primary": "verify target",
-      "verifyTrue": "verifyAttack"
+      "verifyTrue": "doNothing"
     },
     "target": {
       "primary": "card",
       "criteria": {
         "from": "board",
-        "class": "Concentration",
+        "class": "Normal",
         "stat": "stat-ciid=effect ciid"
       }
     },
