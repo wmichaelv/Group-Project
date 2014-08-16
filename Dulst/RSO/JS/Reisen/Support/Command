@@ -47,7 +47,8 @@
         "from": "board",
         "player": "owner",
         "class": "Battle Spell",
-        "type": "Spell"
+        "type": "Spell",
+        "stat": "stat-doubleHornFlag!=1"
       }
     },
     "effectComplete": {
@@ -98,7 +99,7 @@
         "player": "owner",
         "class": "Battle Spell",
         "type": "Spell",
-        "stat": "stat-targetableByOwnSpecials>=1"
+        "stat": "stat-targetableByOwnSpecials>=1&&stat-doubleHornFlag!=1"
       }
     },
     "effectComplete": {
