@@ -25,7 +25,7 @@
       "criteria": {
         "player": "owner",
         "class": "Battle Spell",
-        "stat": "stat-targetableByOwnEvents>=1"
+        "stat": "stat-targetableByOwnEvents>=1&&stat-doubleHornFlag!=1"
       }
     },
     "effectComplete": {
@@ -41,7 +41,7 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "handTargetableByOppSpecials",
+      "cardProperty": "handTargetableByOppEvents",
       "criteria": {
         "player": "opponent",
         "class": "Leader",
@@ -227,7 +227,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner"
+      "player": "owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
@@ -328,7 +329,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "target card owner"
+      "player": "target card owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
