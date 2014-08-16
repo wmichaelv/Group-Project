@@ -223,7 +223,8 @@
       "cardProperty": "targetableByOwnEvents",
       "criteria": {
         "player": "owner",
-        "class": "Battle Spell"
+        "class": "Battle Spell",
+        "stat": "stat-doubleHornFlag!=1"
       }
     },
     "effectComplete": {
@@ -261,7 +262,8 @@
       "cardProperty": "targetableByOwnEvents",
       "criteria": {
         "player": "owner",
-        "class": "Battle Spell"
+        "class": "Battle Spell",
+        "stat": "stat-doubleHornFlag!=1"
       }
     },
     "effectComplete": {
