@@ -3,7 +3,7 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-replPhase"
+        "primary": "pre-replPhase,pre-battlePhase"
       }
     },
     "target": {
@@ -11,9 +11,21 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb,passivec,passived,passivee,passivef"
+      "effectNumber": "passiveb,passivec,passived,passivee,passivef,undoA,undoB,undoC,undoD,undoE"
     },
     "effectName": "passive"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "Preparation"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "startEffect"
   },
   {
     "action": {
@@ -38,11 +50,8 @@
         "primary": "post-useEvent"
       },
       "undo": {
-        "primary": [
-          "default",
-          "game event"
-        ],
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifyRP,verifyPP"
       }
     },
     "target": {
@@ -74,11 +83,8 @@
       "operation": "=",
       "magnitude": "0",
       "undo": {
-        "primary": [
-          "default",
-          "game event"
-        ],
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifyPP"
       }
     },
     "target": {
@@ -99,8 +105,8 @@
       "operation": "=",
       "magnitude": "1",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifyPP"
       }
     },
     "target": {
@@ -121,11 +127,8 @@
         "primary": "post-statIncrease"
       },
       "undo": {
-        "primary": [
-          "default",
-          "game event"
-        ],
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifyPP"
       }
     },
     "target": {
@@ -143,11 +146,8 @@
       "operation": "=",
       "magnitude": "0",
       "undo": {
-        "primary": [
-          "default",
-          "game event"
-        ],
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifyPP"
       }
     },
     "target": {
@@ -163,13 +163,25 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-replPhase"
+        "primary": "pre-replPhase,pre-battlePhase"
       }
     },
     "target": {
       "primary": "game"
     },
     "effectName": "passiveb"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "Preparation"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "startEffectB"
   },
   {
     "action": {
@@ -194,11 +206,8 @@
         "primary": "post-useEvent"
       },
       "undo": {
-        "primary": [
-          "default",
-          "game event"
-        ],
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifyRP,verifyPP"
       }
     },
     "target": {
@@ -230,11 +239,8 @@
       "operation": "=",
       "magnitude": "0",
       "undo": {
-        "primary": [
-          "default",
-          "game event"
-        ],
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifyPP"
       }
     },
     "target": {
@@ -255,8 +261,8 @@
       "operation": "=",
       "magnitude": "1",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifyPP"
       }
     },
     "target": {
@@ -277,11 +283,8 @@
         "primary": "post-statIncrease"
       },
       "undo": {
-        "primary": [
-          "default",
-          "game event"
-        ],
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifyPP"
       }
     },
     "target": {
@@ -299,11 +302,8 @@
       "operation": "=",
       "magnitude": "0",
       "undo": {
-        "primary": [
-          "default",
-          "game event"
-        ],
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifyPP"
       }
     },
     "target": {
@@ -329,6 +329,18 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "startEffectC"
+  },
+  {
+    "action": {
       "primary": "verify target"
     },
     "target": {
@@ -346,8 +358,8 @@
       "operation": "+",
       "magnitude": "1",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifyBP"
       }
     },
     "target": {
@@ -393,6 +405,18 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "startEffectD"
+  },
+  {
+    "action": {
       "primary": "verify target"
     },
     "target": {
@@ -410,8 +434,8 @@
       "operation": "+",
       "magnitude": "1",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifyBP"
       }
     },
     "target": {
@@ -447,13 +471,25 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-replPhase"
+        "primary": "pre-replPhase,pre-battlePhase"
       }
     },
     "target": {
       "primary": "game"
     },
     "effectName": "passivee"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "Preparation"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "startEffectE"
   },
   {
     "action": {
@@ -475,14 +511,11 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-useSpecial"
+        "primary": "post-useSpecial"
       },
       "undo": {
-        "primary": [
-          "default",
-          "game event"
-        ],
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifyRP,verifyPP"
       }
     },
     "target": {
@@ -519,11 +552,8 @@
       "operation": "=",
       "magnitude": "0",
       "undo": {
-        "primary": [
-          "default",
-          "game event"
-        ],
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifyPP"
       }
     },
     "target": {
@@ -549,8 +579,8 @@
       "operation": "=",
       "magnitude": "1",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifyPP"
       }
     },
     "target": {
@@ -571,11 +601,8 @@
         "primary": "post-statIncrease"
       },
       "undo": {
-        "primary": [
-          "default",
-          "game event"
-        ],
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifyPP"
       }
     },
     "target": {
@@ -598,11 +625,8 @@
       "operation": "=",
       "magnitude": "0",
       "undo": {
-        "primary": [
-          "default",
-          "game event"
-        ],
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifyPP"
       }
     },
     "target": {
@@ -623,13 +647,25 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-replPhase"
+        "primary": "pre-replPhase,pre-battlePhase"
       }
     },
     "target": {
       "primary": "game"
     },
     "effectName": "passivef"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "Preparation"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "startEffectF"
   },
   {
     "action": {
@@ -651,14 +687,11 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "pre-useSpecial"
+        "primary": "post-useSpecial"
       },
       "undo": {
-        "primary": [
-          "default",
-          "game event"
-        ],
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifyRP,verifyPP"
       }
     },
     "target": {
@@ -695,11 +728,8 @@
       "operation": "=",
       "magnitude": "0",
       "undo": {
-        "primary": [
-          "default",
-          "game event"
-        ],
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifyPP"
       }
     },
     "target": {
@@ -725,8 +755,8 @@
       "operation": "=",
       "magnitude": "1",
       "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifyPP"
       }
     },
     "target": {
@@ -747,11 +777,8 @@
         "primary": "post-statIncrease"
       },
       "undo": {
-        "primary": [
-          "default",
-          "game event"
-        ],
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifyPP"
       }
     },
     "target": {
@@ -774,11 +801,8 @@
       "operation": "=",
       "magnitude": "0",
       "undo": {
-        "primary": [
-          "default",
-          "game event"
-        ],
-        "event": "post-battlePhase"
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDesign,verifySupp,verifyPP"
       }
     },
     "target": {
@@ -794,5 +818,149 @@
         ]
       }
     }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "changeDesignation"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectName": "undoA"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "startEffect,startEffectB,startEffectC,startEffectD,startEffectE,startEffectF"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "dummy",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect,startEffectB,startEffectC,startEffectD,startEffectE,startEffectF"
+    },
+    "effectName": "verifyDesign"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "removeFromBoard"
+      },
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "undoB"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "from": "board"
+      }
+    },
+    "effectName": "verifySupp"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "undoC"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Battle",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "verifyBP"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-replPhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "undoD"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Replenishing",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "verifyRP"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "pre-replPhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    },
+    "effectName": "undoE"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Preparation",
+      "verifyTrue": "doNothing"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectName": "verifyPP"
   }
 ]
