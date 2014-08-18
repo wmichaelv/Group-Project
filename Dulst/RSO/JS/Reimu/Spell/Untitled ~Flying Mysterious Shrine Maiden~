@@ -267,10 +267,6 @@
     "target": {
       "primary": "game"
     },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "undoA,undoB,undoC,undoD"
-    },
     "effectName": "passivec"
   },
   {
