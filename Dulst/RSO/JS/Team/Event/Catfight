@@ -17,50 +17,9 @@
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "special1",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "special2",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
       "primary": "verify target",
       "comparisonOperators": ">=",
-      "value": "1",
-      "verifyTrue": "special1Proceed"
+      "value": "1"
     },
     "target": {
       "primary": "card",
@@ -71,95 +30,9 @@
       }
     },
     "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "verifySpecial1"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1",
-      "verifyTrue": "special2Proceed"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "targetableByOppEvents",
-      "criteria": {
-        "from": "board",
-        "player": "opponent",
-        "class": "Spell",
-        "type": "Support"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "checkSpecial1"
-    },
-    "effectName": "verifySpecial2"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1",
-      "verifyTrue": "proceed"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "special1",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
       "primary": "trigger effect",
       "effectNumber": "verifyFail"
-    },
-    "effectName": "checkSpecial1"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "special1",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "verifySpecial2"
-    },
-    "effectName": "special1Proceed"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "special2",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "special2Proceed"
+    }
   },
   {
     "action": {
@@ -174,7 +47,7 @@
         "passing": "this card"
       }
     },
-    "effectName": "proceed"
+    "effectName": "verifySuccess"
   },
   {
     "action": {
@@ -196,91 +69,6 @@
   },
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1",
-      "verifyTrue": "bothActivate"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "special1",
-      "criteria": {
-        "passing": "this card",
-        "stat": "stat-special2>=1"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1",
-      "verifyTrue": "sp1Activate"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "special1",
-      "criteria": {
-        "passing": "this card",
-        "stat": "stat-special2=0"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1",
-      "verifyTrue": "sp2Activate"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "special2",
-      "criteria": {
-        "passing": "this card",
-        "stat": "stat-special1=0"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "give choice",
-      "choiceType": "multiple choice",
-      "choiceQuestion": "Choose an effect to activate:",
-      "choices": "effect sp1Activate Negate the Basic Abilities of your opponent's battle Spell.\neffect sp2Activate Discard an enemy Spell Support at end of Battle Phase."
-    },
-    "target": {
-      "primary": "owner"
-    },
-    "effectName": "bothActivate"
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "targetedByEvent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "player": "opponent",
-        "class": "Battle Spell"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "sp1Activate"
-  },
-  {
-    "action": {
       "primary": "assign variable"
     },
     "target": {
@@ -297,6 +85,86 @@
   },
   {
     "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "av",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "2",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "iv",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "2",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "hv",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "modify stats",
       "operation": "=",
       "magnitude": "1",
@@ -307,7 +175,7 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "disableBA",
+      "cardProperty": "disableGB",
       "criteria": {
         "passing": "selectedCard"
       }
@@ -320,7 +188,7 @@
     "action": {
       "primary": "trigger event",
       "event": {
-        "primary": "lostBasicAbility"
+        "primary": "lostStat,lostBasicAbility"
       }
     },
     "target": {
@@ -330,119 +198,8 @@
       }
     },
     "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "spUse"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "sp"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "sp2Activate"
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "selector": {
-        "primary": "owner",
-        "instructions": "Select an opponent Spell Support card to discard at end of Battle Phase."
-      },
-      "count": "1",
-      "criteria": {
-        "from": "board",
-        "player": "opponent",
-        "class": "Spell",
-        "type": "Support",
-        "stat": "stat-targetableByOppEvents>=1"
-      },
-      "mandatory": "discard"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "discard"
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "targetedByEvent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "discard"
-      }
-    },
-    "effectComplete": {
       "primary": "trigger next effect"
     }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "extraCostTarget",
-      "criteria": {
-        "passing": "discard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "afterCheck"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1",
-      "verifyTrue": "failExtraCost"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "failExtraCost"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "post-battlePhase"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "pre-preparationPhase"
-      }
-    },
-    "target": {
-      "primary": "game"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "spUse"
-    },
-    "effectName": "afterCheck"
   },
   {
     "action": {
@@ -451,39 +208,54 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "discard",
-        "from": "board"
+        "passing": "selectedCard"
+      },
+      "exclude": {
+        "class": "Concentration"
       }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterEffect"
     }
   },
   {
     "action": {
-      "primary": "send card to",
-      "location": "afterlife",
-      "player": "target card owner",
-      "stackLocation": "top"
+      "primary": "remove class",
+      "class": "Spread,Normal",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
     },
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "discard"
+        "passing": "selectedCard"
       }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
     }
   },
   {
     "action": {
-      "primary": "modify stats",
-      "operation": "-",
-      "magnitude": "3"
+      "primary": "add class",
+      "class": "Concentration",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
     },
     "target": {
-      "primary": "owner",
-      "playerProperty": "sp"
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    },
-    "effectName": "spUse"
+    }
   },
   {
     "action": {
@@ -499,71 +271,24 @@
       }
     },
     "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "passive"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "game event",
-        "event": "pre-replPhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "qualifiedSelect",
-      "criteria": {
-        "name": "Catfight",
-        "type": "Event"
-      }
-    },
-    "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "passive"
-  },
-  {
-    "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "post-statIncrease"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "pre-replPhase"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "qualifiedSelect",
-      "criteria": {
-        "name": "Catfight",
-        "type": "Event"
-      }
-    }
+    "effectName": "afterEffect"
   },
   {
     "action": {
       "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
+      "operation": "-",
+      "magnitude": "3",
       "undo": {
-        "primary": "game event",
-        "event": "pre-replPhase"
+        "primary": "permanent"
       }
     },
     "target": {
-      "primary": "card",
-      "cardProperty": "qualifiedSelect",
-      "criteria": {
-        "name": "Catfight",
-        "type": "Event"
-      }
-    }
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
+    "effectName": "spUse"
   },
   {
     "action": {
@@ -579,33 +304,5 @@
       }
     },
     "effectName": "verifyFail"
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1"
-    },
-    "target": {
-      "primary": "game",
-      "gameProperty": "failExtraCost"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "failExtraCost"
-  },
-  {
-    "action": {
-      "primary": "send card to",
-      "location": "hand",
-      "player": "owner"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    }
   }
 ]
