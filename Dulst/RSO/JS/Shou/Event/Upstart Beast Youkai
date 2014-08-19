@@ -40,7 +40,7 @@
     "action": {
       "primary": "verify target",
       "comparisonOperators": ">",
-      "value": "3"
+      "value": "4"
     },
     "target": {
       "primary": "card",
@@ -58,7 +58,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "3",
+      "magnitude": "4",
       "undo": {
         "primary": "permanent"
       }
@@ -201,7 +201,7 @@
   {
     "action": {
       "primary": "draw card",
-      "count": "effect cardCount"
+      "count": "2"
     },
     "target": {
       "primary": "owner"
@@ -227,27 +227,9 @@
   },
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "3"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "effect-cardCount",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "afterEffect"
-    }
-  },
-  {
-    "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "2",
+      "magnitude": "effect cardCount",
       "undo": {
         "primary": "game event",
         "event": "post-battlePhase"
@@ -338,7 +320,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner"
+      "player": "owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
