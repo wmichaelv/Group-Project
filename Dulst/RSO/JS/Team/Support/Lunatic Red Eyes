@@ -18,21 +18,6 @@
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "yourTurn"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "verifyFail"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
       "comparisonOperators": ">=",
       "value": "1"
     },
@@ -269,17 +254,6 @@
       "gameProperty": "phase"
     },
     "effectName": "startEffect"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "yourTurn"
-    }
   },
   {
     "action": {
