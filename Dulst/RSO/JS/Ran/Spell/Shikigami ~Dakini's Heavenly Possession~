@@ -180,7 +180,7 @@
         "type": "Support",
         "stat": "stat-disableEquip!=1"
       },
-      "mandatory": "doNothing"
+      "mandatory": "failExtraCost"
     },
     "effectComplete": {
       "primary": "trigger next effect"
@@ -514,6 +514,18 @@
       }
     },
     "effectName": "verifyFail"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "failExtraCost"
+    },
+    "effectName": "failExtraCost"
   },
   {
     "action": {
