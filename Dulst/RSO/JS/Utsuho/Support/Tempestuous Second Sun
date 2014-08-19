@@ -20,197 +20,6 @@
   },
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "count",
-      "criteria": {
-        "from": "hand",
-        "player": "owner"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "verifyFail"
-    },
-    "effectName": "verify"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "yourTurn"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "verifyFail"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "qualifiedSelect",
-      "criteria": {
-        "passing": "this card"
-      }
-    }
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "pre-useSpecial"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "active"
-  },
-  {
-    "action": {
-      "primary": "assign variable"
-    },
-    "target": {
-      "primary": "card",
-      "selector": {
-        "primary": "owner",
-        "instructions": "Discard a card from your hand to use Tempestuous Second Sun."
-      },
-      "count": "1",
-      "criteria": {
-        "from": "hand",
-        "player": "owner"
-      },
-      "mandatory": "discard"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "discard"
-  },
-  {
-    "action": {
-      "primary": "send card to",
-      "location": "afterlife",
-      "player": "owner",
-      "stackLocation": "top"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "discard"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "canGainSP"
-    },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "afterEffect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "+",
-      "magnitude": "1",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "owner",
-      "playerProperty": "sp"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "permanent"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "canActivate",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    },
-    "effectName": "afterEffect"
-  },
-  {
-    "action": {
-      "primary": "trigger event",
-      "event": {
-        "primary": "post-useSpecial"
-      }
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "modify stats",
-      "operation": "=",
-      "magnitude": "0"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "qualifiedSelect",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectName": "verifyFail"
-  },
-  {
-    "action": {
       "primary": "trigger on event",
       "event": {
         "primary": "pre-replPhase"
@@ -218,6 +27,10 @@
     },
     "target": {
       "primary": "game"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "passiveb"
     },
     "effectName": "passive"
   },
@@ -371,6 +184,46 @@
     },
     "target": {
       "primary": "owner"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "pre-moveCard",
+        "to": "afterlife",
+        "toPlayer": "triggered card owner"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "stat": "stat-disableSpecial!=1"
+      }
+    },
+    "effectName": "passiveb"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "canGainSP"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "4"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
     }
   }
 ]
