@@ -157,7 +157,7 @@
     "action": {
       "primary": "verify target",
       "comparisonOperators": ">=",
-      "value": "effect ownHP + 5"
+      "value": "effect ownHP + 3"
     },
     "target": {
       "primary": "opponent",
@@ -286,7 +286,8 @@
     "action": {
       "primary": "send card to",
       "location": "afterlife",
-      "player": "owner"
+      "player": "owner",
+      "stackLocation": "top"
     },
     "target": {
       "primary": "card",
