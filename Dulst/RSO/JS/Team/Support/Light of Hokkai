@@ -11,7 +11,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb,undoA,undoB,undoC,undoD,undoE"
+      "effectNumber": "passiveb,extraCostUse,extraCostUseRevert,undoA,undoB,undoC,undoD,undoE"
     },
     "effectName": "passive"
   },
@@ -181,11 +181,7 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": [
-          "pre-battlePhase",
-          "pre-replPhase",
-          "pre-preparationPhase"
-        ]
+        "primary": "pre-battlePhase,pre-replPhase"
       }
     },
     "target": {
@@ -195,38 +191,245 @@
   },
   {
     "action": {
-      "primary": "verify target"
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "Preparation"
     },
     "target": {
-      "primary": "card",
-      "criteria": {
-        "passing": "this card",
-        "stat": "stat-disableSpecial!=1"
-      }
+      "primary": "game",
+      "gameProperty": "phase"
     },
     "effectName": "startEffect"
   },
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "3"
+      "comparisonOperators": "!=",
+      "value": "1"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "count",
+      "cardProperty": "disableSpecial",
       "criteria": {
-        "from": "board",
-        "player": "owner",
-        "type": "Support"
+        "passing": "this card"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "hand",
+        "player": "opponent",
+        "type": "Event"
       },
       "exclude": {
-        "class": "Scene"
+        "class": "Extra Cost Use"
       }
     },
     "effectComplete": {
-      "primary": "nothing"
+      "primary": "trigger next effect"
+    },
+    "effectName": "card"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Extra Cost Use",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp,verifySpecial,verifyBP,verifyRP"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
     }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-moveCard",
+        "to": "hand"
+      },
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp,verifySpecial,verifyBP,verifyRP"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "opponent",
+        "type": "Event"
+      },
+      "exclude": {
+        "class": "Extra Cost Use"
+      }
+    },
+    "effectName": "eventDrawCheck"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Extra Cost Use",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp,verifySpecial,verifyBP,verifyRP"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "eventDrawCheck"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "extraCostUse"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": [
+          "board",
+          "hand",
+          "deadpool"
+        ],
+        "player": "opponent",
+        "class": "Extra Cost Use",
+        "type": "Event"
+      }
+    },
+    "effectName": "extraCostUse"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "extraCostUse"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "afterlife",
+      "player": "target card owner",
+      "stackLocation": "top"
+    },
+    "target": {
+      "primary": "card",
+      "count": "1",
+      "criteria": {
+        "from": "deck",
+        "player": "opponent",
+        "first": "1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "+",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "paidExtraCostLightHokkai",
+      "criteria": {
+        "passing": "extraCostUse"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "game event",
+        "event": "post-battlePhase"
+      }
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "failExtraCost"
+    },
+    "effectName": "failExtraCost"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "extraCostUseRevert"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "opponent",
+        "class": "Extra Cost Use",
+        "type": "Event",
+        "stat": "stat-paidExtraCostLightHokkai>=1"
+      }
+    },
+    "effectName": "extraCostUseRevert"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "extraCostUseRevert"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "cardB"
   },
   {
     "action": {
@@ -236,34 +439,40 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "handTargetableByOwnSpecials",
+      "cardProperty": "paidExtraCostLightHokkai",
       "criteria": {
-        "player": "owner",
-        "class": "Leader",
-        "type": "Character"
+        "passing": "cardB"
       }
     },
-    "effectComplete": {
-      "primary": "nothing"
-    }
+    "effectName": "verifyPaid"
   },
   {
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "0",
-      "undo": {
-        "primary": "verify false",
-        "verifyEffectIndex": "verifyRed,verifySupp,verifySpecial,verifySuppB,verifySuppC"
-      }
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "extraCostRevert"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "deck",
+      "player": "target card owner"
     },
     "target": {
       "primary": "card",
-      "cardProperty": "handTargetableByOppEvents",
+      "count": "1",
       "criteria": {
-        "player": "owner",
-        "class": "Leader",
-        "type": "Character"
+        "from": "afterlife",
+        "player": "opponent",
+        "first": "1"
       }
     },
     "effectComplete": {
@@ -274,20 +483,35 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "0",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "extraCostRevert"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "1",
       "undo": {
-        "primary": "verify false",
-        "verifyEffectIndex": "verifyRed,verifySupp,verifySpecial,verifySuppB,verifySuppC"
+        "primary": "permanent"
       }
     },
     "target": {
       "primary": "card",
-      "cardProperty": "handTargetableByOppSpecials",
+      "cardProperty": "paidExtraCostLightHokkai",
       "criteria": {
-        "player": "owner",
-        "class": "Leader",
-        "type": "Character"
+        "passing": "cardB"
       }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "failExtraCost"
     }
   },
   {
@@ -403,78 +627,50 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "removeFromBoard"
+        "primary": "post-battlePhase"
       }
     },
     "target": {
-      "primary": "card",
-      "criteria": {
-        "player": "owner",
-        "type": "Support"
-      },
-      "exclude": {
-        "passing": "this card"
-      }
+      "primary": "game"
     },
     "effectName": "undoD"
   },
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1",
-      "verifyTrue": "startEffect"
+      "comparisonOperators": "==",
+      "value": "Battle",
+      "verifyTrue": "doNothing"
     },
     "target": {
-      "primary": "card",
-      "cardProperty": "dummy",
-      "criteria": {
-        "passing": "this card"
-      }
+      "primary": "game",
+      "gameProperty": "phase"
     },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "startEffect"
-    },
-    "effectName": "verifySuppB"
+    "effectName": "verifyBP"
   },
   {
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "useSupport"
+        "primary": "post-battlePhase"
       }
     },
     "target": {
-      "primary": "card",
-      "criteria": {
-        "player": "owner",
-        "type": "Support"
-      },
-      "exclude": {
-        "passing": "this card"
-      }
+      "primary": "game"
     },
     "effectName": "undoE"
   },
   {
     "action": {
       "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1",
-      "verifyTrue": "startEffect"
+      "comparisonOperators": "==",
+      "value": "Replenishing",
+      "verifyTrue": "doNothing"
     },
     "target": {
-      "primary": "card",
-      "cardProperty": "dummy",
-      "criteria": {
-        "passing": "this card"
-      }
+      "primary": "game",
+      "gameProperty": "phase"
     },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "startEffect"
-    },
-    "effectName": "verifySuppC"
+    "effectName": "verifyRP"
   }
 ]
