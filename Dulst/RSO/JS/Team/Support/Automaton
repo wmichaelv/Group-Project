@@ -370,8 +370,12 @@
     "target": {
       "primary": "card",
       "criteria": {
+        "from": "hand",
         "player": "opponent",
         "type": "Event"
+      },
+      "exclude": {
+        "class": "Extra Cost Use"
       }
     },
     "effectComplete": {
@@ -393,6 +397,49 @@
       "criteria": {
         "passing": "card"
       }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-moveCard",
+        "to": "hand"
+      },
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp,verifySuppB,verifySpecial,verifyBP,verifyRP"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "opponent",
+        "type": "Event"
+      },
+      "exclude": {
+        "class": "Extra Cost Use"
+      }
+    },
+    "effectName": "eventDrawCheck"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Extra Cost Use",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifySupp,verifySuppB,verifySpecial,verifyBP,verifyRP"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "eventDrawCheck"
+      }
     }
   },
   {
@@ -406,9 +453,9 @@
       "primary": "card",
       "criteria": {
         "from": [
-          "board",
           "hand",
-          "deadpool"
+          "deadpool",
+          "board"
         ],
         "player": "opponent",
         "class": "Extra Cost Use",
@@ -539,7 +586,8 @@
       "criteria": {
         "player": "opponent",
         "class": "Extra Cost Use",
-        "type": "Event"
+        "type": "Event",
+        "stat": "stat-paidExtraCostAutomaton>=1"
       }
     },
     "effectName": "extraCostUseRevert"
