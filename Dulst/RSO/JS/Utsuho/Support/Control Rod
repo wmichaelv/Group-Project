@@ -321,10 +321,6 @@
       "primary": "trigger on event",
       "event": {
         "primary": "damagedBySpell"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "post-battlePhase"
       }
     },
     "target": {
