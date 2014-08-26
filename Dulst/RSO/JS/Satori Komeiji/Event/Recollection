@@ -25,7 +25,7 @@
         "from": "SecondRow",
         "player": "opponent",
         "type": "Spell",
-        "stat": "stat-disableActivate!=1"
+        "stat": "stat-disableActivate!=1&&stat-targetableByOppEvents>=1"
       }
     },
     "effectComplete": {
@@ -145,7 +145,7 @@
         "from": "SecondRow",
         "player": "opponent",
         "type": "Spell",
-        "stat": "stat-disableActivate!=1"
+        "stat": "stat-disableActivate!=1&&stat-targetableByOppEvents>=1"
       },
       "mandatory": "selectedCard"
     },
