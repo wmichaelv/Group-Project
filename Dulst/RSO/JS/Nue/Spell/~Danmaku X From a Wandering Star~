@@ -330,7 +330,7 @@
     "effectComplete": {
       "primary": "trigger next effect"
     },
-    "effectName": "selectedCard"
+    "effectName": "selectedCardB"
   },
   {
     "action": {
@@ -346,7 +346,7 @@
       "primary": "card",
       "cardProperty": "disableFaith",
       "criteria": {
-        "passing": "selectedCard"
+        "passing": "selectedCardB"
       }
     },
     "effectComplete": {
@@ -367,7 +367,7 @@
       "primary": "card",
       "cardProperty": "disablePro",
       "criteria": {
-        "passing": "selectedCard"
+        "passing": "selectedCardB"
       }
     },
     "effectComplete": {
@@ -384,7 +384,7 @@
     "target": {
       "primary": "card",
       "criteria": {
-        "passing": "selectedCard"
+        "passing": "selectedCardB"
       }
     }
   },
