@@ -44,7 +44,7 @@
       "primary": "card",
       "criteria": {
         "player": "owner",
-        "class": "Leader&&Lunasa",
+        "class": "Leader&&Merlin",
         "type": "Character"
       }
     },
