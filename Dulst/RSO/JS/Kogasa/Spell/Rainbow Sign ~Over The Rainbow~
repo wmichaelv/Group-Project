@@ -267,7 +267,7 @@
       }
     },
     "target": {
-      "primary": "owner",
+      "primary": "opponent",
       "playerProperty": "canBV"
     }
   },
@@ -278,7 +278,7 @@
       "magnitude": "0"
     },
     "target": {
-      "primary": "owner",
+      "primary": "opponent",
       "playerProperty": "canBV"
     }
   },
