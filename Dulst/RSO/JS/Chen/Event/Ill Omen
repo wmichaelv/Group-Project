@@ -170,9 +170,6 @@
     "target": {
       "primary": "game",
       "gameProperty": "damageAmount"
-    },
-    "effectComplete": {
-      "primary": "trigger next effect"
     }
   },
   {
