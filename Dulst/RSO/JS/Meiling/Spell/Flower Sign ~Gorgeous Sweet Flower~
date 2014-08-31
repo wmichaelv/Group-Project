@@ -138,9 +138,9 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "targetableByOwnSpecials",
+      "cardProperty": "targetableByOppSpecials",
       "criteria": {
-        "player": "owner",
+        "player": "opponent",
         "class": "Leader",
         "type": "Character"
       }
@@ -156,9 +156,9 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "targetableByOwnSpecials",
+      "cardProperty": "targetableByOppSpecials",
       "criteria": {
-        "player": "owner",
+        "player": "opponent",
         "class": "Leader",
         "type": "Character"
       }
