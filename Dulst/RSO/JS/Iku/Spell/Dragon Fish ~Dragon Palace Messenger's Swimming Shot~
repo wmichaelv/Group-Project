@@ -175,7 +175,7 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "targetableByOppSpecials",
+      "cardProperty": "dummy",
       "criteria": {
         "passing": "selectedCard"
       }
@@ -422,6 +422,19 @@
   },
   {
     "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "opponent",
+        "class": "Battle Spell",
+        "stat": "stat-targetableByOppSpecials>=1"
+      }
+    }
+  },
+  {
+    "action": {
       "primary": "modify stats",
       "operation": "=",
       "magnitude": "1",
@@ -507,19 +520,6 @@
     },
     "effectComplete": {
       "primary": "trigger next effect"
-    }
-  },
-  {
-    "action": {
-      "primary": "verify target"
-    },
-    "target": {
-      "primary": "card",
-      "criteria": {
-        "player": "opponent",
-        "class": "Battle Spell",
-        "stat": "stat-targetableByOppSpecials>=1"
-      }
     }
   },
   {
