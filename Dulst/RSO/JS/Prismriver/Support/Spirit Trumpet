@@ -131,7 +131,7 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "Guided Bullets",
+      "cardProperty": "Penetration",
       "criteria": {
         "passing": "selectedCard"
       }
