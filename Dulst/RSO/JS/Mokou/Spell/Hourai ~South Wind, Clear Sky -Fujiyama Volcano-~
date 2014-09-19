@@ -284,6 +284,27 @@
   },
   {
     "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyPP"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "isOnFlag",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "verify target",
       "comparisonOperators": "==",
       "value": "Replenishing"
@@ -310,6 +331,21 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "isOnFlag",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "verifyFlag"
+  },
+  {
+    "action": {
       "primary": "assign variable"
     },
     "target": {
@@ -332,7 +368,7 @@
       },
       "undo": {
         "primary": "verify false",
-        "verifyEffectIndex": "verifySpecial,verifyPP"
+        "verifyEffectIndex": "verifySpecial,verifyPP,verifyFlag"
       }
     },
     "target": {
