@@ -46,6 +46,12 @@ Event: 8
 Spell: 10
 Support: 2
 
+Futo
+Character: 1
+Event: 4
+Spell: 9
+Support: 3
+
 Ichirin
 Character: 1
 Event: 3
