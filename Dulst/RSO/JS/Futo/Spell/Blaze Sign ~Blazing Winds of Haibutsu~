@@ -1,0 +1,131 @@
+[
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "set"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card",
+        "player": "owner"
+      }
+    },
+    "effectName": "passive"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "Futo"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "charName"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "requestLevel"
+      }
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "charLevel"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "Preparation"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "deckTargetableByOwnSpecials",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "give choice",
+      "choiceType": "multiple choice",
+      "choiceQuestion": "Select the number of deck cards to discard:",
+      "choices": "effect Zero 0\neffect One 1\neffect Two 2"
+    },
+    "target": {
+      "primary": "owner"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "afterlife",
+      "player": "owner",
+      "stackLocation": "top"
+    },
+    "target": {
+      "primary": "card",
+      "count": "1",
+      "criteria": {
+        "from": "deck",
+        "player": "owner",
+        "first": "1"
+      }
+    },
+    "effectName": "One"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "afterlife",
+      "player": "owner",
+      "stackLocation": "top"
+    },
+    "target": {
+      "primary": "card",
+      "count": "2",
+      "criteria": {
+        "from": "deck",
+        "player": "owner",
+        "first": "2"
+      }
+    },
+    "effectName": "Two"
+  }
+]
