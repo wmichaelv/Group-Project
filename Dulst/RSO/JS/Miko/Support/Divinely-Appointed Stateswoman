@@ -1,0 +1,1113 @@
+[
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "from": "hand",
+        "player": "owner"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyFail"
+    },
+    "effectName": "verify"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "deckTargetableByOwnSpecials",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyFail"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "sp"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "player": "owner",
+        "type": "Support",
+        "stat": "stat-targetableByOwnSpecials>=1&&stat-sp<=effect sp"
+      },
+      "exclude": {
+        "class": "Scene"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyFail"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "deck",
+        "player": "owner",
+        "class": "Leader",
+        "type": "Support",
+        "stat": "stat-disableEquip!=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyFail"
+    },
+    "effectName": "supportLeader"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedTarget",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "each"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "deck",
+        "player": "owner",
+        "class": "Leader",
+        "type": "Support",
+        "stat": "stat-disableEquip!=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyLeader"
+    },
+    "effectName": "eachLeaderSupport"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "title",
+      "criteria": {
+        "passing": "effect eachLeaderSupport"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "supportName"
+  },
+  {
+    "action": {
+      "primary": "each"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectName": "eachLeader"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedTarget",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "ciid",
+      "criteria": {
+        "passing": "effect eachLeader",
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "ciid"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "player": "owner",
+        "class": "Leader",
+        "name": "effect supportName",
+        "type": "Support",
+        "stat": "stat-effect-equipTarget=effect ciid"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "allowQT"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedTarget",
+      "criteria": {
+        "passing": "effect eachLeader",
+        "player": "owner"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "effect eachLeader",
+        "player": "owner",
+        "class": "Alice"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "shouCheck"
+    },
+    "effectName": "aliceAndDollCheck"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "effect eachLeaderSupport",
+        "class": "Leader&&Doll"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedTarget",
+      "criteria": {
+        "passing": "effect eachLeader",
+        "player": "owner",
+        "stat": "stat-ciid=effect ciid"
+      }
+    },
+    "effectName": "allowQT"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "effect eachLeader",
+        "player": "owner",
+        "class": "Shou"
+      }
+    },
+    "effectName": "shouCheck"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "effect eachLeaderSupport",
+        "class": "Leader&&Shou"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedTarget",
+      "criteria": {
+        "passing": "effect eachLeader",
+        "player": "owner",
+        "stat": "stat-ciid=effect ciid"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedTarget",
+      "criteria": {
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyFail"
+    },
+    "effectName": "verifyLeader"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedSelect",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "verifySuccess"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "pre-useSpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "active"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "owner",
+        "instructions": "Discard a card from your hand to use Divinely-Appointed Stateswoman."
+      },
+      "count": "1",
+      "criteria": {
+        "from": "hand",
+        "player": "owner"
+      },
+      "mandatory": "discard"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "discard"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "owner",
+        "instructions": "Discard a non-Scene Support card from your side."
+      },
+      "count": "1",
+      "criteria": {
+        "from": "board",
+        "player": "owner",
+        "type": "Support",
+        "stat": "stat-targetableByOwnSpecials>=1&&stat-sp<=effect sp"
+      },
+      "exclude": {
+        "class": "Scene"
+      },
+      "mandatory": "discardB"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "discardB"
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "targetedByEvent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "discardB"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "extraCostTarget",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "spB"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1",
+      "verifyTrue": "failExtraCost"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "failExtraCost"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "sp",
+      "criteria": {
+        "passing": "discardB"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "spB"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "selector": {
+        "primary": "owner",
+        "instructions": "Select a Support card to play to your side."
+      },
+      "count": "1",
+      "criteria": {
+        "from": "deck",
+        "player": "owner",
+        "class": "Leader",
+        "type": "Support",
+        "stat": "stat-disableEquip!=1"
+      },
+      "mandatory": "selectedCard"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "title",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "supportName"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "playerNumber",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "ownerPlayer"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedTarget",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "each"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "player": "owner",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "verifyLimitedTarget"
+    },
+    "effectName": "eachLeader"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "ciid",
+      "criteria": {
+        "passing": "effect eachLeader",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "ciid"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "class": "Leader",
+        "name": "effect supportName",
+        "type": "Support",
+        "stat": "stat-effect-equipTarget=effect ciid"
+      },
+      "exclude": {
+        "passing": "discardB"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedTarget",
+      "criteria": {
+        "passing": "effect eachLeader"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "effect eachLeader",
+        "class": "Alice",
+        "stat": "stat-ciid=effect ciid"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "shouCheckB"
+    },
+    "effectName": "aliceAndDollCheck"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard",
+        "class": "Leader&&Doll"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedTarget",
+      "criteria": {
+        "passing": "effect eachLeader"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "effect eachLeader",
+        "class": "Shou"
+      }
+    },
+    "effectName": "shouCheckB"
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard",
+        "class": "Leader&&Shou"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedTarget",
+      "criteria": {
+        "passing": "effect eachLeader",
+        "stat": "stat-ciid=effect ciid"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard",
+        "class": "Limited Target"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "triggerPreUseLeader"
+    },
+    "effectName": "verifyLimitedTarget"
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "verifyTarget",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "preUseSupport"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "triggerPreUseLeader"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "count": "1",
+      "criteria": {
+        "from": "deadpool",
+        "player": "owner",
+        "type": "Character",
+        "stat": "stat-qualifiedTarget>=1"
+      },
+      "mandatory": "useFail"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "leader"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "playerNumber",
+      "criteria": {
+        "passing": "effect leader"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "leaderPlayer"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "effect ownerPlayer"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "effect-leaderPlayer",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "opponentLeader"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "FirstRow",
+      "player": "target card owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "afterMove"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "ciid",
+      "criteria": {
+        "passing": "effect eachLeader",
+        "class": "Leader",
+        "type": "Character"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "ciid"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "FirstRow",
+      "player": "target card opponent"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "opponentLeader"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "fromOpp",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "show card"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "afterMove"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "effect leader",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "effect-equipTarget",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "run effect",
+      "effectNumber": "passive",
+      "callback": "effect completion"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "useSupport"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "useSupport"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "selectedCard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "useSupport"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "afterlife",
+      "player": "owner",
+      "stackLocation": "top"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "discard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "afterlife",
+      "player": "owner",
+      "stackLocation": "top"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "discardB"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "deckTargetedBySpecial"
+      }
+    },
+    "target": {
+      "primary": "owner"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "-",
+      "magnitude": "effect spB"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "sp"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "canActivate",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger event",
+      "event": {
+        "primary": "post-useSpecial"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "qualifiedSelect",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "verifyFail"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "hand",
+      "player": "owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "discard"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "useFail"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "1"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "failExtraCost"
+    },
+    "effectName": "failExtraCost"
+  }
+]
