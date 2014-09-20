@@ -46,6 +46,12 @@ Event: 8
 Spell: 10
 Support: 2
 
+Ichirin
+Character: 1
+Event: 3
+Spell: 9
+Support: 4
+
 Iku
 Character: 1
 Event: 4
