@@ -171,7 +171,10 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "1"
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
     },
     "target": {
       "primary": "card",
@@ -191,7 +194,10 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "1"
+      "magnitude": "1",
+      "undo": {
+        "primary": "permanent"
+      }
     },
     "target": {
       "primary": "card",
@@ -200,7 +206,7 @@
         "from": "board",
         "player": "owner",
         "type": "Spell",
-        "stat": "stat-targetableByOwnSpecials>=1&&stat-oFaith<=0&&stat-Faith>=1"
+        "stat": "stat-targetableByOwnSpecials>=1&&stat-oFaith<=0&&stat-Faith>=1&&stat-religiousWarFlag<=0"
       }
     },
     "effectComplete": {
@@ -229,7 +235,10 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "0"
+      "magnitude": "0",
+      "undo": {
+        "primary": "permanent"
+      }
     },
     "target": {
       "primary": "card",
