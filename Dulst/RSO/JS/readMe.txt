@@ -30,7 +30,7 @@ Support: 5
 
 Cirno
 Character: 1
-Event: 3
+Event: 4
 Spell: 9
 Support: 4
 
@@ -102,7 +102,7 @@ Support: 5
 
 Mamizou
 Character: 1
-Event: 4
+Event: 5
 Spell: 9
 Support: 3
 
@@ -122,7 +122,7 @@ Miko
 Character: 1
 Event: 3
 Spell: 9
-Support: 4
+Support: 5
 
 Minamitsu
 Character: 1
@@ -242,7 +242,7 @@ ThreeFairy
 Character: 3
 Event: 4
 Spell: 9
-Support: 3
+Support: 4
 
 Utsuho
 Character: 1
