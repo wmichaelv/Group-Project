@@ -1,6 +1,6 @@
 Cirno
 Character: 1
-Event: 3
+Event: 4
 Spell: 9
 Support: 4
 
