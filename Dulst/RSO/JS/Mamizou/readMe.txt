@@ -1,6 +1,6 @@
 Mamizou
 Character: 1
-Event: 4
+Event: 5
 Spell: 9
 Support: 3
 
