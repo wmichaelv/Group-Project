@@ -24,21 +24,6 @@
   },
   {
     "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "post-battlePhase"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "pre-preparationPhase"
-      }
-    },
-    "target": {
-      "primary": "game"
-    }
-  },
-  {
-    "action": {
       "primary": "verify target",
       "comparisonOperators": ">=",
       "value": "1"
@@ -65,6 +50,21 @@
     "target": {
       "primary": "owner",
       "playerProperty": "healableByOwnSpecials"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-battlePhase"
+      },
+      "undo": {
+        "primary": "game event",
+        "event": "pre-preparationPhase"
+      }
+    },
+    "target": {
+      "primary": "game"
     }
   },
   {
