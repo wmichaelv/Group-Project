@@ -72,6 +72,17 @@
   },
   {
     "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "PrePreparation"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    }
+  },
+  {
+    "action": {
       "primary": "run effect",
       "effectNumber": "proceed",
       "callback": "effect completion"
