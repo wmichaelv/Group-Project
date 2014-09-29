@@ -65,20 +65,6 @@
   },
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "disableSpecial",
-      "criteria": {
-        "passing": "this card"
-      }
-    }
-  },
-  {
-    "action": {
       "primary": "assign variable"
     },
     "target": {
@@ -92,6 +78,35 @@
       "primary": "trigger next effect"
     },
     "effectName": "selectedCard"
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "pre-preparationPhase"
+      },
+      "undo": {
+        "primary": "game event",
+        "event": "pre-replPhase"
+      }
+    },
+    "target": {
+      "primary": "game"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "!=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "disableSpecial",
+      "criteria": {
+        "passing": "this card"
+      }
+    }
   },
   {
     "action": {
