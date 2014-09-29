@@ -11,7 +11,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "passiveb,undoA,undoB,undoC,undoD"
+      "effectNumber": "extraCostBattle,passiveb,undoA,undoB,undoC,undoD"
     },
     "effectName": "passive"
   },
