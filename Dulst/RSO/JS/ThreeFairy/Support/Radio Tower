@@ -269,7 +269,8 @@
       }
     },
     "effectComplete": {
-      "primary": "trigger next effect"
+      "primary": "trigger effect",
+      "effectNumber": "startEffect,verifyFail"
     }
   },
   {
@@ -317,7 +318,8 @@
     },
     "target": {
       "primary": "game"
-    }
+    },
+    "effectName": "startEffect"
   },
   {
     "action": {
