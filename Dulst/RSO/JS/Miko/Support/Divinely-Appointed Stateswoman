@@ -221,7 +221,7 @@
     "action": {
       "primary": "modify stats",
       "operation": "=",
-      "magnitude": "0"
+      "magnitude": "1"
     },
     "target": {
       "primary": "card",
