@@ -440,11 +440,12 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "gainedBasicAbility"
+        "primary": "post-statChange"
       }
     },
     "target": {
       "primary": "card",
+      "cardProperty": "Protection",
       "criteria": {
         "player": "opponent",
         "class": "Battle Spell"
