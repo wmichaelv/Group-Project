@@ -478,13 +478,17 @@
           "afterlife",
           "hand"
         ],
-        "toPlayer": "owner"
+        "toPlayer": "triggered card owner"
       }
     },
     "target": {
       "primary": "card",
       "criteria": {
-        "player": "owner"
+        "type": [
+          "Spell",
+          "Support",
+          "Event"
+        ]
       }
     },
     "effectName": "undoF"
