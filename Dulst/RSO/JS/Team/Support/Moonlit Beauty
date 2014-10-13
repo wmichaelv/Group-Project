@@ -473,14 +473,19 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": [
-          "newEffect",
-          "newTarget"
-        ]
+        "primary": "post-moveCard",
+        "to": [
+          "afterlife",
+          "hand"
+        ],
+        "toPlayer": "owner"
       }
     },
     "target": {
-      "primary": "game"
+      "primary": "card",
+      "criteria": {
+        "player": "owner"
+      }
     },
     "effectName": "undoF"
   },
