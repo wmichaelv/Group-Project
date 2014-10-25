@@ -1205,7 +1205,7 @@
       "cardProperty": "qualifiedTarget",
       "criteria": {
         "from": "board",
-        "player": "opponent",
+        "player": "owner",
         "type": "Spell"
       }
     },
