@@ -229,15 +229,15 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": [
-          "pre-pre-replPhase",
-          "pre-pre-battlePhase",
-          "pre-pre-preparationPhase"
-        ]
+        "primary": "pre-pre-replPhase,pre-pre-battlePhase,pre-pre-preparationPhase"
       }
     },
     "target": {
       "primary": "game"
+    },
+    "effectComplete": {
+      "primary": "trigger effect",
+      "effectNumber": "startEffect,undoA,undoB,undoC"
     },
     "effectName": "passive"
   },
@@ -251,7 +251,8 @@
       "primary": "card",
       "cardProperty": "disableSpecial",
       "criteria": {
-        "passing": "this card"
+        "passing": "this card",
+        "from": "board"
       }
     },
     "effectName": "startEffect"
