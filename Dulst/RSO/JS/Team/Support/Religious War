@@ -465,7 +465,7 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "gainedBasicAbility"
+        "primary": "post-statChange"
       }
     },
     "target": {
