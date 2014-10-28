@@ -465,7 +465,7 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "post-statChange"
+        "primary": "gainedBasicAbility"
       }
     },
     "target": {
@@ -473,7 +473,8 @@
       "criteria": {
         "from": "board",
         "player": "owner",
-        "type": "Spell"
+        "type": "Spell",
+        "stat": "stat-oFaith<=0&&stat-Faith>=1"
       }
     },
     "effectName": "undoE"
