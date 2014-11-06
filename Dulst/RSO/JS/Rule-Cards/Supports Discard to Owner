@@ -207,12 +207,7 @@
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "post-moveCard",
-        "to": [
-          "deck",
-          "afterlife",
-          "hand"
-        ]
+        "primary": "removeFromBoard"
       }
     },
     "target": {
@@ -282,6 +277,60 @@
   },
   {
     "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "ssCount",
+      "criteria": {
+        "passing": "spellSupports"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "ssCountA"
+  },
+  {
+    "action": {
+      "primary": "remove class",
+      "class": "Pair effect ssCountA",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "spellSupports"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "-1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "ssCount",
+      "criteria": {
+        "passing": "spellSupports"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "verify target",
       "verifyTrue": "doNothing"
     },
@@ -335,18 +384,86 @@
         "type": "Spell",
         "stat": "stat-ciid=effect equipTarget"
       }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "ssCount",
+      "criteria": {
+        "type": "Spell",
+        "stat": "stat-ciid=effect equipTarget"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "ssCountB"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "count",
+      "criteria": {
+        "from": "board",
+        "type": [
+          "Spell",
+          "Support"
+        ],
+        "stat": "stat-ssCount=effect ssCountB"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "remove class",
+      "class": "Pair effect ssCountB"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "type": "Spell",
+        "stat": "stat-ciid=effect equipTarget"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "-1",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "ssCount",
+      "criteria": {
+        "type": "Spell",
+        "stat": "stat-ciid=effect equipTarget"
+      }
     }
   },
   {
     "action": {
       "primary": "trigger on event",
       "event": {
-        "primary": "post-moveCard",
-        "to": [
-          "deck",
-          "afterlife",
-          "hand"
-        ]
+        "primary": "removeFromBoard"
       }
     },
     "target": {
