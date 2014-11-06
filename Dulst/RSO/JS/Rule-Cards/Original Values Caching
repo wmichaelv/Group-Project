@@ -26,24 +26,11 @@
       "primary": "card",
       "criteria": {
         "from": "board",
-        "type": "Spell"
+        "type": "Spell",
+        "stat": "stat-hasOriginals!=1"
       }
     },
     "effectName": "spell"
-  },
-  {
-    "action": {
-      "primary": "verify target",
-      "comparisonOperators": "!=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "hasOriginals",
-      "criteria": {
-        "passing": "spell"
-      }
-    }
   },
   {
     "action": {
