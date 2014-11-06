@@ -26,7 +26,22 @@
     "action": {
       "primary": "verify target",
       "comparisonOperators": "==",
-      "value": "Battle"
+      "value": "Battle",
+      "verifyTrue": "proceed"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "phase"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "PrePreparation"
     },
     "target": {
       "primary": "game",
