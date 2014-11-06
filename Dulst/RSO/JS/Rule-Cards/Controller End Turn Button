@@ -1,0 +1,47 @@
+[
+  {
+    "ruleTrigger": {
+      "primary": "start",
+      "player": "each player"
+    },
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "endTurnButton"
+      }
+    },
+    "target": {
+      "primary": "owner"
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "owner",
+      "playerProperty": "playerNumber"
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "thisPlayer"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": "==",
+      "value": "effect thisPlayer"
+    },
+    "target": {
+      "primary": "game",
+      "gameProperty": "turnPlayer"
+    }
+  },
+  {
+    "action": {
+      "primary": "end turn"
+    },
+    "target": {}
+  }
+]
