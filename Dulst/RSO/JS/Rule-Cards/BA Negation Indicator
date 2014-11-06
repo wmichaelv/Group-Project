@@ -19,7 +19,7 @@
     },
     "effectComplete": {
       "primary": "trigger effect",
-      "effectNumber": "FM,Pro,Faith,Pen,GB,BA,Act,Spec,OwnSp,OwnEv,OppSp,OppEv,Bya,Shiki"
+      "effectNumber": "FM,Pro,Faith,Pen,GB,BA,Act,Spec,OwnSp,OwnEv,OppSp,OppEv,Bya,Shiki,SSCountSpell,SSCountSupp"
     },
     "effectName": "UFM"
   },
@@ -696,5 +696,185 @@
         "passing": "Shiki"
       }
     }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "ssCount",
+      "criteria": {
+        "type": "Spell"
+      }
+    },
+    "effectName": "SSCountSpell"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "ssCount",
+      "criteria": {
+        "passing": "SSCountSpell"
+      }
+    },
+    "effectName": "verifySSCountSpell"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "ssCount",
+      "criteria": {
+        "passing": "SSCountSpell"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "sSupCountSpell"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Pair effect sSupCountSpell",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "SSCountSpell"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-statChange"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "ssCount",
+      "criteria": {
+        "type": "Support"
+      }
+    },
+    "effectName": "SSCountSupp"
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "ssCount",
+      "criteria": {
+        "passing": "SSCountSupp"
+      }
+    },
+    "effectName": "verifySSCountSupp"
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "ssCount",
+      "criteria": {
+        "passing": "SSCountSupp"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "sSupCountSupp"
+  },
+  {
+    "action": {
+      "primary": "add class",
+      "class": "Pair effect sSupCountSupp",
+      "undo": {
+        "primary": "permanent"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "SSCountSupp"
+      }
+    }
+  },
+  {
+    "action": {
+      "primary": "assign variable"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "from": "board",
+        "type": [
+          "Spell",
+          "Support"
+        ],
+        "stat": "stat-ssCount>=1"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "resetSSCount"
+  },
+  {
+    "action": {
+      "primary": "modify stats",
+      "operation": "=",
+      "magnitude": "0",
+      "undo": {
+        "primary": "verify false",
+        "verifyEffectIndex": "verifyDummy"
+      }
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "ssCount",
+      "criteria": {
+        "passing": "resetSSCount"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "dummy",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "verifyDummy"
   }
 ]
