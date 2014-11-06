@@ -169,6 +169,22 @@
   },
   {
     "action": {
+      "primary": "send card to",
+      "location": "hand",
+      "player": "target card owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "mulliganCheck"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
+  },
+  {
+    "action": {
       "primary": "assign variable"
     },
     "target": {
@@ -238,11 +254,24 @@
         "passing": "oneSpellFlag"
       }
     },
-    "effectComplete": {
-      "primary": "trigger effect",
-      "effectNumber": "afterShufflin"
-    },
     "effectName": "countCheck"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "deck",
+      "player": "target card owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "mulliganCheck"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    },
+    "effectName": "everydayImShufflin"
   },
   {
     "action": {
@@ -253,8 +282,7 @@
     "effectComplete": {
       "primary": "trigger effect",
       "effectNumber": "mulliganCheck"
-    },
-    "effectName": "everydayImShufflin"
+    }
   },
   {
     "action": {
@@ -275,6 +303,22 @@
       "effectNumber": "afterShufflin"
     },
     "effectName": "verifyZero"
+  },
+  {
+    "action": {
+      "primary": "send card to",
+      "location": "hand",
+      "player": "target card owner"
+    },
+    "target": {
+      "primary": "card",
+      "criteria": {
+        "passing": "mulliganCheck"
+      }
+    },
+    "effectComplete": {
+      "primary": "trigger next effect"
+    }
   },
   {
     "action": {
