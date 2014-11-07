@@ -359,7 +359,9 @@
       "primary": "card",
       "cardProperty": "targetableByOppSpecials",
       "criteria": {
-        "passing": "selectedCard"
+        "from": "board",
+        "player": "opponent",
+        "type": "Spell"
       }
     },
     "effectName": "undoA"
@@ -373,9 +375,9 @@
     },
     "target": {
       "primary": "card",
-      "cardProperty": "targetableByOppSpecials",
+      "cardProperty": "dummy",
       "criteria": {
-        "passing": "selectedCard"
+        "passing": "this card"
       }
     },
     "effectComplete": {
