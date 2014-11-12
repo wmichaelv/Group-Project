@@ -266,21 +266,6 @@
   },
   {
     "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "post-battlePhase"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "pre-preparationPhase"
-      }
-    },
-    "target": {
-      "primary": "game"
-    }
-  },
-  {
-    "action": {
       "primary": "verify target",
       "comparisonOperators": "!=",
       "value": "1"
@@ -318,6 +303,21 @@
     "target": {
       "primary": "opponent",
       "playerProperty": "damageableByOppSpecials"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-battlePhase"
+      },
+      "undo": {
+        "primary": "game event",
+        "event": "pre-preparationPhase"
+      }
+    },
+    "target": {
+      "primary": "game"
     }
   },
   {
@@ -423,21 +423,6 @@
   },
   {
     "action": {
-      "primary": "trigger on event",
-      "event": {
-        "primary": "post-battlePhase"
-      },
-      "undo": {
-        "primary": "game event",
-        "event": "pre-preparationPhase"
-      }
-    },
-    "target": {
-      "primary": "game"
-    }
-  },
-  {
-    "action": {
       "primary": "verify target",
       "comparisonOperators": "!=",
       "value": "1"
@@ -475,6 +460,21 @@
     "target": {
       "primary": "opponent",
       "playerProperty": "damageableByOwnSpecials"
+    }
+  },
+  {
+    "action": {
+      "primary": "trigger on event",
+      "event": {
+        "primary": "post-battlePhase"
+      },
+      "undo": {
+        "primary": "game event",
+        "event": "pre-preparationPhase"
+      }
+    },
+    "target": {
+      "primary": "game"
     }
   },
   {
