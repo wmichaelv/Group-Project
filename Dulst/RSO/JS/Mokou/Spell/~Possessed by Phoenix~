@@ -277,21 +277,6 @@
   },
   {
     "action": {
-      "primary": "verify target",
-      "comparisonOperators": ">=",
-      "value": "1"
-    },
-    "target": {
-      "primary": "card",
-      "cardProperty": "isOnFlag",
-      "criteria": {
-        "passing": "this card"
-      }
-    },
-    "effectName": "verifyFlag"
-  },
-  {
-    "action": {
       "primary": "assign variable"
     },
     "target": {
@@ -322,6 +307,21 @@
     "target": {
       "primary": "game"
     }
+  },
+  {
+    "action": {
+      "primary": "verify target",
+      "comparisonOperators": ">=",
+      "value": "1"
+    },
+    "target": {
+      "primary": "card",
+      "cardProperty": "isOnFlag",
+      "criteria": {
+        "passing": "this card"
+      }
+    },
+    "effectName": "verifyFlag"
   },
   {
     "action": {
